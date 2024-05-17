@@ -276,7 +276,6 @@ int Socket::sendsome(const void *data, unsigned int sz, bool *was_closed) {
    * Esta en nosotros luego hace el chequeo correspondiente
    * (ver más abajo).
    * */
-  // cppcheck-suppress cstyleCast
   int s = send(this->skt, (char *)data, sz, MSG_NOSIGNAL);
   if (s == -1) {
     /*
@@ -314,7 +313,6 @@ int Socket::recvall(void *data, unsigned int sz, bool *was_closed) {
   *was_closed = false;
 
   while (received < sz) {
-    // cppcheck-suppress cstyleCast
     int s = recvsome((char *)data + received, sz - received, was_closed);
 
     if (s <= 0) {
@@ -353,7 +351,6 @@ int Socket::sendall(const void *data, unsigned int sz, bool *was_closed) {
   *was_closed = false;
 
   while (sent < sz) {
-    // cppcheck-suppress cstyleCast
     int s = sendsome((char *)data + sent, sz - sent, was_closed);
 
     /* Véase los comentarios de `Socket::recvall` */
