@@ -8,10 +8,19 @@ repos:
     rev: 1.6.0
     hooks:
       - id: cpplint
+        files: ^(.*[.]cpp|.*[.]h)$
         args: [--filter=-,+build/class,+build/deprecated,+build/include_what_you_use,+build/namespaces,+build/printf_format,+readability/braces,+readability/check,+readability/fn_size,+readability/function,+readability/multiline_comment,+readability/multiline_string,+readability/utf8,+runtime/arrays,+runtime/casting,+runtime/explicit,+runtime/init,+runtime/invalid_increment,+runtime/memset,+runtime/operator,+runtime/printf,+runtime/printf_format,+runtime/rtti,+runtime/string,+whitespace/blank_line,+whitespace/empty_loop_body,+whitespace/ending_newline,+whitespace/line_length,+whitespace/newline,+whitespace/parens,+whitespace/semicolon]
 
   - repo: https://github.com/pocc/pre-commit-hooks
     rev: 9a9bbc00895bbdb7670231c2565d4f1309c42905
     hooks:
       - id: cppcheck
-        args: ["--enable=all", "--language=c++", "--std=c++17", "--error-exitcode=1"]
+        files: ^(.*[.]cpp|.*[.]h)$
+        args: ["--inline-suppr", "--enable=all", "--suppress=missingIncludeSystem", "--suppress=missingInclude", "--suppress=unusedFunction", "--suppress=unmatchedSuppression", "--language=c++", "--std=c++20", "--error-exitcode=1"]
+
+  - repo: https://github.com/ssciwr/clang-format-hook
+    rev: v14.0.0
+    hooks:
+      - id: clang-format
+        files: ^(.*[.]cpp|.*[.]h)$
+        args: ["--style=file", "-i"]
