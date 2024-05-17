@@ -244,10 +244,8 @@ public:
 
   bool try_push(T *const &val) { return Queue<void *>::try_push(val); }
 
-  bool try_pop(T *&val) {
-    // cppcheck-suppress cstyleCast
-    return Queue<void *>::try_pop((void *&)val);
-  }
+  // cppcheck-suppress cstyleCast
+  bool try_pop(T *&val) { return Queue<void *>::try_pop((void *&)val); }
 
   void push(T *const &val) { return Queue<void *>::push(val); }
 
