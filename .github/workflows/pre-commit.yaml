@@ -28,4 +28,4 @@ jobs:
           pip install pre-commit
 
       - name: Run pre-commit
-        run: pre-commit run --all-files --config .pre-commit-config.yaml
+        run: pre-commit run --all-files --config configs.yaml
