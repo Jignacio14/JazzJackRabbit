@@ -19,7 +19,6 @@ Socket::Socket(const char *hostname, const char *servname) {
   Resolver resolver(hostname, servname, false);
 
   int s = -1;
-  // cppcheck-suppress shadowVariable
   int skt = -1;
   this->closed = true;
 
@@ -94,7 +93,6 @@ Socket::Socket(const char *servname) {
   Resolver resolver(nullptr, servname, true);
 
   int s = -1;
-  // cppcheck-suppress shadowVariable
   int skt = -1;
   this->closed = true;
   while (resolver.has_next()) {
@@ -238,7 +236,6 @@ Socket &Socket::operator=(Socket &&other) {
 int Socket::recvsome(void *data, unsigned int sz, bool *was_closed) {
   chk_skt_or_fail();
   *was_closed = false;
-  // cppcheck-suppress cstyleCast
   int s = recv(this->skt, (char *)data, sz, 0);
   if (s == 0) {
     /*
