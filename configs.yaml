@@ -18,7 +18,7 @@ repos:
         files: ^(.*[.]cpp|.*[.]h)$
         args: ["--style=file", "-i"]
 
-- repo: https://github.com/pocc/pre-commit-hooks
+  - repo: https://github.com/pocc/pre-commit-hooks
     rev: 9a9bbc00895bbdb7670231c2565d4f1309c42905
     hooks:
       - id: cppcheck
