@@ -17,8 +17,14 @@ jobs:
         with:
           python-version: '3.8'
       
-      - name: Install cppcheck
-        run: sudo apt-get install -y cppcheck
+      - name: Install cppcheck 2.11
+        run: |
+          wget https://github.com/danmar/cppcheck/releases/download/2.11/cppcheck-2.11.tar.gz
+          tar -xzvf cppcheck-2.11.tar.gz
+          cd cppcheck-2.11
+          make SRCDIR=build CFGDIR=cppcheck
+          sudo cp cppcheck /usr/local/bin
+          sudo ln -s /usr/local/bin/cppcheck /usr/bin/cppcheck
 
       - name: Install cpplint
         run: python -m pip install cpplint
