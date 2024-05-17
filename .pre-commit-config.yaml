@@ -1,3 +1,4 @@
+fail_test: false
 repos:
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v2.29.0
