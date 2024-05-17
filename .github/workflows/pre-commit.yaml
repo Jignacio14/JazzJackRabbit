@@ -1,36 +1,24 @@
-name: Pre-Commit Hook Runner
+name: Pre-commit Hooks
 
-on: 
+on:
   push:
   pull_request:
 
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
-
+        uses: actions/checkout@v2
+      
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v2
         with:
           python-version: '3.8'
-
-      - name: Install cppcheck
-        run: sudo apt-get install -y cppcheck
-
-      - name: Install cpplint
-        run: python -m pip install cpplint
-
-      - name: Run cpplint
-        run: |
-          cpplint --filter=-,+build/class,+build/deprecated,+build/include_what_you_use,+build/namespaces,+build/printf_format,+readability/braces,+readability/check,+readability/fn_size,+readability/function,+readability/multiline_comment,+readability/multiline_string,+readability/utf8,+runtime/arrays,+runtime/casting,+runtime/explicit,+runtime/init,+runtime/invalid_increment,+runtime/memset,+runtime/operator,+runtime/printf,+runtime/printf_format,+runtime/rtti,+runtime/string,+whitespace/blank_line,+whitespace/empty_loop_body,+whitespace/ending_newline,+whitespace/line_length,+whitespace/newline,+whitespace/parens,+whitespace/semicolon src/
-
-      - name: Run clang-format
-        run: |
-          clang-format --style=file -i $(find . -name '*.cpp' -o -name '*.h')
-
-      - name: Run cppcheck
-        run: |
-          cppcheck --inline-suppr --enable=all --suppress=unmatchedSuppression --suppress=cstyleCast --language=c++ --std=c++20 --error-exitcode=1 src/
+      
+      - name: Install pre-commit
+        run: pip install pre-commit
+      
+      - name: Run pre-commit
+        run: pre-commit run --all-files
