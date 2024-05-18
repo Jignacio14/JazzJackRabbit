@@ -6,7 +6,7 @@ Repositorio del grupo 7 para la materia taller de programacion
 Instalar pre-commit hooks:
 
 ```shell
-pre-commit install
+pre-commit install --hook-type commit-msg
 ```
 
 Para crear un commit sin correr los hooks se debe ejecutar:
