@@ -6,7 +6,7 @@
 
 class StopIteration : public std::runtime_error {
 public:
-    StopIteration() : std::runtime_error("StopIteration") {}
+  StopIteration() : std::runtime_error("StopIteration") {}
 };
 
-#endif //JAZZJACKRABBIT_STOPITERATION_H
+#endif // JAZZJACKRABBIT_STOPITERATION_H

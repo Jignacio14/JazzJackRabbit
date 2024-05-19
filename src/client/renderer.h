@@ -4,27 +4,25 @@
 
 #include <functional>
 
-
-class ConstantRateLooper {
+class ClientLoop {
 private:
-    bool keep_running;
-    double rate;
-    int it;
+  int client_id;
+  bool keep_running;
+  double rate;
 
-    /*
-     * Returns current time in seconds since epoch.
-     */
-    double now();
+  /*
+   * Returns current time in seconds since epoch.
+   */
+  double now();
 
 public:
-    ConstantRateLooper(double rate);
+  ClientLoop(int id, double rate);
 
-    /*
-     * It executes the game logic repeatedly, keeping a constant time rate between each iteration,
-     * adjusting the wait time to compensate any possible delay.
-     * */
-    void run();
+  /*
+   * It executes the game logic repeatedly, keeping a constant time rate between
+   * each iteration, adjusting the wait time to compensate any possible delay.
+   * */
+  void run();
 };
 
-
-#endif //JAZZJACKRABBIT_CONSTANTRATELOOP_H
+#endif // JAZZJACKRABBIT_CONSTANTRATELOOP_H

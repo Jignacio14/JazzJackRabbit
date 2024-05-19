@@ -1,18 +1,23 @@
 
 #include "client_sender.h"
 
-void ClientSender::run(){
+ClientSender::ClientSender(std::atomic<bool> &keep_talking)
+    : keep_talking((keep_talking)) {}
+
+void ClientSender::run() {
+  try {
     bool was_closed = false;
-    try {
-    	while (!was_closed  && keep_talking){
-            /*
-             * pop de la cola del sender
-             * serializo si es necesario
-             * envío lo popeado al server
-            */  
-    	}
-    } catch (.../*tendriamos que hacer nuestra propia clase manejadora de errores*/) {
-        // Close de la cola del sender
+    while (!was_closed && keep_talking) {
+      /*
+       * pop de la cola del sender
+       * serializo si es necesario
+       * envío lo popeado al server
+       */
+      was_closed = true;
     }
-    keep_talking = false;
+  } catch (
+      ... /*tendriamos que hacer nuestra propia clase manejadora de errores*/) {
+    // Close de la cola del sender
+  }
+  keep_talking = false;
 }
