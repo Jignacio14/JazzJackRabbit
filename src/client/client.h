@@ -11,15 +11,21 @@
 class Client {
 private:
   int client_id;
-  // Socket socket;
+  Socket socket;
   std::atomic<bool> keep_talking;
-  ClientSender client_sender;
-  ClientReceiver client_receiver;
+  ClientSender sender;
+  ClientReceiver receiver;
   // Queue<> queue_sender;
   // Queue<> queue_receiver;
 
 public:
-  explicit Client(int id);
+  Client(Socket &&skt, int id);
+
+  /*
+   * Kills the client´s back-end, joining receiver and sender thread, and closes
+   * the socket.
+   */
+  void kill();
 };
 
 #endif // JAZZJACKRABBIT_CLIENT_H

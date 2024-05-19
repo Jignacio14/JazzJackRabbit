@@ -20,9 +20,9 @@ void ClientLoop::run() {
     double t1 = now();
     try {
       // Game logic. Debe tirar un StopIteration. Así está en el código de
-      // python. Alternativa probablemente más prolija: pasar por referencia
-      // keep_running al método correspondiente y que se detenga así el loop,
-      // sin utilizar excepciones para el workflow.
+      // python. Alternativa: pasar por referencia keep_running al método
+      // correspondiente y que se detenga así el loop, sin utilizar excepciones
+      // para el workflow.
     } catch (const StopIteration &) {
       break;
     }
