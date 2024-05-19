@@ -1,0 +1,43 @@
+
+#include "renderer.h"
+#include "StopIteration.h"
+#include <chrono>
+#include <thread>
+#include <cmath>
+
+double ConstantRateLooper::now() {
+    return std::chrono::duration_cast<std::chrono::duration<double>>(
+            std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+}
+
+ConstantRateLooper::ConstantRateLooper(double rate)
+        : keep_running(true), rate(rate), it(0) {}
+
+void ConstantRateLooper::run() {
+
+    while (keep_running) {
+        double t1 = now();
+        try {
+            // Game logic. Debe tirar un StopIteration. Así está en el código de python.
+            // Alternativa probablemente más prolija: pasar por referencia keep_running
+            // al método correspondiente y que se detenga así el loop, sin utilizar excepciones
+            // para el workflow.
+        } catch (const StopIteration&) {
+            break;
+        }
+        double t2 = now();
+        double rest = rate - (t2 - t1);
+        if (rest < 0) {
+            double behind = -rest;  // Always positive
+            rest = rate - fmod(behind, rate);
+            double lost = behind + rest;
+            t1 += lost;
+            it += std::floor(lost / rate);
+
+        } else {
+            std::this_thread::sleep_for(std::chrono::duration<double>(rest));
+            t1 += rate;
+            it++;
+        }
+    }
+}
