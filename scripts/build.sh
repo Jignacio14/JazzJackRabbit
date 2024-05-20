@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # A helper function to add color to a string message
 print_colored_message() {
     color=$1
