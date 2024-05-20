@@ -1,5 +1,16 @@
-# JazzJackRabbit 2
-Repositorio del grupo 7 para la materia taller de programacion 
+# JazzJackRabbit 2 
+
+Repositorio del Grupo 7 para la materia Taller de Programación 1 - Curso Veiga
+
+#### Tabla de contenidos
+
+1. [Setup para desarrollo](#Setup-para-desarrollo)
+1. [Cómo modificar CMake](#Cómo-modificar-CMake)
+1. [Cómo buildear y correr](#Cómo-buildear-y-correr)
+1. [Cómo setupear y correr con Vagrant](#Cómo-setupear-y-correr-con-Vagrant)
+    1. [Vagrant setup](#Vagrant-setup)
+    1. [Cómo correr la VM](#Cómo-correr-la-VM)
+    1. [Detalles sobre Vagrant](#Detalles-sobre-Vagrant)
 
 ## Setup para desarrollo
 
@@ -49,7 +60,62 @@ Los ejecutables se encontrarán en la carpeta recién creada build por lo que pa
 ./build/server
 ``` 
 
-## Vagrant steps (work in progress)
+## Cómo setupear y correr con Vagrant
 
-sudo apt-get install virtualbox
-vagrant up --provider virtualbox
+### Vagrant setup
+
+Para instalar los paquetes necesarios para levantar la virtual machine (vm) con Vagrant de acuerdo a las configuraciones declaradas al Vagrantfile hay que correr los siguientes comandos.
+
+Utilizaremos VirtualBox como VM Provider, para instalarlo hay que correr:
+
+```shell
+sudo apt-get --yes install virtualbox
+``` 
+
+> Probado con VirtualBox version 7.0.14
+
+Para instalar Vagrant hay que correr:
+
+```shell
+sudo apt-get --yes install vagrant
+``` 
+
+> Probado con Vagrant version 2.3.6
+
+
+Utilizaremos un plugin de Vagrant para reiniciar la VM en provision time y así realizar un setup correcto. Para instalarlo hay que correr:
+
+```shell
+vagrant plugin install vagrant-reload
+``` 
+
+### Cómo correr la VM
+
+Para ejecutar y provisionar la VM hay que correr:
+
+```shell
+vagrant up
+``` 
+
+De esta manera se realizarán todos los pasos para realizar un correcto provisioning de una VM corriendo Ubuntu 22.04 con el entorno gráfico xubuntu-desktop.
+
+Una vez que en la consola donde Vagrant corre se puede observar el mensaje "Provisioning complete", es decir, la VM tiene el juego listo para correr (en esta etapa la VM se reinició dos veces), hay que logearse en la VM con la contraseña `vagrant` y correr el cliente o servidor de la siguiente manera.
+
+Primero abrir una terminal, con `CTRL + ALT + T` por ejemplo.
+
+Luego, para ejecutar el servidor correr:
+```shell
+/vagrant/build/server
+``` 
+
+Y para ejecutar un cliente correr: 
+
+```shell
+/vagrant/build/client
+``` 
+
+### Detalles sobre Vagrant
+
+El Vagrantfile usa sintaxis del lenguaje de programación Ruby para declarar las configuraciones.
+
+Por default, todo lo que está en la carpeta donde el Vagrantfile se encuentra ubicado será compartido con la VM como una carpeta compartida. Ésta será la carpeta `/vagrant`, o sea, ubicada en el root de la VM. Desde aquí se harán los manejos necesarios de archivos, es decir, la build se guardará en esta carpeta así como también se ejecutarán los binarios ejecutables.

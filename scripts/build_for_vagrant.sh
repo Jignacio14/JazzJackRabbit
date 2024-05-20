@@ -10,14 +10,14 @@ print_colored_message() {
 # List of available colors
 RED="31";GREEN="32";GREEN_BOLD="1;32";YELLOW="33";YELLOW_BOLD="1;33";
 
-print_colored_message $YELLOW_BOLD "══ Deleting /build folder if exists ══"
+print_colored_message $YELLOW_BOLD "══ Deleting /vagrant/build folder if exists ══"
 
-rm -rf ./build
+rm -rf /vagrant/build
 
-print_colored_message $YELLOW_BOLD "══ Creating new /build folder and changing directory ══"
+print_colored_message $YELLOW_BOLD "══ Creating new /vagrant/build folder and changing directory ══"
 
-mkdir ./build
-cd ./build
+mkdir /vagrant/build
+cd /vagrant/build
 
 print_colored_message $YELLOW_BOLD "══ Generating makefile with CMake ══"
 
