@@ -10,8 +10,8 @@ private:
   MainWindow mainWindow;
 
 public:
-  StartupScreen();
-  void show();
+  StartupScreen(int &argc, char **argv);
+  const int show();
 };
 
 #endif // STARTUP_SCREEN_H
