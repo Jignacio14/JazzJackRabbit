@@ -1,5 +1,16 @@
-# JazzJackRabbit 2
-Repositorio del grupo 7 para la materia taller de programacion 
+# JazzJackRabbit 2 
+
+Repositorio del Grupo 7 para la materia Taller de Programación 1 - Curso Veiga
+
+#### Tabla de contenidos
+
+1. [Setup para desarrollo](#Setup-para-desarrollo)
+1. [Cómo modificar CMake](#Cómo-modificar-CMake)
+1. [Cómo buildear y correr](#Cómo-buildear-y-correr)
+1. [Cómo setupear y correr con Vagrant](#Cómo-setupear-y-correr-con-Vagrant)
+    1. [Vagrant setup](#Vagrant-setup)
+    1. [Cómo correr la VM](#Cómo-correr-la-VM)
+    1. [Detalles sobre Vagrant](#Detalles-sobre-Vagrant)
 
 ## Setup para desarrollo
 
