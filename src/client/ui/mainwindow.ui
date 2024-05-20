@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/images/assets/icon.png</normaloff>:/images/assets/icon.png</iconset>
+    <normaloff>:/images/assets/game_icon.png</normaloff>:/images/assetsgame_icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="bgLabel">
@@ -28,7 +28,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">image: url(:/images/assets/bg_rotate.png);</string>
+     <string notr="true">image: url(:/images/assets/start_background.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -162,7 +162,7 @@ QPushButton#quitButton:pressed {
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">image: url(:/images/assets/logo.png);</string>
+     <string notr="true">image: url(:/images/assets/game_banner.png);</string>
     </property>
     <property name="text">
      <string/>
