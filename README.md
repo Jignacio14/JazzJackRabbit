@@ -39,6 +39,16 @@ Para crear los ejecutables (cliente y servidor) correr el script:
 ./scripts/build.sh
 ``` 
 
+Los ejecutables se encontrarán en la carpeta recién creada build por lo que para ejecutarlos hay que correr: 
+
+```shell
+./build/client
+``` 
+
+```shell
+./build/server
+``` 
+
 ## Vagrant steps (work in progress)
 
 sudo apt-get install virtualbox
