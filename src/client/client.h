@@ -15,7 +15,7 @@ private:
   std::atomic<bool> keep_talking;
   ClientSender sender;
   ClientReceiver receiver;
-  // Queue<> queue_sender;
+  Queue<PlayerStatusDTO> sender_queue;
   // Queue<> queue_receiver;
 
 public:

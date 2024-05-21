@@ -29,7 +29,7 @@ void ClientLoop::run() {
     double t2 = now();
     double rest = rate - (t2 - t1);
     if (rest < 0) {
-      double behind = -rest; // Always positive
+      double behind = -rest;
       rest = rate - fmod(behind, rate);
       double lost = behind + rest;
       t1 += lost;
