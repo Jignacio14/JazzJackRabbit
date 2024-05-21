@@ -1,6 +1,8 @@
 #ifndef SOCKET_H
 #define SOCKET_H
 
+#include <cstdint>
+
 /*
  * TDA Socket.
  * Por simplificación este TDA se enfocará solamente
@@ -107,6 +109,9 @@ public:
    * en el buffer (que debe estar pre-allocado). La función puede recibir
    * menos bytes sin embargo.
    *
+   * Ambos lo hacen byte a byte, por eso bytewise, es decir, no interesa el
+   * orden de los mismos porque son "paquetes individuales"
+   *
    * Si el socket detecto que la conexión fue cerrada, la variable
    * `was_closed` es puesta a `true`, de otro modo sera `false`.
    *
@@ -117,12 +122,14 @@ public:
    *
    * Lease manpage de `send` y `recv`
    * */
-  int sendsome(const void *data, unsigned int sz, bool *was_closed);
-  int recvsome(void *data, unsigned int sz, bool *was_closed);
+  int sendsome_bytewise(const void *data, unsigned int sz, bool *was_closed);
+  int recvsome_bytewise(void *data, unsigned int sz, bool *was_closed);
 
   /*
-   * `Socket::sendall` envía exactamente `sz` bytes leídos del buffer, ni más,
-   * ni menos. `Socket::recvall` recibe exactamente sz bytes.
+   * `Socket::sendall_bytewise` envía exactamente `sz` bytes leídos del buffer,
+   * ni más, ni menos. `Socket::recvall_bytewise` recibe exactamente sz bytes.
+   * Ambos lo hacen byte a byte, por eso bytewise, es decir, no interesa el
+   * orden de los mismos porque son "paquetes individuales"
    *
    * Si hay un error se lanza una excepción.
    *
@@ -138,8 +145,16 @@ public:
    * para envio/recibo, lease `sz`.
    *
    * */
-  int sendall(const void *data, unsigned int sz, bool *was_closed);
-  int recvall(void *data, unsigned int sz, bool *was_closed);
+  int sendall_bytewise(const void *data, unsigned int sz, bool *was_closed);
+  int recvall_bytewise(void *data, unsigned int sz, bool *was_closed);
+
+  /*
+   *  Equivalentes de Socket::sendall_bytewise y Socket::recvall_bytewise pero
+   * para enviar exactamente una halfword (2 bytes) donde sí importa el orden de
+   * los bytes debido al endianness
+   * */
+  int send_halfword(const uint16_t *data, bool *was_closed);
+  int recv_halfword(uint16_t *data, bool *was_closed);
 
   /*
    * Acepta una conexión entrante y retorna un nuevo socket
