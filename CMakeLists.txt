@@ -31,6 +31,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 # Get all sources from the corresponding directories to build the client executable
 file(GLOB_RECURSE CLIENT_SOURCES CONFIGURE_DEPENDS
+    "${PROJECT_SOURCE_DIR}/src/client/*.h"
+    "${PROJECT_SOURCE_DIR}/src/client/*.cpp"
     "${PROJECT_SOURCE_DIR}/src/client/ui/*.cpp"
     "${PROJECT_SOURCE_DIR}/src/client/ui/*.h"
     "${PROJECT_SOURCE_DIR}/src/client/ui/*.ui"
@@ -42,16 +44,23 @@ file(GLOB_RECURSE SERVER_SOURCES CONFIGURE_DEPENDS
     "${PROJECT_SOURCE_DIR}/src/server/placeholder.cpp"
 )
 
+# Get all sources from the corresponding directories to include common sources
+file(GLOB_RECURSE COMMON_SOURCES CONFIGURE_DEPENDS
+    "${PROJECT_SOURCE_DIR}/src/common/*.h"
+    "${PROJECT_SOURCE_DIR}/src/common/*.cpp"
+)
+
 # The client executable will be called "client". The main entry point is defined with all the other sources
 add_executable(client
-    ${PROJECT_SOURCE_DIR}/src/client/client_main.cpp
     ${CLIENT_SOURCES}
+    ${COMMON_SOURCES}
 )
 
 # The client executable will be called "client". The main entry point is defined with all the other sources
 add_executable(server
     ${PROJECT_SOURCE_DIR}/src/server/server_main.cpp
     ${SERVER_SOURCES}
+    ${COMMON_SOURCES}
 )
 
 # Link the client object code with the corresponding libraries
