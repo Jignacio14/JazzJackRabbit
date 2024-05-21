@@ -22,6 +22,8 @@ Instalar pre-commit hooks:
 pre-commit install --hook-type commit-msg
 ```
 
+> Se espera que el sistema que corra los hooks tenga como mínimo cppcheck version 2.13, cpplint version 1.6 y clang-format version 16
+
 Para crear un commit sin correr los hooks se debe ejecutar:
 
 ```shell
