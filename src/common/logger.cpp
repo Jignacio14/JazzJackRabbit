@@ -2,7 +2,7 @@
 
 #include <unistd.h>
 
-#include "jazz_jackrabbit_2_error.h"
+#include "jjr2_error.h"
 
 Logger &Logger::get_instance() {
   static Logger logger;
@@ -18,9 +18,8 @@ Logger::Logger()
   }
   this->logfile.open(this->logs_filename, std::ios::app);
   if (!this->logfile.is_open()) {
-    throw JazzJackrabbit2Error(
-        "Failed to open log file when initializing Logger class.", __LINE__,
-        __FILE__);
+    throw JJR2Error("Failed to open log file when initializing Logger class.",
+                    __LINE__, __FILE__);
   }
 }
 

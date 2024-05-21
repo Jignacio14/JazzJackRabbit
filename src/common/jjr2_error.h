@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <string>
 
-class JazzJackrabbit2Error : public std::exception {
+class JJR2Error : public std::exception {
 private:
   // cppcheck-suppress unusedStructMember
   const std::string base_message;
@@ -21,8 +21,8 @@ public:
    * (__LINE__) and module name  (__FILE__) where the exception was thrown, this
    * has to be filled at the time of instantiation by the caller
    */
-  JazzJackrabbit2Error(const std::string &base_message,
-                       const int32_t &line_number, const std::string &module);
+  JJR2Error(const std::string &base_message, const int32_t &line_number,
+            const std::string &module);
 
   const char *what() const noexcept;
 };
