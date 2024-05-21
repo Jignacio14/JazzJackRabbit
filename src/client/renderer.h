@@ -6,8 +6,11 @@
 
 class ClientLoop {
 private:
+  // cppcheck-suppress unusedStructMember
   int client_id;
+  // cppcheck-suppress unusedStructMember
   bool keep_running;
+  // cppcheck-suppress unusedStructMember
   double rate;
 
   /*

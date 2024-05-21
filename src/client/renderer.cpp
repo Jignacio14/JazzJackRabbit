@@ -32,11 +32,13 @@ void ClientLoop::run() {
       double behind = -rest;
       rest = rate - fmod(behind, rate);
       double lost = behind + rest;
+      // cppcheck-suppress unreadVariable
       t1 += lost;
       // it += std::floor(lost / rate); Creo que it no se usa para nada.
 
     } else {
       std::this_thread::sleep_for(std::chrono::duration<double>(rest));
+      // cppcheck-suppress unreadVariable
       t1 += rate;
       // it++;
     }
