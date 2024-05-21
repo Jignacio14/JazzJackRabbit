@@ -5,15 +5,7 @@
 #include <iostream>
 #include <thread>
 
-class Runnable {
-public:
-  virtual void start() = 0;
-  virtual void join() = 0;
-  virtual void stop() = 0;
-  virtual bool is_alive() const = 0;
-
-  virtual ~Runnable() {}
-};
+#include "runnable.h"
 
 class Thread : public Runnable {
 private:
@@ -26,34 +18,20 @@ protected:
   std::atomic<bool> _is_alive;
 
 public:
-  Thread() : _keep_running(true), _is_alive(false) {}
+  Thread();
 
-  void start() override {
-    _is_alive = true;
-    _keep_running = true;
-    thread = std::thread(&Thread::main, this);
-  }
+  void start() override;
 
-  void join() override { thread.join(); }
+  void join() override;
 
-  void main() {
-    try {
-      this->run();
-    } catch (const std::exception &err) {
-      std::cerr << "Unexpected exception: " << err.what() << "\n";
-    } catch (...) {
-      std::cerr << "Unexpected exception: <unknown>\n";
-    }
-
-    _is_alive = false;
-  }
+  void main();
 
   // Note: it is up to the subclass to make something meaningful to
   // really stop the thread. The Thread::run() may be blocked and/or
   // it may not read _keep_running.
-  void stop() override { _keep_running = false; }
+  void stop() override;
 
-  bool is_alive() const override { return _is_alive; }
+  bool is_alive() const override;
 
   virtual void run() = 0;
   virtual ~Thread() {}
@@ -65,4 +43,4 @@ public:
   Thread &operator=(Thread &&other) = delete;
 };
 
-#endif
+#endif // THREAD_H_
