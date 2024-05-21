@@ -3,14 +3,18 @@
 
 #include "mainwindow.h"
 #include <QApplication>
+#include <string>
 
 class StartupScreen {
 private:
   QApplication app;
+  std::string &hostname;
+  std::string &port;
   MainWindow mainWindow;
 
 public:
-  StartupScreen(int &argc, char **argv);
+  StartupScreen(int &argc, char **argv, std::string &hostname,
+                std::string &port);
   const int show();
 };
 

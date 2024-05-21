@@ -26,7 +26,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -pedantic -pedantic-errors -O0
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -pedantic-errors -O0 -ggdb -DDEBUG -fno-inline -std=${CXXSTD} -D _POSIX_C_SOURCE=200809L")
 
 # Find Qt neccesary packages
-find_package(QT NAMES Qt5 REQUIRED COMPONENTS Widgets)
+find_package(QT NAMES Qt5 REQUIRED COMPONENTS Widgets Gui)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 # Get all sources from the corresponding directories to build the client executable
@@ -55,4 +55,4 @@ add_executable(server
 )
 
 # Link the client object code with the corresponding libraries
-target_link_libraries(client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Gui)
