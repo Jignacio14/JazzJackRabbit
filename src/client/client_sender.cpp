@@ -10,7 +10,7 @@ void ClientSender::run() {
     bool was_closed = false;
     while (!was_closed && keep_talking) {
       PlayerStatusDTO status = sender_queue.pop();
-      skt.sendall(&status, sizeof(PlayerStatusDTO), &was_closed);
+      skt.sendall_bytewise(&status, sizeof(PlayerStatusDTO), &was_closed);
     }
   } catch (... /*tendriamos que hacer nuestra propia clase*/) {
     // const ClosedQueue& e

@@ -10,9 +10,9 @@
 
 class Client {
 private:
+  Socket socket;
   // cppcheck-suppress unusedStructMember
   int client_id;
-  Socket socket;
   std::atomic<bool> keep_talking;
   ClientSender sender;
   ClientReceiver receiver;
