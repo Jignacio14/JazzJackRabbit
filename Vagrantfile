@@ -19,11 +19,18 @@ Vagrant.configure('2') do |config|
     # Use VirtualBox provider to run the VM with specific resources
     machine.vm.provider "virtualbox" do |vb|
       vb.name = "jjr2-vm"
-      vb.cpus = '4'
-      vb.memory = '2048' # in MB
+      vb.cpus = '6'
+      vb.memory = '8096' # in MB
       vb.gui = true # will launch VirtualBox UI
       # Set initial VirtualBox window size to 1000x800
       vb.customize ['setextradata', :id, 'GUI/LastGuestSizeHint', '1000,800']
+
+      # Modify the VirtualBox VM audio configs to enable audio output from the VM to the host machine
+      vb.customize ["modifyvm", :id, '--audio-enabled', 'on']
+      vb.customize ["modifyvm", :id, '--audio-driver', 'pulse']
+      vb.customize ["modifyvm", :id, '--audiocontroller', 'ac97']
+      vb.customize ["modifyvm", :id, '--audioout', 'on']
+      # For help on this: https://docs.oracle.com/en/virtualization/virtualbox/7.0/user/vboxmanage.html#vboxmanage-cmd-overview
     end
 
     # Scripts and reloads to perform during provision time

@@ -76,6 +76,10 @@ Utilizaremos VirtualBox como VM Provider, para instalarlo hay que correr:
 sudo apt-get --yes install virtualbox
 ```
 
+```shell
+sudo apt-get --yes install virtualbox-ext-pac
+```
+
 > Probado con VirtualBox version 7.0.14
 
 Para instalar Vagrant hay que correr:
