@@ -56,93 +56,103 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>151</x>
-      <y>369</y>
-      <width>500</width>
-      <height>217</height>
+      <x>0</x>
+      <y>150</y>
+      <width>801</width>
+      <height>451</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="buttonsLayout">
-     <item>
-      <widget class="QPushButton" name="createGameButton">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="font">
-        <font>
-         <family>Joystix</family>
-         <pointsize>36</pointsize>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="focusPolicy">
-        <enum>Qt::TabFocus</enum>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton#createGameButton {
+    <widget class="QWidget" name="page">
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>220</y>
+        <width>500</width>
+        <height>217</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="buttonsLayout">
+       <item>
+        <widget class="QPushButton" name="createGameButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="font">
+          <font>
+           <family>Joystix</family>
+           <pointsize>36</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::TabFocus</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton#createGameButton {
 	background-color: rgba(98, 98, 98, 200);
 	color: rgba(255, 255, 255, 200);
 	border-radius: 18px;
 	font-family: Joystix;
 }</string>
-       </property>
-       <property name="text">
-        <string>Create game</string>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="joinGameButton">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="font">
-        <font>
-         <family>Joystix</family>
-         <pointsize>36</pointsize>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="focusPolicy">
-        <enum>Qt::TabFocus</enum>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton#joinGameButton {
+         </property>
+         <property name="text">
+          <string>Create game</string>
+         </property>
+         <property name="autoDefault">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="joinGameButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="font">
+          <font>
+           <family>Joystix</family>
+           <pointsize>36</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::TabFocus</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton#joinGameButton {
 	background-color: rgba(98, 98, 98, 200);
 	color: rgba(255, 255, 255, 200);
 	border-radius: 18px;
 	font-family: Joystix;
 }</string>
-       </property>
-       <property name="text">
-        <string>Join game</string>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="quitButton">
-       <property name="font">
-        <font>
-         <family>Joystix</family>
-         <pointsize>36</pointsize>
-         <italic>false</italic>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="focusPolicy">
-        <enum>Qt::TabFocus</enum>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton#quitButton {
+         </property>
+         <property name="text">
+          <string>Join game</string>
+         </property>
+         <property name="autoDefault">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="quitButton">
+         <property name="font">
+          <font>
+           <family>Joystix</family>
+           <pointsize>36</pointsize>
+           <italic>false</italic>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::TabFocus</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton#quitButton {
 	background-color: rgba(177,252,3,140);
 	color: rgb(255, 255, 255);
 	border-radius: 18px;
@@ -160,61 +170,61 @@ QPushButton#quitButton:pressed {
 	padding-left: 3px;
 	padding-top: 3px;
 }</string>
-       </property>
-       <property name="text">
-        <string>Quit</string>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
-       </property>
-       <property name="default">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="inputWidget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>151</x>
-      <y>193</y>
-      <width>491</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QWidget#inputWidget {
+         </property>
+         <property name="text">
+          <string>Quit</string>
+         </property>
+         <property name="autoDefault">
+          <bool>true</bool>
+         </property>
+         <property name="default">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="inputWidget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>60</y>
+        <width>501</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QWidget#inputWidget {
 	background-color: rgba(177,252,3,140);
 	border-radius: 18px;
 	padding-left: 30px;
 }</string>
-    </property>
-    <layout class="QVBoxLayout" name="inputLayout">
-     <item>
-      <widget class="QLabel" name="hostnameLabel">
-       <property name="styleSheet">
-        <string notr="true">QLabel#hostnameLabel {
+      </property>
+      <layout class="QVBoxLayout" name="inputLayout">
+       <item>
+        <widget class="QLabel" name="hostnameLabel">
+         <property name="styleSheet">
+          <string notr="true">QLabel#hostnameLabel {
 	color: rgb(255, 255, 255);
 	font-family: Joystix;
 	margin-left: 10px;
 }</string>
-       </property>
-       <property name="text">
-        <string>Hostname</string>
-       </property>
-       <property name="scaledContents">
-        <bool>false</bool>
-       </property>
-       <property name="wordWrap">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="hostnameInput">
-       <property name="styleSheet">
-        <string notr="true">QLineEdit#hostnameInput {
+         </property>
+         <property name="text">
+          <string>Hostname</string>
+         </property>
+         <property name="scaledContents">
+          <bool>false</bool>
+         </property>
+         <property name="wordWrap">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="hostnameInput">
+         <property name="styleSheet">
+          <string notr="true">QLineEdit#hostnameInput {
 	background-color: rgb(255, 255, 255);
 	color: rgba(99, 99, 99, 200);
 	font-family: Joystix;
@@ -222,36 +232,36 @@ QPushButton#quitButton:pressed {
 	margin-left: 15px;
 	margin-right: 30px;
 }</string>
-       </property>
-       <property name="maxLength">
-        <number>100</number>
-       </property>
-       <property name="frame">
-        <bool>true</bool>
-       </property>
-       <property name="placeholderText">
-        <string>localhost</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="portLabel">
-       <property name="styleSheet">
-        <string notr="true">QLabel#portLabel {
+         </property>
+         <property name="maxLength">
+          <number>100</number>
+         </property>
+         <property name="frame">
+          <bool>true</bool>
+         </property>
+         <property name="placeholderText">
+          <string>localhost</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="portLabel">
+         <property name="styleSheet">
+          <string notr="true">QLabel#portLabel {
 	color: rgb(255, 255, 255);
 	font-family: Joystix;
 	margin-left: 10px;
 }</string>
-       </property>
-       <property name="text">
-        <string>Port</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="portInput">
-       <property name="styleSheet">
-        <string notr="true">QLineEdit#portInput {
+         </property>
+         <property name="text">
+          <string>Port</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="portInput">
+         <property name="styleSheet">
+          <string notr="true">QLineEdit#portInput {
 	background-color: rgb(255, 255, 255);
 	color: rgba(99, 99, 99, 200);
 	font-family: Joystix;
@@ -259,19 +269,19 @@ QPushButton#quitButton:pressed {
 	margin-right: 30px;
 	border-radius: 3px;
 }</string>
-       </property>
-       <property name="placeholderText">
-        <string>9000</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="connectButton">
-       <property name="focusPolicy">
-        <enum>Qt::TabFocus</enum>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton#connectButton {
+         </property>
+         <property name="placeholderText">
+          <string>9000</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="connectButton">
+         <property name="focusPolicy">
+          <enum>Qt::TabFocus</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton#connectButton {
 	background-color: rgb(255, 255, 255);
 	color: rgb(0,0,0);
 	font-family: Joystix;
@@ -289,19 +299,65 @@ QPushButton#connectButton:pressed {
 	padding-left: 3px;
 	padding-top: 3px;
 }</string>
-       </property>
-       <property name="text">
-        <string>Connect</string>
-       </property>
-       <property name="checkable">
-        <bool>false</bool>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
+         </property>
+         <property name="text">
+          <string>Connect</string>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+         <property name="autoDefault">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_2">
+     <widget class="QWidget" name="verticalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>80</y>
+        <width>271</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Username</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Game duration</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_2"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Number of players</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_3"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
    </widget>
   </widget>
  </widget>

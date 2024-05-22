@@ -81,6 +81,7 @@ void MainWindow::enableButton(QPushButton *button, const std::string &id) {
 
 void MainWindow::on_createGameButton_pressed() {
   this->buttonClickSound.play();
+  this->ui->stackedWidget->setCurrentWidget(this->ui->page_2);
 }
 
 void MainWindow::on_joinGameButton_pressed() { this->buttonClickSound.play(); }
