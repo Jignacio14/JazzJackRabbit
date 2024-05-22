@@ -56,13 +56,13 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>151</x>
       <y>369</y>
-      <width>492</width>
-      <height>209</height>
+      <width>500</width>
+      <height>217</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="buttonsLayout">
@@ -83,26 +83,17 @@
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton#createGameButton {
-	background-color: rgba(177,252,3,80);
-	color: rgb(255, 255, 255);
+	background-color: rgba(98, 98, 98, 200);
+	color: rgba(255, 255, 255, 200);
 	border-radius: 18px;
 	font-family: Joystix;
-}
-
-QPushButton#createGameButton:hover, QPushButton#createGameButton:focus {
-	color: rgb(255, 255, 255);
-	background-color: rgba(177,252,3,140);
-}
-
-QPushButton#createGameButton:pressed {
-	color: rgb(255, 255, 255);
-	background-color: rgba(177,252,3,120);
-	padding-left: 3px;
-	padding-top: 3px;
 }</string>
        </property>
        <property name="text">
         <string>Create game</string>
+       </property>
+       <property name="autoDefault">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -123,26 +114,17 @@ QPushButton#createGameButton:pressed {
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton#joinGameButton {
-	color: rgb(255, 255, 255);
-	background-color: rgba(177,252,3,80);
+	background-color: rgba(98, 98, 98, 200);
+	color: rgba(255, 255, 255, 200);
 	border-radius: 18px;
-	font-family: Joystix
-}
-
-QPushButton#joinGameButton:hover, QPushButton#joinGameButton:focus {
-	color: rgb(255, 255, 255);
-	background-color: rgba(177,252,3,140);
-}
-
-QPushButton#joinGameButton:pressed {
-	color: rgb(255, 255, 255);
-	background-color: rgba(177,252,3,120);
-	padding-left: 3px;
-	padding-top: 3px;
+	font-family: Joystix;
 }</string>
        </property>
        <property name="text">
         <string>Join game</string>
+       </property>
+       <property name="autoDefault">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -161,19 +143,19 @@ QPushButton#joinGameButton:pressed {
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton#quitButton {
-	background-color: rgba(177,252,3,80);
+	background-color: rgba(177,252,3,140);
 	color: rgb(255, 255, 255);
 	border-radius: 18px;
 	font-family: Joystix;
 }
 
 QPushButton#quitButton:hover, QPushButton#quitButton:focus {
-	background-color: rgba(177,252,3,140);
+	background-color: rgba(177,252,3,180);
 	color: rgb(255, 255, 255);
 }
 
 QPushButton#quitButton:pressed {
-	background-color: rgba(177,252,3,120);
+	background-color: rgba(177,252,3,160);
 	color: rgb(255, 255, 255);
 	padding-left: 3px;
 	padding-top: 3px;
@@ -181,6 +163,12 @@ QPushButton#quitButton:pressed {
        </property>
        <property name="text">
         <string>Quit</string>
+       </property>
+       <property name="autoDefault">
+        <bool>true</bool>
+       </property>
+       <property name="default">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -227,11 +215,19 @@ QPushButton#quitButton:pressed {
       <widget class="QLineEdit" name="hostnameInput">
        <property name="styleSheet">
         <string notr="true">QLineEdit#hostnameInput {
+	background-color: rgb(255, 255, 255);
+	color: rgba(99, 99, 99, 200);
 	font-family: Joystix;
 	border-radius: 3px;
 	margin-left: 15px;
 	margin-right: 30px;
 }</string>
+       </property>
+       <property name="maxLength">
+        <number>100</number>
+       </property>
+       <property name="frame">
+        <bool>true</bool>
        </property>
        <property name="placeholderText">
         <string>localhost</string>
@@ -256,6 +252,8 @@ QPushButton#quitButton:pressed {
       <widget class="QLineEdit" name="portInput">
        <property name="styleSheet">
         <string notr="true">QLineEdit#portInput {
+	background-color: rgb(255, 255, 255);
+	color: rgba(99, 99, 99, 200);
 	font-family: Joystix;
 	margin-left: 15px;
 	margin-right: 30px;
@@ -268,19 +266,38 @@ QPushButton#quitButton:pressed {
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="saveButton">
+      <widget class="QPushButton" name="connectButton">
+       <property name="focusPolicy">
+        <enum>Qt::TabFocus</enum>
+       </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton#saveButton {
+        <string notr="true">QPushButton#connectButton {
 	background-color: rgb(255, 255, 255);
 	color: rgb(0,0,0);
 	font-family: Joystix;
 	border-color: rgb(17, 0, 255);
-	margin-left: 150px;
-	margin-right: 150px;
+	margin-left: 140px;
+	margin-right: 140px;
+}
+
+QPushButton#connectButton:hover, QPushButton#connectButton:focus {
+	background-color: rgba(255, 255, 255, 220);
+}
+
+QPushButton#connectButton:pressed {
+	background-color: rgba(255, 255, 255, 200);
+	padding-left: 3px;
+	padding-top: 3px;
 }</string>
        </property>
        <property name="text">
-        <string>Save</string>
+        <string>Connect</string>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
+       <property name="autoDefault">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -288,6 +305,14 @@ QPushButton#quitButton:pressed {
    </widget>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>hostnameInput</tabstop>
+  <tabstop>portInput</tabstop>
+  <tabstop>connectButton</tabstop>
+  <tabstop>createGameButton</tabstop>
+  <tabstop>joinGameButton</tabstop>
+  <tabstop>quitButton</tabstop>
+ </tabstops>
  <resources>
   <include location="resources.qrc"/>
  </resources>

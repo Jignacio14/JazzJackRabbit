@@ -7,4 +7,7 @@
     <qresource prefix="/fonts">
         <file>assets/Joystix.otf</file>
     </qresource>
+    <qresource prefix="/sounds">
+        <file>assets/button_click.wav</file>
+    </qresource>
 </RCC>
