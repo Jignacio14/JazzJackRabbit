@@ -3,6 +3,9 @@
 
 #include "../common/thread.h"
 
-class Game : public Thread {};
+class Game : public Thread {
+private:
+public:
+};
 
 #endif
