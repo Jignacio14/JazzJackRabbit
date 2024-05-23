@@ -1,7 +1,7 @@
 #include "startup_screen.h"
 
 StartupScreen::StartupScreen(int &argc, char **argv, std::string &hostname,
-                             std::string &port)
+                             uint32_t &port)
     : app(argc, argv), hostname(hostname), port(port),
       mainWindow(nullptr, hostname, port) {}
 

@@ -10,4 +10,9 @@
     <qresource prefix="/sounds">
         <file>assets/button_click.wav</file>
     </qresource>
+    <qresource prefix="/animations">
+        <file>assets/spaz_menu_animation.gif</file>
+        <file>assets/jazz_menu_animation.gif</file>
+        <file>assets/lori_menu_animation.gif</file>
+    </qresource>
 </RCC>

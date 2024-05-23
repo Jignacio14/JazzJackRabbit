@@ -1,4 +1,5 @@
 #include "./ui/startup_screen.h"
+#include <cstdint>
 #include <iostream>
 #include <string>
 
@@ -16,7 +17,8 @@ int main(int argc, char *argv[]) {
     return EXIT_ERROR_CODE;
   }
 
-  std::string hostname(""), port("");
+  std::string hostname("");
+  uint32_t port(0);
 
   StartupScreen startupScreen(argc, argv, hostname, port);
 
