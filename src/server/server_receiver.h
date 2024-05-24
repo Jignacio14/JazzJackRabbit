@@ -14,6 +14,7 @@ public:
   // cppcheck-suppress noExplicitConstructor
   explicit Receiver(const ServerProtocol &servprot);
   void run() override;
+  void kill();
   ~Receiver();
 };
 

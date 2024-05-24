@@ -10,6 +10,9 @@ private:
 
 public:
   explicit ServerProtocol(Socket skt);
+
+  void shutdown();
+
   ~ServerProtocol();
 };
 

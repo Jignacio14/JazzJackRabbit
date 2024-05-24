@@ -6,12 +6,14 @@
 
 class Sender : public Thread {
 private:
-  // ServerProtocol servprot;
+  const ServerProtocol &servprot;
 
 public:
-  explicit Sender();
+  explicit Sender(const ServerProtocol &servprot);
 
   void run() override;
+
+  void kill();
 
   ~Sender();
 };

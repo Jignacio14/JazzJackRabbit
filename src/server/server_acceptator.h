@@ -3,12 +3,18 @@
 
 #include "../common/socket.h"
 #include "../common/thread.h"
+#include "server_client_handler.h"
+#include <list>
 #include <string>
 
 class Acceptator : public Thread {
 private:
   Socket skt_aceptator;
   void accept();
+  // cppcheck-suppress unusedStructMember
+  std::list<ClientHandler *> clients;
+
+  void checkForDisconnected();
 
 public:
   explicit Acceptator(const std::string &port);

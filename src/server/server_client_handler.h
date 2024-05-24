@@ -13,7 +13,14 @@ private:
   ServerProtocol servprot;
 
 public:
-  ClientHandler();
+  ClientHandler(Socket skt);
+
+  /// Starts running both sender and receiver threads
+  void start();
+
+  const bool running();
+
+  void stop();
 
   ~ClientHandler();
 };

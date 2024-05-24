@@ -9,4 +9,6 @@ void Receiver::run() {
   }
 }
 
+void Receiver::kill() { this->_is_alive = false; }
+
 Receiver::~Receiver() {}
