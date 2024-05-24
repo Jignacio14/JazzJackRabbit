@@ -39,4 +39,5 @@ backup
 .idea/
 
 process.logs
-client
+/client
+*.autosave
