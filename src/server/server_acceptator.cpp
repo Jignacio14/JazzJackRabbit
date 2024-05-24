@@ -36,4 +36,12 @@ void Acceptator::kill() {
   this->_is_alive = false;
   this->skt_aceptator.shutdown(HOW);
   this->skt_aceptator.close();
+  this->killAll();
+}
+
+void Acceptator::killAll() {
+  for (auto client : clients) {
+    client->stop();
+    delete client;
+  }
 }

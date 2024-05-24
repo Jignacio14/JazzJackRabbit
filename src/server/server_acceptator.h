@@ -15,6 +15,7 @@ private:
   std::list<ClientHandler *> clients;
 
   void checkForDisconnected();
+  void killAll();
 
 public:
   explicit Acceptator(const std::string &port);
