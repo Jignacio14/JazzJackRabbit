@@ -8,7 +8,7 @@
 #include <list>
 #include <string>
 
-class Acceptator : public Thread {
+class Accepter : public Thread {
 private:
   Socket skt_aceptator;
   void accept();
@@ -19,9 +19,9 @@ private:
   void killAll();
 
 public:
-  explicit Acceptator(const std::string &port);
+  explicit Accepter(const std::string &port);
   void run() override;
   void kill();
-  ~Acceptator();
+  ~Accepter();
 };
 #endif

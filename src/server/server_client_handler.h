@@ -13,7 +13,7 @@ private:
   ServerProtocol servprot;
 
 public:
-  ClientHandler(Socket skt);
+  explicit ClientHandler(Socket skt);
 
   /// Starts running both sender and receiver threads
   void start();
