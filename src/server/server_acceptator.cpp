@@ -1,5 +1,4 @@
 #include "server_acceptator.h"
-#include "server_client_handler.h"
 
 #define HOW 2
 
@@ -7,9 +6,12 @@ Acceptator::Acceptator(const std::string &port)
     : skt_aceptator(port.c_str()), clients() {}
 
 void Acceptator::run() {
-  while (this->is_alive()) {
-    this->accept();
-    this->checkForDisconnected();
+  try {
+    while (this->is_alive()) {
+      this->accept();
+      this->checkForDisconnected();
+    }
+  } catch (const std::exception &err) {
   }
 }
 
