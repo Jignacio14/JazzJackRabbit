@@ -7,18 +7,20 @@
 class GameConfigs {
 private:
   // cppcheck-suppress unusedStructMember
-  const std::string ownerName;
+  std::string ownerName;
   // cppcheck-suppress unusedStructMember
-  const uint32_t maxNumberOfPlayers;
+  uint32_t maxNumberOfPlayers;
   // cppcheck-suppress unusedStructMember
-  const uint32_t currentNumberOfPlayers;
+  uint32_t currentNumberOfPlayers;
   // cppcheck-suppress unusedStructMember
-  const uint32_t gameDuration;
+  uint32_t gameDuration;
 
 public:
-  GameConfigs(const std::string &ownerName, const uint32_t &maxNumberOfPlayers,
-              const uint32_t &currentNumberOfPlayers,
-              const uint32_t &gameDuration);
+  GameConfigs(std::string ownerName, uint32_t maxNumberOfPlayers,
+              uint32_t currentNumberOfPlayers, uint32_t gameDuration);
+
+  GameConfigs(const GameConfigs &other);
+  GameConfigs &operator=(const GameConfigs &other);
 
   const std::string getOwnerName() const;
 

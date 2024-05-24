@@ -54,11 +54,13 @@ private slots:
 private:
   // cppcheck-suppress unusedStructMember
   Ui::MainWindow *ui;
+
   std::string &hostname;
   uint32_t &port;
   std::string username;
   uint32_t gameDuration;
   uint32_t numberOfPlayers;
+  char characterSelected;
 
   QSound buttonClickSound;
   QMovie jazzAnimation;
@@ -66,6 +68,7 @@ private:
   QMovie loriAnimation;
 
   uint32_t debug_counter;
+  std::vector<GameConfigs> latestGames;
 
   void enableButton(QPushButton *button, const std::string &id);
 
@@ -88,7 +91,7 @@ private:
 
   std::vector<GameConfigs> getGamesFromServer();
 
-  void addGamesToList(std::vector<GameConfigs> games);
+  void addGamesToList(std::vector<GameConfigs> &games);
 
   QWidget *createGameItemWidget(const GameConfigs &game);
 

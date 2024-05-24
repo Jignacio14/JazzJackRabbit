@@ -26,6 +26,11 @@ const static uint32_t MAX_USERNAME_SIZE = 32;
 const static uint32_t MAX_PORT_NUMBER = 65535;
 const static uint32_t MIN_NUMBER_OF_PLAYERS = 1;
 
+const static char CHARACTER_NOT_SELECTED = '0';
+const static char JAZZ_SELECTED = 'J';
+const static char SPAZ_SELECTED = 'S';
+const static char LORI_SELECTED = 'L';
+
 MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port)
     : QMainWindow(parent), ui(new Ui::MainWindow), hostname(hostname),
       port(port), gameDuration(0), numberOfPlayers(0),
@@ -176,25 +181,27 @@ void MainWindow::on_chooseCharacterButton_released() {
 }
 
 void MainWindow::on_selectJazzButton_released() {
+  this->characterSelected = JAZZ_SELECTED;
   this->jazzAnimation.start();
   QTimer::singleShot(1000, this, SLOT(startGame()));
 }
 
 void MainWindow::on_selectSpazButton_released() {
+  this->characterSelected = SPAZ_SELECTED;
   this->spazAnimation.start();
   QTimer::singleShot(1000, this, SLOT(startGame()));
 }
 
 void MainWindow::on_selectLoriButton_released() {
+  this->characterSelected = LORI_SELECTED;
   this->loriAnimation.start();
   QTimer::singleShot(1000, this, SLOT(startGame()));
 }
 
 void MainWindow::on_refreshGamesButton_released() {
   this->buttonClickSound.play();
-  this->ui->gamesList->clear();
-
   std::vector<GameConfigs> games = this->getGamesFromServer();
+
   this->addGamesToList(games);
 
   this->ui->stackedWidget->setCurrentWidget(this->ui->joinGameScreen);
@@ -330,16 +337,19 @@ std::vector<GameConfigs> MainWindow::getGamesFromServer() {
   std::vector<GameConfigs> games;
   for (int i = 0; i < 19; i++) {
     uint32_t userId = i + this->debug_counter;
-    GameConfigs game(std::string("user_" + std::to_string(userId)), 3, 2, 120);
-    games.push_back(game);
-    this->debug_counter = i;
+    games.push_back(GameConfigs("user_" + std::to_string(userId), 3, 2, 120));
+    this->debug_counter++;
   }
 
   return games;
 }
 
-void MainWindow::addGamesToList(std::vector<GameConfigs> games) {
-  for (const auto &game : games) {
+void MainWindow::addGamesToList(std::vector<GameConfigs> &games) {
+  this->ui->gamesList->clear();
+  this->latestGames.clear();
+  this->latestGames = games;
+
+  for (const auto &game : latestGames) {
     QListWidgetItem *listWidgetItem = new QListWidgetItem(this->ui->gamesList);
     QWidget *itemWidget = this->createGameItemWidget(game);
     listWidgetItem->setSizeHint(itemWidget->sizeHint());
