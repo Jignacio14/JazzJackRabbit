@@ -16,11 +16,16 @@ rm -rf ./build
 
 print_colored_message $YELLOW_BOLD "══ Creating new /build folder and changing directory ══"
 
-mkdir ./build
-cd ./build
+mkdir -p ./build
+
+print_colored_message $YELLOW_BOLD "══ Installing Joystix font in /usr/local/share/fonts ══"
+
+mkdir -p  /usr/local/share/fonts/Joystix
+cp ./src/client/ui/assets/Joystix.otf  /usr/local/share/fonts/Joystix/
 
 print_colored_message $YELLOW_BOLD "══ Generating makefile with CMake ══"
 
+cd ./build
 cmake ..
 
 print_colored_message $YELLOW_BOLD "══ Building client and server binaries with CMake ══"
