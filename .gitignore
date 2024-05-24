@@ -41,4 +41,4 @@ backup
 cmake-build-debug/
 
 process.logs
-client
+/client
