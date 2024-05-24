@@ -13,6 +13,8 @@ private:
 public:
   explicit ServerProtocol(Socket skt);
 
+  void sendGameInfo();
+
   void shutdown();
 
   ~ServerProtocol();
