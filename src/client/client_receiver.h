@@ -3,16 +3,20 @@
 #define JAZZJACKRABBIT_CLIENT_RECEIVER_H
 
 #include "../common/thread.h"
+#include "client_protocol.h"
 #include <atomic>
 #include <iostream>
 
 class ClientReceiver : public Thread {
 private:
   std::atomic<bool> &keep_talking;
+
+  ClientProtocol &protocol;
+
   // queue
 
 public:
-  explicit ClientReceiver(std::atomic<bool> &keep_talking);
+  ClientReceiver(std::atomic<bool> &keep_talking, ClientProtocol &protocol);
   void run() override;
 };
 

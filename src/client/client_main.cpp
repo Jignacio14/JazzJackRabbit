@@ -1,4 +1,5 @@
 #include "./ui/startup_screen.h"
+#include "renderer.h"
 #include <cstdint>
 #include <iostream>
 #include <string>
@@ -32,6 +33,10 @@ int main(int argc, char *argv[]) {
   }
 
   std::cout << hostname << ":" << port << std::endl;
+
+  int client_id;
+  Renderer renderer(client_id, hostname, port);
+  renderer.run();
 
   return exitCode;
 }

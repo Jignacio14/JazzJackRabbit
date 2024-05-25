@@ -2,9 +2,12 @@
 #ifndef JAZZJACKRABBIT_CONSTANTRATELOOP_H
 #define JAZZJACKRABBIT_CONSTANTRATELOOP_H
 
+#include "client.h"
 #include <functional>
 
-class ClientLoop {
+#define RATE 0.04
+
+class Renderer {
 private:
   // cppcheck-suppress unusedStructMember
   int client_id;
@@ -13,13 +16,15 @@ private:
   // cppcheck-suppress unusedStructMember
   double rate;
 
+  Client client;
+
   /*
    * Returns current time in seconds since epoch.
    */
   double now();
 
 public:
-  ClientLoop(int id, double rate);
+  Renderer(int id, const char *hostname, const char *port);
 
   /*
    * It executes the game logic repeatedly, keeping a constant time rate between

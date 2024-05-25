@@ -1,8 +1,10 @@
 
 #include "client_receiver.h"
 
-ClientReceiver::ClientReceiver(std::atomic<bool> &keep_talking)
-    : keep_talking(keep_talking) {}
+ClientReceiver::ClientReceiver(std::atomic<bool> &keep_talking,
+                               ClientProtocol &protocol)
+    : keep_talking(keep_talking), protocol(protocol) {}
+
 void ClientReceiver::run() {
   try {
     bool was_closed = false;

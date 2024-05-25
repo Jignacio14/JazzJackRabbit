@@ -5,16 +5,17 @@
 #include <cmath>
 #include <thread>
 
-double ClientLoop::now() {
+double Renderer::now() {
   return std::chrono::duration_cast<std::chrono::duration<double>>(
              std::chrono::high_resolution_clock::now().time_since_epoch())
       .count();
 }
 
-ClientLoop::ClientLoop(int id, double rate)
-    : client_id(id), keep_running(true), rate(rate) {}
+Renderer::Renderer(int id, const char *hostname, const char *port)
+    : client_id(id), keep_running(true), rate(RATE),
+      client(hostname, port, id) {}
 
-void ClientLoop::run() {
+void Renderer::run() {
 
   while (keep_running) {
     double t1 = now();
@@ -23,6 +24,10 @@ void ClientLoop::run() {
       // python. Alternativa: pasar por referencia keep_running al método
       // correspondiente y que se detenga así el loop, sin utilizar excepciones
       // para el workflow.
+
+      // Quizas deberia poner aca client.start y que el client lance los hilos
+      // en dicho metodo
+
     } catch (const StopIteration &) {
       break;
     }
