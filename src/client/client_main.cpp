@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
   if (argc != EXPECTED_ARGUMENTS) {
     const std::string errorMessage = "Error while calling program. Expected " +
                                      std::string(argv[0]) +
-                                     "call with no extra arguments";
+                                     " call with no extra arguments";
     std::cerr << errorMessage << std::endl;
     return EXIT_ERROR_CODE;
   }

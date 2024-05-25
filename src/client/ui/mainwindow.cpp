@@ -21,6 +21,7 @@ const static char SPAZ_MENU_ANIMATION_RESOURCE_PATH[] =
     ":/animations/assets/spaz_menu_animation.gif";
 const static char LORI_MENU_ANIMATION_RESOURCE_PATH[] =
     ":/animations/assets/lori_menu_animation.gif";
+const static int TIME_FOR_CHARACTER_ANIMATION_WAIT = 1000; // In ms
 
 const static uint32_t MAX_USERNAME_SIZE = 32;
 const static uint32_t MAX_PORT_NUMBER = 65535;
@@ -195,19 +196,22 @@ void MainWindow::on_chooseCharacterButton_released() {
 void MainWindow::on_selectJazzButton_released() {
   this->characterSelected = JAZZ_SELECTED;
   this->jazzAnimation.start();
-  QTimer::singleShot(1000, this, SLOT(startGame()));
+  QTimer::singleShot(TIME_FOR_CHARACTER_ANIMATION_WAIT, this,
+                     SLOT(startGame()));
 }
 
 void MainWindow::on_selectSpazButton_released() {
   this->characterSelected = SPAZ_SELECTED;
   this->spazAnimation.start();
-  QTimer::singleShot(1000, this, SLOT(startGame()));
+  QTimer::singleShot(TIME_FOR_CHARACTER_ANIMATION_WAIT, this,
+                     SLOT(startGame()));
 }
 
 void MainWindow::on_selectLoriButton_released() {
   this->characterSelected = LORI_SELECTED;
   this->loriAnimation.start();
-  QTimer::singleShot(1000, this, SLOT(startGame()));
+  QTimer::singleShot(TIME_FOR_CHARACTER_ANIMATION_WAIT, this,
+                     SLOT(startGame()));
 }
 
 void MainWindow::on_refreshGamesButton_released() {
