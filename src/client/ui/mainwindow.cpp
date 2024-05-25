@@ -194,6 +194,7 @@ void MainWindow::on_chooseCharacterButton_released() {
 }
 
 void MainWindow::on_selectJazzButton_released() {
+  this->buttonClickSound.play();
   this->characterSelected = JAZZ_SELECTED;
   this->jazzAnimation.start();
   QTimer::singleShot(TIME_FOR_CHARACTER_ANIMATION_WAIT, this,
@@ -201,6 +202,7 @@ void MainWindow::on_selectJazzButton_released() {
 }
 
 void MainWindow::on_selectSpazButton_released() {
+  this->buttonClickSound.play();
   this->characterSelected = SPAZ_SELECTED;
   this->spazAnimation.start();
   QTimer::singleShot(TIME_FOR_CHARACTER_ANIMATION_WAIT, this,
@@ -208,6 +210,7 @@ void MainWindow::on_selectSpazButton_released() {
 }
 
 void MainWindow::on_selectLoriButton_released() {
+  this->buttonClickSound.play();
   this->characterSelected = LORI_SELECTED;
   this->loriAnimation.start();
   QTimer::singleShot(TIME_FOR_CHARACTER_ANIMATION_WAIT, this,
@@ -475,8 +478,10 @@ QWidget *MainWindow::createGameItemWidget(const GameConfigs &game) {
   labelDuration->setStyleSheet(QString::fromStdString(labelStylesheet));
   labelPlayers->setStyleSheet(QString::fromStdString(labelStylesheet));
 
-  QObject::connect(button, &QPushButton::clicked,
-                   [=]() { this->joinGame(game); });
+  QObject::connect(button, &QPushButton::clicked, [=]() {
+    this->buttonClickSound.play();
+    this->joinGame(game);
+  });
 
   layout->addWidget(labelRoomName);
   layout->addWidget(labelDuration);
