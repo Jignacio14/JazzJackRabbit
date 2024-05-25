@@ -31,9 +31,13 @@ const static char JAZZ_SELECTED = 'J';
 const static char SPAZ_SELECTED = 'S';
 const static char LORI_SELECTED = 'L';
 
-MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port)
+MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
+                       std::string &username, GameConfigs **game,
+                       char &userCharacter)
     : QMainWindow(parent), ui(new Ui::MainWindow), hostname(hostname),
-      port(port), gameDuration(0), maxPlayers(0), currentPlayers(1),
+      port(port), username(username), finalGameConfigs(game), gameOwnerName(""),
+      gameDuration(0), maxPlayers(0), currentPlayers(1),
+      characterSelected(userCharacter),
       buttonClickSound(BUTTON_CLICK_RESOURCE_SOUND_PATH),
       jazzAnimation(JAZZ_MENU_ANIMATION_RESOURCE_PATH),
       spazAnimation(SPAZ_MENU_ANIMATION_RESOURCE_PATH),
@@ -181,6 +185,10 @@ void MainWindow::on_chooseCharacterButton_released() {
     return;
   }
 
+  if (this->gameOwnerName.empty()) {
+    this->gameOwnerName = this->username;
+  }
+
   this->ui->stackedWidget->setCurrentWidget(this->ui->chooseCharacterScreen);
 }
 
@@ -213,11 +221,13 @@ void MainWindow::on_refreshGamesButton_released() {
 
 void MainWindow::on_backInCreateGameButton_released() {
   this->buttonClickSound.play();
+  this->gameOwnerName = "";
   this->ui->stackedWidget->setCurrentWidget(this->ui->initialScreen);
 }
 
 void MainWindow::on_backInJoinGameButton_released() {
   this->buttonClickSound.play();
+  this->gameOwnerName = "";
   this->ui->stackedWidget->setCurrentWidget(this->ui->initialScreen);
 }
 
@@ -234,6 +244,9 @@ void MainWindow::startGame() {
   this->ui->waitingOthersCounterLabel->setText(
       QString::fromStdString(remainingPlayers));
 
+  *this->finalGameConfigs =
+      new GameConfigs(this->gameOwnerName, this->maxPlayers,
+                      this->currentPlayers, this->gameDuration);
   std::cout << "Game starting!"
             << "\n";
   this->close();
@@ -394,6 +407,7 @@ void MainWindow::joinGame(const GameConfigs &game) {
   this->maxPlayers = game.getMaxNumberOfPlayers();
   this->currentPlayers =
       game.getCurrentNumberOfPlayers() + 1; // +1 Because this client joined
+  this->gameOwnerName = game.getOwnerName();
   this->ui->stackedWidget->setCurrentWidget(this->ui->createGameScreen);
 
   this->enableAndResetLineEdit(this->ui->usernameInput, "usernameInput");

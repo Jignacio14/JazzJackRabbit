@@ -58,11 +58,13 @@ private:
 
   std::string &hostname;
   uint32_t &port;
-  std::string username;
+  std::string &username;
+  GameConfigs **finalGameConfigs;
+  std::string gameOwnerName;
   uint32_t gameDuration;
   uint32_t maxPlayers;
   uint32_t currentPlayers;
-  char characterSelected;
+  char &characterSelected;
 
   QSound buttonClickSound;
   QMovie jazzAnimation;
@@ -103,7 +105,8 @@ private:
   QWidget *createGameItemWidget(const GameConfigs &game);
 
 public:
-  MainWindow(QWidget *parent, std::string &hostname, uint32_t &port);
+  MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
+             std::string &username, GameConfigs **game, char &userCharacter);
 
   ~MainWindow();
 };
