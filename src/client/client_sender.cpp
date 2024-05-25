@@ -12,7 +12,6 @@ void ClientSender::run() {
       PlayerStatusDTO status = sender_queue.pop();
       protocol.send_status(was_closed, status);
     }
-    pre - commit run-- all - files
   } catch (... /*tendriamos que hacer nuestra propia clase*/) {
     // const ClosedQueue& e
     // Close de la cola del sender
