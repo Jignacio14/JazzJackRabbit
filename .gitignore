@@ -38,6 +38,8 @@ backup
 
 .idea/
 
+cmake-build-debug/
+
 process.logs
 /client
 *.autosave
