@@ -33,7 +33,7 @@ const static char LORI_SELECTED = 'L';
 
 MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port)
     : QMainWindow(parent), ui(new Ui::MainWindow), hostname(hostname),
-      port(port), gameDuration(0), numberOfPlayers(0),
+      port(port), gameDuration(0), maxPlayers(0), currentPlayers(1),
       buttonClickSound(BUTTON_CLICK_RESOURCE_SOUND_PATH),
       jazzAnimation(JAZZ_MENU_ANIMATION_RESOURCE_PATH),
       spazAnimation(SPAZ_MENU_ANIMATION_RESOURCE_PATH),
@@ -92,11 +92,11 @@ void MainWindow::on_gameDurationInput_textChanged(const QString &newString) {
                                     "gameDurationInput", marginRight);
 }
 
-void MainWindow::on_numberOfPlayersInput_textChanged(const QString &newString) {
-  this->numberOfPlayers = newString.toUInt();
+void MainWindow::on_maxPlayersInput_textChanged(const QString &newString) {
+  this->maxPlayers = newString.toUInt();
   const uint32_t marginRight = 15;
-  changeLineEditStyleBasedOnItsText(newString, this->ui->numberOfPlayersInput,
-                                    "numberOfPlayersInput", marginRight);
+  changeLineEditStyleBasedOnItsText(newString, this->ui->maxPlayersInput,
+                                    "maxPlayersInput", marginRight);
 }
 
 void MainWindow::on_connectButton_released() {
@@ -129,6 +129,10 @@ void MainWindow::on_connectButton_released() {
 
 void MainWindow::on_createGameButton_pressed() {
   this->buttonClickSound.play();
+  this->enableAndResetLineEdit(this->ui->usernameInput, "usernameInput");
+  this->enableAndResetLineEdit(this->ui->gameDurationInput,
+                               "gameDurationInput");
+  this->enableAndResetLineEdit(this->ui->maxPlayersInput, "maxPlayersInput");
   this->ui->stackedWidget->setCurrentWidget(this->ui->createGameScreen);
 }
 
@@ -171,7 +175,7 @@ void MainWindow::on_chooseCharacterButton_released() {
   }
 
   if (!this->isNumberOfPlayersValid(tooltipMessage)) {
-    location = this->ui->numberOfPlayersInput->mapToGlobal(QPoint(10, -40));
+    location = this->ui->maxPlayersInput->mapToGlobal(QPoint(10, -40));
     qTooltipMessage = QString::fromStdString(tooltipMessage);
     this->showTooltip(location, qTooltipMessage);
     return;
@@ -225,9 +229,14 @@ void MainWindow::on_backInChooseCharacterButton_released() {
 void MainWindow::startGame() {
   this->ui->stackedWidget->setCurrentWidget(this->ui->waitingToJoinScreen);
 
+  std::string remainingPlayers = std::to_string(this->currentPlayers) + "/" +
+                                 std::to_string(this->maxPlayers);
+  this->ui->waitingOthersCounterLabel->setText(
+      QString::fromStdString(remainingPlayers));
+
   std::cout << "Game starting!"
             << "\n";
-  // this->close();
+  this->close();
 }
 
 void MainWindow::enableButton(QPushButton *button, const std::string &id) {
@@ -271,6 +280,29 @@ void MainWindow::changeLineEditStyleBasedOnItsText(
         std::to_string(marginRight) + "px; }";
     lineEdit->setStyleSheet(QString::fromStdString(lineEditHasTextStyle));
   }
+}
+
+void MainWindow::disableLineEdit(QLineEdit *lineEdit,
+                                 const std::string &lineEditId) {
+
+  std::string emptyLineEditStyle =
+      "QLineEdit#" + lineEditId +
+      " {  background-color: rgb(181, 181, 181);  "
+      "color: rgb(0, 0, 0); font-family: Joystix; margin-left: 15px; "
+      "margin-right: 15px; border-radius: "
+      "15px; }";
+  lineEdit->setStyleSheet(QString::fromStdString(emptyLineEditStyle));
+  lineEdit->setEnabled(false);
+}
+
+void MainWindow::enableAndResetLineEdit(QLineEdit *lineEdit,
+                                        const std::string &lineEditId) {
+
+  lineEdit->setEnabled(true);
+  lineEdit->clear();
+  uint32_t rightMargin = 15;
+  this->changeLineEditStyleBasedOnItsText(lineEdit->text(), lineEdit,
+                                          lineEditId, rightMargin);
 }
 
 void MainWindow::showTooltip(QPoint &location, QString &message) {
@@ -325,7 +357,7 @@ const bool MainWindow::isGameDurationValid(std::string &message) {
 }
 
 const bool MainWindow::isNumberOfPlayersValid(std::string &message) {
-  if (this->numberOfPlayers < MIN_NUMBER_OF_PLAYERS) {
+  if (this->maxPlayers < MIN_NUMBER_OF_PLAYERS) {
     message = "Number of players must be filled with a number greater than one";
     return false;
   }
@@ -355,6 +387,24 @@ void MainWindow::addGamesToList(std::vector<GameConfigs> &games) {
     listWidgetItem->setSizeHint(itemWidget->sizeHint());
     this->ui->gamesList->setItemWidget(listWidgetItem, itemWidget);
   }
+}
+
+void MainWindow::joinGame(const GameConfigs &game) {
+  this->gameDuration = game.getGameDuration();
+  this->maxPlayers = game.getMaxNumberOfPlayers();
+  this->currentPlayers =
+      game.getCurrentNumberOfPlayers() + 1; // +1 Because this client joined
+  this->ui->stackedWidget->setCurrentWidget(this->ui->createGameScreen);
+
+  this->enableAndResetLineEdit(this->ui->usernameInput, "usernameInput");
+
+  this->ui->gameDurationInput->setText(
+      QString::fromStdString(std::to_string(this->gameDuration)));
+  this->disableLineEdit(this->ui->gameDurationInput, "gameDurationInput");
+
+  this->ui->maxPlayersInput->setText(
+      QString::fromStdString(std::to_string(this->maxPlayers)));
+  this->disableLineEdit(this->ui->maxPlayersInput, "maxPlayersInput");
 }
 
 QWidget *MainWindow::createGameItemWidget(const GameConfigs &game) {
@@ -406,6 +456,9 @@ QWidget *MainWindow::createGameItemWidget(const GameConfigs &game) {
   labelRoomName->setStyleSheet(QString::fromStdString(labelStylesheet));
   labelDuration->setStyleSheet(QString::fromStdString(labelStylesheet));
   labelPlayers->setStyleSheet(QString::fromStdString(labelStylesheet));
+
+  QObject::connect(button, &QPushButton::clicked,
+                   [=]() { this->joinGame(game); });
 
   layout->addWidget(labelRoomName);
   layout->addWidget(labelDuration);

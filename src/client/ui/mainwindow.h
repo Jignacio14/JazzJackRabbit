@@ -27,7 +27,7 @@ private slots:
   void on_portInput_textChanged(const QString &newString);
   void on_usernameInput_textChanged(const QString &newString);
   void on_gameDurationInput_textChanged(const QString &newString);
-  void on_numberOfPlayersInput_textChanged(const QString &newString);
+  void on_maxPlayersInput_textChanged(const QString &newString);
 
   void on_connectButton_released();
 
@@ -50,6 +50,7 @@ private slots:
   void on_backInChooseCharacterButton_released();
 
   void startGame();
+  void joinGame(const GameConfigs &game);
 
 private:
   // cppcheck-suppress unusedStructMember
@@ -59,7 +60,8 @@ private:
   uint32_t &port;
   std::string username;
   uint32_t gameDuration;
-  uint32_t numberOfPlayers;
+  uint32_t maxPlayers;
+  uint32_t currentPlayers;
   char characterSelected;
 
   QSound buttonClickSound;
@@ -76,6 +78,11 @@ private:
                                          QLineEdit *lineEdit,
                                          const std::string &lineEditId,
                                          const uint32_t &marginRight);
+
+  void disableLineEdit(QLineEdit *lineEdit, const std::string &lineEditId);
+
+  void enableAndResetLineEdit(QLineEdit *lineEdit,
+                              const std::string &lineEditId);
 
   void showTooltip(QPoint &location, QString &message);
 

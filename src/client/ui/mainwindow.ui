@@ -99,7 +99,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="initialScreen">
      <property name="styleSheet">
@@ -547,7 +547,7 @@ QPushButton#connectButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="numberOfPlayersLabel">
+        <widget class="QLabel" name="maxPlayersLabel">
          <property name="font">
           <font>
            <family>Joystix</family>
@@ -555,7 +555,7 @@ QPushButton#connectButton:pressed {
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">QLabel#numberOfPlayersLabel {
+          <string notr="true">QLabel#maxPlayersLabel {
 	color: rgb(255, 255, 255);
 	font-family: Joystix;
 	margin-left: 10px;
@@ -567,7 +567,7 @@ QPushButton#connectButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="numberOfPlayersInput">
+        <widget class="QLineEdit" name="maxPlayersInput">
          <property name="font">
           <font>
            <family>Joystix</family>
