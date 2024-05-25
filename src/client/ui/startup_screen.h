@@ -11,10 +11,14 @@ private:
   QApplication app;
   std::string &hostname;
   uint32_t &port;
+  std::string &username;
+  GameConfigs **game;
+  char &userCharacter;
   MainWindow mainWindow;
 
 public:
-  StartupScreen(int &argc, char **argv, std::string &hostname, uint32_t &port);
+  StartupScreen(int &argc, char **argv, std::string &hostname, uint32_t &port,
+                std::string &username, GameConfigs **game, char &userCharacter);
   const int show();
 };
 

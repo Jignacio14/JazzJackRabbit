@@ -10,6 +10,12 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Joystix</family>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>JazzJackRabbit 2</string>
   </property>
@@ -17,7 +23,23 @@
    <iconset resource="resources.qrc">
     <normaloff>:/images/assets/game_icon.png</normaloff>:/images/assets/game_icon.png</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow#MainWindow {
+	font-family: Joystix;
+}</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="font">
+    <font>
+     <family>Joystix</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget#centralWidget {
+	font-family: Joystix;
+}</string>
+   </property>
    <widget class="QLabel" name="bgLabel">
     <property name="geometry">
      <rect>
@@ -65,10 +87,26 @@
       <height>451</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Joystix</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QStackedWidget#stackedWidget {
+	font-family: Joystix;
+}</string>
+    </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="initialScreen">
+     <property name="styleSheet">
+      <string notr="true">QWidget#initialScreen {
+	font-family: Joystix;
+}</string>
+     </property>
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
@@ -196,16 +234,28 @@ QPushButton#quitButton:pressed {
         <height>151</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Joystix</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">QWidget#inputWidget {
 	background-color: rgba(177,252,3,140);
 	border-radius: 18px;
-	padding-left: 30px;
+	font-family: Joystix;
 }</string>
       </property>
       <layout class="QVBoxLayout" name="inputLayout">
        <item>
         <widget class="QLabel" name="hostnameLabel">
+         <property name="font">
+          <font>
+           <family>Joystix</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QLabel#hostnameLabel {
 	color: rgb(255, 255, 255);
@@ -226,6 +276,12 @@ QPushButton#quitButton:pressed {
        </item>
        <item>
         <widget class="QLineEdit" name="hostnameInput">
+         <property name="font">
+          <font>
+           <family>Joystix</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QLineEdit#hostnameInput {
 	background-color: rgb(255, 255, 255);
@@ -249,8 +305,15 @@ QPushButton#quitButton:pressed {
        </item>
        <item>
         <widget class="QLabel" name="portLabel">
+         <property name="font">
+          <font>
+           <family>Joystix</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QLabel#portLabel {
+	font-family: Joystix;
 	color: rgb(255, 255, 255);
 	font-family: Joystix;
 	margin-left: 10px;
@@ -263,6 +326,12 @@ QPushButton#quitButton:pressed {
        </item>
        <item>
         <widget class="QLineEdit" name="portInput">
+         <property name="font">
+          <font>
+           <family>Joystix</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QLineEdit#portInput {
 	background-color: rgb(255, 255, 255);
@@ -280,6 +349,12 @@ QPushButton#quitButton:pressed {
        </item>
        <item>
         <widget class="QPushButton" name="connectButton">
+         <property name="font">
+          <font>
+           <family>Joystix</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="focusPolicy">
           <enum>Qt::TabFocus</enum>
          </property>
@@ -340,14 +415,13 @@ QPushButton#connectButton:pressed {
          <property name="font">
           <font>
            <family>Joystix</family>
-           <pointsize>12</pointsize>
+           <pointsize>14</pointsize>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">QLabel#playerConfigLabel {
 	color: rgb(255, 255, 255);
 	font-family: Joystix;
-	margin-left: 10px;
 }</string>
          </property>
          <property name="text">
@@ -360,6 +434,12 @@ QPushButton#connectButton:pressed {
        </item>
        <item>
         <widget class="QLabel" name="usernameLabel">
+         <property name="font">
+          <font>
+           <family>Joystix</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QLabel#usernameLabel {
 	color: rgb(255, 255, 255);
@@ -374,6 +454,12 @@ QPushButton#connectButton:pressed {
        </item>
        <item>
         <widget class="QLineEdit" name="usernameInput">
+         <property name="font">
+          <font>
+           <family>Joystix</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QLineEdit#usernameInput {
 	background-color: rgb(255, 255, 255);
@@ -397,14 +483,13 @@ QPushButton#connectButton:pressed {
          <property name="font">
           <font>
            <family>Joystix</family>
-           <pointsize>12</pointsize>
+           <pointsize>14</pointsize>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">QLabel#gameConfigLabel {
 	color: rgb(255, 255, 255);
 	font-family: Joystix;
-	margin-left: 10px;
 }</string>
          </property>
          <property name="text">
@@ -417,6 +502,12 @@ QPushButton#connectButton:pressed {
        </item>
        <item>
         <widget class="QLabel" name="gameDurationLabel">
+         <property name="font">
+          <font>
+           <family>Joystix</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QLabel#gameDurationLabel {
 	color: rgb(255, 255, 255);
@@ -431,6 +522,12 @@ QPushButton#connectButton:pressed {
        </item>
        <item>
         <widget class="QLineEdit" name="gameDurationInput">
+         <property name="font">
+          <font>
+           <family>Joystix</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QLineEdit#gameDurationInput {
 	background-color: rgb(255, 255, 255);
@@ -450,9 +547,15 @@ QPushButton#connectButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="numberOfPlayersLabel">
+        <widget class="QLabel" name="maxPlayersLabel">
+         <property name="font">
+          <font>
+           <family>Joystix</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
-          <string notr="true">QLabel#numberOfPlayersLabel {
+          <string notr="true">QLabel#maxPlayersLabel {
 	color: rgb(255, 255, 255);
 	font-family: Joystix;
 	margin-left: 10px;
@@ -464,7 +567,13 @@ QPushButton#connectButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="numberOfPlayersInput">
+        <widget class="QLineEdit" name="maxPlayersInput">
+         <property name="font">
+          <font>
+           <family>Joystix</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QLineEdit#numberOfPlayersInput {
 	background-color: rgb(255, 255, 255);
@@ -485,6 +594,12 @@ QPushButton#connectButton:pressed {
        </item>
        <item>
         <widget class="QPushButton" name="chooseCharacterButton">
+         <property name="font">
+          <font>
+           <family>Joystix</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QPushButton#chooseCharacterButton {
 	background-color: rgb(255, 255, 255);
@@ -517,13 +632,68 @@ QPushButton#chooseCharacterButton:pressed {
        </item>
       </layout>
      </widget>
+     <widget class="QPushButton" name="backInCreateGameButton">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Joystix</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::TabFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton#backInCreateGameButton {
+	background-color: rgba(177,252,3,140);
+	color: rgb(255, 255, 255);
+	border-radius: 5px;
+	font-family: Joystix;
+}
+
+QPushButton#backInCreateGameButton:hover, QPushButton#backInCreateGameButton:focus {
+	background-color: rgba(177,252,3,180);
+	color: rgb(255, 255, 255);
+}
+
+QPushButton#backInCreateGameButton:pressed {
+	background-color: rgba(177,252,3,160);
+	color: rgb(255, 255, 255);
+	padding-left: 3px;
+	padding-top: 3px;
+}</string>
+      </property>
+      <property name="text">
+       <string>BACK</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/images/assets/back_arrow.png</normaloff>:/images/assets/back_arrow.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="autoDefault">
+       <bool>true</bool>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="chooseCharacterScreen">
      <widget class="QWidget" name="horizontalLayoutWidget">
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>30</y>
+        <y>50</y>
         <width>691</width>
         <height>381</height>
        </rect>
@@ -720,12 +890,241 @@ QPushButton#selectLoriButton:pressed {
        </item>
       </layout>
      </widget>
+     <widget class="QPushButton" name="backInChooseCharacterButton">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Joystix</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::TabFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton#backInChooseCharacterButton {
+	background-color: rgba(177,252,3,140);
+	color: rgb(255, 255, 255);
+	border-radius: 5px;
+	font-family: Joystix;
+}
+
+QPushButton#backInChooseCharacterButton:hover, QPushButton#backInChooseCharacterButton:focus {
+	background-color: rgba(177,252,3,180);
+	color: rgb(255, 255, 255);
+}
+
+QPushButton#backInChooseCharacterButton:pressed {
+	background-color: rgba(177,252,3,160);
+	color: rgb(255, 255, 255);
+	padding-left: 3px;
+	padding-top: 3px;
+}</string>
+      </property>
+      <property name="text">
+       <string>BACK</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/images/assets/back_arrow.png</normaloff>:/images/assets/back_arrow.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="autoDefault">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="waitingToJoinScreen">
+     <widget class="QWidget" name="verticalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>150</y>
+        <width>711</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="waitingLayout">
+       <item>
+        <widget class="QLabel" name="waitingOthersLabel">
+         <property name="font">
+          <font>
+           <family>Joystix</family>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Waiting other players to join</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="waitingOthersCounterLabel">
+         <property name="font">
+          <font>
+           <family>Joystix</family>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>1/1</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="joinGameScreen">
+     <widget class="QListWidget" name="gamesList">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>40</y>
+        <width>551</width>
+        <height>391</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Joystix</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QWidget#gamesList {
+	background-color: rgba(128, 0, 255, 150);
+	border-radius: 18px;
+	padding-left: 30px;
+}</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="refreshGamesButton">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>40</y>
+        <width>181</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Joystix</family>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::TabFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton#refreshGamesButton {
+	background-color: rgba(177,252,3,140);
+	color: rgb(255, 255, 255);
+	border-radius: 5px;
+	font-family: Joystix;
+}
+
+QPushButton#refreshGamesButton:hover, QPushButton#refreshGamesButton:focus {
+	background-color: rgba(177,252,3,180);
+	color: rgb(255, 255, 255);
+}
+
+QPushButton#refreshGamesButton:pressed {
+	background-color: rgba(177,252,3,160);
+	color: rgb(255, 255, 255);
+	padding-left: 3px;
+	padding-top: 3px;
+}</string>
+      </property>
+      <property name="text">
+       <string>Refresh games</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/images/assets/refresh_arrow.png</normaloff>:/images/assets/refresh_arrow.png</iconset>
+      </property>
+      <property name="autoDefault">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="backInJoinGameButton">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Joystix</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::TabFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton#backInJoinGameButton {
+	background-color: rgba(177,252,3,140);
+	color: rgb(255, 255, 255);
+	border-radius: 5px;
+	font-family: Joystix;
+}
+
+QPushButton#backInJoinGameButton:hover, QPushButton#backInJoinGameButton:focus {
+	background-color: rgba(177,252,3,180);
+	color: rgb(255, 255, 255);
+}
+
+QPushButton#backInJoinGameButton:pressed {
+	background-color: rgba(177,252,3,160);
+	color: rgb(255, 255, 255);
+	padding-left: 3px;
+	padding-top: 3px;
+}</string>
+      </property>
+      <property name="text">
+       <string>BACK</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/images/assets/back_arrow.png</normaloff>:/images/assets/back_arrow.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="autoDefault">
+       <bool>true</bool>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
  </widget>
  <tabstops>
-  <tabstop>hostnameInput</tabstop>
   <tabstop>portInput</tabstop>
   <tabstop>connectButton</tabstop>
   <tabstop>createGameButton</tabstop>
