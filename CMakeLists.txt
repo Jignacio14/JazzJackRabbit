@@ -29,10 +29,17 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -pedantic-errors
 find_package(QT NAMES Qt5 REQUIRED COMPONENTS Widgets Gui Multimedia)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Multimedia)
 
-set(SDL2PP_WITH_IMAGE ON) # if you need SDL_image support
-set(SDL2PP_WITH_MIXER ON) # if you need SDL_mixer support
-set(SDL2PP_WITH_TTF ON) # if you need SDL_ttf support
+# SDL_image support turned on
+set(SDL2PP_WITH_IMAGE ON)
+# SDL_mixer support turned on
+set(SDL2PP_WITH_MIXER ON)
+# SDL_ttf support turned on
+set(SDL2PP_WITH_TTF ON)
+# Add the libSDL2pp subdirectory
 add_subdirectory(extlib/libSDL2pp)
+
+# Add the yaml-cpp version 0.8.0 subdirectory
+add_subdirectory(extlib/yaml-cpp-0.8.0)
 
 # Get all sources from the corresponding directories to build the client executable
 file(GLOB_RECURSE CLIENT_SOURCES CONFIGURE_DEPENDS
@@ -42,6 +49,8 @@ file(GLOB_RECURSE CLIENT_SOURCES CONFIGURE_DEPENDS
     "${PROJECT_SOURCE_DIR}/src/client/ui/*.h"
     "${PROJECT_SOURCE_DIR}/src/client/ui/*.ui"
     "${PROJECT_SOURCE_DIR}/src/client/ui/*.qrc"
+    "${PROJECT_SOURCE_DIR}/src/client/sprites/*.yaml"
+    "${PROJECT_SOURCE_DIR}/src/client/sprites/*.png"
 )
 
 # Get all sources from the corresponding directories to build the server executable
@@ -69,4 +78,4 @@ add_executable(server
 )
 
 # Link the client object code with the corresponding libraries
-target_link_libraries(client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Multimedia SDL2pp::SDL2pp)
+target_link_libraries(client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Multimedia SDL2pp::SDL2pp yaml-cpp::yaml-cpp)
