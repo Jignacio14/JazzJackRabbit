@@ -29,6 +29,11 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -pedantic-errors
 find_package(QT NAMES Qt5 REQUIRED COMPONENTS Widgets Gui Multimedia)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Multimedia)
 
+set(SDL2PP_WITH_IMAGE ON) # if you need SDL_image support
+set(SDL2PP_WITH_MIXER ON) # if you need SDL_mixer support
+set(SDL2PP_WITH_TTF ON) # if you need SDL_ttf support
+add_subdirectory(extlib/libSDL2pp)
+
 # Get all sources from the corresponding directories to build the client executable
 file(GLOB_RECURSE CLIENT_SOURCES CONFIGURE_DEPENDS
     "${PROJECT_SOURCE_DIR}/src/client/*.h"
@@ -64,4 +69,4 @@ add_executable(server
 )
 
 # Link the client object code with the corresponding libraries
-target_link_libraries(client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Multimedia)
+target_link_libraries(client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Multimedia SDL2pp::SDL2pp)
