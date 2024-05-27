@@ -1,9 +1,9 @@
 #ifndef SERVER_PROTOCOL
 #define SERVER_PROTOCOL
 
+#include "../common/game_info.h"
 #include "../common/liberror.h"
 #include "../common/socket.h"
-#include "server_game_info_dto.h"
 #include "server_serializer.h"
 #include <cstdint>
 #include <iostream>

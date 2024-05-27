@@ -1,7 +1,7 @@
 #ifndef SERIALIZER
 #define SERIALIZER
 
-#include "server_game_info_dto.h"
+#include "../common/game_info.h"
 #include <string>
 #include <sys/types.h>
 class Serializer {
