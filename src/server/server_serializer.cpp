@@ -1,5 +1,5 @@
 #include "server_serializer.h"
-#include "server_game_info_dto.h"
+#include "../common/game_info.h"
 #include <netinet/in.h>
 #include <string>
 #include <sys/types.h>
