@@ -11,6 +11,5 @@ struct GameInfoDto {
   std::vector<char> game_name;
   // cppcheck-suppress unusedStructMember
   uint16_t player_count;
-};
-
+} __attribute__((packed));
 #endif
