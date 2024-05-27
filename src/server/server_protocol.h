@@ -1,12 +1,15 @@
 #ifndef SERVER_PROTOCOL
 #define SERVER_PROTOCOL
 
+#include "../common/liberror.h"
 #include "../common/socket.h"
 #include "server_game_info_dto.h"
 #include "server_serializer.h"
-#include <atomic>
 #include <cstdint>
+#include <iostream>
 #include <netinet/in.h>
+#include <ostream>
+#include <stdexcept>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -25,7 +28,7 @@ private:
 public:
   explicit ServerProtocol(Socket skt);
 
-  void sendGameInfo(const std::unordered_map<std::string, uint16_t> &game_data);
+  bool sendGameInfo(const std::unordered_map<std::string, uint16_t> &game_data);
 
   void shutdown();
 
