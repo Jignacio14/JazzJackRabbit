@@ -1,4 +1,5 @@
 #include "./ui/startup_screen.h"
+#include "renderer.h"
 #include <cstdint>
 #include <iostream>
 #include <string>
@@ -164,9 +165,13 @@ int main(int argc, char *argv[]) {
   std::cout << userCharacter << "\n";
   std::cout << game->getOwnerName() << "|" << game->getCurrentNumberOfPlayers()
             << "/" << game->getMaxNumberOfPlayers() << "\n";
-  std::cout << hostname << ":" << port << std::endl;*/
+  std::cout << hostname << ":" << port << std::endl;
 
-  a();
+  int client_id;
+  Renderer renderer(client_id, hostname, port);
+  renderer.run();
+
+  */
 
   return 0; // exitCode;
 }

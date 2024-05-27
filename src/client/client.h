@@ -3,16 +3,16 @@
 #define JAZZJACKRABBIT_CLIENT_H
 
 #include "../common/queue.h"
-#include "../common/socket.h"
+#include "client_protocol.h"
 #include "client_receiver.h"
 #include "client_sender.h"
 #include <atomic>
 
 class Client {
 private:
-  Socket socket;
   // cppcheck-suppress unusedStructMember
   int client_id;
+  ClientProtocol protocol;
   std::atomic<bool> keep_talking;
   ClientSender sender;
   ClientReceiver receiver;
@@ -20,7 +20,7 @@ private:
   // Queue<> queue_receiver;
 
 public:
-  Client(Socket &&skt, int id);
+  Client(const char *hostname, const char *port, int id);
 
   /*
    * Kills the client´s back-end, joining receiver and sender thread, and closes

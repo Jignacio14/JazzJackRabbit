@@ -3,9 +3,10 @@
 #include "client_receiver.h"
 #include "client_sender.h"
 
-Client::Client(Socket &&skt, int id)
-    : socket(std::move(skt)), client_id(id), keep_talking(true),
-      sender(keep_talking, sender_queue, skt), receiver(keep_talking) {
+Client::Client(const char *hostname, const char *port, int id)
+    : client_id(id), protocol(hostname, port), keep_talking(true),
+      sender(keep_talking, sender_queue, protocol),
+      receiver(keep_talking, protocol) {
   receiver.start();
   sender.start();
 }
