@@ -3,6 +3,7 @@
 #define JAZZJACKRABBIT_CLIENT_H
 
 #include "../common/queue.h"
+#include "../common/snapshot_DTO.h"
 #include "client_protocol.h"
 #include "client_receiver.h"
 #include "client_sender.h"
@@ -17,7 +18,7 @@ private:
   ClientSender sender;
   ClientReceiver receiver;
   Queue<PlayerStatusDTO> sender_queue;
-  // Queue<> queue_receiver;
+  Queue<Snapshot> receiver_queue;
 
 public:
   Client(const char *hostname, const char *port, int id);

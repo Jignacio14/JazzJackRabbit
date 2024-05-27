@@ -5,6 +5,7 @@
 #include "../common/player_status_DTO.h"
 #include "../common/snapshot_DTO.h"
 #include "../common/socket.h"
+#include <atomic>
 
 class ClientProtocol {
 private:
