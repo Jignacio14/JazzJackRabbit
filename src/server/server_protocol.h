@@ -3,17 +3,21 @@
 
 #include "../common/socket.h"
 #include <atomic>
+#include <netinet/in.h>
+#include <string>
+#include <unordered_map>
 #include <utility>
 
 class ServerProtocol {
 private:
   Socket skt;
-  std::atomic<bool> was_close;
+  // cppcheck-suppress unusedStructMember
+  bool was_close;
 
 public:
   explicit ServerProtocol(Socket skt);
 
-  void sendGameInfo();
+  void sendGameInfo(const std::unordered_map<std::string, uint16_t> &game_data);
 
   void shutdown();
 

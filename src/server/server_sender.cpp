@@ -5,7 +5,7 @@ Sender::Sender(ServerProtocol &servprot) : servprot(servprot) {}
 
 void Sender::sendGameInfo() {
   // TO-DO chequear con los chicos que info debo enviar
-  this->servprot.sendGameInfo();
+  // this->servprot.sendGameInfo();
 }
 
 void Sender::run() {
@@ -14,7 +14,6 @@ void Sender::run() {
 }
 
 void Sender::runSenderLoop() {
-
   while (this->is_alive()) {
   }
 }
