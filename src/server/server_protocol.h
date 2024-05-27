@@ -2,6 +2,8 @@
 #define SERVER_PROTOCOL
 
 #include "../common/socket.h"
+#include "server_game_info_dto.h"
+#include "server_serializer.h"
 #include <atomic>
 #include <cstdint>
 #include <netinet/in.h>
@@ -15,10 +17,10 @@ private:
   // cppcheck-suppress unusedStructMember
   bool was_close;
 
+  Serializer serializer;
+
   void sendGamesCount(const uint16_t &games_count);
-  void sendStringLenght(const uint16_t &len);
-  void sendGameName(const std::string &name);
-  void sendGamePlayerCount(const uint16_t &count);
+  void sendSerializedGameData(const std::string &name, const uint16_t &count);
 
 public:
   explicit ServerProtocol(Socket skt);
