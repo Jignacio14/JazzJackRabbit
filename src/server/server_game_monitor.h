@@ -17,7 +17,6 @@ private:
 
 public:
   GameMonitor();
-
   void broadcast(const PlayerStatusDTO &msj);
   void addPlayer(Queue<PlayerStatusDTO> &queue);
   void ereasePlayer(const Queue<PlayerStatusDTO> &queue);

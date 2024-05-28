@@ -15,6 +15,9 @@ private:
   // cppcheck-suppress unusedStructMember
   std::unordered_map<std::string, GameWrapper> game_tracker;
 
+  void registerPlayer(GameWrapper &game, const Queue<PlayerStatusDTO> &queue);
+  void startNewGame(const Queue<PlayerStatusDTO> &queue);
+
 public:
   explicit GamesMonitor();
 
