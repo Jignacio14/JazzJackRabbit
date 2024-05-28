@@ -1,14 +1,9 @@
 #include "server_games_monitor.h"
-#include "server_game_wrapper.h"
-#include <cstdint>
-#include <mutex>
-#include <string>
-#include <unordered_map>
 
 GamesMonitor::GamesMonitor() {}
 
 void GamesMonitor::registerUser(const std::string &server_name,
-                                const Queue<std::string> &queue) {
+                                const Queue<PlayerStatusDTO> &queue) {
   std::lock_guard<std::mutex> lock(mtx);
   auto it = this->game_tracker.find(server_name);
   GameWrapper game;
