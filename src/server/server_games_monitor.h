@@ -22,8 +22,12 @@ public:
 
   void registerUser(const std::string &server_name,
                     const Queue<std::string> &queue);
+
   const std::unordered_map<std::string, uint16_t> getGamesStatus();
   // void registerGame(const std::string& server_name);
+
+  void ereasePlayer(const std::string &server_name, Queue<std::string>);
+  void ereaseGame(const std::string &server_name);
 
   ~GamesMonitor();
 };
