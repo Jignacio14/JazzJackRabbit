@@ -5,15 +5,15 @@
 #include <cmath>
 #include <thread>
 
+Renderer::Renderer(int id, Socket &socket)
+    : client_id(id), keep_running(true), rate(RATE),
+      client(std::move(socket) id) {}
+
 double Renderer::now() {
   return std::chrono::duration_cast<std::chrono::duration<double>>(
              std::chrono::high_resolution_clock::now().time_since_epoch())
       .count();
 }
-
-Renderer::Renderer(int id, const char *hostname, const char *port)
-    : client_id(id), keep_running(true), rate(RATE),
-      client(hostname, port, id) {}
 
 void Renderer::run() {
 

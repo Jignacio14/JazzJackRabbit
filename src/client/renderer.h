@@ -24,7 +24,7 @@ private:
   double now();
 
 public:
-  Renderer(int id, const char *hostname, const char *port);
+  Renderer(int id, Socket &socket);
 
   /*
    * It executes the game logic repeatedly, keeping a constant time rate between

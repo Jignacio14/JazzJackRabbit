@@ -67,8 +67,12 @@ int main(int argc, char *argv[]) {
   Lobby lobby(hostname, port);
   GameInfoDto game = lobby.get_games();
 
+  std::vector<char> gamename(10); // hardcodeado
+  lobby.send_game_selected(gamename);
+
+  Socket skt = lobby.transfer_socket();
   int client_id;
-  Renderer renderer(client_id, hostname, port);
+  Renderer renderer(client_id, skt);
   renderer.run();
 
   return exitCode;

@@ -8,9 +8,11 @@
 class LobbyReceiver {
 
   Socket &skt;
+  // cppcheck-suppress unusedStructMember
+  bool &was_closed;
 
 public:
-  LobbyReceiver();
+  LobbyReceiver(Socket &socket, bool &was_closed;);
 
   GameInfoDto get_game_info();
 };
