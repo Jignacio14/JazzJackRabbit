@@ -9,6 +9,7 @@
  * de decodificar el `errno` en un mensaje más entendible.
  * */
 class LibError : public std::exception {
+  // cppcheck-suppress unusedStructMember
   char msg_error[256];
 
 public:

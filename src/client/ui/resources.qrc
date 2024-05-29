@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>assets/start_background.png</file>
+        <file>assets/game_banner.png</file>
+        <file>assets/game_icon.png</file>
+        <file>assets/back_arrow.png</file>
+        <file>assets/refresh_arrow.png</file>
+    </qresource>
+    <qresource prefix="/fonts">
+        <file>assets/Joystix.otf</file>
+    </qresource>
+    <qresource prefix="/sounds">
+        <file>assets/button_click.wav</file>
+    </qresource>
+    <qresource prefix="/animations">
+        <file>assets/spaz_menu_animation.gif</file>
+        <file>assets/jazz_menu_animation.gif</file>
+        <file>assets/lori_menu_animation.gif</file>
+    </qresource>
+</RCC>
