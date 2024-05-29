@@ -7,7 +7,7 @@
 
 Renderer::Renderer(int id, Socket &socket)
     : client_id(id), keep_running(true), rate(RATE),
-      client(std::move(socket) id) {}
+      client(std::move(socket), id) {}
 
 double Renderer::now() {
   return std::chrono::duration_cast<std::chrono::duration<double>>(

@@ -1,8 +1,7 @@
 
 #include "client_protocol.h"
 
-ClientProtocol::ClientProtocol(Socket &&socket)
-    : skt(std::move(socket)), was_closed(false) {}
+ClientProtocol::ClientProtocol(Socket &&socket) : skt(std::move(socket)) {}
 
 void ClientProtocol::send_status(bool &was_closed, PlayerStatusDTO status) {
   skt.sendall_bytewise(&status, sizeof(PlayerStatusDTO), &was_closed);

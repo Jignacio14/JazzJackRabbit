@@ -3,14 +3,16 @@
 #define JAZZJACKRABBIT_CLIENT_PROTOCOL_H
 
 #include "../common/player_status_DTO.h"
+#include "../common/queue.h"
 #include "../common/snapshot_DTO.h"
 #include "../common/socket.h"
+#include <atomic>
 #define SHUT_RDWR 2
 
 class ClientProtocol {
 private:
   Socket skt;
-  std::atomic<bool> was_closed;
+  std::atomic<bool> was_closed{false};
 
 public:
   explicit ClientProtocol(Socket &&socket);

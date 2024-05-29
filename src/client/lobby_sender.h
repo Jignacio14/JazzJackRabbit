@@ -2,8 +2,10 @@
 #ifndef JAZZJACKRABBIT_LOBBY_SENDER_H
 #define JAZZJACKRABBIT_LOBBY_SENDER_H
 
+#include "../common/socket.h"
 #include "../common/thread.h"
 #include <atomic>
+#include <iostream>
 
 class LobbySender {
 
@@ -12,9 +14,9 @@ class LobbySender {
   bool &was_closed;
 
 public:
-  LobbySender(Socket &socket, bool &was_closed;);
+  LobbySender(Socket &socket, bool &was_closed);
 
-  void send_selected_game(std::vector<char> gamename);
+  void send_selected_game(const std::vector<char> &gamename);
 };
 
 #endif // JAZZJACKRABBIT_LOBBY_SENDER_H

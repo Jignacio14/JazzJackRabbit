@@ -12,7 +12,7 @@ class LobbyReceiver {
   bool &was_closed;
 
 public:
-  LobbyReceiver(Socket &socket, bool &was_closed;);
+  LobbyReceiver(Socket &socket, bool &was_closed);
 
   GameInfoDto get_game_info();
 };

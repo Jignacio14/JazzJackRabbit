@@ -2,7 +2,7 @@
 #ifndef JAZZJACKRABBIT_LOBBY_H
 #define JAZZJACKRABBIT_LOBBY_H
 
-#include "..common/socket.h"
+#include "../common/socket.h"
 #include "lobby_receiver.h"
 #include "lobby_sender.h"
 #include <atomic>
