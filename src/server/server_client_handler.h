@@ -15,6 +15,9 @@ private:
   ServerProtocol servprot;
   Queue<std::string> sender_queue;
   GamesMonitor &monitor;
+  // bool can_run;
+
+  // std::string loginSetUp();
 
 public:
   explicit ClientHandler(Socket skt, GamesMonitor &monitor_ref);

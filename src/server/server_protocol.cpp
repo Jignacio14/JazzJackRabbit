@@ -1,4 +1,6 @@
 #include "server_protocol.h"
+#include <cstdint>
+#include <vector>
 
 #define HOW 2
 
@@ -22,6 +24,25 @@ bool ServerProtocol::sendGameInfo(
   }
 }
 
+const std::string ServerProtocol::getServerName() {
+  try {
+    uint16_t lenght = this->getNameLenght();
+    std::vector<char> name = this->getName(lenght);
+    return std::string(name.begin(), name.end());
+  } catch (const LibError &skt_err) {
+    std::cout << "Some error ocurred while trying to communicate" << std::endl;
+    return "";
+  }
+}
+
+void ServerProtocol::sendGameStatus(const PlayerStatusDTO &dto) {
+  try {
+    skt.sendall_bytewise(&dto, sizeof(dto), &was_close);
+  } catch (const LibError &skt_err) {
+    std::cout << "Some error ocurred while trying to communicate" << std::endl;
+  }
+}
+
 void ServerProtocol::sendGamesCount(const uint16_t &games_count) {
   /// 1. Obtenego la cantidad de juegos dispobibles en las partidas registradas
   /// y lo envio
@@ -39,6 +60,18 @@ void ServerProtocol::sendSerializedGameData(const std::string &name,
   // rompio con los 3 tipos de datos distintos que debo pasar al cliente
   GameInfoDto data = this->serializer.serializeGameInfo(name, count);
   skt.sendall_bytewise(&data, sizeof(data), &was_close);
+}
+
+const uint8_t ServerProtocol::getNameLenght() {
+  uint8_t lenght;
+  this->skt.recvall_bytewise(&lenght, sizeof(lenght), &was_close);
+  return lenght;
+}
+
+const std::vector<char> ServerProtocol::getName(const uint8_t &lenght) {
+  std::vector<char> vector(lenght);
+  this->skt.recvall_bytewise(vector.data(), sizeof(vector), &was_close);
+  return vector;
 }
 
 void ServerProtocol::shutdown() {

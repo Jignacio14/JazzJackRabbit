@@ -4,6 +4,7 @@
 #include "../common/socket.h"
 #include "../common/thread.h"
 #include "server_client_handler.h"
+#include "server_games_monitor.h"
 #include <exception>
 #include <list>
 #include <string>
@@ -14,6 +15,7 @@ private:
   void accept();
   // cppcheck-suppress unusedStructMember
   std::list<ClientHandler *> clients;
+  GamesMonitor gamesMonitor;
 
   void checkForDisconnected();
   void killAll();

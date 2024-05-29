@@ -27,6 +27,7 @@ public:
   const std::unordered_map<std::string, uint16_t> getGamesStatus();
   // void registerGame(const std::string& server_name);
 
+  Queue<PlayerStatusDTO> &getReceiverQueue(const std::string &server_name);
   void ereasePlayer(const std::string &server_name,
                     Queue<PlayerStatusDTO> game_queue);
   void ereaseGame(const std::string &server_name);

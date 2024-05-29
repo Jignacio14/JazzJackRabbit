@@ -13,12 +13,14 @@ private:
   // cppcheck-suppress unusedStructMember
   std::string game_name;
   GameMonitor monitor;
+  Queue<PlayerStatusDTO> messages;
 
 public:
   void registerPlayer();
   void start();
   const std::string getGameName();
   const u_int16_t getGamePlayers();
+  const Queue<PlayerStatusDTO> &getReceiverQueue();
   void ereasedPlayer(Queue<PlayerStatusDTO> game_queue);
   void killGame();
 };

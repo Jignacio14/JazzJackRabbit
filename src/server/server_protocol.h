@@ -3,6 +3,7 @@
 
 #include "../common/game_info.h"
 #include "../common/liberror.h"
+#include "../common/player_status_DTO.h"
 #include "../common/socket.h"
 #include "server_serializer.h"
 #include <cstdint>
@@ -24,12 +25,16 @@ private:
 
   void sendGamesCount(const uint16_t &games_count);
   void sendSerializedGameData(const std::string &name, const uint16_t &count);
+  const uint8_t getNameLenght();
+  const std::vector<char> getName(const uint8_t &lenght);
 
 public:
   explicit ServerProtocol(Socket skt);
 
   bool sendGameInfo(const std::unordered_map<std::string, uint16_t> &game_data);
-
+  const std::string getServerName();
+  void sendGameStatus(const PlayerStatusDTO &dto);
+  const PlayerStatusDTO getGameStatus();
   void shutdown();
 
   ~ServerProtocol();
