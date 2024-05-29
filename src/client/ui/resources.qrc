@@ -3,6 +3,8 @@
         <file>assets/start_background.png</file>
         <file>assets/game_banner.png</file>
         <file>assets/game_icon.png</file>
+        <file>assets/back_arrow.png</file>
+        <file>assets/refresh_arrow.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file>assets/Joystix.otf</file>
