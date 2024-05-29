@@ -32,7 +32,10 @@ void Accepter::accept() {
   ClientHandler *handler =
       new ClientHandler(std::move(peer), this->gamesMonitor);
   clients.push_back(handler);
-  handler->start();
+  if (!handler->start()) {
+    handler->stop();
+    delete handler;
+  }
 }
 
 void Accepter::kill() {

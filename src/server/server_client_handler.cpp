@@ -40,6 +40,9 @@ const bool ClientHandler::running() {
 
 void ClientHandler::stop() {
   this->servprot.shutdown();
+  if (!this->can_run) {
+    return;
+  }
   this->receiver.kill();
   this->receiver.join();
   this->sender.kill();
