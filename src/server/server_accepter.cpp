@@ -3,7 +3,7 @@
 #define HOW 2
 
 Accepter::Accepter(const std::string &port)
-    : skt_aceptator(port.c_str()), clients() {}
+    : skt_aceptator(port.c_str()), clients(), gamesMonitor() {}
 
 void Accepter::run() {
   try {
@@ -29,9 +29,13 @@ void Accepter::checkForDisconnected() {
 
 void Accepter::accept() {
   Socket peer = this->skt_aceptator.accept();
-  ClientHandler *handler = new ClientHandler(std::move(peer));
+  ClientHandler *handler =
+      new ClientHandler(std::move(peer), this->gamesMonitor);
   clients.push_back(handler);
-  handler->start();
+  if (!handler->start()) {
+    handler->stop();
+    delete handler;
+  }
 }
 
 void Accepter::kill() {

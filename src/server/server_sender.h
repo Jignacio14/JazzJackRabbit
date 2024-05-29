@@ -6,10 +6,12 @@
 
 class Sender : public Thread {
 private:
-  const ServerProtocol &servprot;
+  ServerProtocol &servprot;
+  void sendGameInfo();
+  void runSenderLoop();
 
 public:
-  explicit Sender(const ServerProtocol &servprot);
+  explicit Sender(ServerProtocol &servprot);
 
   void run() override;
 

@@ -2,12 +2,12 @@
 #define SERVER
 
 #include "../common/thread.h"
-#include "server_acceptator.h"
+#include "server_accepter.h"
 #include <iostream>
 
 class Server : public Thread {
 private:
-  Acceptator acceptator;
+  Accepter acceptator;
 
 public:
   explicit Server(const std::string &port);
