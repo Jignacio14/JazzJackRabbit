@@ -1,4 +1,5 @@
 #include "./ui/startup_screen.h"
+#include "lobby.h"
 #include "renderer.h"
 #include <cstdint>
 #include <iostream>
@@ -13,6 +14,7 @@ const static char SPAZ_SELECTED = 'S';
 const static char LORI_SELECTED = 'L';
 
 int main(int argc, char *argv[]) {
+
   const uint8_t EXPECTED_ARGUMENTS = 1;
 
   if (argc != EXPECTED_ARGUMENTS) {
@@ -61,6 +63,9 @@ int main(int argc, char *argv[]) {
   std::cout << game->getOwnerName() << "|" << game->getCurrentNumberOfPlayers()
             << "/" << game->getMaxNumberOfPlayers() << "\n";
   std::cout << hostname << ":" << port << std::endl;
+
+  Lobby lobby(hostname, port);
+  GameInfoDto game = lobby.get_games();
 
   int client_id;
   Renderer renderer(client_id, hostname, port);
