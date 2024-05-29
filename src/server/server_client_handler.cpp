@@ -12,11 +12,9 @@ bool ClientHandler::start() {
   // Agregar aca la logica del registro, que no sea de los hilos !!! eso es una
   // tarea secuencial !!!!!!!!!
   std::string game_name = this->loginSetUp();
-
   if (!this->can_run) {
     return false;
   }
-
   this->monitor.registerUser(game_name, this->sender_queue);
   this->receiver.start();
   this->sender.start();

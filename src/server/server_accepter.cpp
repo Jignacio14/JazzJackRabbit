@@ -31,11 +31,11 @@ void Accepter::accept() {
   Socket peer = this->skt_aceptator.accept();
   ClientHandler *handler =
       new ClientHandler(std::move(peer), this->gamesMonitor);
-  clients.push_back(handler);
   if (!handler->start()) {
     handler->stop();
     delete handler;
   }
+  clients.push_back(handler);
 }
 
 void Accepter::kill() {
