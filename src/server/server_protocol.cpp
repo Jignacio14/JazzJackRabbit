@@ -43,6 +43,20 @@ void ServerProtocol::sendGameStatus(const PlayerStatusDTO &dto) {
   }
 }
 
+const PlayerStatusDTO ServerProtocol::getGameStatus() {
+  PlayerStatusDTO dto;
+  /// TO-DO : Aca abria que agregar los mapeos para que esto no pase !!!
+  /// Siempre se recibe algo importante y si falla la comunicacion que tire un
+  /// codigo dentro del dto de manera que no rompo ?? Preguntar
+  try {
+    skt.recvall_bytewise(&dto, sizeof(dto), &was_close);
+    return dto;
+  } catch (const LibError &skt_err) {
+    std::cout << "Some error ocurred while trying to communicate" << std::endl;
+    return dto;
+  }
+}
+
 void ServerProtocol::sendGamesCount(const uint16_t &games_count) {
   /// 1. Obtenego la cantidad de juegos dispobibles en las partidas registradas
   /// y lo envio

@@ -13,17 +13,18 @@ private:
   Sender sender;
   Receiver receiver;
   ServerProtocol servprot;
-  Queue<std::string> sender_queue;
+  Queue<PlayerStatusDTO> sender_queue;
   GamesMonitor &monitor;
-  // bool can_run;
+  // cppcheck-suppress unusedStructMember
+  bool can_run;
 
-  // std::string loginSetUp();
+  std::string loginSetUp();
 
 public:
   explicit ClientHandler(Socket skt, GamesMonitor &monitor_ref);
 
   /// Starts running both sender and receiver threads
-  void start();
+  bool start();
 
   const bool running();
 
