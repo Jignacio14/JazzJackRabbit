@@ -3,7 +3,7 @@
 #include <netinet/in.h>
 #include <string>
 #include <sys/types.h>
-#include <vector>
+
 Serializer::Serializer() {}
 
 GameInfoDto Serializer::serializeGameInfo(const std::string &name,

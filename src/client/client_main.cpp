@@ -29,11 +29,12 @@ int main(int argc, char *argv[]) {
   }
 
   std::string hostname("");
+  // cppcheck-suppress unreadVariable
   uint32_t port(0);
   std::string username("");
   char userCharacter = CHARACTER_NOT_SELECTED;
-  GameConfigs game;
-  GameConfigs *gamePtr = &game;
+  GameConfigs gameConfig;
+  GameConfigs *gamePtr = &gameConfig;
 
   StartupScreen startupScreen(argc, argv, hostname, port, username, gamePtr,
                               userCharacter);
@@ -47,7 +48,7 @@ int main(int argc, char *argv[]) {
     return EXIT_ERROR_CODE;
   }
 
-  if (game.getOwnerName().empty()) {
+  if (gameConfig.getOwnerName().empty()) {
     const std::string errorMessage = "After closing StartupScreen no game "
                                      "configs loaded correctly. Shutting down.";
     std::cerr << errorMessage << std::endl;
@@ -63,18 +64,19 @@ int main(int argc, char *argv[]) {
 
   std::cout << username << "\n";
   std::cout << userCharacter << "\n";
-  std::cout << game.getOwnerName() << "|" << game.getCurrentNumberOfPlayers()
-            << "/" << game.getMaxNumberOfPlayers() << "\n";
+  std::cout << gameConfig.getOwnerName() << "|"
+            << gameConfig.getCurrentNumberOfPlayers() << "/"
+            << gameConfig.getMaxNumberOfPlayers() << "\n";
   std::cout << hostname << ":" << port << std::endl;
 
   Lobby lobby(hostname.c_str(), std::to_string(port).c_str());
-  std::vector<GameInfoDto> game = lobby.get_games();
+  std::vector<GameInfoDto> games = lobby.get_games();
 
   std::vector<char> gamename(10); // hardcodeado
   lobby.send_selected_game(gamename);
 
   Socket skt = lobby.transfer_socket();
-  int client_id;
+  int client_id = 1;
   Renderer renderer(client_id, skt);
   renderer.run();
 

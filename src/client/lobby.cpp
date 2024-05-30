@@ -2,8 +2,8 @@
 #include "lobby.h"
 
 Lobby::Lobby(const char *hostname, const char *port)
-    : skt(hostname, port), was_closed(false), receiver(&skt, &was_closed),
-      sender(&skt, &was_closed) {}
+    : skt(hostname, port), was_closed(false), receiver(skt, was_closed),
+      sender(skt, was_closed) {}
 
 std::vector<GameInfoDto> Lobby::get_games() {
   std::vector<GameInfoDto> vect;
