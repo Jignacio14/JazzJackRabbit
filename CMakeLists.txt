@@ -49,8 +49,10 @@ file(GLOB_RECURSE CLIENT_SOURCES CONFIGURE_DEPENDS
     "${PROJECT_SOURCE_DIR}/src/client/ui/*.h"
     "${PROJECT_SOURCE_DIR}/src/client/ui/*.ui"
     "${PROJECT_SOURCE_DIR}/src/client/ui/*.qrc"
-    "${PROJECT_SOURCE_DIR}/src/client/sprites/*.yaml"
-    "${PROJECT_SOURCE_DIR}/src/client/sprites/*.png"
+    "${PROJECT_SOURCE_DIR}/src/client/sprites/"
+    "${PROJECT_SOURCE_DIR}/src/client/graphics/"
+    "${PROJECT_SOURCE_DIR}/src/client/graphics/*.h"
+    "${PROJECT_SOURCE_DIR}/src/client/graphics/*.cpp"
 )
 
 # Get all sources from the corresponding directories to build the server executable

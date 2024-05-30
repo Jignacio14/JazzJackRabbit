@@ -1,0 +1,84 @@
+{"frames": [
+
+{
+	"filename": "frames/jumping_forward_0.png",
+	"frame": {"x":0,"y":0,"w":38,"h":39},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":39},
+	"sourceSize": {"w":38,"h":39}
+},
+{
+	"filename": "frames/jumping_forward_1.png",
+	"frame": {"x":40,"y":0,"w":32,"h":40},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":40},
+	"sourceSize": {"w":32,"h":40}
+},
+{
+	"filename": "frames/jumping_forward_2.png",
+	"frame": {"x":80,"y":0,"w":36,"h":40},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":40},
+	"sourceSize": {"w":36,"h":40}
+},
+{
+	"filename": "frames/jumping_forward_3.png",
+	"frame": {"x":120,"y":0,"w":36,"h":40},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":40},
+	"sourceSize": {"w":36,"h":40}
+},
+{
+	"filename": "frames/jumping_forward_4.png",
+	"frame": {"x":160,"y":0,"w":34,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":43},
+	"sourceSize": {"w":34,"h":43}
+},
+{
+	"filename": "frames/jumping_forward_5.png",
+	"frame": {"x":200,"y":0,"w":36,"h":42},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":42},
+	"sourceSize": {"w":36,"h":42}
+},
+{
+	"filename": "frames/jumping_forward_6.png",
+	"frame": {"x":240,"y":0,"w":37,"h":40},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":37,"h":40},
+	"sourceSize": {"w":37,"h":40}
+},
+{
+	"filename": "frames/jumping_forward_7.png",
+	"frame": {"x":280,"y":0,"w":40,"h":37},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":37},
+	"sourceSize": {"w":40,"h":37}
+},
+{
+	"filename": "frames/jumping_forward_8.png",
+	"frame": {"x":320,"y":0,"w":39,"h":41},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":39,"h":41},
+	"sourceSize": {"w":39,"h":41}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spritesheet.png",
+	"format": "RGB888",
+	"size": {"w":360,"h":43},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:833ebd597f7fb68814d228b9e6029c0c:a9cad055ed80f43df533520bdf156906:8ec62f1fee1d06840401aebe0be01f82$"
+}
+}

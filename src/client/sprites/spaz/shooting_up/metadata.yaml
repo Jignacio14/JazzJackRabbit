@@ -1,0 +1,44 @@
+frames:
+  - filename: frames/shooting_up_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 35
+      h: 58
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 35
+      h: 58
+    sourceSize:
+      w: 35
+      h: 58
+  - filename: frames/shooting_up_1.png
+    frame:
+      x: 36
+      'y': 0
+      w: 36
+      h: 45
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 36
+      h: 45
+    sourceSize:
+      w: 36
+      h: 45
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 72
+    h: 58
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:3ca850d47b71aae3df8fd1299481fbd3:5f5336a3470341496711fff80d3c8b7e:8ec62f1fee1d06840401aebe0be01f82$

@@ -1,0 +1,60 @@
+frames:
+  - filename: frames/side_kick_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 53
+      h: 37
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 53
+      h: 37
+    sourceSize:
+      w: 53
+      h: 37
+  - filename: frames/side_kick_1.png
+    frame:
+      x: 53
+      'y': 0
+      w: 53
+      h: 37
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 53
+      h: 37
+    sourceSize:
+      w: 53
+      h: 37
+  - filename: frames/side_kick_2.png
+    frame:
+      x: 106
+      'y': 0
+      w: 53
+      h: 37
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 53
+      h: 37
+    sourceSize:
+      w: 53
+      h: 37
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 159
+    h: 37
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:8668c5e5e54b9a899e6c6070530eed1c:7300499998840a22ba227a448266c5f4:8ec62f1fee1d06840401aebe0be01f82$

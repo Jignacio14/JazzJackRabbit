@@ -19,7 +19,7 @@ std::vector<int> x;
 std::vector<int> y;
 std::vector<int> w;
 std::vector<int> h;
-YAML::Node test = YAML::LoadFile("src/client/sprites/test.yaml");
+YAML::Node test = YAML::LoadFile("src/client/sprites/jazz/death/metadata.yaml");
 const YAML::Node &frames = test["frames"];
 int run_size = frames.size();
 
@@ -46,26 +46,24 @@ void a() {
   initVectors();
   // Uint32 colorKey = (44 << 16) | (102 << 8) | 150;
   //  Load sprites image as a new texture
-  SDL2pp::Surface ss("src/client/sprites/jazz/idle1/composed.png");
+  SDL2pp::Surface ss("src/client/sprites/jazz/death/spritesheet.png");
   Uint32 colorKey = SDL_MapRGB(ss.Get()->format, 44, 102, 150);
-  SDL2pp::Texture sprites(
-      renderer, SDL2pp::Surface("src/client/sprites/jazz/idle1/composed.png")
-                    .SetColorKey(true, colorKey));
+  SDL2pp::Texture sprites(renderer, ss.SetColorKey(true, colorKey));
 
   // Enable alpha blending for the sprites
   sprites.SetBlendMode(SDL_BLENDMODE_BLEND); //.SetColorMod(44, 102, 150);
 
   // Game state
   int run_phase = -1;   // run animation phase
-  float position = 0.0; // player position
+  float position = 400; // 0.0; // player position
 
-  unsigned int prev_ticks = SDL_GetTicks();
+  // unsigned int prev_ticks = SDL_GetTicks();
   while (true) {
     // Timing: calculate difference between this and previous frame
     // in milliseconds
     unsigned int frame_ticks = SDL_GetTicks();
-    unsigned int frame_delta = frame_ticks - prev_ticks;
-    prev_ticks = frame_ticks;
+    // unsigned int frame_delta = frame_ticks - prev_ticks;
+    // prev_ticks = frame_ticks;
 
     // Event processing:
     // - If window is closed, or Q or Escape buttons are pressed,
@@ -85,7 +83,7 @@ void a() {
 
     // Update game state for this frame:
     // if character is runnung, move it to the right
-    position += frame_delta * 0.2;
+    // position += frame_delta * 0.2;
     run_phase = (frame_ticks / 100) % run_size;
 
     // If player passes past the right side of the window, wrap him
@@ -128,7 +126,7 @@ int main(int argc, char *argv[]) {
     return EXIT_ERROR_CODE;
   }
 
-  /*std::string hostname("");
+  std::string hostname("");
   uint32_t port(0);
   std::string username("");
   char userCharacter = CHARACTER_NOT_SELECTED;
@@ -167,13 +165,9 @@ int main(int argc, char *argv[]) {
             << "/" << game->getMaxNumberOfPlayers() << "\n";
   std::cout << hostname << ":" << port << std::endl;
 
-  int client_id;
-  Renderer renderer(client_id, hostname, port);
+  int client_id = 0;
+  Renderer renderer(client_id, hostname.c_str(), (char *)&port);
   renderer.run();
 
-  */
-
-  a();
-
-  return 0; // exitCode;
+  return exitCode;
 }
