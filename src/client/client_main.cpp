@@ -68,7 +68,7 @@ int main(int argc, char *argv[]) {
   std::cout << hostname << ":" << port << std::endl;
 
   Lobby lobby(hostname.c_str(), std::to_string(port).c_str());
-  GameInfoDto game = lobby.get_games();
+  std::vector<GameInfoDto> game = lobby.get_games();
 
   std::vector<char> gamename(10); // hardcodeado
   lobby.send_selected_game(gamename);
