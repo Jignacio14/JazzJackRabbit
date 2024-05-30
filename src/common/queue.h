@@ -127,8 +127,30 @@ public:
     this->is_not_empty.notify_all();
   }
 
-  Queue(Queue &&);
-  Queue &operator=(Queue &&);
+  // Queue(Queue &&);
+  // Queue &operator=(Queue &&);
+
+  // Constructor de movimiento
+  Queue(Queue &&other) noexcept
+      : _queue(std::move(other._queue)), max_size(other.max_size),
+        closed(other.closed) {
+    // Reset the state of the moved-from object
+    other.closed = false;
+  }
+
+  // Operador de asignación por movimiento
+  Queue &operator=(Queue &&other) noexcept {
+    if (this != &other) {
+      std::unique_lock<std::mutex> lock(this->mutex);
+      std::unique_lock<std::mutex> other_lock(other.mutex);
+
+      _queue = std::move(other._queue);
+      // No podemos cambiar max_size ya que es const.
+      closed = other.closed;
+      other.closed = false;
+    }
+    return *this;
+  }
 
 private:
   Queue(const Queue &) = delete;

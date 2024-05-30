@@ -11,11 +11,11 @@
 class ClientHandler {
 private:
   ServerProtocol servprot;
-  Receiver receiver;
-  Sender sender;
-  Queue<PlayerStatusDTO> sender_queue;
-  Queue<PlayerStatusDTO> &receiver_queue;
   GamesMonitor &monitor;
+  Queue<PlayerStatusDTO> &receiver_queue;
+  Queue<PlayerStatusDTO> sender_queue;
+  Sender sender;
+  Receiver receiver;
 
 public:
   explicit ClientHandler(Queue<PlayerStatusDTO> sender_queue,

@@ -23,7 +23,7 @@ public:
   void start();
   const u_int16_t getGamePlayers();
   Queue<PlayerStatusDTO> &getReceiverQueue();
-  void ereasedPlayer(Queue<PlayerStatusDTO> game_queue);
+  void ereasedPlayer(const Queue<PlayerStatusDTO> &game_queue);
   void killGame();
 };
 
