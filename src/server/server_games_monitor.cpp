@@ -1,4 +1,4 @@
-#include "server_games_monitor.h"
+#include "./server_games_monitor.h"
 #include "server_game_wrapper.h"
 #include <string>
 
@@ -29,3 +29,5 @@ void GamesMonitor::registerPlayer(GameWrapper &game,
                                   const Queue<PlayerStatusDTO> &queue) {}
 
 void GamesMonitor::startNewGame(const Queue<PlayerStatusDTO> &queue) {}
+
+GamesMonitor::~GamesMonitor() {}

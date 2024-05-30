@@ -59,7 +59,7 @@ private:
   std::string &hostname;
   uint32_t &port;
   std::string &username;
-  GameConfigs **finalGameConfigs;
+  GameConfigs *finalGameConfigs;
   std::string gameOwnerName;
   uint32_t gameDuration;
   uint32_t maxPlayers;
@@ -106,7 +106,7 @@ private:
 
 public:
   MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
-             std::string &username, GameConfigs **game, char &userCharacter);
+             std::string &username, GameConfigs *game, char &userCharacter);
 
   ~MainWindow();
 };

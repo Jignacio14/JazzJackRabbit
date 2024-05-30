@@ -1,5 +1,5 @@
-#include "server_sender.h"
-#include "server_protocol.h"
+#include "./server_sender.h"
+#include "./server_protocol.h"
 
 Sender::Sender(ServerProtocol &servprot) : servprot(servprot) {}
 
@@ -19,3 +19,5 @@ void Sender::runSenderLoop() {
 }
 
 void Sender::kill() { this->_is_alive = false; }
+
+Sender::~Sender() {}

@@ -2,7 +2,7 @@
 #define SENDER
 
 #include "../common/thread.h"
-#include "server_protocol.h"
+#include "./server_protocol.h"
 
 class Sender : public Thread {
 private:

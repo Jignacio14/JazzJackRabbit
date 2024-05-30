@@ -252,8 +252,8 @@ void MainWindow::startGame() {
       QString::fromStdString(remainingPlayers));
 
   *this->finalGameConfigs =
-      new GameConfigs(this->gameOwnerName, this->maxPlayers,
-                      this->currentPlayers, this->gameDuration);
+      GameConfigs(this->gameOwnerName, this->maxPlayers, this->currentPlayers,
+                  this->gameDuration);
   std::cout << "Game starting!"
             << "\n";
   this->close();

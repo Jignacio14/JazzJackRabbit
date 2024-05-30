@@ -1,4 +1,4 @@
-#include "server_accepter.h"
+#include "./server_accepter.h"
 
 #define HOW 2
 
@@ -51,3 +51,5 @@ void Accepter::killAll() {
     delete client;
   }
 }
+
+Accepter::~Accepter() {}

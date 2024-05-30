@@ -2,7 +2,7 @@
 #define RECEIVER
 
 #include "../common/thread.h"
-#include "server_protocol.h"
+#include "./server_protocol.h"
 
 class Receiver : public Thread {
 private:
