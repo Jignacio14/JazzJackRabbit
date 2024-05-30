@@ -6,7 +6,7 @@ Lobby::Lobby(const char *hostname, const char *port)
 
 std::vector<GameInfoDto> Lobby::get_games() {
   std::vector<GameInfoDto> vect;
-  uint8_t number_of_games = protocol.receive_number_of_games();
+  uint8_t number_of_games = protocol.receive_header();
   for (int i = 0; i < number_of_games; ++i) {
     GameInfoDto game = protocol.receive_game();
     vect.push_back(game);

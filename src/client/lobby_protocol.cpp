@@ -3,10 +3,10 @@
 
 LobbyProtocol::LobbyProtocol(Socket &a_skt) : skt(a_skt), was_closed(false) {}
 
-uint8_t LobbyProtocol::receive_number_of_games() {
-  uint8_t number_of_games;
-  skt.recvall_bytewise(&number_of_games, sizeof(uint8_t), &was_closed);
-  return number_of_games;
+uint8_t LobbyProtocol::receive_header() {
+  uint8_t header;
+  skt.recvall_bytewise(&header, sizeof(uint8_t), &was_closed);
+  return header;
 }
 
 GameInfoDto LobbyProtocol::receive_game() {
@@ -20,4 +20,15 @@ void LobbyProtocol::send_selected_game(const std::vector<char> &gamename) {
   uint8_t length = gamename.size();
   skt.sendall_bytewise(&length, sizeof(uint8_t), &was_closed);
   skt.sendall_bytewise(gamename.data(), gamename.size(), &was_closed);
+}
+
+bool LobbyProtocol::wait_confirmation() {
+  uint8_t len = receive_header();
+  std::vector<char> players;
+  for (int i = 0; i < len; ++i) {
+    char actual;
+    skt.recvall_bytewise(&actual, sizeof(char), &was_closed);
+    players.push_back(actual);
+  }
+  return true;
 }
