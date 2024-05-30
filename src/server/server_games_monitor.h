@@ -3,7 +3,7 @@
 
 #include "../common/player_status_DTO.h"
 #include "../common/queue.h"
-#include "server_game_wrapper.h"
+#include "./server_game_wrapper.h"
 #include <cstdint>
 #include <mutex>
 #include <string>

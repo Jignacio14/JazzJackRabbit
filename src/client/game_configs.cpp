@@ -6,6 +6,10 @@ GameConfigs::GameConfigs(std::string ownerName, uint32_t maxNumberOfPlayers,
       currentNumberOfPlayers(currentNumberOfPlayers),
       gameDuration(gameDuration) {}
 
+GameConfigs::GameConfigs()
+    : ownerName(""), maxNumberOfPlayers(0), currentNumberOfPlayers(0),
+      gameDuration(0) {}
+
 GameConfigs::GameConfigs(const GameConfigs &other)
     : ownerName(other.ownerName), maxNumberOfPlayers(other.maxNumberOfPlayers),
       currentNumberOfPlayers(other.currentNumberOfPlayers),

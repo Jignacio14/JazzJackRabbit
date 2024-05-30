@@ -16,6 +16,7 @@ private:
 public:
   explicit Registrator(Socket skt, GamesMonitor &monitor_ref);
   ClientHandler *createClientHandler();
+  /// cppcheck-suppress syntaxError
 };
 
 #endif

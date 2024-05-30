@@ -1,0 +1,124 @@
+frames:
+  - filename: frames/uppercut_transition_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 55
+      h: 27
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 55
+      h: 27
+    sourceSize:
+      w: 55
+      h: 27
+  - filename: frames/uppercut_transition_1.png
+    frame:
+      x: 55
+      'y': 0
+      w: 51
+      h: 38
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 51
+      h: 38
+    sourceSize:
+      w: 51
+      h: 38
+  - filename: frames/uppercut_transition_2.png
+    frame:
+      x: 110
+      'y': 0
+      w: 42
+      h: 41
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 42
+      h: 41
+    sourceSize:
+      w: 42
+      h: 41
+  - filename: frames/uppercut_transition_3.png
+    frame:
+      x: 165
+      'y': 0
+      w: 38
+      h: 46
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 38
+      h: 46
+    sourceSize:
+      w: 38
+      h: 46
+  - filename: frames/uppercut_transition_4.png
+    frame:
+      x: 220
+      'y': 0
+      w: 33
+      h: 47
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 33
+      h: 47
+    sourceSize:
+      w: 33
+      h: 47
+  - filename: frames/uppercut_transition_5.png
+    frame:
+      x: 275
+      'y': 0
+      w: 29
+      h: 46
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 29
+      h: 46
+    sourceSize:
+      w: 29
+      h: 46
+  - filename: frames/uppercut_transition_6.png
+    frame:
+      x: 330
+      'y': 0
+      w: 24
+      h: 51
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 24
+      h: 51
+    sourceSize:
+      w: 24
+      h: 51
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 385
+    h: 51
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:5bf8d4a9bd420ff93df2c81120a6ac41:4b102621a6c1deab304cd6b7d5a5cc92:8ec62f1fee1d06840401aebe0be01f82$

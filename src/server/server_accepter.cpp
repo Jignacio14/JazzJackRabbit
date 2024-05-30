@@ -52,3 +52,5 @@ void Accepter::killAll() {
     delete client;
   }
 }
+
+Accepter::~Accepter() {}

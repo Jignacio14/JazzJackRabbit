@@ -1,0 +1,204 @@
+frames:
+  - filename: frames/intoxicated_walking_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 32
+      h: 45
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 32
+      h: 45
+    sourceSize:
+      w: 32
+      h: 45
+  - filename: frames/intoxicated_walking_1.png
+    frame:
+      x: 41
+      'y': 0
+      w: 35
+      h: 41
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 35
+      h: 41
+    sourceSize:
+      w: 35
+      h: 41
+  - filename: frames/intoxicated_walking_2.png
+    frame:
+      x: 82
+      'y': 0
+      w: 32
+      h: 43
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 32
+      h: 43
+    sourceSize:
+      w: 32
+      h: 43
+  - filename: frames/intoxicated_walking_3.png
+    frame:
+      x: 123
+      'y': 0
+      w: 34
+      h: 48
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 34
+      h: 48
+    sourceSize:
+      w: 34
+      h: 48
+  - filename: frames/intoxicated_walking_4.png
+    frame:
+      x: 164
+      'y': 0
+      w: 38
+      h: 47
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 38
+      h: 47
+    sourceSize:
+      w: 38
+      h: 47
+  - filename: frames/intoxicated_walking_5.png
+    frame:
+      x: 205
+      'y': 0
+      w: 34
+      h: 47
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 34
+      h: 47
+    sourceSize:
+      w: 34
+      h: 47
+  - filename: frames/intoxicated_walking_6.png
+    frame:
+      x: 246
+      'y': 0
+      w: 37
+      h: 46
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 37
+      h: 46
+    sourceSize:
+      w: 37
+      h: 46
+  - filename: frames/intoxicated_walking_7.png
+    frame:
+      x: 287
+      'y': 0
+      w: 41
+      h: 43
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 41
+      h: 43
+    sourceSize:
+      w: 41
+      h: 43
+  - filename: frames/intoxicated_walking_8.png
+    frame:
+      x: 328
+      'y': 0
+      w: 39
+      h: 44
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 39
+      h: 44
+    sourceSize:
+      w: 39
+      h: 44
+  - filename: frames/intoxicated_walking_9.png
+    frame:
+      x: 369
+      'y': 0
+      w: 36
+      h: 46
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 36
+      h: 46
+    sourceSize:
+      w: 36
+      h: 46
+  - filename: frames/intoxicated_walking_10.png
+    frame:
+      x: 410
+      'y': 0
+      w: 37
+      h: 50
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 37
+      h: 50
+    sourceSize:
+      w: 37
+      h: 50
+  - filename: frames/intoxicated_walking_11.png
+    frame:
+      x: 451
+      'y': 0
+      w: 34
+      h: 47
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 34
+      h: 47
+    sourceSize:
+      w: 34
+      h: 47
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 492
+    h: 50
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:c23ce2de8d8754062d869deba6526e11:6cb390d7fcf0088ed5f06fdea6eab158:8ec62f1fee1d06840401aebe0be01f82$

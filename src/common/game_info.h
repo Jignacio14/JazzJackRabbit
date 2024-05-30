@@ -4,11 +4,13 @@
 #include <cstdint>
 #include <vector>
 
+#define MAX_LEN 30
+
 struct GameInfoDto {
   // cppcheck-suppress unusedStructMember
   uint16_t str_len;
   // cppcheck-suppress unusedStructMember
-  std::vector<char> game_name;
+  char game_name[MAX_LEN];
   // cppcheck-suppress unusedStructMember
   uint16_t player_count;
 } __attribute__((packed));

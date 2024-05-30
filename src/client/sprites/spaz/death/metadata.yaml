@@ -1,0 +1,252 @@
+frames:
+  - filename: frames/death_1_.png
+    frame:
+      x: 0
+      'y': 0
+      w: 49
+      h: 44
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 49
+      h: 44
+    sourceSize:
+      w: 49
+      h: 44
+  - filename: frames/death_2_.png
+    frame:
+      x: 87
+      'y': 0
+      w: 67
+      h: 57
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 67
+      h: 57
+    sourceSize:
+      w: 67
+      h: 57
+  - filename: frames/death_3_.png
+    frame:
+      x: 174
+      'y': 0
+      w: 84
+      h: 61
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 84
+      h: 61
+    sourceSize:
+      w: 84
+      h: 61
+  - filename: frames/death_4_.png
+    frame:
+      x: 261
+      'y': 0
+      w: 85
+      h: 59
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 85
+      h: 59
+    sourceSize:
+      w: 85
+      h: 59
+  - filename: frames/death_5_.png
+    frame:
+      x: 348
+      'y': 0
+      w: 77
+      h: 60
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 77
+      h: 60
+    sourceSize:
+      w: 77
+      h: 60
+  - filename: frames/death_6_.png
+    frame:
+      x: 435
+      'y': 0
+      w: 87
+      h: 48
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 87
+      h: 48
+    sourceSize:
+      w: 87
+      h: 48
+  - filename: frames/death_7_.png
+    frame:
+      x: 522
+      'y': 0
+      w: 21
+      h: 55
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 21
+      h: 55
+    sourceSize:
+      w: 21
+      h: 55
+  - filename: frames/death_8_.png
+    frame:
+      x: 609
+      'y': 0
+      w: 25
+      h: 65
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 25
+      h: 65
+    sourceSize:
+      w: 25
+      h: 65
+  - filename: frames/death_9_.png
+    frame:
+      x: 696
+      'y': 0
+      w: 33
+      h: 73
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 33
+      h: 73
+    sourceSize:
+      w: 33
+      h: 73
+  - filename: frames/death_10_.png
+    frame:
+      x: 783
+      'y': 0
+      w: 51
+      h: 81
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 51
+      h: 81
+    sourceSize:
+      w: 51
+      h: 81
+  - filename: frames/death_11_.png
+    frame:
+      x: 870
+      'y': 0
+      w: 53
+      h: 27
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 53
+      h: 27
+    sourceSize:
+      w: 53
+      h: 27
+  - filename: frames/death_12_.png
+    frame:
+      x: 957
+      'y': 0
+      w: 61
+      h: 28
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 61
+      h: 28
+    sourceSize:
+      w: 61
+      h: 28
+  - filename: frames/death_13_.png
+    frame:
+      x: 1044
+      'y': 0
+      w: 63
+      h: 31
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 63
+      h: 31
+    sourceSize:
+      w: 63
+      h: 31
+  - filename: frames/death_14_.png
+    frame:
+      x: 1131
+      'y': 0
+      w: 36
+      h: 18
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 36
+      h: 18
+    sourceSize:
+      w: 36
+      h: 18
+  - filename: frames/death_15_.png
+    frame:
+      x: 1218
+      'y': 0
+      w: 11
+      h: 11
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 11
+      h: 11
+    sourceSize:
+      w: 11
+      h: 11
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 1305
+    h: 81
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:259a242d7a3a645252b8778433504956:9b34f9ba937f2d751ae1afc8dbfb415d:8ec62f1fee1d06840401aebe0be01f82$

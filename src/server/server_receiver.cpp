@@ -1,5 +1,5 @@
-#include "server_receiver.h"
-#include "server_protocol.h"
+#include "./server_receiver.h"
+#include "./server_protocol.h"
 
 Receiver::Receiver(ServerProtocol &servprot,
                    Queue<PlayerStatusDTO> &receiver_queue)

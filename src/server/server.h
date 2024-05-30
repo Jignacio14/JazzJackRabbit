@@ -1,6 +1,5 @@
 #ifndef SERVER
 #define SERVER
-
 #include "../common/thread.h"
 #include "server_accepter.h"
 #include <iostream>
@@ -14,7 +13,9 @@ public:
   // Runs the server
   void run() override;
 
-  ~Server();
-};
+  ~Server() override;
 
+  void kill();
+  // cppcheck-suppress syntaxError
+};
 #endif

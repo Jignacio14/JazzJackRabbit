@@ -1,0 +1,140 @@
+frames:
+  - filename: frames/intoxicated_idle_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 40
+      h: 45
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 40
+      h: 45
+    sourceSize:
+      w: 40
+      h: 45
+  - filename: frames/intoxicated_idle_1.png
+    frame:
+      x: 42
+      'y': 0
+      w: 40
+      h: 46
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 40
+      h: 46
+    sourceSize:
+      w: 40
+      h: 46
+  - filename: frames/intoxicated_idle_2.png
+    frame:
+      x: 84
+      'y': 0
+      w: 41
+      h: 47
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 41
+      h: 47
+    sourceSize:
+      w: 41
+      h: 47
+  - filename: frames/intoxicated_idle_3.png
+    frame:
+      x: 126
+      'y': 0
+      w: 42
+      h: 47
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 42
+      h: 47
+    sourceSize:
+      w: 42
+      h: 47
+  - filename: frames/intoxicated_idle_4.png
+    frame:
+      x: 168
+      'y': 0
+      w: 40
+      h: 48
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 40
+      h: 48
+    sourceSize:
+      w: 40
+      h: 48
+  - filename: frames/intoxicated_idle_5.png
+    frame:
+      x: 210
+      'y': 0
+      w: 39
+      h: 47
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 39
+      h: 47
+    sourceSize:
+      w: 39
+      h: 47
+  - filename: frames/intoxicated_idle_6.png
+    frame:
+      x: 252
+      'y': 0
+      w: 42
+      h: 47
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 42
+      h: 47
+    sourceSize:
+      w: 42
+      h: 47
+  - filename: frames/intoxicated_idle_7.png
+    frame:
+      x: 294
+      'y': 0
+      w: 40
+      h: 46
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 40
+      h: 46
+    sourceSize:
+      w: 40
+      h: 46
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 336
+    h: 48
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:3dcfb8ff9cefe503e2a5f894987fa1a0:96a0b2e5f7c1e47d6f8bfd7d42de0930:8ec62f1fee1d06840401aebe0be01f82$

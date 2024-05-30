@@ -1,0 +1,76 @@
+frames:
+  - filename: frames/dashing_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 52
+      h: 35
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 52
+      h: 35
+    sourceSize:
+      w: 52
+      h: 35
+  - filename: frames/dashing_1.png
+    frame:
+      x: 52
+      'y': 0
+      w: 49
+      h: 37
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 49
+      h: 37
+    sourceSize:
+      w: 49
+      h: 37
+  - filename: frames/dashing_2.png
+    frame:
+      x: 104
+      'y': 0
+      w: 50
+      h: 34
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 50
+      h: 34
+    sourceSize:
+      w: 50
+      h: 34
+  - filename: frames/dashing_3.png
+    frame:
+      x: 156
+      'y': 0
+      w: 49
+      h: 36
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 49
+      h: 36
+    sourceSize:
+      w: 49
+      h: 36
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 208
+    h: 37
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:cb8b825ee917b4ebc066761d9fc94141:220c0c613ca72de036fc4cf675f1f01c:8ec62f1fee1d06840401aebe0be01f82$

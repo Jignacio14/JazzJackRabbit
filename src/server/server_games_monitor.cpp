@@ -1,4 +1,4 @@
-#include "server_games_monitor.h"
+#include "./server_games_monitor.h"
 #include "server_game_wrapper.h"
 #include <string>
 
@@ -24,6 +24,7 @@ const std::unordered_map<std::string, uint16_t> GamesMonitor::getGamesStatus() {
   return games_data;
 }
 
+// cppcheck-suppress constParameterReference
 void GamesMonitor::registerPlayer(GameWrapper &game,
                                   Queue<PlayerStatusDTO> &queue) {
   game.registerPlayer(queue);

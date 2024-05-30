@@ -3,7 +3,7 @@
 
 #include "../common/queue.h"
 #include "../common/thread.h"
-#include "server_protocol.h"
+#include "./server_protocol.h"
 
 class Receiver : public Thread {
 private:
@@ -15,7 +15,7 @@ public:
                     Queue<PlayerStatusDTO> &receiver_queue);
   void run() override;
   void kill();
-  ~Receiver();
+  ~Receiver() override;
 };
 
 #endif

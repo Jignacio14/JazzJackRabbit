@@ -1,7 +1,7 @@
-#include "server_client_handler.h"
-#include "server_games_monitor.h"
-#include "server_receiver.h"
-#include "server_sender.h"
+#include "./server_client_handler.h"
+#include "./server_games_monitor.h"
+#include "./server_receiver.h"
+#include "./server_sender.h"
 
 ClientHandler::ClientHandler(Queue<PlayerStatusDTO> sender_queue,
                              Queue<PlayerStatusDTO> &receiver_queue,

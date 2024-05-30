@@ -4,7 +4,7 @@
 #include "../common/player_status_DTO.h"
 #include "../common/queue.h"
 #include "../common/thread.h"
-#include "server_protocol.h"
+#include "./server_protocol.h"
 
 class Sender : public Thread {
 private:
@@ -20,7 +20,7 @@ public:
 
   void kill();
 
-  ~Sender();
+  ~Sender() override;
 };
 
 #endif
