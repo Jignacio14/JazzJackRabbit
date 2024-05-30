@@ -1,4 +1,4 @@
-#include "server_game_monitor.h"
+#include "./server_game_monitor.h"
 #include <mutex>
 
 GameMonitor::GameMonitor() : players_count(0) {}
@@ -30,3 +30,5 @@ void GameMonitor::ereasePlayer(const Queue<PlayerStatusDTO> &client) {
       });
   players_count--;
 }
+
+GameMonitor::~GameMonitor() {}

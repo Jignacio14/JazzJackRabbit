@@ -1,4 +1,5 @@
 #include "server_accepter.h"
+#include "server_client_registrator.h"
 
 #define HOW 2
 
@@ -29,13 +30,13 @@ void Accepter::checkForDisconnected() {
 
 void Accepter::accept() {
   Socket peer = this->skt_aceptator.accept();
-  ClientHandler *handler =
-      new ClientHandler(std::move(peer), this->gamesMonitor);
-  clients.push_back(handler);
-  if (!handler->start()) {
-    handler->stop();
-    delete handler;
+  Registrator registrator(std::move(peer), this->gamesMonitor);
+  ClientHandler *handler = registrator.createClientHandler();
+  if (handler == nullptr) {
+    return;
   }
+  clients.push_back(handler);
+  handler->start();
 }
 
 void Accepter::kill() {
@@ -51,3 +52,5 @@ void Accepter::killAll() {
     delete client;
   }
 }
+
+Accepter::~Accepter() {}

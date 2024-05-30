@@ -1,7 +1,9 @@
-#include "server_receiver.h"
-#include "server_protocol.h"
+#include "./server_receiver.h"
+#include "./server_protocol.h"
 
-Receiver::Receiver(const ServerProtocol &servprot) : servprot(servprot) {}
+Receiver::Receiver(ServerProtocol &servprot,
+                   Queue<PlayerStatusDTO> &receiver_queue)
+    : servprot(servprot), receiver_queue(receiver_queue) {}
 
 void Receiver::run() {
 

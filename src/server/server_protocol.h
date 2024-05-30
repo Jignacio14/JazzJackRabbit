@@ -5,7 +5,7 @@
 #include "../common/liberror.h"
 #include "../common/player_status_DTO.h"
 #include "../common/socket.h"
-#include "server_serializer.h"
+#include "./server_serializer.h"
 #include <cstdint>
 #include <iostream>
 #include <netinet/in.h>
@@ -36,7 +36,8 @@ public:
   void sendGameStatus(const PlayerStatusDTO &dto);
   const PlayerStatusDTO getGameStatus();
   void shutdown();
-
+  ServerProtocol(ServerProtocol &&);
+  ServerProtocol &operator=(ServerProtocol &&);
   ~ServerProtocol();
 };
 

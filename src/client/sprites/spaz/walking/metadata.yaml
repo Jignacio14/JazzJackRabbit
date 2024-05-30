@@ -1,0 +1,140 @@
+frames:
+  - filename: frames/walking_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 45
+      h: 37
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 45
+      h: 37
+    sourceSize:
+      w: 45
+      h: 37
+  - filename: frames/walking_1.png
+    frame:
+      x: 46
+      'y': 0
+      w: 46
+      h: 32
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 46
+      h: 32
+    sourceSize:
+      w: 46
+      h: 32
+  - filename: frames/walking_2.png
+    frame:
+      x: 92
+      'y': 0
+      w: 45
+      h: 40
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 45
+      h: 40
+    sourceSize:
+      w: 45
+      h: 40
+  - filename: frames/walking_3.png
+    frame:
+      x: 138
+      'y': 0
+      w: 45
+      h: 36
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 45
+      h: 36
+    sourceSize:
+      w: 45
+      h: 36
+  - filename: frames/walking_4.png
+    frame:
+      x: 184
+      'y': 0
+      w: 46
+      h: 38
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 46
+      h: 38
+    sourceSize:
+      w: 46
+      h: 38
+  - filename: frames/walking_5.png
+    frame:
+      x: 230
+      'y': 0
+      w: 45
+      h: 33
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 45
+      h: 33
+    sourceSize:
+      w: 45
+      h: 33
+  - filename: frames/walking_6.png
+    frame:
+      x: 276
+      'y': 0
+      w: 45
+      h: 38
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 45
+      h: 38
+    sourceSize:
+      w: 45
+      h: 38
+  - filename: frames/walking_7.png
+    frame:
+      x: 322
+      'y': 0
+      w: 46
+      h: 37
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 46
+      h: 37
+    sourceSize:
+      w: 46
+      h: 37
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 368
+    h: 40
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:479cab88d20cf6e20b4066ead70f7eeb:e398633faa6466f2f07c7920fbc30773:8ec62f1fee1d06840401aebe0be01f82$

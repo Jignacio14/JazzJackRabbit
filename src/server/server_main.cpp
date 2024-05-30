@@ -1,4 +1,4 @@
-#include "server.h"
+#include "./server.h"
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -10,9 +10,9 @@ int main(int argc, const char *argv[]) {
                 << "\nExiting..." << std::endl;
       return -1;
     }
-    std::string port = argv[1];
-    Server server(port);
-    server.run();
+    // std::string port = argv[1];
+    // Server server(port);
+    // server.run();
     return 0;
   } catch (const std::exception &exception) {
     std::cout << "An unexpected error has ocurred" << std::endl;

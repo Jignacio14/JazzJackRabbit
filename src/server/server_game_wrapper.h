@@ -3,25 +3,27 @@
 
 #include "../common/player_status_DTO.h"
 #include "../common/queue.h"
+#include "../engine/game.h"
 #include "server_game_monitor.h"
-// #include "server_games_monitor.h"
+
 #include <string>
 #include <sys/types.h>
 
 class GameWrapper {
 private:
   // cppcheck-suppress unusedStructMember
-  std::string game_name;
   GameMonitor monitor;
   Queue<PlayerStatusDTO> messages;
+  // Game game;
+  // bool died;
 
 public:
-  void registerPlayer();
+  explicit GameWrapper();
+  void registerPlayer(Queue<PlayerStatusDTO> &sender_queue);
   void start();
-  const std::string getGameName();
   const u_int16_t getGamePlayers();
-  const Queue<PlayerStatusDTO> &getReceiverQueue();
-  void ereasedPlayer(Queue<PlayerStatusDTO> game_queue);
+  Queue<PlayerStatusDTO> &getReceiverQueue();
+  void ereasedPlayer(const Queue<PlayerStatusDTO> &game_queue);
   void killGame();
 };
 

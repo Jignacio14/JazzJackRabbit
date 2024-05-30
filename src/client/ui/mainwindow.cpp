@@ -21,6 +21,7 @@ const static char SPAZ_MENU_ANIMATION_RESOURCE_PATH[] =
     ":/animations/assets/spaz_menu_animation.gif";
 const static char LORI_MENU_ANIMATION_RESOURCE_PATH[] =
     ":/animations/assets/lori_menu_animation.gif";
+const static int TIME_FOR_CHARACTER_ANIMATION_WAIT = 1000; // In ms
 
 const static uint32_t MAX_USERNAME_SIZE = 32;
 const static uint32_t MAX_PORT_NUMBER = 65535;
@@ -32,7 +33,7 @@ const static char SPAZ_SELECTED = 'S';
 const static char LORI_SELECTED = 'L';
 
 MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
-                       std::string &username, GameConfigs **game,
+                       std::string &username, GameConfigs *game,
                        char &userCharacter)
     : QMainWindow(parent), ui(new Ui::MainWindow), hostname(hostname),
       port(port), username(username), finalGameConfigs(game), gameOwnerName(""),
@@ -193,21 +194,27 @@ void MainWindow::on_chooseCharacterButton_released() {
 }
 
 void MainWindow::on_selectJazzButton_released() {
+  this->buttonClickSound.play();
   this->characterSelected = JAZZ_SELECTED;
   this->jazzAnimation.start();
-  QTimer::singleShot(1000, this, SLOT(startGame()));
+  QTimer::singleShot(TIME_FOR_CHARACTER_ANIMATION_WAIT, this,
+                     SLOT(startGame()));
 }
 
 void MainWindow::on_selectSpazButton_released() {
+  this->buttonClickSound.play();
   this->characterSelected = SPAZ_SELECTED;
   this->spazAnimation.start();
-  QTimer::singleShot(1000, this, SLOT(startGame()));
+  QTimer::singleShot(TIME_FOR_CHARACTER_ANIMATION_WAIT, this,
+                     SLOT(startGame()));
 }
 
 void MainWindow::on_selectLoriButton_released() {
+  this->buttonClickSound.play();
   this->characterSelected = LORI_SELECTED;
   this->loriAnimation.start();
-  QTimer::singleShot(1000, this, SLOT(startGame()));
+  QTimer::singleShot(TIME_FOR_CHARACTER_ANIMATION_WAIT, this,
+                     SLOT(startGame()));
 }
 
 void MainWindow::on_refreshGamesButton_released() {
@@ -245,8 +252,8 @@ void MainWindow::startGame() {
       QString::fromStdString(remainingPlayers));
 
   *this->finalGameConfigs =
-      new GameConfigs(this->gameOwnerName, this->maxPlayers,
-                      this->currentPlayers, this->gameDuration);
+      GameConfigs(this->gameOwnerName, this->maxPlayers, this->currentPlayers,
+                  this->gameDuration);
   std::cout << "Game starting!"
             << "\n";
   this->close();
@@ -471,8 +478,10 @@ QWidget *MainWindow::createGameItemWidget(const GameConfigs &game) {
   labelDuration->setStyleSheet(QString::fromStdString(labelStylesheet));
   labelPlayers->setStyleSheet(QString::fromStdString(labelStylesheet));
 
-  QObject::connect(button, &QPushButton::clicked,
-                   [=]() { this->joinGame(game); });
+  QObject::connect(button, &QPushButton::clicked, [=]() {
+    this->buttonClickSound.play();
+    this->joinGame(game);
+  });
 
   layout->addWidget(labelRoomName);
   layout->addWidget(labelDuration);

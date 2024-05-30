@@ -1,0 +1,76 @@
+frames:
+  - filename: frames/stop_shooting_forward_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 45
+      h: 43
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 45
+      h: 43
+    sourceSize:
+      w: 45
+      h: 43
+  - filename: frames/stop_shooting_forward_1.png
+    frame:
+      x: 45
+      'y': 0
+      w: 32
+      h: 41
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 32
+      h: 41
+    sourceSize:
+      w: 32
+      h: 41
+  - filename: frames/stop_shooting_forward_2.png
+    frame:
+      x: 90
+      'y': 0
+      w: 37
+      h: 40
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 37
+      h: 40
+    sourceSize:
+      w: 37
+      h: 40
+  - filename: frames/stop_shooting_forward_3.png
+    frame:
+      x: 135
+      'y': 0
+      w: 43
+      h: 42
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 43
+      h: 42
+    sourceSize:
+      w: 43
+      h: 42
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 180
+    h: 43
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:b3d76e6a85a23f04de09fd06443218e2:43ab0bd5f8fd4716464e5d5891a2c209:8ec62f1fee1d06840401aebe0be01f82$

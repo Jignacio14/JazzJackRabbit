@@ -19,7 +19,7 @@ public:
   Lobby(const char *hostname, const char *port);
 
   // Por ahora game info solamente es de 1 game
-  GameInfoDto get_games();
+  std::vector<GameInfoDto> get_games();
 
   /*
    * Sends the game match that the player chose.
