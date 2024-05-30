@@ -28,4 +28,12 @@ print_colored_message $YELLOW_BOLD "══ Executing apt update ══"
 
 sudo apt-get --yes install update
 
+print_colored_message $YELLOW_BOLD "══ Installing necessary apt packages for SDL2 ══"
+
+sudo apt-get --yes install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
+
+print_colored_message $YELLOW_BOLD "══ Executing apt update ══"
+
+sudo apt-get --yes install update
+
 print_colored_message $YELLOW_BOLD "══ Setup for libraries complete ══"

@@ -3,8 +3,8 @@
 
 #include "../common/socket.h"
 #include "../common/thread.h"
-#include "server_client_handler.h"
-#include "server_games_monitor.h"
+#include "./server_client_handler.h"
+#include "./server_games_monitor.h"
 #include <exception>
 #include <list>
 #include <string>
@@ -24,6 +24,7 @@ public:
   explicit Accepter(const std::string &port);
   void run() override;
   void kill();
-  ~Accepter();
+  ~Accepter() override;
+  // cppcheck-suppress syntaxError
 };
 #endif

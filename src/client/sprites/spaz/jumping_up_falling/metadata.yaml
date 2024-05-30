@@ -1,0 +1,60 @@
+frames:
+  - filename: frames/jumping_up_falling_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 49
+      h: 51
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 49
+      h: 51
+    sourceSize:
+      w: 49
+      h: 51
+  - filename: frames/jumping_up_falling_1.png
+    frame:
+      x: 49
+      'y': 0
+      w: 48
+      h: 51
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 48
+      h: 51
+    sourceSize:
+      w: 48
+      h: 51
+  - filename: frames/jumping_up_falling_2.png
+    frame:
+      x: 98
+      'y': 0
+      w: 48
+      h: 51
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 48
+      h: 51
+    sourceSize:
+      w: 48
+      h: 51
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 147
+    h: 51
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:53dcb04a8e6274b6ccf436077700bf29:95acbcbee31263a62cf69a7e668d8cc3:8ec62f1fee1d06840401aebe0be01f82$

@@ -1,0 +1,28 @@
+{"frames": [
+
+{
+	"filename": "frames/shooting_up_0.png",
+	"frame": {"x":0,"y":0,"w":37,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":37,"h":66},
+	"sourceSize": {"w":37,"h":66}
+},
+{
+	"filename": "frames/shooting_up_1.png",
+	"frame": {"x":37,"y":0,"w":37,"h":53},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":37,"h":53},
+	"sourceSize": {"w":37,"h":53}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spritesheet.png",
+	"format": "RGB888",
+	"size": {"w":74,"h":66},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:6f87330717af2411ac3ed3f7664729fb:1b8ca2c3d3a153e3e1a2a7c5ce902c89:8ec62f1fee1d06840401aebe0be01f82$"
+}
+}

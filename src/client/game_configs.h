@@ -16,6 +16,8 @@ private:
   uint32_t gameDuration;
 
 public:
+  explicit GameConfigs();
+
   GameConfigs(std::string ownerName, uint32_t maxNumberOfPlayers,
               uint32_t currentNumberOfPlayers, uint32_t gameDuration);
 

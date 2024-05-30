@@ -1,0 +1,36 @@
+{"frames": [
+
+{
+	"filename": "frames/jumping_up_0.png",
+	"frame": {"x":0,"y":0,"w":41,"h":46},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":41,"h":46},
+	"sourceSize": {"w":41,"h":46}
+},
+{
+	"filename": "frames/jumping_up_1.png",
+	"frame": {"x":41,"y":0,"w":39,"h":45},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":39,"h":45},
+	"sourceSize": {"w":39,"h":45}
+},
+{
+	"filename": "frames/jumping_up_2.png",
+	"frame": {"x":82,"y":0,"w":37,"h":45},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":37,"h":45},
+	"sourceSize": {"w":37,"h":45}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spritesheet.png",
+	"format": "RGB888",
+	"size": {"w":123,"h":46},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:705b2f7ac805a75d5c2d5999610dc38c:426454fd47e525ac59995666a365d726:8ec62f1fee1d06840401aebe0be01f82$"
+}
+}

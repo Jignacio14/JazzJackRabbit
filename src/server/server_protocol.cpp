@@ -1,4 +1,4 @@
-#include "server_protocol.h"
+#include "./server_protocol.h"
 #include <cstdint>
 #include <vector>
 
@@ -92,3 +92,9 @@ void ServerProtocol::shutdown() {
   this->skt.shutdown(HOW);
   this->skt.close();
 }
+
+ServerProtocol::ServerProtocol(ServerProtocol &&other)
+    : skt(std::move(other.skt)), was_close(other.was_close),
+      serializer(std::move(other.serializer)) {}
+
+ServerProtocol::~ServerProtocol() {}
