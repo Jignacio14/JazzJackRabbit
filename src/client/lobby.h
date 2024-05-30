@@ -2,23 +2,19 @@
 #ifndef JAZZJACKRABBIT_LOBBY_H
 #define JAZZJACKRABBIT_LOBBY_H
 
-#include "../common/socket.h"
-#include "lobby_receiver.h"
-#include "lobby_sender.h"
-#include <atomic>
+#include "lobby_protocol.h"
 
 class Lobby {
 private:
   Socket skt;
-  // cppcheck-suppress unusedStructMember
-  bool was_closed;
-  LobbyReceiver receiver;
-  LobbySender sender;
+  LobbyProtocol protocol;
 
 public:
   Lobby(const char *hostname, const char *port);
 
-  // Por ahora game info solamente es de 1 game
+  /*
+   * Returns all the games received from the server.
+   * */
   std::vector<GameInfoDto> get_games();
 
   /*
