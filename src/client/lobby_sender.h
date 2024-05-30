@@ -6,6 +6,7 @@
 #include "../common/thread.h"
 #include <atomic>
 #include <iostream>
+#include <vector>
 
 class LobbySender {
 
