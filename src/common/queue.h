@@ -127,6 +127,9 @@ public:
     this->is_not_empty.notify_all();
   }
 
+  Queue(Queue &&);
+  Queue &operator=(Queue &&);
+
 private:
   Queue(const Queue &) = delete;
   Queue &operator=(const Queue &) = delete;

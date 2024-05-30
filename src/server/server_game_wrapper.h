@@ -11,16 +11,16 @@
 class GameWrapper {
 private:
   // cppcheck-suppress unusedStructMember
-  std::string game_name;
   GameMonitor monitor;
   Queue<PlayerStatusDTO> messages;
+  // bool died;
 
 public:
-  void registerPlayer();
+  explicit GameWrapper();
+  void registerPlayer(Queue<PlayerStatusDTO> &sender_queue);
   void start();
-  const std::string getGameName();
   const u_int16_t getGamePlayers();
-  const Queue<PlayerStatusDTO> &getReceiverQueue();
+  Queue<PlayerStatusDTO> &getReceiverQueue();
   void ereasedPlayer(Queue<PlayerStatusDTO> game_queue);
   void killGame();
 };

@@ -3,33 +3,17 @@
 #include "server_receiver.h"
 #include "server_sender.h"
 
-ClientHandler::ClientHandler(Socket skt, GamesMonitor &monitor_ref)
-    : servprot(std::move(skt)), receiver(servprot), sender(servprot),
-      monitor(monitor_ref), can_run(true) {}
+ClientHandler::ClientHandler(Queue<PlayerStatusDTO> sender_queue,
+                             Queue<PlayerStatusDTO> &receiver_queue,
+                             ServerProtocol servprot, GamesMonitor &monitor_ref)
+    : servprot(std::move(servprot)), monitor(monitor_ref),
+      receiver_queue(receiver_queue), sender_queue(std::move(sender_queue)),
+      sender(this->servprot, this->sender_queue),
+      receiver(this->servprot, receiver_queue) {}
 
-bool ClientHandler::start() {
-  // TO-DO:
-  // Agregar aca la logica del registro, que no sea de los hilos !!! eso es una
-  // tarea secuencial !!!!!!!!!
-  std::string game_name = this->loginSetUp();
-  if (!this->can_run) {
-    return false;
-  }
-  this->monitor.registerUser(game_name, this->sender_queue);
+void ClientHandler::start() {
   this->receiver.start();
   this->sender.start();
-  return true;
-}
-
-std::string ClientHandler::loginSetUp() {
-  std::unordered_map<std::string, u_int16_t> games_state =
-      this->monitor.getGamesStatus();
-  this->can_run = this->servprot.sendGameInfo(games_state);
-  std::string game_name = this->servprot.getServerName();
-  if (game_name.empty()) {
-    this->can_run = false;
-  }
-  return game_name;
 }
 
 const bool ClientHandler::running() {
@@ -38,9 +22,6 @@ const bool ClientHandler::running() {
 
 void ClientHandler::stop() {
   this->servprot.shutdown();
-  if (!this->can_run) {
-    return;
-  }
   this->receiver.kill();
   this->receiver.join();
   this->sender.kill();

@@ -36,7 +36,8 @@ public:
   void sendGameStatus(const PlayerStatusDTO &dto);
   const PlayerStatusDTO getGameStatus();
   void shutdown();
-
+  ServerProtocol(ServerProtocol &&);
+  ServerProtocol &operator=(ServerProtocol &&);
   ~ServerProtocol();
 };
 

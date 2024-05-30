@@ -1,15 +1,18 @@
 #ifndef RECEIVER
 #define RECEIVER
 
+#include "../common/queue.h"
 #include "../common/thread.h"
 #include "server_protocol.h"
 
 class Receiver : public Thread {
 private:
-  const ServerProtocol &servprot;
+  ServerProtocol &servprot;
+  Queue<PlayerStatusDTO> &receiver_queue;
 
 public:
-  explicit Receiver(const ServerProtocol &servprot);
+  explicit Receiver(ServerProtocol &servprot,
+                    Queue<PlayerStatusDTO> &receiver_queue);
   void run() override;
   void kill();
   ~Receiver();

@@ -13,16 +13,17 @@ class GamesMonitor {
 private:
   std::mutex mtx;
   // cppcheck-suppress unusedStructMember
-  std::unordered_map<std::string, GameWrapper> game_tracker;
+  std::unordered_map<std::string, GameWrapper *> game_tracker;
 
-  void registerPlayer(GameWrapper &game, const Queue<PlayerStatusDTO> &queue);
-  void startNewGame(const Queue<PlayerStatusDTO> &queue);
+  void registerPlayer(GameWrapper &game, Queue<PlayerStatusDTO> &queue);
+  void startNewGame(const std::string &server_name,
+                    Queue<PlayerStatusDTO> &queue);
 
 public:
   explicit GamesMonitor();
 
   void registerUser(const std::string &server_name,
-                    const Queue<PlayerStatusDTO> &queue);
+                    Queue<PlayerStatusDTO> &queue);
 
   const std::unordered_map<std::string, uint16_t> getGamesStatus();
   // void registerGame(const std::string& server_name);
