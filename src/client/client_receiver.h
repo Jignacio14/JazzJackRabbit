@@ -21,6 +21,8 @@ public:
   ClientReceiver(std::atomic<bool> &keep_talking, ClientProtocol &protocol,
                  Queue<Snapshot> &queue);
   void run() override;
+
+  ~ClientReceiver() override;
 };
 
 #endif // JAZZJACKRABBIT_CLIENT_RECEIVER_H
