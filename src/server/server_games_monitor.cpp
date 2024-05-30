@@ -24,6 +24,7 @@ const std::unordered_map<std::string, uint16_t> GamesMonitor::getGamesStatus() {
   return games_data;
 }
 
+// cppcheck-suppress constParameterReference
 void GamesMonitor::registerPlayer(GameWrapper &game,
                                   const Queue<PlayerStatusDTO> &queue) {}
 

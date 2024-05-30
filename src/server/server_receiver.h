@@ -12,7 +12,7 @@ public:
   explicit Receiver(const ServerProtocol &servprot);
   void run() override;
   void kill();
-  ~Receiver();
+  ~Receiver() override;
 };
 
 #endif

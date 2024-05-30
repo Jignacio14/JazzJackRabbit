@@ -24,6 +24,6 @@ public:
   explicit Accepter(const std::string &port);
   void run() override;
   void kill();
-  ~Accepter();
+  ~Accepter() override;
 };
 #endif

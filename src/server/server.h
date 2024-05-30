@@ -14,7 +14,7 @@ public:
   // Runs the server
   void run() override;
 
-  ~Server();
+  ~Server() override;
 };
 
 #endif

@@ -17,7 +17,7 @@ public:
 
   void kill();
 
-  ~Sender();
+  ~Sender() override;
 };
 
 #endif
