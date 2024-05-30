@@ -1,5 +1,5 @@
 #include "server.h"
-#include "server_acceptator.h"
+#include "server_accepter.h"
 #define END_INPUT 'q'
 
 Server::Server(const std::string &port) : acceptator(port.c_str()) {}

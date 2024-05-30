@@ -3,8 +3,9 @@
 
 #include "../common/player_status_DTO.h"
 #include "../common/queue.h"
+#include "../engine/game.h"
 #include "server_game_monitor.h"
-// #include "server_games_monitor.h"
+
 #include <string>
 #include <sys/types.h>
 
@@ -13,6 +14,7 @@ private:
   // cppcheck-suppress unusedStructMember
   GameMonitor monitor;
   Queue<PlayerStatusDTO> messages;
+  // Game game;
   // bool died;
 
 public:
