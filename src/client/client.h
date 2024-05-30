@@ -21,7 +21,7 @@ private:
   Queue<Snapshot> receiver_queue;
 
 public:
-  Client(const char *hostname, const char *port, int id);
+  Client(Socket &&socket, int id);
 
   /*
    * Kills the client´s back-end, joining receiver and sender thread, and closes

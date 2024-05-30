@@ -28,7 +28,7 @@ private:
   DebugPanel debugPanel;
 
   // TEMPORARILY COMMENTED
-  // Client client;
+  Client client;
 
   /*
    * Returns current time in seconds since epoch.
@@ -42,7 +42,7 @@ private:
   void sleep(double timeToSleep);
 
 public:
-  Renderer(int id, const char *hostname, const char *port);
+  Renderer(int id, Socket &socket);
 
   /*
    * It executes the game logic repeatedly, keeping a constant time rate between

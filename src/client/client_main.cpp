@@ -1,4 +1,5 @@
 #include "./ui/startup_screen.h"
+#include "lobby.h"
 #include "renderer.h"
 #include <cstdint>
 #include <iostream>
@@ -116,6 +117,7 @@ void a() {
 }
 
 int main(int argc, char *argv[]) {
+
   const uint8_t EXPECTED_ARGUMENTS = 1;
 
   if (argc != EXPECTED_ARGUMENTS) {
@@ -165,8 +167,15 @@ int main(int argc, char *argv[]) {
             << "/" << game->getMaxNumberOfPlayers() << "\n";
   std::cout << hostname << ":" << port << std::endl;
 
-  int client_id = 0;
-  Renderer renderer(client_id, hostname.c_str(), (char *)&port);
+  Lobby lobby(hostname.c_str(), std::to_string(port).c_str());
+  GameInfoDto game = lobby.get_games();
+
+  std::vector<char> gamename(10); // hardcodeado
+  lobby.send_selected_game(gamename);
+
+  Socket skt = lobby.transfer_socket();
+  int client_id;
+  Renderer renderer(client_id, skt);
   renderer.run();
 
   return exitCode;

@@ -15,13 +15,12 @@ const static int SCREEN_SIZE_Y = 600;
 
 const static char WINDOW_NAME[] = "JazzJackRabbit 2";
 
-Renderer::Renderer(int id, const char *hostname, const char *port)
+Renderer::Renderer(int id, Socket &socket)
     : client_id(id), keep_running(true), rate(RATE), sdl(SDL_INIT_VIDEO),
       window(WINDOW_NAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
              SCREEN_SIZE_X, SCREEN_SIZE_Y, SDL_WINDOW_SHOWN),
       sdlRenderer(window, -1, SDL_RENDERER_ACCELERATED),
-      debugPanel(this->sdlRenderer) {
-} // client(hostname, port, id) {} TEMPORARILY COMMENTED
+      debugPanel(this->sdlRenderer), client(std::move(socket), id) {}
 
 void Renderer::addRenderable(Renderable *renderable) {
   this->renderables.push_back(renderable);
