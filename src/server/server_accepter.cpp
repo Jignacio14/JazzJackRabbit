@@ -32,6 +32,9 @@ void Accepter::accept() {
   Socket peer = this->skt_aceptator.accept();
   Registrator registrator(std::move(peer), this->gamesMonitor);
   ClientHandler *handler = registrator.createClientHandler();
+  if (handler == nullptr) {
+    return;
+  }
   clients.push_back(handler);
   handler->start();
 }
