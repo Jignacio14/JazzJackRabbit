@@ -1,7 +1,7 @@
 
 #include "lobby_protocol.h"
 
-LobbyProtocol::LobbyProtocol(Socket &a_skt) : skt(a_skt), was_closed(false) {}
+LobbyProtocol::LobbyProtocol(Socket &a_skt) : was_closed(false), skt(a_skt) {}
 
 uint8_t LobbyProtocol::receive_header() {
   uint8_t header;
@@ -22,7 +22,7 @@ void LobbyProtocol::send_selected_game(const std::vector<char> &gamename) {
   skt.sendall_bytewise(gamename.data(), gamename.size(), &was_closed);
 }
 
-bool LobbyProtocol::wait_confirmation() {
+bool LobbyProtocol::wait_game_start() {
   uint8_t len = receive_header();
   std::vector<char> players;
   for (int i = 0; i < len; ++i) {

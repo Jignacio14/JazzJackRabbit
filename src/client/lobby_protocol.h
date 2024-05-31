@@ -36,7 +36,7 @@ public:
   /*
    *
    * */
-  bool wait_confirmation();
+  bool wait_game_start();
 };
 
 #endif // JAZZJACKRABBIT_LOBBY_PROTOCOL_H

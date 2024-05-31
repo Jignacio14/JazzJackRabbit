@@ -26,6 +26,11 @@ public:
    * Moves socket ownership with move semantics.
    * */
   Socket transfer_socket();
+
+  /*
+   *
+   * */
+  bool wait_game_start();
 };
 
 #endif // JAZZJACKRABBIT_LOBBY_H

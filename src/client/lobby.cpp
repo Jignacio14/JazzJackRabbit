@@ -18,4 +18,6 @@ void Lobby::send_selected_game(const std::vector<char> &gamename) {
   protocol.send_selected_game(gamename);
 }
 
+bool Lobby::wait_game_start() { return protocol.wait_game_start(); }
+
 Socket Lobby::transfer_socket() { return std::move(skt); }
