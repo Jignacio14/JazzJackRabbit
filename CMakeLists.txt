@@ -57,10 +57,10 @@ file(GLOB_RECURSE CLIENT_SOURCES CONFIGURE_DEPENDS
 
 # Get all sources from the corresponding directories to build the server executable
 file(GLOB_RECURSE SERVER_SOURCES CONFIGURE_DEPENDS
-    #"${PROJECT_SOURCE_DIR}/src/server/*.h"
-    #"${PROJECT_SOURCE_DIR}/src/server/*.cpp"
-    #"${PROJECT_SOURCE_DIR}/src/engine/*.h"
-    #"${PROJECT_SOURCE_DIR}/src/engine/*.cpp"
+    "${PROJECT_SOURCE_DIR}/src/server/*.h"
+    "${PROJECT_SOURCE_DIR}/src/server/*.cpp"
+    "${PROJECT_SOURCE_DIR}/src/engine/*.h"
+    "${PROJECT_SOURCE_DIR}/src/engine/*.cpp"
     "${PROJECT_SOURCE_DIR}/src/server/placeholder.cpp"
 )
 

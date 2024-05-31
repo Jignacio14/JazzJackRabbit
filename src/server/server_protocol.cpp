@@ -75,6 +75,14 @@ const std::vector<char> ServerProtocol::getName(const uint8_t &lenght) {
   return vector;
 }
 
+uint8_t ServerProtocol::getLobbyOption() {
+  bool wasClose = this->getTemporalWasClose();
+  uint8_t option;
+  this->skt.recvall_bytewise(&option, sizeof(option), &wasClose);
+  this->throwIfClosed(wasClose);
+  return option;
+}
+
 const bool ServerProtocol::getTemporalWasClose() {
   return this->was_close.load();
 }

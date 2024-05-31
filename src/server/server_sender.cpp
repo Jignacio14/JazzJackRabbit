@@ -35,9 +35,10 @@ void Sender::setUpPlayerLoop() {
       std::string user_name = this->servprot.getUserLobbyString();
       if (server_name.empty() || user_name.empty()) {
         this->error = true;
-        return;
+        break;
       }
       // this->gamesMonitor.registerUser(server_name, user_name);
+
       break;
     }
 

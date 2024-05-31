@@ -12,7 +12,7 @@ int main(int argc, const char *argv[]) {
     }
     std::string port = argv[1];
     Server server(port);
-    server.run();
+    server.execute();
     return 0;
   } catch (const std::exception &exception) {
     std::cout << "An unexpected error has ocurred" << std::endl;

@@ -4,16 +4,16 @@
 #include "server_accepter.h"
 #include <iostream>
 
-class Server : public Thread {
+class Server {
 private:
   Accepter acceptator;
 
 public:
   explicit Server(const std::string &port);
   // Runs the server
-  void run() override;
+  void execute();
 
-  ~Server() override;
+  ~Server();
 
   void kill();
   // cppcheck-suppress syntaxError

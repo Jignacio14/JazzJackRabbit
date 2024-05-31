@@ -7,12 +7,11 @@
 
 class Receiver : public Thread {
 private:
-  ServerProtocol servprot;
+  ServerProtocol &servprot;
   // Queue<PlayerStatusDTO> &receiver_queue;
 
 public:
-  explicit Receiver(ServerProtocol &servprot,
-                    Queue<PlayerStatusDTO> &receiver_queue);
+  explicit Receiver(ServerProtocol &servprot);
   void run() override;
   void kill();
   ~Receiver() override;
