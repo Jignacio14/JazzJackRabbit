@@ -33,7 +33,7 @@ const static char SPAZ_SELECTED = 'S';
 const static char LORI_SELECTED = 'L';
 
 MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
-                       std::string &username, GameConfigs **game,
+                       std::string &username, GameConfigs *game,
                        char &userCharacter)
     : QMainWindow(parent), ui(new Ui::MainWindow), hostname(hostname),
       port(port), username(username), finalGameConfigs(game), gameOwnerName(""),
