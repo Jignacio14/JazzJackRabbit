@@ -38,10 +38,11 @@ const std::string ServerProtocol::getUserLobbyString() {
 void ServerProtocol::sendGamesCount(const uint16_t &games_count) {
   /// 1. Obtenego la cantidad de juegos dispobibles en las partidas registradas
   /// y lo envio
+  bool wasClose = this->getTemporalWasClose();
   uint16_t games_count_formated = htons(games_count);
   skt.sendall_bytewise(&games_count_formated, sizeof(games_count_formated),
-                       &was_close);
-  this->throwIfClosed();
+                       &wasClose);
+  this->throwIfClosed(wasClose);
 }
 
 void ServerProtocol::sendSerializedGameData(const std::string &name,
@@ -51,27 +52,35 @@ void ServerProtocol::sendSerializedGameData(const std::string &name,
   // asi pero para ir maquetando la solucion viene perfecto, si esto falla,
   // falla en un solo lugar y no tenog que estar rastrando que fue lo que se
   // rompio con los 3 tipos de datos distintos que debo pasar al cliente
+
+  bool wasClose = this->getTemporalWasClose();
   GameInfoDto data = this->serializer.serializeGameInfo(name, count);
-  skt.sendall_bytewise(&data, sizeof(data), &was_close);
-  this->throwIfClosed();
+  skt.sendall_bytewise(&data, sizeof(data), &wasClose);
+  this->throwIfClosed(wasClose);
 }
 
 const uint8_t ServerProtocol::getNameLenght() {
+  bool wasClose = this->getTemporalWasClose();
   uint8_t lenght;
-  this->skt.recvall_bytewise(&lenght, sizeof(lenght), &was_close);
-  this->throwIfClosed();
+  this->skt.recvall_bytewise(&lenght, sizeof(lenght), &wasClose);
+  this->throwIfClosed(wasClose);
   return lenght;
 }
 
 const std::vector<char> ServerProtocol::getName(const uint8_t &lenght) {
+  bool wasClose = this->getTemporalWasClose();
   std::vector<char> vector(lenght);
-  this->skt.recvall_bytewise(vector.data(), sizeof(vector), &was_close);
-  this->throwIfClosed();
+  this->skt.recvall_bytewise(vector.data(), sizeof(vector), &wasClose);
+  this->throwIfClosed(wasClose);
   return vector;
 }
 
-void ServerProtocol::throwIfClosed() {
-  if (was_close) {
+const bool ServerProtocol::getTemporalWasClose() {
+  return this->was_close.load();
+}
+
+void ServerProtocol::throwIfClosed(const bool &result) {
+  if (result) {
     throw LibError(errno, "Socket closed");
   }
 }
