@@ -7,12 +7,16 @@
 #define REGISTER_PLAYER 2
 
 Sender::Sender(Socket peer, GamesMonitor &games_monitor_ref)
-    : servprot(std::move(peer)), gamesMonitor(games_monitor_ref) {}
+    : servprot(std::move(peer)), gamesMonitor(games_monitor_ref), error(false) {
+}
 
 void Sender::sendGamesOptions() {
   std::unordered_map<std::string, uint16_t> games =
       this->gamesMonitor.getGamesStatus();
-  this->servprot.sendGameInfo(games);
+  bool result = this->servprot.sendGameInfo(games);
+  if (!result) {
+    this->error = true;
+  }
 }
 
 void Sender::registerUser() {
@@ -30,6 +34,10 @@ void Sender::setUpPlayerLoop() {
 
     if (option == REGISTER_PLAYER) {
       this->registerUser();
+      break;
+    }
+
+    if (this->error) {
       break;
     }
   }

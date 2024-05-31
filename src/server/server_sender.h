@@ -10,6 +10,7 @@ class Sender : public Thread {
 private:
   ServerProtocol servprot;
   GamesMonitor &gamesMonitor;
+  std::atomic<bool> error;
 
   void sendGamesOptions();
   void setUpPlayerLoop();
