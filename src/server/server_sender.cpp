@@ -19,18 +19,9 @@ void Sender::sendGamesOptions() {
   }
 }
 
-void Sender::registerUser() {
-  std::string server_name = this->servprot.getUserLobbyString();
-  std::string user_name = this->servprot.getUserLobbyString();
-  if (server_name.empty() || user_name.empty()) {
-    this->error = true;
-    return;
-  }
-  // this->gamesMonitor.registerUser(server_name, user_name);
-}
+void Sender::registerUser(Queue<BaseDTO *> &receiver_queue) {}
 
 void Sender::setUpPlayerLoop() {
-  Queue<BaseDTO *> receiver_queue;
   while (true) {
     uint8_t option = this->servprot.getLobbyOption();
     if (option == RESENT_GAME_INFO) {
@@ -39,7 +30,14 @@ void Sender::setUpPlayerLoop() {
     }
 
     if (option == REGISTER_PLAYER) {
-      this->registerUser();
+
+      std::string server_name = this->servprot.getUserLobbyString();
+      std::string user_name = this->servprot.getUserLobbyString();
+      if (server_name.empty() || user_name.empty()) {
+        this->error = true;
+        return;
+      }
+      // this->gamesMonitor.registerUser(server_name, user_name);
       break;
     }
 

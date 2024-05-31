@@ -15,7 +15,7 @@ private:
 
   void sendGamesOptions();
   void setUpPlayerLoop();
-  void registerUser();
+  void registerUser(Queue<BaseDTO *> &receiver_queue);
   void runSenderLoop();
 
 public:
