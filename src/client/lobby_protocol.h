@@ -6,6 +6,7 @@
 #include "../common/socket.h"
 #include <atomic>
 #include <iostream>
+#include <netinet/in.h>
 #include <vector>
 
 class LobbyProtocol {
@@ -21,7 +22,7 @@ public:
    * Receives the number of total games that the server has, and returns that
    * number.
    * */
-  uint8_t receive_header();
+  uint16_t receive_header();
 
   /*
    * Receives a single game info and returns it.
