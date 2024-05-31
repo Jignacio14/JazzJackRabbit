@@ -1,8 +1,11 @@
 #include "./server_sender.h"
 #include "./server_protocol.h"
+#include "server_games_monitor.h"
+#include <netinet/in.h>
+#include <utility>
 
-Sender::Sender(ServerProtocol &servprot, Queue<PlayerStatusDTO> &queue)
-    : servprot(servprot), queue(queue) {}
+Sender::Sender(Socket peer, GamesMonitor &games_monitor_ref)
+    : servprot(std::move(peer)), gamesMonitor(games_monitor_ref) {}
 
 void Sender::sendGameInfo() {
   // TO-DO chequear con los chicos que info debo enviar

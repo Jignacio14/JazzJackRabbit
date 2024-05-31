@@ -7,8 +7,8 @@
 
 class Receiver : public Thread {
 private:
-  ServerProtocol &servprot;
-  Queue<PlayerStatusDTO> &receiver_queue;
+  ServerProtocol servprot;
+  // Queue<PlayerStatusDTO> &receiver_queue;
 
 public:
   explicit Receiver(ServerProtocol &servprot,
