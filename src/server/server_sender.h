@@ -3,6 +3,7 @@
 
 #include "../common/queue.h"
 #include "../common/thread.h"
+#include "../data/base_dto.h"
 #include "./server_protocol.h"
 #include "server_games_monitor.h"
 
@@ -15,6 +16,7 @@ private:
   void sendGamesOptions();
   void setUpPlayerLoop();
   void registerUser();
+  void runSenderLoop();
 
 public:
   explicit Sender(Socket peer, GamesMonitor &games_monitor_ref);

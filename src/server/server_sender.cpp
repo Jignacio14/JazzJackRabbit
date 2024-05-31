@@ -20,11 +20,17 @@ void Sender::sendGamesOptions() {
 }
 
 void Sender::registerUser() {
-  // std::string server_name = this->servprot.getUserLobbyString();
-  // std::string user_name = this->servprot.getUserLobbyString();
+  std::string server_name = this->servprot.getUserLobbyString();
+  std::string user_name = this->servprot.getUserLobbyString();
+  if (server_name.empty() || user_name.empty()) {
+    this->error = true;
+    return;
+  }
+  // this->gamesMonitor.registerUser(server_name, user_name);
 }
 
 void Sender::setUpPlayerLoop() {
+  Queue<BaseDTO *> receiver_queue;
   while (true) {
     uint8_t option = this->servprot.getLobbyOption();
     if (option == RESENT_GAME_INFO) {
@@ -46,12 +52,17 @@ void Sender::setUpPlayerLoop() {
 void Sender::run() {
   this->sendGamesOptions();
   this->setUpPlayerLoop();
+  if (this->error) {
+    this->kill();
+    return;
+  }
+  this->runSenderLoop();
 }
 
-// void Sender::runSenderLoop() {
-//   while (this->is_alive()) {
-//   }
-// }
+void Sender::runSenderLoop() {
+  while (this->is_alive()) {
+  }
+}
 
 void Sender::kill() {
   this->_is_alive = false;

@@ -27,6 +27,7 @@ private:
   void sendSerializedGameData(const std::string &name, const uint16_t &count);
   const uint8_t getNameLenght();
   const std::vector<char> getName(const uint8_t &lenght);
+  void throwIfClosed();
 
 public:
   explicit ServerProtocol(Socket skt);

@@ -41,6 +41,7 @@ void ServerProtocol::sendGamesCount(const uint16_t &games_count) {
   uint16_t games_count_formated = htons(games_count);
   skt.sendall_bytewise(&games_count_formated, sizeof(games_count_formated),
                        &was_close);
+  this->throwIfClosed();
 }
 
 void ServerProtocol::sendSerializedGameData(const std::string &name,
@@ -52,18 +53,27 @@ void ServerProtocol::sendSerializedGameData(const std::string &name,
   // rompio con los 3 tipos de datos distintos que debo pasar al cliente
   GameInfoDto data = this->serializer.serializeGameInfo(name, count);
   skt.sendall_bytewise(&data, sizeof(data), &was_close);
+  this->throwIfClosed();
 }
 
 const uint8_t ServerProtocol::getNameLenght() {
   uint8_t lenght;
   this->skt.recvall_bytewise(&lenght, sizeof(lenght), &was_close);
+  this->throwIfClosed();
   return lenght;
 }
 
 const std::vector<char> ServerProtocol::getName(const uint8_t &lenght) {
   std::vector<char> vector(lenght);
   this->skt.recvall_bytewise(vector.data(), sizeof(vector), &was_close);
+  this->throwIfClosed();
   return vector;
+}
+
+void ServerProtocol::throwIfClosed() {
+  if (was_close) {
+    throw LibError(errno, "Socket closed");
+  }
 }
 
 void ServerProtocol::shutdown() {
