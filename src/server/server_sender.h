@@ -13,6 +13,7 @@ private:
 
   void sendGamesOptions();
   void setUpPlayerLoop();
+  void registerUser();
 
 public:
   explicit Sender(Socket peer, GamesMonitor &games_monitor_ref);
@@ -20,6 +21,8 @@ public:
   void run() override;
 
   void kill();
+
+  const bool isAlive();
 
   ~Sender() override;
 };

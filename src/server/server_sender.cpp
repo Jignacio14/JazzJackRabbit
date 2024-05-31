@@ -15,8 +15,12 @@ void Sender::sendGamesOptions() {
   this->servprot.sendGameInfo(games);
 }
 
-void Sender::setUpPlayerLoop() {
+void Sender::registerUser() {
+  // std::string server_name = this->servprot.getUserLobbyString();
+  // std::string user_name = this->servprot.getUserLobbyString();
+}
 
+void Sender::setUpPlayerLoop() {
   while (true) {
     uint8_t option = this->servprot.getLobbyOption();
     if (option == RESENT_GAME_INFO) {
@@ -25,6 +29,7 @@ void Sender::setUpPlayerLoop() {
     }
 
     if (option == REGISTER_PLAYER) {
+      this->registerUser();
       break;
     }
   }

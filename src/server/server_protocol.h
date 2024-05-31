@@ -35,7 +35,7 @@ public:
 
   bool sendGameInfo(const std::unordered_map<std::string, uint16_t> &game_data);
 
-  const std::string getServerName();
+  const std::string getUserLobbyString();
 
   uint8_t getLobbyOption();
 
