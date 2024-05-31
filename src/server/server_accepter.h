@@ -3,8 +3,8 @@
 
 #include "../common/socket.h"
 #include "../common/thread.h"
-#include "./server_client_handler.h"
 #include "./server_games_monitor.h"
+#include "server_sender.h"
 #include <exception>
 #include <list>
 #include <string>
@@ -14,7 +14,7 @@ private:
   Socket skt_aceptator;
   void accept();
   // cppcheck-suppress unusedStructMember
-  std::list<ClientHandler *> clients;
+  std::list<Sender *> clients;
   GamesMonitor gamesMonitor;
 
   void checkForDisconnected();
