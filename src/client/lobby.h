@@ -31,6 +31,11 @@ public:
    *
    * */
   bool wait_game_start();
+
+  /*
+   * Close and shutdown the socket.
+   * */
+  void quite_game();
 };
 
 #endif // JAZZJACKRABBIT_LOBBY_H

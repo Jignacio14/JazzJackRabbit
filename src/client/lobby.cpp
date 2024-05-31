@@ -21,3 +21,9 @@ void Lobby::send_selected_game(const std::vector<char> &gamename) {
 bool Lobby::wait_game_start() { return protocol.wait_game_start(); }
 
 Socket Lobby::transfer_socket() { return std::move(skt); }
+
+void Lobby::quite_game() {
+  // Try catch ?
+  socket.shutdown(SHUT_RDWR);
+  socket.close();
+}
