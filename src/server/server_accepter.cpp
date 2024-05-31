@@ -44,7 +44,7 @@ void Accepter::kill() {
 
 void Accepter::killAll() {
   for (auto client : clients) {
-    client->stop();
+    client->kill();
     delete client;
   }
 }

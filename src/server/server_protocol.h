@@ -31,11 +31,18 @@ private:
 public:
   explicit ServerProtocol(Socket skt);
 
+  /// Metodos para el loby del sender
+
   bool sendGameInfo(const std::unordered_map<std::string, uint16_t> &game_data);
+
   const std::string getServerName();
-  void sendGameStatus(const PlayerStatusDTO &dto);
-  const PlayerStatusDTO getGameStatus();
+
+  uint8_t getLobbyOption();
+
+  // const PlayerStatusDTO getGameStatus();
+
   void shutdown();
+
   ServerProtocol(ServerProtocol &&);
   ServerProtocol &operator=(ServerProtocol &&);
   ~ServerProtocol();
