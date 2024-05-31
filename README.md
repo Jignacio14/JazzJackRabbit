@@ -54,6 +54,8 @@ Para crear los ejecutables (cliente y servidor) correr el script:
 ./scripts/build.sh
 ```
 
+### Ejecución sin Valgrind
+
 Los ejecutables se encontrarán en la carpeta recién creada build por lo que para ejecutarlos hay que correr:
 
 ```shell
@@ -62,6 +64,18 @@ Los ejecutables se encontrarán en la carpeta recién creada build por lo que pa
 
 ```shell
 ./build/server
+```
+
+### Ejecución con Valgrind
+
+Los ejecutables se encontrarán en la carpeta recién creada build por lo que para ejecutarlos con Valgrind y los archivos de supresión hay que correr:
+
+```shell
+valgrind --tool=memcheck --leak-check=full --show-reachable=yes --trace-children=yes --track-fds=yes --track-origins=yes --gen-suppressions=all --suppressions=./valgrind/memcheck.supp --suppressions=./valgrind/qt.supp --suppressions=./valgrind/sdl.supp ./build/client 
+```
+
+```shell
+valgrind --tool=memcheck --leak-check=full --show-reachable=yes --trace-children=yes --track-fds=yes --track-origins=yes --gen-suppressions=all --suppressions=./valgrind/memcheck.supp ./build/sever
 ```
 
 ## Cómo setupear y correr con Vagrant
