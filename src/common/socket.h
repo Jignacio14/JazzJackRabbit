@@ -3,8 +3,6 @@
 
 #include <cstdint>
 
-#define SHUT_RDWR 2
-
 /*
  * TDA Socket.
  * Por simplificación este TDA se enfocará solamente
