@@ -13,5 +13,5 @@ void ClientProtocol::receive_snapshot(bool &was_closed, Snapshot &snapshot) {
 
 void ClientProtocol::close_and_shutdown() {
   skt.close();
-  skt.shutdown(SHUT_RDWR);
+  skt.shutdown(2);
 }

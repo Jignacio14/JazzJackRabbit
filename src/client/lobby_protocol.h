@@ -30,9 +30,13 @@ public:
   GameInfoDto receive_game();
 
   /*
-   * Sends the game de player selected to the server.
+   * Sends the game de player selected to the server. First, game option, then
+   * length of gamename and then the gamename. Then, it sends the character
+   * chosen by the player, and then the username.
    * */
-  void send_selected_game(const std::vector<char> &gamename);
+  void send_selected_game(const std::vector<char> &gamename,
+                          uint8_t game_option, char user_character,
+                          const std::vector<char> &username);
 
   /*
    *

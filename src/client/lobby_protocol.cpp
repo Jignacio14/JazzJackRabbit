@@ -17,10 +17,15 @@ GameInfoDto LobbyProtocol::receive_game() {
   return single_game_info;
 }
 
-void LobbyProtocol::send_selected_game(const std::vector<char> &gamename) {
+void LobbyProtocol::send_selected_game(const std::vector<char> &gamename,
+                                       uint8_t game_option, char user_character,
+                                       const std::vector<char> &username) {
+  skt.sendall_bytewise(&game_option, sizeof(uint8_t), &was_closed);
   uint8_t length = gamename.size();
   skt.sendall_bytewise(&length, sizeof(uint8_t), &was_closed);
   skt.sendall_bytewise(gamename.data(), gamename.size(), &was_closed);
+  skt.sendall_bytewise(&user_character, sizeof(char), &was_closed);
+  skt.sendall_bytewise(username.data(), username.size(), &was_closed);
 }
 
 bool LobbyProtocol::wait_game_start() {
