@@ -12,6 +12,7 @@ private:
   ServerProtocol servprot;
   GamesMonitor &gamesMonitor;
   std::atomic<bool> error;
+  Queue<BaseDTO *> sender_queue;
 
   void sendGamesOptions();
   Queue<BaseDTO *> &setUpPlayerLoop();

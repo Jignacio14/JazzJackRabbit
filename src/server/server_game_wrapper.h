@@ -3,6 +3,8 @@
 
 #include "../common/player_status_DTO.h"
 #include "../common/queue.h"
+#include "../data/base_dto.h"
+#include "../data/player_info_dto.h"
 #include "../engine/game.h"
 #include "server_game_monitor.h"
 
@@ -25,6 +27,9 @@ public:
   Queue<PlayerStatusDTO> &getReceiverQueue();
   void ereasedPlayer(const Queue<PlayerStatusDTO> &game_queue);
   void killGame();
+
+  std::pair<Queue<BaseDTO *> &, uint8_t>
+  addPlayer(Queue<PlayerStatusDTO> &queue, PlayerInfo &player_info);
 };
 
 #endif
