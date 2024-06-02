@@ -1,6 +1,8 @@
 #include "./server_sender.h"
 #include "./server_protocol.h"
 #include "server_games_monitor.h"
+#include <stdexcept>
+#include <sys/types.h>
 #include <utility>
 
 #define RESENT_GAME_INFO 1
@@ -54,6 +56,8 @@ void Sender::run() {
     this->sendGamesOptions();
     const Queue<BaseDTO *> &receiver_queue = this->setUpPlayerLoop();
     this->runSenderLoop();
+  } catch (const std::runtime_error &e) {
+    this->kill();
   } catch (...) {
   }
 }

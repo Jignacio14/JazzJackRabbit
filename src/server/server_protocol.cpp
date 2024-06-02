@@ -105,6 +105,7 @@ const bool ServerProtocol::getTemporalWasClose() {
 
 void ServerProtocol::throwIfClosed(const bool &result) {
   if (result) {
+    this->was_close.store(true);
     throw LibError(errno, "Socket closed");
   }
 }
