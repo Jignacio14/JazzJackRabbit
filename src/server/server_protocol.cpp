@@ -1,5 +1,7 @@
 #include "./server_protocol.h"
 #include <cstdint>
+#include <string>
+#include <utility>
 #include <vector>
 
 #define HOW 2
@@ -81,6 +83,20 @@ uint8_t ServerProtocol::getLobbyOption() {
   this->skt.recvall_bytewise(&option, sizeof(option), &wasClose);
   this->throwIfClosed(wasClose);
   return option;
+}
+
+std::pair<std::string, std::string> ServerProtocol::getGameNameAndPlayerName() {
+  try {
+    uint8_t lenght = this->getNameLenght();
+    std::vector<char> name = this->getName(lenght);
+    lenght = this->getNameLenght();
+    std::vector<char> map = this->getName(lenght);
+    return std::make_pair(std::string(name.begin(), name.end()),
+                          std::string(map.begin(), map.end()));
+  } catch (const LibError &skt_err) {
+    std::cout << "Some error ocurred while trying to communicate" << std::endl;
+    return std::make_pair("", "");
+  }
 }
 
 const bool ServerProtocol::getTemporalWasClose() {

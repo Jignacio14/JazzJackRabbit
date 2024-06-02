@@ -21,7 +21,6 @@ private:
   Socket skt;
   // cppcheck-suppress unusedStructMember
   std::atomic<bool> was_close;
-
   Serializer serializer;
 
   void sendGamesCount(const uint16_t &games_count);
@@ -41,6 +40,7 @@ public:
   const std::string getUserLobbyString();
 
   uint8_t getLobbyOption();
+  std::pair<std::string, std::string> getGameNameAndPlayerName();
 
   // const PlayerStatusDTO getGameStatus();
 

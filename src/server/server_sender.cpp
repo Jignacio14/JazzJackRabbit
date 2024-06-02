@@ -2,6 +2,9 @@
 #include "./server_protocol.h"
 #include "server_games_monitor.h"
 #include <cstdint>
+#include <string>
+#include <string_view>
+#include <utility>
 
 #define RESENT_GAME_INFO 1
 #define REGISTER_PLAYER 2
@@ -22,40 +25,40 @@ void Sender::sendGamesOptions() {
 void Sender::registerUser(Queue<BaseDTO *> &receiver_queue) {}
 
 void Sender::setUpPlayerLoop() {
+  std::string server_name = "";
+  std::string user_name = "";
   while (true) {
     uint8_t option = this->servprot.getLobbyOption();
     if (option == RESENT_GAME_INFO) {
       this->sendGamesOptions();
       continue;
     }
-
     if (option == REGISTER_PLAYER) {
-
-      std::string server_name = this->servprot.getUserLobbyString();
-      std::string user_name = this->servprot.getUserLobbyString();
+      std::pair<std::string, std::string> data =
+          this->servprot.getGameNameAndPlayerName();
+      server_name = data.first;
+      user_name = data.second;
       if (server_name.empty() || user_name.empty()) {
+
         this->error = true;
-        break;
+        throw std::runtime_error("Error en la comunicacion con el cliente");
       }
-      // this->gamesMonitor.registerUser(server_name, user_name);
-
+      // this->gamesMonitor.getReceiverQueue(server_name);
       break;
     }
-
-    if (this->error) {
-      break;
-    }
+  }
+  if (this->error) {
+    throw std::runtime_error("Error en la comunicacion con el cliente");
   }
 }
 
 void Sender::run() {
-  this->sendGamesOptions();
-  this->setUpPlayerLoop();
-  if (this->error) {
-    this->kill();
-    return;
+  try {
+    this->sendGamesOptions();
+    this->setUpPlayerLoop();
+    this->runSenderLoop();
+  } catch (...) {
   }
-  this->runSenderLoop();
 }
 
 void Sender::runSenderLoop() {
