@@ -17,6 +17,7 @@ private:
   Queue<BaseDTO *> &setUpPlayerLoop();
   void registerUser(Queue<BaseDTO *> &receiver_queue);
   void runSenderLoop();
+  void ValidatePlayerInfo(const PlayerInfo &player_info);
 
 public:
   explicit Sender(Socket peer, GamesMonitor &games_monitor_ref);

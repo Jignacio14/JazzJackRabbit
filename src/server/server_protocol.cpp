@@ -54,7 +54,6 @@ void ServerProtocol::sendSerializedGameData(const std::string &name,
   // asi pero para ir maquetando la solucion viene perfecto, si esto falla,
   // falla en un solo lugar y no tenog que estar rastrando que fue lo que se
   // rompio con los 3 tipos de datos distintos que debo pasar al cliente
-
   bool wasClose = this->getTemporalWasClose();
   GameInfoDto data = this->serializer.serializeGameInfo(name, count);
   skt.sendall_bytewise(&data, sizeof(data), &wasClose);
@@ -75,6 +74,14 @@ const std::vector<char> ServerProtocol::getName(const uint8_t &lenght) {
   this->skt.recvall_bytewise(vector.data(), sizeof(vector), &wasClose);
   this->throwIfClosed(wasClose);
   return vector;
+}
+
+PlayerInfo ServerProtocol::getGameInfo() {
+  bool wasClose = this->getTemporalWasClose();
+  PlayerInfo info;
+  this->skt.recvall_bytewise(&info, sizeof(info), &wasClose);
+  this->throwIfClosed(wasClose);
+  return info;
 }
 
 uint8_t ServerProtocol::getLobbyOption() {

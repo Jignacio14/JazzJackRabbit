@@ -5,6 +5,7 @@
 #include "../common/liberror.h"
 #include "../common/player_status_DTO.h"
 #include "../common/socket.h"
+#include "../data/player_info_dt.h"
 #include "./server_serializer.h"
 #include <atomic>
 #include <cstdint>
@@ -38,6 +39,8 @@ public:
   bool sendGameInfo(const std::unordered_map<std::string, uint16_t> &game_data);
 
   const std::string getUserLobbyString();
+
+  PlayerInfo getGameInfo();
 
   uint8_t getLobbyOption();
   std::pair<std::string, std::string> getGameNameAndPlayerName();

@@ -22,6 +22,27 @@ void Sender::sendGamesOptions() {
 
 void Sender::registerUser(Queue<BaseDTO *> &receiver_queue) {}
 
+Queue<BaseDTO *> &Sender::setUpPlayerLoop() {
+  while (true) {
+    uint8_t option = this->servprot.getLobbyOption();
+    if (option == RESENT_GAME_INFO) {
+      this->sendGamesOptions();
+      continue;
+    }
+    if (option == REGISTER_PLAYER) {
+      PlayerInfo player_info = this->servprot.getGameInfo();
+      this->ValidatePlayerInfo(player_info);
+    }
+  }
+}
+
+void Sender::ValidatePlayerInfo(const PlayerInfo &player_info) {
+  if (player_info.game_name.empty() || player_info.player_name.empty() ||
+      player_info.character_code == 0) {
+    throw std::runtime_error("Error en la comunicacion con el cliente");
+  }
+}
+
 // Queue<BaseDTO *> &Sender::setUpPlayerLoop() {
 // std::string server_name = "";
 // std::string user_name = "";
