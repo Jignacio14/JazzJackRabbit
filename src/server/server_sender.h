@@ -14,7 +14,7 @@ private:
   std::atomic<bool> error;
 
   void sendGamesOptions();
-  void setUpPlayerLoop();
+  Queue<BaseDTO *> &setUpPlayerLoop();
   void registerUser(Queue<BaseDTO *> &receiver_queue);
   void runSenderLoop();
 
