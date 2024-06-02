@@ -6,6 +6,7 @@
 #include "../data/base_dto.h"
 #include "./server_protocol.h"
 #include "server_games_monitor.h"
+#include "server_receiver.h"
 
 class Sender : public Thread {
 private:

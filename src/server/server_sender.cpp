@@ -1,6 +1,7 @@
 #include "./server_sender.h"
 #include "./server_protocol.h"
 #include "server_games_monitor.h"
+#include "server_receiver.h"
 #include <cstdint>
 #include <stdexcept>
 #include <sys/types.h>
@@ -52,8 +53,12 @@ void Sender::ValidatePlayerInfo(const PlayerInfo &player_info) {
 void Sender::run() {
   try {
     this->sendGamesOptions();
-    const Queue<BaseDTO *> &receiver_queue = this->setUpPlayerLoop();
+    Queue<BaseDTO *> &receiver_queue = this->setUpPlayerLoop();
+    Receiver receiver(this->servprot, receiver_queue);
+    receiver.start();
     this->runSenderLoop();
+    receiver.kill();
+    receiver.join();
   } catch (const std::runtime_error &e) {
     this->kill();
   } catch (...) {
