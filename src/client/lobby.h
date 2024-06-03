@@ -2,34 +2,43 @@
 #ifndef JAZZJACKRABBIT_LOBBY_H
 #define JAZZJACKRABBIT_LOBBY_H
 
-#include "../common/socket.h"
-#include "lobby_receiver.h"
-#include "lobby_sender.h"
-#include <atomic>
+#include "lobby_protocol.h"
 
 class Lobby {
 private:
   Socket skt;
-  // cppcheck-suppress unusedStructMember
-  bool was_closed;
-  LobbyReceiver receiver;
-  LobbySender sender;
+  LobbyProtocol protocol;
 
 public:
   Lobby(const char *hostname, const char *port);
 
-  // Por ahora game info solamente es de 1 game
+  /*
+   * Returns all the games received from the server.
+   * */
   std::vector<GameInfoDto> get_games();
 
   /*
-   * Sends the game match that the player chose.
+   * Sends the game match that the player chose, and the character selected by
+   * the player and the username.
    * */
-  void send_selected_game(const std::vector<char> &gamename);
+  void send_selected_game(const std::vector<char> &gamename,
+                          uint8_t game_option, char user_character,
+                          const std::string &username);
 
   /*
    * Moves socket ownership with move semantics.
    * */
   Socket transfer_socket();
+
+  /*
+   *
+   * */
+  bool wait_game_start();
+
+  /*
+   * Close and shutdown the socket.
+   * */
+  void quit_game();
 };
 
 #endif // JAZZJACKRABBIT_LOBBY_H

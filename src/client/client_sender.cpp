@@ -18,3 +18,5 @@ void ClientSender::run() {
   }
   keep_talking = false;
 }
+
+ClientSender::~ClientSender() {}
