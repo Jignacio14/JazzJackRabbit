@@ -13,12 +13,8 @@
 
 class GameWrapper {
 private:
-  // cppcheck-suppress unusedStructMember
   GameMonitor monitor;
-  // Queue<PlayerStatusDTO> messages;
   Queue<BaseDTO *> messages;
-  // Game game;
-  // bool died;
 
 public:
   explicit GameWrapper();
@@ -29,8 +25,8 @@ public:
   // void ereasedPlayer(const Queue<PlayerStatusDTO> &game_queue);
   void killGame();
 
-  std::pair<Queue<BaseDTO *> &, uint8_t>
-  addPlayer(Queue<PlayerStatusDTO> &queue, PlayerInfo &player_info);
+  std::pair<Queue<BaseDTO *> &, uint8_t> addPlayer(Queue<BaseDTO *> &queue,
+                                                   PlayerInfo &player_info);
 };
 
 #endif
