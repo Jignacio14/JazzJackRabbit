@@ -30,10 +30,63 @@ sudo apt-get --yes install update
 
 print_colored_message $YELLOW_BOLD "══ Installing necessary apt packages for SDL2 ══"
 
-sudo apt-get --yes install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
+sudo apt-get --yes install libsdl2-2.0-0 libjpeg-dev libwebp-dev libtiff5-dev libsdl2-image-2.0-0 libmikmod-dev libfishsound1-dev libsmpeg-dev liboggz2-dev libflac-dev libfluidsynth-dev libsdl2-mixer-2.0-0 libopusfile-dev libpng-dev libfreetype6-dev libsdl2-ttf-2.0-0 libwavpack-dev libxmp-dev
+sudo apt-get --yes install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev 
+
+print_colored_message $YELLOW_BOLD "══ Adding CMake files for SDL2 packages in /usr/lib/x86_64-linux-gnu/cmake/ ══"
+
+SCRIPT_DIR="$(dirname "$0")"
+
+sudo su << EOF
+
+print_colored_message() {
+    color=$1
+    shift
+    printf "\e[${color}m$@\e[0m\n"
+}
+
+YELLOW_BOLD="1;33";
+
+# Check if the folder exists, if not, create it
+if [ ! -e "/usr/lib/x86_64-linux-gnu/cmake/SDL2_image" ]; then
+    mkdir -p /usr/lib/x86_64-linux-gnu/cmake/SDL2_image
+    print_colored_message $YELLOW_BOLD "══ Created SDL2_image folder ══"
+fi
+
+# Check if the CMake file exists, if not, copy it
+if [ ! -e "/usr/lib/x86_64-linux-gnu/cmake/SDL2_image/sdl2_image-config.cmake" ]; then
+    cp "$SCRIPT_DIR"/files/sdl2_image-config.cmake /usr/lib/x86_64-linux-gnu/cmake/SDL2_image/sdl2_image-config.cmake
+    print_colored_message $YELLOW_BOLD "══ Copied sdl2_image-config.cmake ══"
+fi
+
+# Check if the folder exists, if not, create it
+if [ ! -e "/usr/lib/x86_64-linux-gnu/cmake/SDL2_mixer" ]; then
+    mkdir -p /usr/lib/x86_64-linux-gnu/cmake/SDL2_mixer
+    print_colored_message $YELLOW_BOLD "══ Created SDL2_mixer folder ══"
+fi
+
+# Check if the CMake file exists, if not, copy it
+if [ ! -e "/usr/lib/x86_64-linux-gnu/cmake/SDL2_mixer/sdl2_mixer-config.cmake" ]; then
+    cp "$SCRIPT_DIR"/files/sdl2_mixer-config.cmake /usr/lib/x86_64-linux-gnu/cmake/SDL2_mixer/sdl2_mixer-config.cmake
+    print_colored_message $YELLOW_BOLD "══ Copied sdl2_mixer-config.cmake ══"
+fi
+
+# Check if the folder exists, if not, create it
+if [ ! -e "/usr/lib/x86_64-linux-gnu/cmake/SDL2_ttf" ]; then
+    mkdir -p /usr/lib/x86_64-linux-gnu/cmake/SDL2_ttf
+    print_colored_message $YELLOW_BOLD "══ Created SDL2_ttf folder ══"
+fi
+
+# Check if the CMake file exists, if not, copy it
+if [ ! -e "/usr/lib/x86_64-linux-gnu/cmake/SDL2_ttf/sdl2_ttf-config.cmake" ]; then
+    cp "$SCRIPT_DIR"/files/sdl2_ttf-config.cmake /usr/lib/x86_64-linux-gnu/cmake/SDL2_ttf/sdl2_ttf-config.cmake
+    print_colored_message $YELLOW_BOLD "══ Copied sdl2_ttf-config.cmake ══"
+fi
+
+EOF
 
 print_colored_message $YELLOW_BOLD "══ Executing apt update ══"
 
-sudo apt-get --yes install update
+sudo apt-get update
 
 print_colored_message $YELLOW_BOLD "══ Setup for libraries complete ══"
