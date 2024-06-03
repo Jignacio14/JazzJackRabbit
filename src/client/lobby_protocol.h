@@ -39,9 +39,15 @@ public:
                           const std::vector<char> &username);
 
   /*
-   *
+   * Waits for the server to send the confirmation message. Returns true if this
+   * happens, false if not.
    * */
   bool wait_game_start();
+
+  /*
+   * Throws an error if the socket was closed during a communication.
+   * */
+  void skt_was_closed();
 };
 
 #endif // JAZZJACKRABBIT_LOBBY_PROTOCOL_H
