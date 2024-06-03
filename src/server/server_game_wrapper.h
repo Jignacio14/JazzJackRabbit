@@ -8,6 +8,7 @@
 #include "../engine/game.h"
 #include "server_game_monitor.h"
 
+#include <atomic>
 #include <string>
 #include <sys/types.h>
 
@@ -15,14 +16,12 @@ class GameWrapper {
 private:
   GameMonitor monitor;
   Queue<BaseDTO *> receiver_queue;
+  std::atomic_uint16_t players_count;
 
 public:
   explicit GameWrapper();
-  // void registerPlayer(Queue<PlayerStatusDTO> &sender_queue);
   void start();
   const u_int16_t getGamePlayers();
-  // Queue<PlayerStatusDTO> &getReceiverQueue();
-  // void ereasedPlayer(const Queue<PlayerStatusDTO> &game_queue);
   void killGame();
 
   std::pair<Queue<BaseDTO *> &, uint8_t> addPlayer(Queue<BaseDTO *> &queue,
