@@ -106,6 +106,12 @@ std::pair<std::string, std::string> ServerProtocol::getGameNameAndPlayerName() {
   }
 }
 
+void ServerProtocol::sendPlayerId(const uint8_t &player_id) {
+  bool wasClose = this->getTemporalWasClose();
+  skt.sendall_bytewise(&player_id, sizeof(player_id), &wasClose);
+  this->throwIfClosed(wasClose);
+}
+
 const bool ServerProtocol::getTemporalWasClose() {
   return this->was_close.load();
 }

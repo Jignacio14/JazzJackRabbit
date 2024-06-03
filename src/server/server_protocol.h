@@ -41,7 +41,7 @@ public:
   const std::string getUserLobbyString();
 
   PlayerInfo getGameInfo();
-  uint8_t sendPlayerId(const uint8_t &player_id);
+  void sendPlayerId(const uint8_t &player_id);
 
   uint8_t getLobbyOption();
   std::pair<std::string, std::string> getGameNameAndPlayerName();
@@ -50,8 +50,6 @@ public:
 
   void shutdown();
 
-  ServerProtocol(ServerProtocol &&);
-  ServerProtocol &operator=(ServerProtocol &&);
   ~ServerProtocol();
 };
 

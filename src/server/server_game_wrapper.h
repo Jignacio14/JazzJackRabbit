@@ -21,7 +21,7 @@ public:
   // void registerPlayer(Queue<PlayerStatusDTO> &sender_queue);
   void start();
   const u_int16_t getGamePlayers();
-  Queue<PlayerStatusDTO> &getReceiverQueue();
+  // Queue<PlayerStatusDTO> &getReceiverQueue();
   // void ereasedPlayer(const Queue<PlayerStatusDTO> &game_queue);
   void killGame();
 

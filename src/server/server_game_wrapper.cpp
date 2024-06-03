@@ -15,5 +15,6 @@ void GameWrapper::killGame() {
 
 std::pair<Queue<BaseDTO *> &, uint8_t>
 GameWrapper::addPlayer(Queue<BaseDTO *> &queue, PlayerInfo &player_info) {
-  return std::pair<Queue<BaseDTO *> &, uint8_t>(messages, 0);
+  this->monitor.addPlayer(player_info, queue);
+  return std::pair<Queue<BaseDTO *> &, uint8_t>(this->messages, 0);
 }
