@@ -19,6 +19,13 @@ private:
   // cppcheck-suppress unusedStructMember
   std::unordered_map<std::string, GameWrapper *> game_tracker;
 
+  std::pair<Queue<BaseDTO *> &, u_int8_t>
+  registerToExistingGame(PlayerInfo &player_status,
+                         Queue<BaseDTO *> &sender_queue);
+  std::pair<Queue<BaseDTO *> &, u_int8_t>
+  createNewGame(PlayerInfo &player_status, Queue<BaseDTO *> &sender_queue);
+  std::string getGameName(PlayerInfo &player_status);
+
 public:
   explicit GamesMonitor();
 
