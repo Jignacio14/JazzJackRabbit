@@ -12,7 +12,7 @@
 class GameMonitor {
 private:
   // cppcheck-suppress unusedStructMember
-  uint16_t players_count;
+  uint8_t players_count;
   // cppcheck-suppress unusedStructMember
   std::list<std::reference_wrapper<Queue<BaseDTO *>>> queues;
   std::mutex mtx;
@@ -20,7 +20,7 @@ private:
 public:
   GameMonitor();
   void broadcast(BaseDTO *&msj);
-  void addPlayer(PlayerInfo &player_info, Queue<BaseDTO *> &queue);
+  const uint8_t addPlayer(PlayerInfo &player_info, Queue<BaseDTO *> &queue);
   void ereasePlayer(const Queue<BaseDTO *> &queue);
   ~GameMonitor();
 };

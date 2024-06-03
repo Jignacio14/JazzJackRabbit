@@ -1,4 +1,5 @@
 #include "server_game_wrapper.h"
+#include <cstdint>
 
 GameWrapper::GameWrapper() : monitor() {}
 
@@ -15,6 +16,8 @@ void GameWrapper::killGame() {
 
 std::pair<Queue<BaseDTO *> &, uint8_t>
 GameWrapper::addPlayer(Queue<BaseDTO *> &queue, PlayerInfo &player_info) {
-  this->monitor.addPlayer(player_info, queue);
-  return std::pair<Queue<BaseDTO *> &, uint8_t>(this->messages, 0);
+  const uint8_t player_id = this->monitor.addPlayer(player_info, queue);
+  //// TO-DO: Agregar la informacion del jugador al juego
+  return std::pair<Queue<BaseDTO *> &, uint8_t>(this->receiver_queue,
+                                                player_id);
 }

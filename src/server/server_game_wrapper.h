@@ -14,7 +14,7 @@
 class GameWrapper {
 private:
   GameMonitor monitor;
-  Queue<BaseDTO *> messages;
+  Queue<BaseDTO *> receiver_queue;
 
 public:
   explicit GameWrapper();
