@@ -17,3 +17,5 @@ void ClientReceiver::run() {
   }
   keep_talking = false;
 }
+
+ClientReceiver::~ClientReceiver() {}

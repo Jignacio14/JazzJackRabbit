@@ -1,47 +1,58 @@
 #include "./server_games_monitor.h"
-#include "server_game_wrapper.h"
+#include <mutex>
 #include <string>
+#include <sys/types.h>
+#include <unordered_map>
 
 GamesMonitor::GamesMonitor() {}
 
-void GamesMonitor::registerUser(const std::string &server_name,
-                                Queue<PlayerStatusDTO> &snd_queue) {
-  std::lock_guard<std::mutex> lock(mtx);
-  auto it = this->game_tracker.find(server_name);
-  if (it == nullptr) {
-    this->startNewGame(server_name, snd_queue);
-    return;
-  }
-  this->registerPlayer(*it->second, snd_queue);
-}
-
-const std::unordered_map<std::string, uint16_t> GamesMonitor::getGamesStatus() {
-  std::lock_guard<std::mutex> lock(mtx);
-  std::unordered_map<std::string, uint16_t> games_data;
+std::unordered_map<std::string, uint16_t> GamesMonitor::getGamesStartInfo() {
+  std::lock_guard<std::mutex> lck(this->mtx);
+  std::unordered_map<std::string, uint16_t> games_info;
   for (const auto &game : game_tracker) {
-    games_data[game.first] = game.second->getGamePlayers();
+    games_info[game.first] = game.second->getGamePlayers();
   }
-  return games_data;
+  return games_info;
 }
 
-// cppcheck-suppress constParameterReference
-void GamesMonitor::registerPlayer(GameWrapper &game,
-                                  Queue<PlayerStatusDTO> &queue) {
-  game.registerPlayer(queue);
+std::pair<Queue<BaseDTO *> &, uint8_t>
+GamesMonitor::registerPlayer(PlayerInfo &player_status,
+                             Queue<BaseDTO *> &sender_queue) {
+  std::lock_guard<std::mutex> lck(this->mtx);
+  std::string server_name(player_status.game_name.begin(),
+                          player_status.game_name.end());
+  if (game_tracker.find(server_name) != game_tracker.end()) {
+    // game_tracker[server_name] = new GameWrapper(server_name);
+    /// El juego no existe por lo tanto debo crear uno
+    // return
+    // cppcheck-suppress missingReturn
+    return this->createNewGame(player_status, sender_queue);
+  }
+  /// EL juego existe, solo debo agregar al jugador
+  return this->registerToExistingGame(player_status, sender_queue);
 }
 
-void GamesMonitor::startNewGame(const std::string &server_name,
-                                Queue<PlayerStatusDTO> &queue) {
-  GameWrapper *new_game = new GameWrapper();
-  new_game->start();
-  this->game_tracker[server_name] = new_game;
-  this->registerPlayer(*new_game, queue);
+std::string GamesMonitor::getGameName(PlayerInfo &player_status) {
+  return std::string(player_status.game_name.begin(),
+                     player_status.game_name.end());
 }
 
-Queue<PlayerStatusDTO> &
-GamesMonitor::getReceiverQueue(const std::string &server_name) {
-  std::lock_guard<std::mutex> lock(mtx);
-  return this->game_tracker[server_name]->getReceiverQueue();
+std::pair<Queue<BaseDTO *> &, uint8_t>
+GamesMonitor::registerToExistingGame(PlayerInfo &player_status,
+                                     Queue<BaseDTO *> &sender_queue) {
+  std::lock_guard<std::mutex> lck(this->mtx);
+  std::string server_name = this->getGameName(player_status);
+  return game_tracker[server_name]->addPlayer(sender_queue, player_status);
+}
+
+std::pair<Queue<BaseDTO *> &, uint8_t>
+GamesMonitor::createNewGame(PlayerInfo &player_status,
+                            Queue<BaseDTO *> &sender_queue) {
+  std::lock_guard<std::mutex> lck(this->mtx);
+  GameWrapper *game = new GameWrapper();
+  std::string server_name = this->getGameName(player_status);
+  game_tracker[server_name] = game;
+  return game->addPlayer(sender_queue, player_status);
 }
 
 GamesMonitor::~GamesMonitor() {

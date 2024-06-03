@@ -7,7 +7,6 @@
 #include "../common/snapshot_DTO.h"
 #include "../common/socket.h"
 #include <atomic>
-#define SHUT_RDWR 2
 
 class ClientProtocol {
 private:

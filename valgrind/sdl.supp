@@ -1,0 +1,2032 @@
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcDefaultMapModifiers
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:_XlcResolveLocaleName
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XimOpenIM
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcAddLoader
+   fun:_XlcInitLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcAddLoader
+   fun:_XlcInitLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcAddLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:dbus_threads_init
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_dbus_register_shutdown_func
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_dbus_register_shutdown_func
+   fun:dbus_message_unref
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:dbus_connection_send_with_reply_and_block
+   fun:dbus_bus_register
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:_XlcResolveLocaleName
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_dbus_strdup
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_dbus_strdup
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_dbus_strdup
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:malloc
+   fun:strdup
+   fun:_dl_load_cache_lookup
+   fun:_dl_map_object
+   fun:dl_open_worker_begin
+   fun:_dl_catch_exception
+   fun:dl_open_worker
+   fun:_dl_catch_exception
+   fun:_dl_open
+   fun:dlopen_doit
+   fun:_dl_catch_exception
+   fun:_dl_catch_error
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcAddCT
+   fun:_XlcInitCTInfo
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcCreateDefaultCharSet
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XrmInternalStringToQuark
+   fun:_XlcGetCharSet
+   fun:_XlcAddCT
+   fun:_XlcInitCTInfo
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcInitCTInfo
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcInitCTInfo
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcInitCTInfo
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcInitCTInfo
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8LocaleConverters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8LocaleConverters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8LocaleConverters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8LocaleConverters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8LocaleConverters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8LocaleConverters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8LocaleConverters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8LocaleConverters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8LocaleConverters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8LocaleConverters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8LocaleConverters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8LocaleConverters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8LocaleConverters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8LocaleConverters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8LocaleConverters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8LocaleConverters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcAddCharSet
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcCreateDefaultCharSet
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_dbus_string_init_preallocated
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:_dbus_message_loader_queue_messages
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:dbus_connection_send_with_reply_and_block
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:_dbus_string_lengthen
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:_dbus_type_writer_recurse
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:_dbus_header_set_field_basic
+   fun:dbus_message_set_reply_serial
+   fun:dbus_message_new_error
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:dbus_connection_send_with_reply
+   fun:dbus_connection_send_with_reply_and_block
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:dbus_message_new_method_call
+   fun:dbus_bus_register
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:dbus_message_new_error
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:dbus_connection_send_with_reply
+   fun:dbus_connection_send_with_reply_and_block
+   fun:dbus_bus_register
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:_dbus_string_copy_len
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:_dbus_type_writer_write_basic
+   fun:dbus_message_iter_append_basic
+   fun:dbus_message_new_error
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:dbus_connection_send_with_reply
+   fun:dbus_connection_send_with_reply_and_block
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:_dbus_string_copy_len
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:_dbus_message_loader_queue_messages
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_XlcCreateDefaultCharSet
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:_dbus_string_lengthen
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:_dbus_type_writer_recurse
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:dbus_message_new_method_call
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:_dbus_string_lengthen
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:_dbus_type_writer_recurse
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:_dbus_header_set_field_basic
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:dbus_message_iter_append_basic
+   fun:dbus_message_append_args_valist
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:_dbus_string_copy_len
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:_dbus_type_writer_write_basic
+   fun:dbus_message_iter_append_basic
+   fun:dbus_message_new_error
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:dbus_connection_send_with_reply
+   fun:dbus_connection_send_with_reply_and_block
+   fun:dbus_bus_register
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libdbus-1.so.3.32.4
+   fun:dbus_threads_init
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   fun:_ZN6SDL2pp3SDLC1Ej
+   fun:_ZN8RendererC1Ei
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcCreateDefaultCharSet
+   fun:_XlcAddCT
+   fun:_XlcInitCTInfo
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcAddCharSet
+   fun:_XlcAddCT
+   fun:_XlcInitCTInfo
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcCreateDefaultCharSet
+   fun:_XlcAddCT
+   fun:_XlcInitCTInfo
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcAddCT
+   fun:_XlcInitCTInfo
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_XlcCreateDefaultCharSet
+   fun:_XlcAddCT
+   fun:_XlcInitCTInfo
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_XrmInternalStringToQuark
+   fun:_XlcGetCharSet
+   fun:_XlcAddCT
+   fun:_XlcInitCTInfo
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XrmInternalStringToQuark
+   fun:_XlcGetCharSet
+   fun:_XlcAddCT
+   fun:_XlcInitCTInfo
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XrmInternalStringToQuark
+   fun:_XlcGetLocaleDataBase
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:XSetLocaleModifiers
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.3000.2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:malloc
+   fun:allocate_dtv_entry
+   fun:allocate_and_init
+   fun:tls_get_addr_tail
+   fun:__tls_get_addr
+   fun:_ZN4llvm28getTimeTraceProfilerInstanceEv
+   fun:_ZN4llvm6legacy15PassManagerImpl3runERNS_6ModuleE
+   fun:LLVMRunPassManager
+   obj:/usr/lib/x86_64-linux-gnu/dri/radeonsi_dri.so
+   obj:/usr/lib/x86_64-linux-gnu/dri/radeonsi_dri.so
+   obj:/usr/lib/x86_64-linux-gnu/dri/radeonsi_dri.so
+   obj:/usr/lib/x86_64-linux-gnu/dri/radeonsi_dri.so
+   obj:/usr/lib/x86_64-linux-gnu/dri/radeonsi_dri.so
+   obj:/usr/lib/x86_64-linux-gnu/dri/radeonsi_dri.so
+}

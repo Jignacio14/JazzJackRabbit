@@ -1,5 +1,7 @@
 #include "./server_protocol.h"
 #include <cstdint>
+#include <string>
+#include <utility>
 #include <vector>
 
 #define HOW 2
@@ -24,7 +26,7 @@ bool ServerProtocol::sendGameInfo(
   }
 }
 
-const std::string ServerProtocol::getServerName() {
+const std::string ServerProtocol::getUserLobbyString() {
   try {
     uint16_t lenght = this->getNameLenght();
     std::vector<char> name = this->getName(lenght);
@@ -35,34 +37,14 @@ const std::string ServerProtocol::getServerName() {
   }
 }
 
-void ServerProtocol::sendGameStatus(const PlayerStatusDTO &dto) {
-  try {
-    skt.sendall_bytewise(&dto, sizeof(dto), &was_close);
-  } catch (const LibError &skt_err) {
-    std::cout << "Some error ocurred while trying to communicate" << std::endl;
-  }
-}
-
-const PlayerStatusDTO ServerProtocol::getGameStatus() {
-  PlayerStatusDTO dto;
-  /// TO-DO : Aca abria que agregar los mapeos para que esto no pase !!!
-  /// Siempre se recibe algo importante y si falla la comunicacion que tire un
-  /// codigo dentro del dto de manera que no rompo ?? Preguntar
-  try {
-    skt.recvall_bytewise(&dto, sizeof(dto), &was_close);
-    return dto;
-  } catch (const LibError &skt_err) {
-    std::cout << "Some error ocurred while trying to communicate" << std::endl;
-    return dto;
-  }
-}
-
 void ServerProtocol::sendGamesCount(const uint16_t &games_count) {
   /// 1. Obtenego la cantidad de juegos dispobibles en las partidas registradas
   /// y lo envio
+  bool wasClose = this->getTemporalWasClose();
   uint16_t games_count_formated = htons(games_count);
   skt.sendall_bytewise(&games_count_formated, sizeof(games_count_formated),
-                       &was_close);
+                       &wasClose);
+  this->throwIfClosed(wasClose);
 }
 
 void ServerProtocol::sendSerializedGameData(const std::string &name,
@@ -72,29 +54,78 @@ void ServerProtocol::sendSerializedGameData(const std::string &name,
   // asi pero para ir maquetando la solucion viene perfecto, si esto falla,
   // falla en un solo lugar y no tenog que estar rastrando que fue lo que se
   // rompio con los 3 tipos de datos distintos que debo pasar al cliente
+  bool wasClose = this->getTemporalWasClose();
   GameInfoDto data = this->serializer.serializeGameInfo(name, count);
-  skt.sendall_bytewise(&data, sizeof(data), &was_close);
+  skt.sendall_bytewise(&data, sizeof(data), &wasClose);
+  this->throwIfClosed(wasClose);
 }
 
 const uint8_t ServerProtocol::getNameLenght() {
+  bool wasClose = this->getTemporalWasClose();
   uint8_t lenght;
-  this->skt.recvall_bytewise(&lenght, sizeof(lenght), &was_close);
+  this->skt.recvall_bytewise(&lenght, sizeof(lenght), &wasClose);
+  this->throwIfClosed(wasClose);
   return lenght;
 }
 
 const std::vector<char> ServerProtocol::getName(const uint8_t &lenght) {
+  bool wasClose = this->getTemporalWasClose();
   std::vector<char> vector(lenght);
-  this->skt.recvall_bytewise(vector.data(), sizeof(vector), &was_close);
+  this->skt.recvall_bytewise(vector.data(), sizeof(vector), &wasClose);
+  this->throwIfClosed(wasClose);
   return vector;
+}
+
+PlayerInfo ServerProtocol::getGameInfo() {
+  bool wasClose = this->getTemporalWasClose();
+  PlayerInfo info;
+  this->skt.recvall_bytewise(&info, sizeof(info), &wasClose);
+  this->throwIfClosed(wasClose);
+  return info;
+}
+
+uint8_t ServerProtocol::getLobbyOption() {
+  bool wasClose = this->getTemporalWasClose();
+  uint8_t option;
+  this->skt.recvall_bytewise(&option, sizeof(option), &wasClose);
+  this->throwIfClosed(wasClose);
+  return option;
+}
+
+std::pair<std::string, std::string> ServerProtocol::getGameNameAndPlayerName() {
+  try {
+    uint8_t lenght = this->getNameLenght();
+    std::vector<char> name = this->getName(lenght);
+    lenght = this->getNameLenght();
+    std::vector<char> map = this->getName(lenght);
+    return std::make_pair(std::string(name.begin(), name.end()),
+                          std::string(map.begin(), map.end()));
+  } catch (const LibError &skt_err) {
+    std::cout << "Some error ocurred while trying to communicate" << std::endl;
+    return std::make_pair("", "");
+  }
+}
+
+void ServerProtocol::sendPlayerId(const uint8_t &player_id) {
+  bool wasClose = this->getTemporalWasClose();
+  skt.sendall_bytewise(&player_id, sizeof(player_id), &wasClose);
+  this->throwIfClosed(wasClose);
+}
+
+const bool ServerProtocol::getTemporalWasClose() {
+  return this->was_close.load();
+}
+
+void ServerProtocol::throwIfClosed(const bool &result) {
+  if (result) {
+    this->was_close.store(true);
+    throw LibError(errno, "Socket closed");
+  }
 }
 
 void ServerProtocol::shutdown() {
   this->skt.shutdown(HOW);
   this->skt.close();
 }
-
-ServerProtocol::ServerProtocol(ServerProtocol &&other)
-    : skt(std::move(other.skt)), was_close(other.was_close),
-      serializer(std::move(other.serializer)) {}
 
 ServerProtocol::~ServerProtocol() {}

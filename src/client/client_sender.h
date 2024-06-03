@@ -20,6 +20,8 @@ public:
   ClientSender(std::atomic<bool> &keep_talking, Queue<PlayerStatusDTO> &q,
                ClientProtocol &protocol);
   void run() override;
+
+  ~ClientSender() override;
 };
 
 #endif // JAZZJACKRABBIT_CLIENT_SENDER_H

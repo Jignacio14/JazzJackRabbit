@@ -5,7 +5,9 @@
 #include "../common/liberror.h"
 #include "../common/player_status_DTO.h"
 #include "../common/socket.h"
+#include "../data/player_info_dto.h"
 #include "./server_serializer.h"
+#include <atomic>
 #include <cstdint>
 #include <iostream>
 #include <netinet/in.h>
@@ -19,25 +21,35 @@ class ServerProtocol {
 private:
   Socket skt;
   // cppcheck-suppress unusedStructMember
-  bool was_close;
-
+  std::atomic<bool> was_close;
   Serializer serializer;
 
   void sendGamesCount(const uint16_t &games_count);
   void sendSerializedGameData(const std::string &name, const uint16_t &count);
   const uint8_t getNameLenght();
   const std::vector<char> getName(const uint8_t &lenght);
+  void throwIfClosed(const bool &result);
+  const bool getTemporalWasClose();
 
 public:
   explicit ServerProtocol(Socket skt);
 
+  /// Metodos para el loby del sender
+
   bool sendGameInfo(const std::unordered_map<std::string, uint16_t> &game_data);
-  const std::string getServerName();
-  void sendGameStatus(const PlayerStatusDTO &dto);
-  const PlayerStatusDTO getGameStatus();
+
+  const std::string getUserLobbyString();
+
+  PlayerInfo getGameInfo();
+  void sendPlayerId(const uint8_t &player_id);
+
+  uint8_t getLobbyOption();
+  std::pair<std::string, std::string> getGameNameAndPlayerName();
+
+  // const PlayerStatusDTO getGameStatus();
+
   void shutdown();
-  ServerProtocol(ServerProtocol &&);
-  ServerProtocol &operator=(ServerProtocol &&);
+
   ~ServerProtocol();
 };
 
