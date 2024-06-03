@@ -48,6 +48,7 @@ GamesMonitor::registerToExistingGame(PlayerInfo &player_status,
 std::pair<Queue<BaseDTO *> &, uint8_t>
 GamesMonitor::createNewGame(PlayerInfo &player_status,
                             Queue<BaseDTO *> &sender_queue) {
+  std::lock_guard<std::mutex> lck(this->mtx);
   GameWrapper *game = new GameWrapper();
   std::string server_name = this->getGameName(player_status);
   game_tracker[server_name] = game;
