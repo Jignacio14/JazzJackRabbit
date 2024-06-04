@@ -12,6 +12,7 @@ private:
 
 public:
   explicit Game(GameMonitor &monitor);
+  void kill();
 };
 
 #endif
