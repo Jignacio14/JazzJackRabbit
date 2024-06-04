@@ -4,6 +4,7 @@
 #include "renderer.h"
 #include <cstdint>
 #include <iostream>
+#include <memory>
 #include <string>
 
 #include <SDL2pp/SDL2pp.hh>
@@ -17,7 +18,7 @@ const static char JAZZ_SELECTED = 'J';
 const static char SPAZ_SELECTED = 'S';
 const static char LORI_SELECTED = 'L';
 
-const static bool TEST_ONLY_SDL_MODE = true;
+const static bool TEST_ONLY_SDL_MODE = false;
 
 void debugPrint(std::string &hostname, uint32_t &port, std::string &username,
                 char &userCharacter, GameConfigs &gameConfig) {
@@ -30,7 +31,6 @@ void debugPrint(std::string &hostname, uint32_t &port, std::string &username,
 }
 
 int main(int argc, char *argv[]) {
-
   const uint8_t EXPECTED_ARGUMENTS = 1;
 
   if (argc != EXPECTED_ARGUMENTS) {
@@ -48,6 +48,7 @@ int main(int argc, char *argv[]) {
   char userCharacter = CHARACTER_NOT_SELECTED;
   GameConfigs gameConfig;
   GameConfigs *gamePtr = &gameConfig;
+  std::unique_ptr<Lobby> lobby = nullptr;
 
   int exitCode = 0;
 
@@ -56,6 +57,7 @@ int main(int argc, char *argv[]) {
                                 userCharacter);
 
     exitCode = startupScreen.show();
+    lobby = startupScreen.getLobby();
 
     if (exitCode != EXIT_SUCCESS_CODE) {
       return EXIT_ERROR_CODE;
@@ -64,14 +66,7 @@ int main(int argc, char *argv[]) {
 
   debugPrint(hostname, port, username, userCharacter, gameConfig);
 
-  Lobby lobby(hostname.c_str(), std::to_string(port).c_str());
-  std::vector<GameInfoDto> games = lobby.get_games();
-
-  std::vector<char> gamename(10); // hardcodeado
-  uint8_t game_option = 1;        // hardcodeado
-  lobby.send_selected_game(gamename, game_option, userCharacter, username);
-
-  Socket skt = lobby.transfer_socket();
+  Socket skt = lobby->transfer_socket();
   int client_id = 1;
   Renderer renderer(client_id, skt);
   renderer.run();

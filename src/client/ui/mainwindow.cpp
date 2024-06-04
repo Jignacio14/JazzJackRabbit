@@ -8,10 +8,15 @@
 #include <qtimer.h>
 #include <qtooltip.h>
 
+#include "../../common/game_info.h"
+#include "../../common/global_configs.h"
 #include "../../common/random_string_generator.h"
 
-const static int SCREEN_SIZE_X = 800;
-const static int SCREEN_SIZE_Y = 600;
+static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
+
+const static int SCREEN_SIZE_X = globalConfigs.getScreenSizeX();
+const static int SCREEN_SIZE_Y = globalConfigs.getScreenSizeY();
+
 const static char JOYSTIX_RESOURCE_FONT_PATH[] = ":/fonts/assets/Joystix.otf";
 const static char BUTTON_CLICK_RESOURCE_SOUND_PATH[] =
     ":/sounds/assets/button_click.wav";
@@ -23,9 +28,12 @@ const static char LORI_MENU_ANIMATION_RESOURCE_PATH[] =
     ":/animations/assets/lori_menu_animation.gif";
 const static int TIME_FOR_CHARACTER_ANIMATION_WAIT = 1000; // In ms
 
-const static uint32_t MAX_USERNAME_SIZE = 32;
-const static uint32_t MAX_PORT_NUMBER = 65535;
-const static uint32_t MIN_NUMBER_OF_PLAYERS = 1;
+const static uint32_t MAX_USERNAME_SIZE = globalConfigs.getMaxUsernameLength();
+const static uint32_t MAX_PORT_NUMBER = globalConfigs.getMaxPortNumber();
+const static uint32_t MIN_NUMBER_OF_PLAYERS =
+    globalConfigs.getMinNumberOfPlayers();
+
+const static uint8_t GAME_OPTION_SEND_GAME = 1;
 
 const static char CHARACTER_NOT_SELECTED = '0';
 const static char JAZZ_SELECTED = 'J';
@@ -34,7 +42,7 @@ const static char LORI_SELECTED = 'L';
 
 MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
                        std::string &username, GameConfigs *game,
-                       char &userCharacter)
+                       char &userCharacter, std::unique_ptr<Lobby> lobby)
     : QMainWindow(parent), ui(new Ui::MainWindow), hostname(hostname),
       port(port), username(username), finalGameConfigs(game), gameOwnerName(""),
       gameDuration(0), maxPlayers(0), currentPlayers(1),
@@ -42,7 +50,9 @@ MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
       buttonClickSound(BUTTON_CLICK_RESOURCE_SOUND_PATH),
       jazzAnimation(JAZZ_MENU_ANIMATION_RESOURCE_PATH),
       spazAnimation(SPAZ_MENU_ANIMATION_RESOURCE_PATH),
-      loriAnimation(LORI_MENU_ANIMATION_RESOURCE_PATH), debug_counter(0) {
+      loriAnimation(LORI_MENU_ANIMATION_RESOURCE_PATH), debug_counter(0),
+      lobbyMoved(false), lobby(std::move(lobby)),
+      waitingPlayersAndStartTask(nullptr) {
 
   // Qt setup and set screen size
   this->ui->setupUi(this);
@@ -127,9 +137,21 @@ void MainWindow::on_connectButton_released() {
     return;
   }
 
-  // if connection sucessful then enable buttons
-  this->enableButton(this->ui->createGameButton, "createGameButton");
-  this->enableButton(this->ui->joinGameButton, "joinGameButton");
+  try {
+    const char *portStr = std::to_string(this->port).c_str();
+    std::unique_ptr<Lobby> lobbyAttempt =
+        std::make_unique<Lobby>(this->hostname.c_str(), portStr);
+    this->lobby = std::move(lobbyAttempt);
+
+    this->enableButton(this->ui->createGameButton, "createGameButton");
+    this->enableButton(this->ui->joinGameButton, "joinGameButton");
+
+  } catch (...) {
+    tooltipMessage = "Connection failed";
+    location = this->ui->connectButton->mapToGlobal(QPoint(180, -40));
+    qTooltipMessage = QString::fromStdString(tooltipMessage);
+    this->showTooltip(location, qTooltipMessage);
+  }
 }
 
 void MainWindow::on_createGameButton_pressed() {
@@ -254,6 +276,18 @@ void MainWindow::startGame() {
   *this->finalGameConfigs =
       GameConfigs(this->gameOwnerName, this->maxPlayers, this->currentPlayers,
                   this->gameDuration);
+
+  this->waitingPlayersAndStartTask =
+      std::make_unique<std::thread>(&MainWindow::waitForPlayers, this);
+  this->waitingPlayersAndStartTask->join();
+}
+
+void MainWindow::waitForPlayers() {
+  this->lobby->send_selected_game(this->gameOwnerName, GAME_OPTION_SEND_GAME,
+                                  this->characterSelected, this->username);
+  std::cout << "Waiting for players to join"
+            << "\n";
+  this->lobby->wait_game_start();
   std::cout << "Game starting!"
             << "\n";
   this->close();
@@ -387,10 +421,19 @@ const bool MainWindow::isNumberOfPlayersValid(std::string &message) {
 
 std::vector<GameConfigs> MainWindow::getGamesFromServer() {
   std::vector<GameConfigs> games;
-  for (int i = 0; i < 19; i++) {
+  std::vector<GameInfoDto> gamesDto = this->lobby->get_games();
+
+  /*for (int i = 0; i < 19; i++) {
     uint32_t userId = i + this->debug_counter;
     games.push_back(GameConfigs("user_" + std::to_string(userId), 3, 2, 120));
     this->debug_counter++;
+  }*/
+
+  for (auto &gameDto : gamesDto) {
+    std::string gameName = gameDto.game_name;
+    games.push_back(GameConfigs(gameName, globalConfigs.getMaxPlayersPerGame(),
+                                gameDto.player_count,
+                                globalConfigs.getMaxGameDuration()));
   }
 
   return games;
@@ -491,4 +534,14 @@ QWidget *MainWindow::createGameItemWidget(const GameConfigs &game) {
   return itemWidget;
 }
 
-MainWindow::~MainWindow() { delete ui; }
+std::unique_ptr<Lobby> MainWindow::getLobby() {
+  this->lobbyMoved = true;
+  return std::move(this->lobby);
+}
+
+MainWindow::~MainWindow() {
+  delete ui;
+  if (!this->lobbyMoved && this->waitingPlayersAndStartTask != nullptr) {
+    this->waitingPlayersAndStartTask->join();
+  }
+}
