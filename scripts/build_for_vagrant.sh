@@ -66,7 +66,7 @@ cp /vagrant/src/client/ui/assets/Joystix.otf  /usr/local/share/fonts
 print_colored_message $YELLOW_BOLD "══ Generating makefile with CMake ══"
 
 cd /vagrant/build
-cmake ..
+cmake -Wno-dev ..
 
 print_colored_message $YELLOW_BOLD "══ Building client and server binaries with CMake ══"
 

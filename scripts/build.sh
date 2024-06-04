@@ -66,7 +66,7 @@ cp "$SCRIPT_DIR"/../src/client/ui/assets/Joystix.otf  /usr/local/share/fonts/Joy
 print_colored_message $YELLOW_BOLD "══ Generating makefile with CMake ══"
 
 cd "$SCRIPT_DIR"/../build
-cmake ..
+cmake -Wno-dev ..
 
 print_colored_message $YELLOW_BOLD "══ Building client and server binaries with CMake ══"
 
