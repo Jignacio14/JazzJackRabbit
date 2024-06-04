@@ -15,7 +15,7 @@ public:
   uint8_t getOperationId() const;
   uint8_t getPlayerId() const;
 
-  ~BaseDTO();
+  virtual ~BaseDTO();
 };
 
 #endif
