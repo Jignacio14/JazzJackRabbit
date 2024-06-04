@@ -7,7 +7,7 @@
 #include <sys/types.h>
 #include <utility>
 
-#define RESENT_GAME_INFO 1
+#define RESEND_GAME_INFO 1
 #define REGISTER_PLAYER 2
 
 Sender::Sender(Socket peer, GamesMonitor &games_monitor_ref)
@@ -22,12 +22,10 @@ void Sender::sendGamesOptions() {
   }
 }
 
-void Sender::registerUser(Queue<BaseDTO *> &receiver_queue) {}
-
 Queue<BaseDTO *> &Sender::setUpPlayerLoop() {
   while (true) {
     uint8_t option = this->servprot.getLobbyOption();
-    if (option == RESENT_GAME_INFO) {
+    if (option == RESEND_GAME_INFO) {
       this->sendGamesOptions();
       continue;
     }
@@ -67,6 +65,16 @@ void Sender::run() {
 
 void Sender::runSenderLoop() {
   while (this->is_alive()) {
+    BaseDTO *dto;
+    if (!this->sender_queue.try_pop(dto)) {
+      continue;
+    }
+    // if (!this->servprot.sendDTO(*dto)) {
+    //   this->error = true;
+    //   delete dto;
+    //   break;
+    // }
+    delete dto;
   }
 }
 

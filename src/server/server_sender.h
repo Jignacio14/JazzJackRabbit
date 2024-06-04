@@ -17,7 +17,6 @@ private:
 
   void sendGamesOptions();
   Queue<BaseDTO *> &setUpPlayerLoop();
-  void registerUser(Queue<BaseDTO *> &receiver_queue);
   void runSenderLoop();
   void ValidatePlayerInfo(const PlayerInfo &player_info);
 

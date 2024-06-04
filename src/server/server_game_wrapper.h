@@ -5,7 +5,6 @@
 #include "../common/queue.h"
 #include "../data/base_dto.h"
 #include "../data/player_info_dto.h"
-#include "../engine/game.h"
 #include "server_game_monitor.h"
 
 #include <atomic>

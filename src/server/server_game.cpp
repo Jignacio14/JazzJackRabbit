@@ -33,4 +33,9 @@ void Game::run() {
   this->gameLoop();
 }
 
+void Game::addPlayer(const PlayerInfo &player_info) {
+  this->players++;
+  std::cout << "Player added" << std::endl;
+}
+
 void Game::kill() { this->_is_alive = false; }
