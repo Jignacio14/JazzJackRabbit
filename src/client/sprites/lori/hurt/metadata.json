@@ -1,0 +1,100 @@
+{"frames": [
+
+{
+	"filename": "frames/hurt_0.png",
+	"frame": {"x":0,"y":0,"w":45,"h":50},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":45,"h":50},
+	"sourceSize": {"w":45,"h":50}
+},
+{
+	"filename": "frames/hurt_1.png",
+	"frame": {"x":54,"y":0,"w":40,"h":40},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":40},
+	"sourceSize": {"w":40,"h":40}
+},
+{
+	"filename": "frames/hurt_2.png",
+	"frame": {"x":108,"y":0,"w":30,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":30,"h":44},
+	"sourceSize": {"w":30,"h":44}
+},
+{
+	"filename": "frames/hurt_3.png",
+	"frame": {"x":162,"y":0,"w":39,"h":47},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":39,"h":47},
+	"sourceSize": {"w":39,"h":47}
+},
+{
+	"filename": "frames/hurt_4.png",
+	"frame": {"x":216,"y":0,"w":47,"h":50},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":47,"h":50},
+	"sourceSize": {"w":47,"h":50}
+},
+{
+	"filename": "frames/hurt_5.png",
+	"frame": {"x":270,"y":0,"w":54,"h":50},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":54,"h":50},
+	"sourceSize": {"w":54,"h":50}
+},
+{
+	"filename": "frames/hurt_6.png",
+	"frame": {"x":324,"y":0,"w":48,"h":38},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":38},
+	"sourceSize": {"w":48,"h":38}
+},
+{
+	"filename": "frames/hurt_7.png",
+	"frame": {"x":378,"y":0,"w":48,"h":40},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":40},
+	"sourceSize": {"w":48,"h":40}
+},
+{
+	"filename": "frames/hurt_8.png",
+	"frame": {"x":432,"y":0,"w":40,"h":34},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":34},
+	"sourceSize": {"w":40,"h":34}
+},
+{
+	"filename": "frames/hurt_9.png",
+	"frame": {"x":486,"y":0,"w":38,"h":42},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":42},
+	"sourceSize": {"w":38,"h":42}
+},
+{
+	"filename": "frames/hurt_10.png",
+	"frame": {"x":540,"y":0,"w":35,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":35,"h":52},
+	"sourceSize": {"w":35,"h":52}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spritesheet.png",
+	"format": "RGB888",
+	"size": {"w":594,"h":52},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:b34de1192f5b4f6bf87d51e964c69b97:315eb7d6a73389d101269db7c3ecef10:8ec62f1fee1d06840401aebe0be01f82$"
+}
+}

@@ -84,4 +84,10 @@ add_executable(server
 )
 
 # Link the client object code with the corresponding libraries
-target_link_libraries(client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Multimedia SDL2pp::SDL2pp yaml-cpp::yaml-cpp)
+target_link_libraries(client
+    PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Gui
+    Qt${QT_VERSION_MAJOR}::Multimedia
+    SDL2pp::SDL2pp
+    yaml-cpp::yaml-cpp
+)

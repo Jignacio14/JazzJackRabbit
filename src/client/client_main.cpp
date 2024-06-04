@@ -1,3 +1,4 @@
+#include "./game_configs.h"
 #include "./ui/startup_screen.h"
 #include "lobby.h"
 #include "renderer.h"
@@ -15,6 +16,18 @@ const static char CHARACTER_NOT_SELECTED = '0';
 const static char JAZZ_SELECTED = 'J';
 const static char SPAZ_SELECTED = 'S';
 const static char LORI_SELECTED = 'L';
+
+const static bool TEST_ONLY_SDL_MODE = true;
+
+void debugPrint(std::string &hostname, uint32_t &port, std::string &username,
+                char &userCharacter, GameConfigs &gameConfig) {
+  std::cout << "username: " << username << "\n";
+  std::cout << "character selected: " << userCharacter << "\n";
+  std::cout << "Owner name: " << gameConfig.getOwnerName() << "|"
+            << " Players: " << gameConfig.getCurrentNumberOfPlayers() << "/"
+            << gameConfig.getMaxNumberOfPlayers() << "\n";
+  std::cout << "Hostname and port: " << hostname << ":" << port << std::endl;
+}
 
 int main(int argc, char *argv[]) {
 
@@ -36,38 +49,20 @@ int main(int argc, char *argv[]) {
   GameConfigs gameConfig;
   GameConfigs *gamePtr = &gameConfig;
 
-  StartupScreen startupScreen(argc, argv, hostname, port, username, gamePtr,
-                              userCharacter);
+  int exitCode = 0;
 
-  int exitCode = startupScreen.show();
+  if (TEST_ONLY_SDL_MODE == false) {
+    StartupScreen startupScreen(argc, argv, hostname, port, username, gamePtr,
+                                userCharacter);
 
-  if (exitCode != EXIT_SUCCESS_CODE) {
-    const std::string errorMessage =
-        "Error while closing StartupScreen. Shutting down.";
-    std::cerr << errorMessage << std::endl;
-    return EXIT_ERROR_CODE;
+    exitCode = startupScreen.show();
+
+    if (exitCode != EXIT_SUCCESS_CODE) {
+      return EXIT_ERROR_CODE;
+    }
   }
 
-  if (gameConfig.getOwnerName().empty()) {
-    const std::string errorMessage = "After closing StartupScreen no game "
-                                     "configs loaded correctly. Shutting down.";
-    std::cerr << errorMessage << std::endl;
-    return EXIT_ERROR_CODE;
-  }
-
-  if (userCharacter == CHARACTER_NOT_SELECTED) {
-    const std::string errorMessage =
-        "After closing StartupScreen no character selected. Shutting down.";
-    std::cerr << errorMessage << std::endl;
-    return EXIT_ERROR_CODE;
-  }
-
-  std::cout << username << "\n";
-  std::cout << userCharacter << "\n";
-  std::cout << gameConfig.getOwnerName() << "|"
-            << gameConfig.getCurrentNumberOfPlayers() << "/"
-            << gameConfig.getMaxNumberOfPlayers() << "\n";
-  std::cout << hostname << ":" << port << std::endl;
+  debugPrint(hostname, port, username, userCharacter, gameConfig);
 
   Lobby lobby(hostname.c_str(), std::to_string(port).c_str());
   std::vector<GameInfoDto> games = lobby.get_games();
