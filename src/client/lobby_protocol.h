@@ -9,6 +9,8 @@
 #include <netinet/in.h>
 #include <vector>
 
+#define REFRESH 1
+
 class LobbyProtocol {
 private:
   // cppcheck-suppress unusedStructMember
@@ -28,6 +30,11 @@ public:
    * Receives a single game info and returns it.
    * */
   GameInfoDto receive_game();
+
+  /*
+   * Sends the server a signal to refresh the games.
+   * */
+  void send_refresh();
 
   /*
    * Sends the game de player selected to the server. First, game option, then

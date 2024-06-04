@@ -46,6 +46,18 @@ void LobbyProtocol::send_selected_game(const std::vector<char> &gamename,
   }
 }
 
+void LobbyProtocol::send_refresh() {
+  try {
+    uint8_t refresh = REFRESH;
+    skt.sendall_bytewise(&refresh, sizeof(uint8_t), &was_closed);
+    this->skt_was_closed();
+  } catch (const std::exception &err) {
+    std::cout
+        << "Some error ocurred while trying to send a message to the server."
+        << std::endl;
+  }
+}
+
 bool LobbyProtocol::wait_game_start() {
   try {
     uint16_t len = receive_header();

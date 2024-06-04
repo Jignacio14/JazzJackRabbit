@@ -14,6 +14,11 @@ std::vector<GameInfoDto> Lobby::get_games() {
   return vect;
 }
 
+std::vector<GameInfoDto> Lobby::refresh_games() {
+  protocol.send_refresh();
+  return get_games();
+}
+
 void Lobby::send_selected_game(const std::string &gamename, uint8_t game_option,
                                char user_character,
                                const std::string &username) {
