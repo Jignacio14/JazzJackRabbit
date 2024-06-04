@@ -1,20 +1,15 @@
 #include "server_game_wrapper.h"
-#include <cstdint>
 
-GameWrapper::GameWrapper() : monitor() {}
+GameWrapper::GameWrapper() : monitor(), game(monitor, receiver_queue) {}
 
 void GameWrapper::start() {
-  // monitor.start();
-  // game.start();
+  this->game.start();
   return;
 }
 
 const u_int16_t GameWrapper::getGamePlayers() { return players_count; }
 
-void GameWrapper::killGame() {
-  // monitor.stop();
-  // game.stop();
-}
+void GameWrapper::killGame() { this->game.kill(); }
 
 std::pair<Queue<BaseDTO *> &, uint8_t>
 GameWrapper::addPlayer(Queue<BaseDTO *> &queue, PlayerInfo &player_info) {
