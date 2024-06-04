@@ -21,21 +21,32 @@ GlobalConfigs::GlobalConfigs() {
 
   this->screenSizeX = gameConfigs["screen_size_x"].as<int>();
   this->screenSizeY = gameConfigs["screen_size_y"].as<int>();
+  this->windowName = gameConfigs["window_name"].as<std::string>();
+  this->targetFps = gameConfigs["target_fps"].as<double>();
 }
 
-uint16_t GlobalConfigs::getMaxPlayersPerGame() {
+uint16_t GlobalConfigs::getMaxPlayersPerGame() const {
   return this->maxPlayersPerGame;
 }
-uint32_t GlobalConfigs::getMaxGameDuration() { return this->maxGameDuration; }
 
-uint32_t GlobalConfigs::getMaxUsernameLength() {
+uint32_t GlobalConfigs::getMaxGameDuration() const {
+  return this->maxGameDuration;
+}
+
+uint32_t GlobalConfigs::getMaxUsernameLength() const {
   return this->maxUsernameLength;
 }
-uint32_t GlobalConfigs::getMinNumberOfPlayers() {
+
+uint32_t GlobalConfigs::getMinNumberOfPlayers() const {
   return this->minNumberOfPlayers;
 }
-uint32_t GlobalConfigs::getMaxPortNumber() { return this->maxPortNumber; }
 
-int GlobalConfigs::getScreenSizeX() { return this->screenSizeX; }
+uint32_t GlobalConfigs::getMaxPortNumber() const { return this->maxPortNumber; }
 
-int GlobalConfigs::getScreenSizeY() { return this->screenSizeY; }
+int GlobalConfigs::getScreenSizeX() const { return this->screenSizeX; }
+
+int GlobalConfigs::getScreenSizeY() const { return this->screenSizeY; }
+
+std::string GlobalConfigs::getWindowName() const { return this->windowName; }
+
+double GlobalConfigs::getTargetFps() const { return this->targetFps; }

@@ -2,6 +2,7 @@
 #define GLOBAL_CONFIGS_H
 
 #include <cstdint>
+#include <string>
 
 class GlobalConfigs {
 private:
@@ -19,6 +20,10 @@ private:
   int screenSizeX;
   // cppcheck-suppress unusedStructMember
   int screenSizeY;
+  // cppcheck-suppress unusedStructMember
+  std::string windowName;
+  // cppcheck-suppress unusedStructMember
+  double targetFps;
 
   GlobalConfigs();
 
@@ -41,13 +46,15 @@ public:
    */
   static GlobalConfigs &getInstance();
 
-  uint16_t getMaxPlayersPerGame();
-  uint32_t getMaxGameDuration();
-  uint32_t getMaxUsernameLength();
-  uint32_t getMinNumberOfPlayers();
-  uint32_t getMaxPortNumber();
-  int getScreenSizeX();
-  int getScreenSizeY();
+  uint16_t getMaxPlayersPerGame() const;
+  uint32_t getMaxGameDuration() const;
+  uint32_t getMaxUsernameLength() const;
+  uint32_t getMinNumberOfPlayers() const;
+  uint32_t getMaxPortNumber() const;
+  int getScreenSizeX() const;
+  int getScreenSizeY() const;
+  std::string getWindowName() const;
+  double getTargetFps() const;
 };
 
 #endif // GLOBAL_CONFIGS_H

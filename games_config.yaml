@@ -7,3 +7,5 @@ max_port_number: 65535
 # Client exclusive
 screen_size_x: 800
 screen_size_y: 600
+window_name: "JazzJackRabbit 2"
+target_fps: 60
