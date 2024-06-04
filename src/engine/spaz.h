@@ -6,7 +6,7 @@
 class Spaz : public BasePlayer {
 private:
 public:
-  Spaz();
+  explicit Spaz(uint8_t player_id, std::string &player_name);
   void shoot() override;
   void run() override;
   void runFast() override;

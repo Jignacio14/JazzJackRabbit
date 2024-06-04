@@ -3,6 +3,9 @@
 
 #include "../common/thread.h"
 #include "../engine/base_player.h"
+#include "../engine/jazz.h"
+#include "../engine/lori.h"
+#include "../engine/spaz.h"
 #include "server_game_monitor.h"
 #include <atomic>
 #include <cstdint>

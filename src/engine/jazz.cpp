@@ -1,7 +1,10 @@
 #include "jazz.h"
+#include "base_player.h"
 #include <iostream>
+#include <sys/types.h>
 
-Jazz::Jazz() {}
+Jazz::Jazz(uint8_t player_id, std::string &player_name)
+    : BasePlayer(player_id, player_name) {}
 
 void Jazz::run() { std::cout << "Im running" << std::endl; }
 

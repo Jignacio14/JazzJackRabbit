@@ -33,6 +33,23 @@ void Game::run() {
   this->gameLoop();
 }
 
+BasePlayer *Game::constructPlayer(uint8_t player_id, std::string &player_name) {
+  /// To-Do implementar con un diccionario y no con la porqueria de ifs
+  if (player_id == 1) {
+    return new Jazz(player_id, player_name);
+  }
+
+  if (player_id == 2) {
+    return new Lori(player_id, player_name);
+  }
+
+  if (player_id == 3) {
+    return new Spaz(player_id, player_name);
+  }
+
+  return nullptr;
+}
+
 void Game::addPlayer(const PlayerInfo &player_info) {
   this->players++;
   std::string player_name(player_info.player_name.begin(),
