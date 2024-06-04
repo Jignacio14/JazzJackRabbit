@@ -35,7 +35,19 @@ void Game::run() {
 
 void Game::addPlayer(const PlayerInfo &player_info) {
   this->players++;
-  std::cout << "Player added" << std::endl;
+  std::string player_name(player_info.player_name.begin(),
+                          player_info.player_name.end());
+  BasePlayer *new_player = this->constructPlayer(this->players, player_name);
+  if (new_player == nullptr) {
+    return;
+  }
+  this->players_data[this->players] = new_player;
+}
+
+void Game::ereasePlayer(uint8_t player_id) {
+  this->monitor.ereasePlayer(this->messages);
+  this->players_data.erase(player_id);
+  this->players--;
 }
 
 void Game::kill() { this->_is_alive = false; }

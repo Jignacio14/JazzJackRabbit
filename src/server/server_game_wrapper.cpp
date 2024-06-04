@@ -19,3 +19,8 @@ GameWrapper::addPlayer(Queue<BaseDTO *> &queue, PlayerInfo &player_info) {
   return std::pair<Queue<BaseDTO *> &, uint8_t>(this->receiver_queue,
                                                 player_id);
 }
+
+void GameWrapper::ereasedPlayer(uint8_t player_id) {
+  this->game.ereasePlayer(player_id);
+  players_count--;
+}

@@ -26,7 +26,7 @@ public:
   void start();
   const u_int16_t getGamePlayers();
   void killGame();
-
+  void ereasedPlayer(uint8_t player_id);
   std::pair<Queue<BaseDTO *> &, uint8_t> addPlayer(Queue<BaseDTO *> &queue,
                                                    PlayerInfo &player_info);
 };
