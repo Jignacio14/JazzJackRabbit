@@ -18,14 +18,27 @@ public:
   std::vector<GameInfoDto> get_games();
 
   /*
-   * Sends the game match that the player chose.
+   * Sends the game match that the player chose, and the character selected by
+   * the player and the username.
    * */
-  void send_selected_game(const std::vector<char> &gamename);
+  void send_selected_game(const std::vector<char> &gamename,
+                          uint8_t game_option, char user_character,
+                          const std::string &username);
 
   /*
    * Moves socket ownership with move semantics.
    * */
   Socket transfer_socket();
+
+  /*
+   *
+   * */
+  bool wait_game_start();
+
+  /*
+   * Close and shutdown the socket.
+   * */
+  void quit_game();
 };
 
 #endif // JAZZJACKRABBIT_LOBBY_H

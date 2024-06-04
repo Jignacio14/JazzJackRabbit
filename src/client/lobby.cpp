@@ -6,7 +6,7 @@ Lobby::Lobby(const char *hostname, const char *port)
 
 std::vector<GameInfoDto> Lobby::get_games() {
   std::vector<GameInfoDto> vect;
-  uint8_t number_of_games = protocol.receive_header();
+  uint16_t number_of_games = protocol.receive_header();
   for (int i = 0; i < number_of_games; ++i) {
     GameInfoDto game = protocol.receive_game();
     vect.push_back(game);
@@ -14,8 +14,20 @@ std::vector<GameInfoDto> Lobby::get_games() {
   return vect;
 }
 
-void Lobby::send_selected_game(const std::vector<char> &gamename) {
-  protocol.send_selected_game(gamename);
+void Lobby::send_selected_game(const std::vector<char> &gamename,
+                               uint8_t game_option, char user_character,
+                               const std::string &username) {
+  std::vector<char> username_vect(username.begin(), username.end());
+  protocol.send_selected_game(gamename, game_option, user_character,
+                              username_vect);
 }
 
+bool Lobby::wait_game_start() { return protocol.wait_game_start(); }
+
 Socket Lobby::transfer_socket() { return std::move(skt); }
+
+void Lobby::quit_game() {
+  // Try catch ?
+  skt.shutdown(2);
+  skt.close();
+}

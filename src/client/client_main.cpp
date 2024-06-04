@@ -68,7 +68,8 @@ int main(int argc, char *argv[]) {
   std::vector<GameInfoDto> games = lobby.get_games();
 
   std::vector<char> gamename(10); // hardcodeado
-  lobby.send_selected_game(gamename);
+  uint8_t game_option = 1;        // hardcodeado
+  lobby.send_selected_game(gamename, game_option, userCharacter, username);
 
   Socket skt = lobby.transfer_socket();
   int client_id = 1;
