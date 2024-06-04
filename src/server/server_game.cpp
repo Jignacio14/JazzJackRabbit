@@ -34,20 +34,15 @@ void Game::run() {
 }
 
 BasePlayer *Game::constructPlayer(uint8_t player_id, std::string &player_name) {
-  /// To-Do implementar con un diccionario y no con la porqueria de ifs
-  if (player_id == 1) {
-    return new Jazz(player_id, player_name);
-  }
+  using PlayerFactory = std::function<BasePlayer *(uint8_t, std::string &)>;
+  static const std::unordered_map<uint8_t, PlayerFactory> factories = {
+      {1, [](uint8_t id, std::string &name) { return new Jazz(id, name); }},
+      {2, [](uint8_t id, std::string &name) { return new Lori(id, name); }},
+      {3, [](uint8_t id, std::string &name) { return new Spaz(id, name); }},
+  };
 
-  if (player_id == 2) {
-    return new Lori(player_id, player_name);
-  }
-
-  if (player_id == 3) {
-    return new Spaz(player_id, player_name);
-  }
-
-  return nullptr;
+  auto it = factories.find(player_id);
+  return it != factories.end() ? it->second(player_id, player_name) : nullptr;
 }
 
 void Game::addPlayer(const PlayerInfo &player_info) {
