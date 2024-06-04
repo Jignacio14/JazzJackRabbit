@@ -1,2 +1,9 @@
 max_players_per_game: 5
 max_game_duration: 90
+max_username_length: 29
+min_number_of_players: 1
+max_port_number: 65535
+
+# Client exclusive
+screen_size_x: 800
+screen_size_y: 600
