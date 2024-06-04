@@ -25,8 +25,8 @@ Renderer::Renderer(int id, Socket socket)
       sdlRenderer(window, -1, SDL_RENDERER_ACCELERATED),
       debugPanel(this->sdlRenderer), client(std::move(socket), id) {}
 
-void Renderer::addRenderable(Renderable *renderable) {
-  this->renderables.push_back(renderable);
+void Renderer::addRenderable(std::unique_ptr<Renderable> renderable) {
+  this->renderables.push_back(std::move(renderable));
 }
 
 double Renderer::now() {
@@ -49,7 +49,7 @@ void Renderer::processKeyboardEvents() {
         break;
 
       case SDLK_j:
-        this->addRenderable(new Jazz(this->sdlRenderer));
+        this->addRenderable(std::make_unique<Jazz>(this->sdlRenderer));
         std::cout << "Adding Jazz"
                   << "\n";
         break;
@@ -114,8 +114,4 @@ void Renderer::run() {
   }
 }
 
-Renderer::~Renderer() {
-  for (auto &renderable : this->renderables) {
-    delete renderable;
-  }
-}
+Renderer::~Renderer() {}
