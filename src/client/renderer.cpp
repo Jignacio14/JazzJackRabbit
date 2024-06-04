@@ -18,7 +18,7 @@ const static int SCREEN_SIZE_Y = globalConfigs.getScreenSizeY();
 
 const static char *WINDOW_NAME = globalConfigs.getWindowName().c_str();
 
-Renderer::Renderer(int id, Socket &socket)
+Renderer::Renderer(int id, Socket socket)
     : client_id(id), keep_running(true), rate(RATE), sdl(SDL_INIT_VIDEO),
       window(WINDOW_NAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
              SCREEN_SIZE_X, SCREEN_SIZE_Y, SDL_WINDOW_SHOWN),

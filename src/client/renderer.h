@@ -42,7 +42,7 @@ private:
   void sleep(double timeToSleep);
 
 public:
-  Renderer(int id, Socket &socket);
+  Renderer(int id, Socket socket);
 
   /*
    * It executes the game logic repeatedly, keeping a constant time rate between
