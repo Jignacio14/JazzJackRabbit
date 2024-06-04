@@ -283,8 +283,8 @@ void MainWindow::startGame() {
 }
 
 void MainWindow::waitForPlayers() {
-  this->lobby->send_selected_game(this->gameOwnerName, GAME_OPTION_SEND_GAME,
-                                  this->characterSelected, this->username);
+  this->lobby->send_selected_game(this->gameOwnerName, this->characterSelected,
+                                  this->username);
   std::cout << "Waiting for players to join"
             << "\n";
   this->lobby->wait_game_start();

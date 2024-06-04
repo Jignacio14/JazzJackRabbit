@@ -1,5 +1,6 @@
 
 #include "lobby_protocol.h"
+#include <cstdint>
 
 LobbyProtocol::LobbyProtocol(Socket &a_skt) : was_closed(false), skt(a_skt) {}
 
@@ -29,15 +30,13 @@ GameInfoDto LobbyProtocol::receive_game() {
 }
 
 void LobbyProtocol::send_selected_game(const std::vector<char> &gamename,
-                                       uint8_t game_option, char user_character,
+                                       char user_character,
                                        const std::vector<char> &username) {
   try {
+    uint8_t game_option = NEW_GAME;
     skt.sendall_bytewise(&game_option, sizeof(uint8_t), &was_closed);
-    uint8_t length = gamename.size();
-    skt.sendall_bytewise(&length, sizeof(uint8_t), &was_closed);
-    skt.sendall_bytewise(gamename.data(), gamename.size(), &was_closed);
-    skt.sendall_bytewise(&user_character, sizeof(char), &was_closed);
-    skt.sendall_bytewise(username.data(), username.size(), &was_closed);
+    PlayerInfo player_info(username, gamename, user_character);
+    skt.sendall_bytewise(&player_info, sizeof(player_info), &was_closed);
     this->skt_was_closed();
   } catch (const std::exception &err) {
     std::cout

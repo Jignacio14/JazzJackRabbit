@@ -4,12 +4,14 @@
 
 #include "../common/game_info.h"
 #include "../common/socket.h"
+#include "../data/player_info_dto.h"
 #include <atomic>
 #include <iostream>
 #include <netinet/in.h>
 #include <vector>
 
 #define REFRESH 1
+#define NEW_GAME 2
 
 class LobbyProtocol {
 private:
@@ -37,12 +39,12 @@ public:
   void send_refresh();
 
   /*
-   * Sends the game de player selected to the server. First, game option, then
-   * length of gamename and then the gamename. Then, it sends the character
-   * chosen by the player, and then the username.
+   * Sends the game de player selected to the server. This includes game option,
+   * gamename, the gamename. Then, it sends the character chosen by the player,
+   * and the username.
    * */
   void send_selected_game(const std::vector<char> &gamename,
-                          uint8_t game_option, char user_character,
+                          char user_character,
                           const std::vector<char> &username);
 
   /*

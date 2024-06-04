@@ -27,8 +27,8 @@ public:
    * Sends the game match that the player chose, and the character selected by
    * the player and the username.
    * */
-  void send_selected_game(const std::string &gamename, uint8_t game_option,
-                          char user_character, const std::string &username);
+  void send_selected_game(const std::string &gamename, char user_character,
+                          const std::string &username);
 
   /*
    * Moves socket ownership with move semantics.
