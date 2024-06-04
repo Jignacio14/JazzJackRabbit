@@ -1,0 +1,36 @@
+{"frames": [
+
+{
+	"filename": "frames/jumping_up_falling_transition_0.png",
+	"frame": {"x":0,"y":0,"w":40,"h":47},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":47},
+	"sourceSize": {"w":40,"h":47}
+},
+{
+	"filename": "frames/jumping_up_falling_transition_1.png",
+	"frame": {"x":40,"y":0,"w":39,"h":49},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":39,"h":49},
+	"sourceSize": {"w":39,"h":49}
+},
+{
+	"filename": "frames/jumping_up_falling_transition_2.png",
+	"frame": {"x":80,"y":0,"w":35,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":35,"h":51},
+	"sourceSize": {"w":35,"h":51}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spritesheet.png",
+	"format": "RGB888",
+	"size": {"w":120,"h":51},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:dfd1acff1df0f2683721edda14bc5486:b804f9ffb76784fa0906da6540c1c2e8:8ec62f1fee1d06840401aebe0be01f82$"
+}
+}

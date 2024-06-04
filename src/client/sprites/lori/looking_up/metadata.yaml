@@ -1,0 +1,44 @@
+frames:
+  - filename: frames/looking_up_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 36
+      h: 53
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 36
+      h: 53
+    sourceSize:
+      w: 36
+      h: 53
+  - filename: frames/looking_up_1.png
+    frame:
+      x: 36
+      'y': 0
+      w: 36
+      h: 52
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 36
+      h: 52
+    sourceSize:
+      w: 36
+      h: 52
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 72
+    h: 53
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:00cb24a69a381aec1f0b4e400c61550a:c69e4cc0ecd2129e50e8bd6b642e3596:8ec62f1fee1d06840401aebe0be01f82$

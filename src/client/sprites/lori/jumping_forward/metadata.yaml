@@ -1,0 +1,156 @@
+frames:
+  - filename: frames/jumping_forward_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 36
+      h: 49
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 36
+      h: 49
+    sourceSize:
+      w: 36
+      h: 49
+  - filename: frames/jumping_forward_1.png
+    frame:
+      x: 49
+      'y': 0
+      w: 35
+      h: 52
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 35
+      h: 52
+    sourceSize:
+      w: 35
+      h: 52
+  - filename: frames/jumping_forward_2.png
+    frame:
+      x: 98
+      'y': 0
+      w: 38
+      h: 53
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 38
+      h: 53
+    sourceSize:
+      w: 38
+      h: 53
+  - filename: frames/jumping_forward_3.png
+    frame:
+      x: 147
+      'y': 0
+      w: 40
+      h: 52
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 40
+      h: 52
+    sourceSize:
+      w: 40
+      h: 52
+  - filename: frames/jumping_forward_4.png
+    frame:
+      x: 196
+      'y': 0
+      w: 43
+      h: 52
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 43
+      h: 52
+    sourceSize:
+      w: 43
+      h: 52
+  - filename: frames/jumping_forward_5.png
+    frame:
+      x: 245
+      'y': 0
+      w: 45
+      h: 49
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 45
+      h: 49
+    sourceSize:
+      w: 45
+      h: 49
+  - filename: frames/jumping_forward_6.png
+    frame:
+      x: 294
+      'y': 0
+      w: 47
+      h: 44
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 47
+      h: 44
+    sourceSize:
+      w: 47
+      h: 44
+  - filename: frames/jumping_forward_7.png
+    frame:
+      x: 343
+      'y': 0
+      w: 49
+      h: 42
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 49
+      h: 42
+    sourceSize:
+      w: 49
+      h: 42
+  - filename: frames/jumping_forward_8.png
+    frame:
+      x: 392
+      'y': 0
+      w: 49
+      h: 43
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 49
+      h: 43
+    sourceSize:
+      w: 49
+      h: 43
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 441
+    h: 53
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:1db78819230a056c4f0cf2f0affb9ba2:a4a69798046b223fc6fc2613d744e71a:8ec62f1fee1d06840401aebe0be01f82$
