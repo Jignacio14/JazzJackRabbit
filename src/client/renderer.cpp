@@ -5,7 +5,7 @@
 #include <cmath>
 #include <thread>
 
-#include "../../common/global_configs.h"
+#include "../common/global_configs.h"
 #include "./graphics/jazz.h"
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
