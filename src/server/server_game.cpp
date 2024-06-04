@@ -40,7 +40,6 @@ BasePlayer *Game::constructPlayer(uint8_t player_id, std::string &player_name) {
       {2, [](uint8_t id, std::string &name) { return new Lori(id, name); }},
       {3, [](uint8_t id, std::string &name) { return new Spaz(id, name); }},
   };
-
   auto it = factories.find(player_id);
   return it != factories.end() ? it->second(player_id, player_name) : nullptr;
 }
