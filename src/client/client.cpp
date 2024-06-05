@@ -13,7 +13,6 @@ Client::Client(Socket &&socket, int id)
 
 void Client::kill() {
   protocol.close_and_shutdown();
-  // Tamb close de los hilos?
   sender.join();
   receiver.join();
 }
@@ -22,7 +21,6 @@ Client::~Client() {
   protocol.close_and_shutdown();
   this->sender_queue.close();
   this->receiver_queue.close();
-
   this->receiver.stop();
   this->sender.stop();
   this->receiver.join();

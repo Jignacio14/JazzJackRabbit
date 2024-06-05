@@ -6,12 +6,14 @@
 #include "../common/socket.h"
 #include "../data/player_info_dto.h"
 #include <atomic>
+#include <cstdint>
 #include <iostream>
 #include <netinet/in.h>
 #include <vector>
 
 #define REFRESH 1
 #define NEW_GAME 2
+#define ERROR -1
 
 class LobbyProtocol {
 private:
@@ -39,13 +41,18 @@ public:
   void send_refresh();
 
   /*
+   * Receives the player id from the server and returns it.
+   */
+  uint8_t receive_player_id();
+
+  /*
    * Sends the game de player selected to the server. This includes game option,
    * gamename, the gamename. Then, it sends the character chosen by the player,
-   * and the username.
+   * and the username. Finally, it returns the player id.
    * */
-  void send_selected_game(const std::vector<char> &gamename,
-                          char user_character,
-                          const std::vector<char> &username);
+  uint8_t send_selected_game(const std::vector<char> &gamename,
+                             char user_character,
+                             const std::vector<char> &username);
 
   /*
    * Waits for the server to send the confirmation message. Returns true if this

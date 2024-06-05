@@ -81,9 +81,9 @@ int main(int argc, char *argv[]) {
 
   debugPrint(hostname, port, username, userCharacter, gameConfig);
 
-  int client_id = 1;
+  int player_id = 1;
   Socket skt = lobby->transfer_socket();
-  Renderer renderer(graphicEngine, client_id, std::move(skt));
+  Renderer renderer(graphicEngine, player_id, std::move(skt));
   renderer.run();
 
   return exitCode;

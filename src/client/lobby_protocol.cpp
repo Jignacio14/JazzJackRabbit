@@ -29,19 +29,35 @@ GameInfoDto LobbyProtocol::receive_game() {
   }
 }
 
-void LobbyProtocol::send_selected_game(const std::vector<char> &gamename,
-                                       char user_character,
-                                       const std::vector<char> &username) {
+uint8_t LobbyProtocol::receive_player_id() {
+  try {
+    uint8_t player_id;
+    skt.recvall_bytewise(&player_id, sizeof(uint8_t), &was_closed);
+    this->skt_was_closed();
+    return player_id;
+  } catch (const std::exception &err) {
+    std::cout << "Some error ocurred while trying to receive a message from "
+                 "the server."
+              << std::endl;
+    return ERROR;
+  }
+}
+
+uint8_t LobbyProtocol::send_selected_game(const std::vector<char> &gamename,
+                                          char user_character,
+                                          const std::vector<char> &username) {
   try {
     uint8_t game_option = NEW_GAME;
     skt.sendall_bytewise(&game_option, sizeof(uint8_t), &was_closed);
     PlayerInfo player_info(username, gamename, user_character);
     skt.sendall_bytewise(&player_info, sizeof(player_info), &was_closed);
     this->skt_was_closed();
+    return this->receive_player_id();
   } catch (const std::exception &err) {
     std::cout
         << "Some error ocurred while trying to send a message to the server."
         << std::endl;
+    return ERROR;
   }
 }
 

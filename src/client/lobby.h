@@ -3,6 +3,7 @@
 #define JAZZJACKRABBIT_LOBBY_H
 
 #include "lobby_protocol.h"
+#include <cstdint>
 
 class Lobby {
 private:
@@ -25,10 +26,10 @@ public:
 
   /*
    * Sends the game match that the player chose, and the character selected by
-   * the player and the username.
+   * the player and the username. Returns the player id.
    * */
-  void send_selected_game(const std::string &gamename, char user_character,
-                          const std::string &username);
+  uint8_t send_selected_game(const std::string &gamename, char user_character,
+                             const std::string &username);
 
   /*
    * Moves socket ownership with move semantics.

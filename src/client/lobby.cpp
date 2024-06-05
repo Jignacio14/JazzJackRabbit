@@ -1,5 +1,6 @@
 
 #include "lobby.h"
+#include <cstdint>
 #include <sys/socket.h>
 
 Lobby::Lobby(const char *hostname, const char *port)
@@ -20,11 +21,13 @@ std::vector<GameInfoDto> Lobby::refresh_games() {
   return get_games();
 }
 
-void Lobby::send_selected_game(const std::string &gamename, char user_character,
-                               const std::string &username) {
+uint8_t Lobby::send_selected_game(const std::string &gamename,
+                                  char user_character,
+                                  const std::string &username) {
   std::vector<char> gamename_vect(gamename.begin(), gamename.end());
   std::vector<char> username_vect(username.begin(), username.end());
-  protocol.send_selected_game(gamename_vect, user_character, username_vect);
+  return protocol.send_selected_game(gamename_vect, user_character,
+                                     username_vect);
 }
 
 bool Lobby::wait_game_start() { return protocol.wait_game_start(); }
