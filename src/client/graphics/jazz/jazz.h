@@ -1,8 +1,8 @@
 #ifndef JAZZ_H
 #define JAZZ_H
 
-#include "../coordinates.h"
-#include "../renderable.h"
+#include "../../coordinates.h"
+#include "../../renderable.h"
 #include <SDL2pp/SDL2pp.hh>
 #include <optional>
 #include <vector>

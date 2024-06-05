@@ -9,3 +9,7 @@ screen_size_x: 800
 screen_size_y: 600
 window_name: "JazzJackRabbit 2"
 target_fps: 60
+
+# Client exclusive debug values
+debug_hostname: "localhost"
+debug_port: 1002

@@ -1,7 +1,8 @@
 #include "spaz.h"
 #include <iostream>
 
-Spaz::Spaz() {}
+Spaz::Spaz(uint8_t player_id, std::string &player_name)
+    : BasePlayer(player_id, player_name) {}
 
 void Spaz::run() { std::cout << "Im running" << std::endl; }
 

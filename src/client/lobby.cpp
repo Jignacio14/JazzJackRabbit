@@ -1,5 +1,6 @@
 
 #include "lobby.h"
+#include <sys/socket.h>
 
 Lobby::Lobby(const char *hostname, const char *port)
     : skt(hostname, port), protocol(skt) {}
@@ -32,6 +33,6 @@ Socket Lobby::transfer_socket() { return std::move(skt); }
 
 void Lobby::quit_game() {
   // Try catch ?
-  skt.shutdown(2);
+  skt.shutdown(SHUT_RDWR);
   skt.close();
 }

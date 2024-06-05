@@ -1,7 +1,8 @@
 #include "lori.h"
 #include <iostream>
 
-Lori::Lori() {}
+Lori::Lori(uint8_t player_id, std::string &player_name)
+    : BasePlayer(player_id, player_name) {}
 
 void Lori::run() { std::cout << "Im running" << std::endl; }
 
