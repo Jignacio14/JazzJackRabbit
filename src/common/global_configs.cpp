@@ -23,6 +23,9 @@ GlobalConfigs::GlobalConfigs() {
   this->screenSizeY = gameConfigs["screen_size_y"].as<int>();
   this->windowName = gameConfigs["window_name"].as<std::string>();
   this->targetFps = gameConfigs["target_fps"].as<double>();
+
+  this->debugHostname = gameConfigs["debug_hostname"].as<std::string>();
+  this->debugPort = gameConfigs["debug_port"].as<uint32_t>();
 }
 
 uint16_t GlobalConfigs::getMaxPlayersPerGame() const {
@@ -50,3 +53,9 @@ int GlobalConfigs::getScreenSizeY() const { return this->screenSizeY; }
 std::string GlobalConfigs::getWindowName() const { return this->windowName; }
 
 double GlobalConfigs::getTargetFps() const { return this->targetFps; }
+
+std::string GlobalConfigs::getDebugHostname() const {
+  return this->debugHostname;
+}
+
+uint32_t GlobalConfigs::getDebugPort() const { return this->debugPort; }
