@@ -28,6 +28,7 @@ public:
    * the socket.
    */
   void kill();
+  ~Client();
 };
 
 #endif // JAZZJACKRABBIT_CLIENT_H

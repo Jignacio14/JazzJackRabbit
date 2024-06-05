@@ -1,6 +1,8 @@
 
 #include "client_protocol.h"
 
+#include <sys/socket.h>
+
 ClientProtocol::ClientProtocol(Socket &&socket) : skt(std::move(socket)) {}
 
 void ClientProtocol::send_status(bool &was_closed, PlayerStatusDTO status) {
@@ -12,6 +14,6 @@ void ClientProtocol::receive_snapshot(bool &was_closed, Snapshot &snapshot) {
 }
 
 void ClientProtocol::close_and_shutdown() {
+  skt.shutdown(SHUT_RDWR);
   skt.close();
-  skt.shutdown(2);
 }
