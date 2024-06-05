@@ -1,9 +1,11 @@
 #ifndef STARTUP_SCREEN_H
 #define STARTUP_SCREEN_H
 
+#include "../lobby.h"
 #include "mainwindow.h"
 #include <QApplication>
 #include <cstdint>
+#include <memory>
 #include <string>
 
 class StartupScreen {
@@ -14,12 +16,15 @@ private:
   std::string &username;
   GameConfigs *game;
   char &userCharacter;
+  std::unique_ptr<Lobby> lobby;
+
   MainWindow mainWindow;
 
 public:
   StartupScreen(int &argc, char **argv, std::string &hostname, uint32_t &port,
                 std::string &username, GameConfigs *game, char &userCharacter);
   const int show();
+  std::unique_ptr<Lobby> getLobby();
 };
 
 #endif // STARTUP_SCREEN_H

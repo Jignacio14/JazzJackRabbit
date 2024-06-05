@@ -8,6 +8,7 @@
 #include <SDL2pp/SDL2pp.hh>
 #include <functional>
 #include <list>
+#include <memory>
 #include <optional>
 
 class Renderer {
@@ -24,7 +25,7 @@ private:
   SDL2pp::Window window;
   SDL2pp::Renderer sdlRenderer;
   // cppcheck-suppress unusedStructMember
-  std::list<Renderable *> renderables;
+  std::list<std::unique_ptr<Renderable>> renderables;
   DebugPanel debugPanel;
 
   // TEMPORARILY COMMENTED
@@ -42,14 +43,14 @@ private:
   void sleep(double timeToSleep);
 
 public:
-  Renderer(int id, Socket &socket);
+  Renderer(int id, Socket socket);
 
   /*
    * It executes the game logic repeatedly, keeping a constant time rate between
    * each iteration, adjusting the wait time to compensate any possible delay.
    * */
   void run();
-  void addRenderable(Renderable *renderable);
+  void addRenderable(std::unique_ptr<Renderable> renderable);
 
   ~Renderer();
 };

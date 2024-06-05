@@ -1,0 +1,108 @@
+{"frames": [
+
+{
+	"filename": "frames/intoxicated_walking_0.png",
+	"frame": {"x":0,"y":0,"w":44,"h":45},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":45},
+	"sourceSize": {"w":44,"h":45}
+},
+{
+	"filename": "frames/intoxicated_walking_1.png",
+	"frame": {"x":47,"y":0,"w":45,"h":46},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":45,"h":46},
+	"sourceSize": {"w":45,"h":46}
+},
+{
+	"filename": "frames/intoxicated_walking_2.png",
+	"frame": {"x":94,"y":0,"w":44,"h":46},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":46},
+	"sourceSize": {"w":44,"h":46}
+},
+{
+	"filename": "frames/intoxicated_walking_3.png",
+	"frame": {"x":141,"y":0,"w":44,"h":46},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":46},
+	"sourceSize": {"w":44,"h":46}
+},
+{
+	"filename": "frames/intoxicated_walking_4.png",
+	"frame": {"x":188,"y":0,"w":44,"h":46},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":46},
+	"sourceSize": {"w":44,"h":46}
+},
+{
+	"filename": "frames/intoxicated_walking_5.png",
+	"frame": {"x":235,"y":0,"w":44,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":48},
+	"sourceSize": {"w":44,"h":48}
+},
+{
+	"filename": "frames/intoxicated_walking_6.png",
+	"frame": {"x":282,"y":0,"w":43,"h":49},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":43,"h":49},
+	"sourceSize": {"w":43,"h":49}
+},
+{
+	"filename": "frames/intoxicated_walking_7.png",
+	"frame": {"x":329,"y":0,"w":42,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":48},
+	"sourceSize": {"w":42,"h":48}
+},
+{
+	"filename": "frames/intoxicated_walking_8.png",
+	"frame": {"x":376,"y":0,"w":41,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":41,"h":44},
+	"sourceSize": {"w":41,"h":44}
+},
+{
+	"filename": "frames/intoxicated_walking_9.png",
+	"frame": {"x":423,"y":0,"w":42,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":44},
+	"sourceSize": {"w":42,"h":44}
+},
+{
+	"filename": "frames/intoxicated_walking_10.png",
+	"frame": {"x":470,"y":0,"w":43,"h":46},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":43,"h":46},
+	"sourceSize": {"w":43,"h":46}
+},
+{
+	"filename": "frames/intoxicated_walking_11.png",
+	"frame": {"x":517,"y":0,"w":47,"h":45},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":47,"h":45},
+	"sourceSize": {"w":47,"h":45}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spritesheet.png",
+	"format": "RGB888",
+	"size": {"w":564,"h":49},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:5708e78ccc9d9b0cacba5b850aef9b9b:df1c595c8cd1ff203544c243fbc0050c:8ec62f1fee1d06840401aebe0be01f82$"
+}
+}

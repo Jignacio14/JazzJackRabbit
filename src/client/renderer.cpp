@@ -5,25 +5,28 @@
 #include <cmath>
 #include <thread>
 
+#include "../common/global_configs.h"
 #include "./graphics/jazz.h"
 
-const static double TARGET_FPS = 60;
+static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
+
+const static double TARGET_FPS = globalConfigs.getTargetFps();
 const static double RATE = ((double)1) / TARGET_FPS;
 
-const static int SCREEN_SIZE_X = 800;
-const static int SCREEN_SIZE_Y = 600;
+const static int SCREEN_SIZE_X = globalConfigs.getScreenSizeX();
+const static int SCREEN_SIZE_Y = globalConfigs.getScreenSizeY();
 
-const static char WINDOW_NAME[] = "JazzJackRabbit 2";
+const static char *WINDOW_NAME = globalConfigs.getWindowName().c_str();
 
-Renderer::Renderer(int id, Socket &socket)
+Renderer::Renderer(int id, Socket socket)
     : client_id(id), keep_running(true), rate(RATE), sdl(SDL_INIT_VIDEO),
       window(WINDOW_NAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
              SCREEN_SIZE_X, SCREEN_SIZE_Y, SDL_WINDOW_SHOWN),
       sdlRenderer(window, -1, SDL_RENDERER_ACCELERATED),
       debugPanel(this->sdlRenderer), client(std::move(socket), id) {}
 
-void Renderer::addRenderable(Renderable *renderable) {
-  this->renderables.push_back(renderable);
+void Renderer::addRenderable(std::unique_ptr<Renderable> renderable) {
+  this->renderables.push_back(std::move(renderable));
 }
 
 double Renderer::now() {
@@ -46,7 +49,7 @@ void Renderer::processKeyboardEvents() {
         break;
 
       case SDLK_j:
-        this->addRenderable(new Jazz(this->sdlRenderer));
+        this->addRenderable(std::make_unique<Jazz>(this->sdlRenderer));
         std::cout << "Adding Jazz"
                   << "\n";
         break;
@@ -111,8 +114,4 @@ void Renderer::run() {
   }
 }
 
-Renderer::~Renderer() {
-  for (auto &renderable : this->renderables) {
-    delete renderable;
-  }
-}
+Renderer::~Renderer() {}

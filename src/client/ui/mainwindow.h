@@ -3,14 +3,17 @@
 
 #include <QMainWindow>
 #include <cstdint>
+#include <memory>
 #include <qlineedit.h>
 #include <qmovie.h>
 #include <qpushbutton.h>
 #include <qsound.h>
 #include <qstring.h>
 #include <string>
+#include <thread>
 
 #include "../game_configs.h"
+#include "../lobby.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -73,6 +76,10 @@ private:
 
   uint32_t debug_counter;
   std::vector<GameConfigs> latestGames;
+  bool lobbyMoved;
+  std::unique_ptr<Lobby> lobby;
+
+  std::unique_ptr<std::thread> waitingPlayersAndStartTask;
 
   void enableButton(QPushButton *button, const std::string &id);
 
@@ -104,9 +111,14 @@ private:
 
   QWidget *createGameItemWidget(const GameConfigs &game);
 
+  void waitForPlayers();
+
 public:
   MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
-             std::string &username, GameConfigs *game, char &userCharacter);
+             std::string &username, GameConfigs *game, char &userCharacter,
+             std::unique_ptr<Lobby> lobby);
+
+  std::unique_ptr<Lobby> getLobby();
 
   ~MainWindow();
 };
