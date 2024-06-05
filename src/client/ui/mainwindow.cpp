@@ -33,8 +33,6 @@ const static uint32_t MAX_PORT_NUMBER = globalConfigs.getMaxPortNumber();
 const static uint32_t MIN_NUMBER_OF_PLAYERS =
     globalConfigs.getMinNumberOfPlayers();
 
-const static uint8_t GAME_OPTION_SEND_GAME = 1;
-
 const static char CHARACTER_NOT_SELECTED = '0';
 const static char JAZZ_SELECTED = 'J';
 const static char SPAZ_SELECTED = 'S';
@@ -283,8 +281,8 @@ void MainWindow::startGame() {
 }
 
 void MainWindow::waitForPlayers() {
-  this->lobby->send_selected_game(this->gameOwnerName, GAME_OPTION_SEND_GAME,
-                                  this->characterSelected, this->username);
+  this->lobby->send_selected_game(this->gameOwnerName, this->characterSelected,
+                                  this->username);
   std::cout << "Waiting for players to join"
             << "\n";
   this->lobby->wait_game_start();

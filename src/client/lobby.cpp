@@ -15,13 +15,16 @@ std::vector<GameInfoDto> Lobby::get_games() {
   return vect;
 }
 
-void Lobby::send_selected_game(const std::string &gamename, uint8_t game_option,
-                               char user_character,
+std::vector<GameInfoDto> Lobby::refresh_games() {
+  protocol.send_refresh();
+  return get_games();
+}
+
+void Lobby::send_selected_game(const std::string &gamename, char user_character,
                                const std::string &username) {
   std::vector<char> gamename_vect(gamename.begin(), gamename.end());
   std::vector<char> username_vect(username.begin(), username.end());
-  protocol.send_selected_game(gamename_vect, game_option, user_character,
-                              username_vect);
+  protocol.send_selected_game(gamename_vect, user_character, username_vect);
 }
 
 bool Lobby::wait_game_start() { return protocol.wait_game_start(); }
