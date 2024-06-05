@@ -12,11 +12,12 @@ void ClientSender::run() {
       PlayerStatusDTO status = sender_queue.pop();
       protocol.send_status(was_closed, status);
     }
-  } catch (... /*tendriamos que hacer nuestra propia clase*/) {
-    // const ClosedQueue& e
-    // Close de la cola del sender
+  } catch (const std::runtime_error &e) {
+    std::cout << "Sender queue was closed." << std::endl;
   }
   keep_talking = false;
 }
+
+void ClientSender::kill() { keep_talking = false; }
 
 ClientSender::~ClientSender() {}

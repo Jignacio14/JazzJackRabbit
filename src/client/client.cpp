@@ -13,6 +13,8 @@ Client::Client(Socket &&socket, int id)
 
 void Client::kill() {
   protocol.close_and_shutdown();
+  receiver.kill();
+  sender.kill();
   sender.join();
   receiver.join();
 }
@@ -21,7 +23,7 @@ Client::~Client() {
   protocol.close_and_shutdown();
   this->sender_queue.close();
   this->receiver_queue.close();
-  this->receiver.stop();
+  this->receiver.kill();
   this->sender.stop();
   this->receiver.join();
   this->sender.join();

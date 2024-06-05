@@ -18,7 +18,7 @@ public:
 
   void send_status(bool &was_closed, PlayerStatusDTO status);
 
-  void receive_snapshot(bool &was_closed, Snapshot &status);
+  Snapshot receive_snapshot(bool &was_closed);
 
   void close_and_shutdown();
 };

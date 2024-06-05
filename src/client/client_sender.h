@@ -21,6 +21,8 @@ public:
                ClientProtocol &protocol);
   void run() override;
 
+  void kill();
+
   ~ClientSender() override;
 };
 

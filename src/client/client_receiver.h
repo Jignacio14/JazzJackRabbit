@@ -20,7 +20,10 @@ private:
 public:
   ClientReceiver(std::atomic<bool> &keep_talking, ClientProtocol &protocol,
                  Queue<Snapshot> &queue);
+
   void run() override;
+
+  void kill();
 
   ~ClientReceiver() override;
 };
