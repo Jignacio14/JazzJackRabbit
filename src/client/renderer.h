@@ -3,11 +3,13 @@
 #define JAZZJACKRABBIT_CONSTANTRATELOOP_H
 
 #include "./debug/debug_panel.h"
+#include "./graphics/graphic_engine.h"
 #include "./renderable.h"
 #include "client.h"
 #include <SDL2pp/SDL2pp.hh>
 #include <functional>
 #include <list>
+#include <memory>
 #include <optional>
 
 class Renderer {
@@ -19,15 +21,13 @@ private:
   // cppcheck-suppress unusedStructMember
   double rate;
 
-  SDL2pp::SDL sdl;
-  SDL2pp::SDLTTF sdlTtf;
-  SDL2pp::Window window;
-  SDL2pp::Renderer sdlRenderer;
+  GraphicEngine &graphicEngine;
+  SDL2pp::Renderer &sdlRenderer;
+
   // cppcheck-suppress unusedStructMember
-  std::list<Renderable *> renderables;
+  std::list<std::unique_ptr<Renderable>> renderables;
   DebugPanel debugPanel;
 
-  // TEMPORARILY COMMENTED
   Client client;
 
   /*
@@ -42,14 +42,14 @@ private:
   void sleep(double timeToSleep);
 
 public:
-  Renderer(int id, Socket &socket);
+  Renderer(GraphicEngine &graphicEngine, int id, Socket socket);
 
   /*
    * It executes the game logic repeatedly, keeping a constant time rate between
    * each iteration, adjusting the wait time to compensate any possible delay.
    * */
   void run();
-  void addRenderable(Renderable *renderable);
+  void addRenderable(std::unique_ptr<Renderable> renderable);
 
   ~Renderer();
 };

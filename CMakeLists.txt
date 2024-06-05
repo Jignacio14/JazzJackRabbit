@@ -76,7 +76,7 @@ add_executable(client
     ${COMMON_SOURCES}
 )
 
-# The client executable will be called "client". The main entry point is defined with all the other sources
+# The server executable will be called "server". The main entry point is defined with all the other sources
 add_executable(server
     ${PROJECT_SOURCE_DIR}/src/server/server_main.cpp
     ${SERVER_SOURCES}
@@ -84,4 +84,15 @@ add_executable(server
 )
 
 # Link the client object code with the corresponding libraries
-target_link_libraries(client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Multimedia SDL2pp::SDL2pp yaml-cpp::yaml-cpp)
+target_link_libraries(client
+    PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Gui
+    Qt${QT_VERSION_MAJOR}::Multimedia
+    SDL2pp::SDL2pp
+    yaml-cpp::yaml-cpp
+)
+
+# Link the server object code with the corresponding libraries
+target_link_libraries(server
+    PRIVATE yaml-cpp::yaml-cpp
+)

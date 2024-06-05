@@ -1,12 +1,19 @@
+#include "./game_configs.h"
+#include "./graphics/graphic_engine.h"
 #include "./ui/startup_screen.h"
 #include "lobby.h"
 #include "renderer.h"
 #include <cstdint>
 #include <iostream>
+#include <memory>
 #include <string>
 
 #include <SDL2pp/SDL2pp.hh>
 #include <yaml-cpp/yaml.h>
+
+#include "../common/global_configs.h"
+
+static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
 const static int EXIT_SUCCESS_CODE = 0;
 const static int EXIT_ERROR_CODE = -1;
@@ -16,8 +23,19 @@ const static char JAZZ_SELECTED = 'J';
 const static char SPAZ_SELECTED = 'S';
 const static char LORI_SELECTED = 'L';
 
-int main(int argc, char *argv[]) {
+const static bool TEST_ONLY_SDL_MODE = true;
 
+void debugPrint(std::string &hostname, uint32_t &port, std::string &username,
+                char &userCharacter, GameConfigs &gameConfig) {
+  std::cout << "username: " << username << "\n";
+  std::cout << "character selected: " << userCharacter << "\n";
+  std::cout << "Owner name: " << gameConfig.getOwnerName() << "|"
+            << " Players: " << gameConfig.getCurrentNumberOfPlayers() << "/"
+            << gameConfig.getMaxNumberOfPlayers() << "\n";
+  std::cout << "Hostname and port: " << hostname << ":" << port << std::endl;
+}
+
+int main(int argc, char *argv[]) {
   const uint8_t EXPECTED_ARGUMENTS = 1;
 
   if (argc != EXPECTED_ARGUMENTS) {
@@ -35,50 +53,37 @@ int main(int argc, char *argv[]) {
   char userCharacter = CHARACTER_NOT_SELECTED;
   GameConfigs gameConfig;
   GameConfigs *gamePtr = &gameConfig;
+  std::unique_ptr<Lobby> lobby = nullptr;
 
-  StartupScreen startupScreen(argc, argv, hostname, port, username, gamePtr,
-                              userCharacter);
+  int exitCode = 0;
 
-  int exitCode = startupScreen.show();
+  if (TEST_ONLY_SDL_MODE == false) {
+    StartupScreen startupScreen(argc, argv, hostname, port, username, gamePtr,
+                                userCharacter);
 
-  if (exitCode != EXIT_SUCCESS_CODE) {
-    const std::string errorMessage =
-        "Error while closing StartupScreen. Shutting down.";
-    std::cerr << errorMessage << std::endl;
-    return EXIT_ERROR_CODE;
+    exitCode = startupScreen.show();
+    lobby = startupScreen.getLobby();
+
+    if (exitCode != EXIT_SUCCESS_CODE) {
+      return EXIT_ERROR_CODE;
+    }
+  } else {
+    hostname = globalConfigs.getDebugHostname();
+    port = globalConfigs.getDebugPort();
+    username = "testUsername";
+    userCharacter = JAZZ_SELECTED;
+    lobby =
+        std::make_unique<Lobby>(hostname.c_str(), std::to_string(port).c_str());
   }
 
-  if (gameConfig.getOwnerName().empty()) {
-    const std::string errorMessage = "After closing StartupScreen no game "
-                                     "configs loaded correctly. Shutting down.";
-    std::cerr << errorMessage << std::endl;
-    return EXIT_ERROR_CODE;
-  }
+  GraphicEngine graphicEngine;
+  graphicEngine.preloadTextures();
 
-  if (userCharacter == CHARACTER_NOT_SELECTED) {
-    const std::string errorMessage =
-        "After closing StartupScreen no character selected. Shutting down.";
-    std::cerr << errorMessage << std::endl;
-    return EXIT_ERROR_CODE;
-  }
+  debugPrint(hostname, port, username, userCharacter, gameConfig);
 
-  std::cout << username << "\n";
-  std::cout << userCharacter << "\n";
-  std::cout << gameConfig.getOwnerName() << "|"
-            << gameConfig.getCurrentNumberOfPlayers() << "/"
-            << gameConfig.getMaxNumberOfPlayers() << "\n";
-  std::cout << hostname << ":" << port << std::endl;
-
-  Lobby lobby(hostname.c_str(), std::to_string(port).c_str());
-  std::vector<GameInfoDto> games = lobby.get_games();
-
-  std::vector<char> gamename(10); // hardcodeado
-  uint8_t game_option = 1;        // hardcodeado
-  lobby.send_selected_game(gamename, game_option, userCharacter, username);
-
-  Socket skt = lobby.transfer_socket();
   int client_id = 1;
-  Renderer renderer(client_id, skt);
+  Socket skt = lobby->transfer_socket();
+  Renderer renderer(graphicEngine, client_id, std::move(skt));
   renderer.run();
 
   return exitCode;

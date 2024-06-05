@@ -1,0 +1,52 @@
+{"frames": [
+
+{
+	"filename": "frames/crouching_0.png",
+	"frame": {"x":0,"y":0,"w":37,"h":47},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":37,"h":47},
+	"sourceSize": {"w":37,"h":47}
+},
+{
+	"filename": "frames/crouching_1.png",
+	"frame": {"x":42,"y":0,"w":38,"h":35},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":35},
+	"sourceSize": {"w":38,"h":35}
+},
+{
+	"filename": "frames/crouching_2.png",
+	"frame": {"x":84,"y":0,"w":38,"h":30},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":30},
+	"sourceSize": {"w":38,"h":30}
+},
+{
+	"filename": "frames/crouching_3.png",
+	"frame": {"x":126,"y":0,"w":42,"h":26},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":26},
+	"sourceSize": {"w":42,"h":26}
+},
+{
+	"filename": "frames/crouching_4.png",
+	"frame": {"x":168,"y":0,"w":41,"h":26},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":41,"h":26},
+	"sourceSize": {"w":41,"h":26}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spritesheet.png",
+	"format": "RGB888",
+	"size": {"w":210,"h":47},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:27fdc7abedd37054b7cfdc1b1567d1cb:18ff5a7c52b7051e9eaf1a823c781a39:8ec62f1fee1d06840401aebe0be01f82$"
+}
+}

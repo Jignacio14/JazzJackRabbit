@@ -1,0 +1,28 @@
+frames:
+  - filename: frames/hud_icon_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 39
+      h: 45
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 39
+      h: 45
+    sourceSize:
+      w: 39
+      h: 45
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 39
+    h: 45
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:f1ae7339b54b70c860d3e45a8de247bb:51d0f2c106f78fd05e8fbfcd20165e84:8ec62f1fee1d06840401aebe0be01f82$

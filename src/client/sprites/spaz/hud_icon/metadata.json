@@ -1,0 +1,20 @@
+{"frames": [
+
+{
+	"filename": "frames/hud_icon_0.png",
+	"frame": {"x":0,"y":0,"w":33,"h":37},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":33,"h":37},
+	"sourceSize": {"w":33,"h":37}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spritesheet.png",
+	"format": "RGB888",
+	"size": {"w":33,"h":37},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:225faa3cb5afba217fe6e9a29cf6322d:c4c01cb5af2eb36b6cee25f9e656f180:8ec62f1fee1d06840401aebe0be01f82$"
+}
+}

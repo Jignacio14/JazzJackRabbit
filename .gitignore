@@ -42,3 +42,6 @@ cmake-build-debug/
 process.logs
 /client
 *.autosave
+
+AtoB.dump
+BtoA.dump

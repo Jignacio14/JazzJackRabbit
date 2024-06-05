@@ -18,11 +18,16 @@ public:
   std::vector<GameInfoDto> get_games();
 
   /*
+   * Sends a message to the server to refresh the games, and then returns the
+   * refreshed games.
+   * */
+  std::vector<GameInfoDto> refresh_games();
+
+  /*
    * Sends the game match that the player chose, and the character selected by
    * the player and the username.
    * */
-  void send_selected_game(const std::vector<char> &gamename,
-                          uint8_t game_option, char user_character,
+  void send_selected_game(const std::string &gamename, char user_character,
                           const std::string &username);
 
   /*

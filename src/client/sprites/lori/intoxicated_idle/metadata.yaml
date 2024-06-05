@@ -1,0 +1,204 @@
+frames:
+  - filename: frames/intoxicated_idle_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 44
+      h: 45
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 44
+      h: 45
+    sourceSize:
+      w: 44
+      h: 45
+  - filename: frames/intoxicated_idle_1.png
+    frame:
+      x: 49
+      'y': 0
+      w: 49
+      h: 46
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 49
+      h: 46
+    sourceSize:
+      w: 49
+      h: 46
+  - filename: frames/intoxicated_idle_2.png
+    frame:
+      x: 98
+      'y': 0
+      w: 44
+      h: 45
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 44
+      h: 45
+    sourceSize:
+      w: 44
+      h: 45
+  - filename: frames/intoxicated_idle_3.png
+    frame:
+      x: 147
+      'y': 0
+      w: 44
+      h: 46
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 44
+      h: 46
+    sourceSize:
+      w: 44
+      h: 46
+  - filename: frames/intoxicated_idle_4.png
+    frame:
+      x: 196
+      'y': 0
+      w: 42
+      h: 45
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 42
+      h: 45
+    sourceSize:
+      w: 42
+      h: 45
+  - filename: frames/intoxicated_idle_5.png
+    frame:
+      x: 245
+      'y': 0
+      w: 42
+      h: 47
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 42
+      h: 47
+    sourceSize:
+      w: 42
+      h: 47
+  - filename: frames/intoxicated_idle_6.png
+    frame:
+      x: 294
+      'y': 0
+      w: 41
+      h: 48
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 41
+      h: 48
+    sourceSize:
+      w: 41
+      h: 48
+  - filename: frames/intoxicated_idle_7.png
+    frame:
+      x: 343
+      'y': 0
+      w: 42
+      h: 47
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 42
+      h: 47
+    sourceSize:
+      w: 42
+      h: 47
+  - filename: frames/intoxicated_idle_8.png
+    frame:
+      x: 392
+      'y': 0
+      w: 41
+      h: 46
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 41
+      h: 46
+    sourceSize:
+      w: 41
+      h: 46
+  - filename: frames/intoxicated_idle_9.png
+    frame:
+      x: 441
+      'y': 0
+      w: 43
+      h: 46
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 43
+      h: 46
+    sourceSize:
+      w: 43
+      h: 46
+  - filename: frames/intoxicated_idle_10.png
+    frame:
+      x: 490
+      'y': 0
+      w: 43
+      h: 46
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 43
+      h: 46
+    sourceSize:
+      w: 43
+      h: 46
+  - filename: frames/intoxicated_idle_11.png
+    frame:
+      x: 539
+      'y': 0
+      w: 45
+      h: 45
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 45
+      h: 45
+    sourceSize:
+      w: 45
+      h: 45
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 588
+    h: 48
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:ef87eebc8a42d9d99081c42454ad9241:ed6dfbb9cd5036d1cc64b793ad675d39:8ec62f1fee1d06840401aebe0be01f82$
