@@ -24,6 +24,10 @@ private:
   std::string windowName;
   // cppcheck-suppress unusedStructMember
   double targetFps;
+  // cppcheck-suppress unusedStructMember
+  std::string debugHostname;
+  // cppcheck-suppress unusedStructMember
+  uint32_t debugPort;
 
   GlobalConfigs();
 
@@ -55,6 +59,8 @@ public:
   int getScreenSizeY() const;
   std::string getWindowName() const;
   double getTargetFps() const;
+  std::string getDebugHostname() const;
+  uint32_t getDebugPort() const;
 };
 
 #endif // GLOBAL_CONFIGS_H
