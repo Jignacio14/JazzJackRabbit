@@ -4,7 +4,7 @@
 #include <sys/socket.h>
 
 Lobby::Lobby(const char *hostname, const char *port)
-    : skt(hostname, port), protocol(skt) {}
+    : skt(hostname, port), protocol(skt), player_id(0) {}
 
 std::vector<GameInfoDto> Lobby::get_games() {
   std::vector<GameInfoDto> vect;
@@ -21,14 +21,15 @@ std::vector<GameInfoDto> Lobby::refresh_games() {
   return get_games();
 }
 
-uint8_t Lobby::send_selected_game(const std::string &gamename,
-                                  char user_character,
-                                  const std::string &username) {
+void Lobby::send_selected_game(const std::string &gamename, char user_character,
+                               const std::string &username) {
   std::vector<char> gamename_vect(gamename.begin(), gamename.end());
   std::vector<char> username_vect(username.begin(), username.end());
-  return protocol.send_selected_game(gamename_vect, user_character,
-                                     username_vect);
+  this->player_id =
+      protocol.send_selected_game(gamename_vect, user_character, username_vect);
 }
+
+uint8_t Lobby::get_player_id() { return player_id; }
 
 bool Lobby::wait_game_start() { return protocol.wait_game_start(); }
 

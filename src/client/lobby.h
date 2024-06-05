@@ -9,6 +9,8 @@ class Lobby {
 private:
   Socket skt;
   LobbyProtocol protocol;
+  // cppcheck-suppress unusedStructMember
+  uint8_t player_id;
 
 public:
   Lobby(const char *hostname, const char *port);
@@ -26,10 +28,15 @@ public:
 
   /*
    * Sends the game match that the player chose, and the character selected by
-   * the player and the username. Returns the player id.
+   * the player and the username.
    * */
-  uint8_t send_selected_game(const std::string &gamename, char user_character,
-                             const std::string &username);
+  void send_selected_game(const std::string &gamename, char user_character,
+                          const std::string &username);
+
+  /*
+   * Returns the player id.
+   */
+  uint8_t get_player_id();
 
   /*
    * Moves socket ownership with move semantics.
