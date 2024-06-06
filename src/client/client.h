@@ -8,6 +8,7 @@
 #include "client_receiver.h"
 #include "client_sender.h"
 #include <atomic>
+#include <optional>
 
 class Client {
 private:
@@ -22,6 +23,8 @@ private:
 
 public:
   Client(Socket &&socket, int id);
+
+  std::optional<Snapshot> get_current_snapshot();
 
   /*
    * Kills the client´s back-end, joining receiver and sender thread, and closes

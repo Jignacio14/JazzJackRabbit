@@ -64,11 +64,27 @@ void Renderer::runMainActions(int iterationNumber) {
 
   this->sdlRenderer.Clear();
 
+  std::optional<Snapshot> snapshotOptional = client.get_current_snapshot();
+  if (snapshotOptional.has_value()) {
+    // cppcheck-suppress unreadVariable
+    Snapshot snapshot = snapshotOptional.value();
+    //    for (auto &renderable : this->renderables) {
+    //      renderable->update(snapshot);
+    //    }
+  }
+
   for (auto &renderable : this->renderables) {
     renderable->render(iterationNumber);
   }
 
   this->debugPanel.display();
+
+  // --- Manejo de eventos ---
+  // 1. Obtener el evento de teclado más reciente
+  // 2. En base al evento, diseñar métodos en client para manejarlo.
+  // Por ej:
+  // switch(...) {
+  // case SDLK_LEFT: client.move(LEFT);
 
   this->sdlRenderer.Present();
 }
