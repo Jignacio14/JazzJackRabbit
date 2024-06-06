@@ -53,6 +53,9 @@ file(GLOB_RECURSE CLIENT_SOURCES CONFIGURE_DEPENDS
     "${PROJECT_SOURCE_DIR}/src/client/graphics/"
     "${PROJECT_SOURCE_DIR}/src/client/graphics/*.h"
     "${PROJECT_SOURCE_DIR}/src/client/graphics/*.cpp"
+    "${PROJECT_SOURCE_DIR}/src/client/graphics/map/"
+    "${PROJECT_SOURCE_DIR}/src/client/graphics/map/*.h"
+    "${PROJECT_SOURCE_DIR}/src/client/graphics/map/*.cpp"
 )
 
 # Get all sources from the corresponding directories to build the server executable

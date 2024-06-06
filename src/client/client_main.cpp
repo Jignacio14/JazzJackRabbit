@@ -57,34 +57,46 @@ int main(int argc, char *argv[]) {
 
   int exitCode = 0;
 
-  if (TEST_ONLY_SDL_MODE == false) {
-    StartupScreen startupScreen(argc, argv, hostname, port, username, gamePtr,
-                                userCharacter);
+  try {
 
-    exitCode = startupScreen.show();
-    lobby = startupScreen.getLobby();
+    if (TEST_ONLY_SDL_MODE == false) {
+      StartupScreen startupScreen(argc, argv, hostname, port, username, gamePtr,
+                                  userCharacter);
 
-    if (exitCode != EXIT_SUCCESS_CODE) {
-      return EXIT_ERROR_CODE;
+      exitCode = startupScreen.show();
+      lobby = startupScreen.getLobby();
+
+      if (exitCode != EXIT_SUCCESS_CODE) {
+        return EXIT_ERROR_CODE;
+      }
+    } else {
+      hostname = globalConfigs.getDebugHostname();
+      port = globalConfigs.getDebugPort();
+      username = "testUsername";
+      userCharacter = JAZZ_SELECTED;
+      lobby = std::make_unique<Lobby>(hostname.c_str(),
+                                      std::to_string(port).c_str());
     }
-  } else {
-    hostname = globalConfigs.getDebugHostname();
-    port = globalConfigs.getDebugPort();
-    username = "testUsername";
-    userCharacter = JAZZ_SELECTED;
-    lobby =
-        std::make_unique<Lobby>(hostname.c_str(), std::to_string(port).c_str());
+
+    GraphicEngine graphicEngine;
+    graphicEngine.preloadTextures();
+
+    debugPrint(hostname, port, username, userCharacter, gameConfig);
+
+    int client_id = 1;
+    Socket skt = lobby->transfer_socket();
+    Renderer renderer(graphicEngine, client_id, std::move(skt));
+    renderer.run();
+
+    return exitCode;
+
+  } catch (const std::exception &error) {
+    std::cerr << "\nException thrown and caught:\n"
+              << error.what() << std::endl;
+    return EXIT_ERROR_CODE;
+
+  } catch (...) {
+    std::cerr << "\nUnknown exception caught.\n" << std::endl;
+    return EXIT_ERROR_CODE;
   }
-
-  GraphicEngine graphicEngine;
-  graphicEngine.preloadTextures();
-
-  debugPrint(hostname, port, username, userCharacter, gameConfig);
-
-  int player_id = lobby->get_player_id();
-  Socket skt = lobby->transfer_socket();
-  Renderer renderer(graphicEngine, player_id, std::move(skt));
-  renderer.run();
-
-  return exitCode;
 }

@@ -11,18 +11,18 @@ private:
    */
   static const uint32_t get_current_time_ms();
 
-  /*
-   *   Returns a pseudorandom number inbetween it's bouning parameters
-   */
-  static const int32_t get_random_number(int32_t min_number,
-                                         int32_t max_number);
-
 public:
   /*
    *   A static class that serves as a utility tool to generate pseudorandom
    * strings It does not need to be instantiated.
    */
   RandomStringGenerator();
+
+  /*
+   *   Returns a pseudorandom number inbetween it's bouning parameters
+   */
+  static const int32_t get_random_number(int32_t min_number,
+                                         int32_t max_number);
 
   /*
    *   Return a string with the format '%TIME-%RANDOM' where %TIME is the result
