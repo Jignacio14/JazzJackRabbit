@@ -9,8 +9,8 @@ void ClientSender::run() {
   try {
     bool was_closed = false;
     while (!was_closed && keep_talking) {
-      PlayerStatusDTO status = sender_queue.pop();
-      protocol.send_status(was_closed, status);
+      std::vector<uint8_t> command = sender_queue.pop();
+      protocol.send_status(was_closed, command);
     }
   } catch (const std::runtime_error &e) {
     std::cout << "Sender queue was closed." << std::endl;

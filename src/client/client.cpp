@@ -20,6 +20,24 @@ std::optional<Snapshot> Client::get_current_snapshot() {
   }
 }
 
+void Client::move_right() {
+  std::vector<uint8_t> command;
+  command.push_back(MOVE_RIGHT);
+  sender_queue.try_push(command);
+}
+
+void Client::move_left() {
+  std::vector<uint8_t> command;
+  command.push_back(MOVE_LEFT);
+  sender_queue.try_push(command);
+}
+
+void Client::jump() {
+  std::vector<uint8_t> command;
+  command.push_back(JUMP);
+  sender_queue.try_push(command);
+}
+
 void Client::kill() {
   protocol.close_and_shutdown();
   receiver.kill();

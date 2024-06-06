@@ -54,13 +54,24 @@ void Renderer::processKeyboardEvents() {
                   << "\n";
         this->debugPanel.activationToggle();
         break;
+
+      case SDLK_RIGHT:
+        this->client.move_right();
+        break;
+
+      case SDLK_LEFT:
+        this->client.move_left();
+        break;
+
+      case SDLK_SPACE:
+        this->client.jump();
+        break;
       }
     }
   }
 }
 
 void Renderer::runMainActions(int iterationNumber) {
-  this->processKeyboardEvents();
 
   this->sdlRenderer.Clear();
 
@@ -79,12 +90,7 @@ void Renderer::runMainActions(int iterationNumber) {
 
   this->debugPanel.display();
 
-  // --- Manejo de eventos ---
-  // 1. Obtener el evento de teclado más reciente
-  // 2. En base al evento, diseñar métodos en client para manejarlo.
-  // Por ej:
-  // switch(...) {
-  // case SDLK_LEFT: client.move(LEFT);
+  this->processKeyboardEvents();
 
   this->sdlRenderer.Present();
 }
