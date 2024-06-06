@@ -13,11 +13,11 @@ static const int BLACK_RGBA[4] = {0, 0, 0, 255};
 
 Hud::Hud(GraphicEngine &graphicEngine)
     : graphicEngine(graphicEngine),
-      sdlRenderer(this->graphicEngine.getSdlRendererReference()) {}
+      sdlRenderer(this->graphicEngine.getSdlRendererReference()),
+      hudBaseRectangle(SCREEN_SIZE_X - HUD_HORIZONTAL_SIZE, 0, SCREEN_SIZE_X,
+                       SCREEN_SIZE_Y) {}
 
 void Hud::render(int iterationNumber) {
-  SDL2pp::Rect hudBaseRectangle(SCREEN_SIZE_X - HUD_HORIZONTAL_SIZE, 0,
-                                SCREEN_SIZE_X, SCREEN_SIZE_Y);
   this->sdlRenderer.SetDrawColor(WHITE_RGBA[0], WHITE_RGBA[1], WHITE_RGBA[2],
                                  WHITE_RGBA[3]);
   this->sdlRenderer.DrawRect(hudBaseRectangle);

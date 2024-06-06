@@ -4,16 +4,18 @@
 #include "../../coordinates.h"
 #include "../../renderable.h"
 #include "../graphic_engine.h"
+#include "../playable_character.h"
 #include "../sprite.h"
 #include <SDL2pp/SDL2pp.hh>
 #include <optional>
 #include <string>
 #include <vector>
 
-class Jazz : public Renderable {
+class Jazz : public PlayableCharacter {
 private:
   GraphicEngine &graphicEngine;
-  Sprite &currentState;
+  // cppcheck-suppress unusedStructMember
+  Sprite *currentState;
 
   // cppcheck-suppress unusedStructMember
   int currentFrame;
@@ -31,10 +33,10 @@ private:
   // cppcheck-suppress unusedStructMember
   std::string movingDirection;
 
-  void debugUpdateLocation();
+  void debugUpdateLocation(int iterationNumber);
 
 public:
-  explicit Jazz(GraphicEngine &graphicEngine);
+  Jazz(GraphicEngine &graphicEngine, const Coordinates &currentCoords);
   virtual void render(int iterationNumber) override;
   virtual void updateByCoords(int x, int y) override;
   virtual void update(bool isWalking, bool isRunning,

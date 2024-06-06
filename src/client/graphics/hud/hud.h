@@ -11,6 +11,7 @@ class Hud : public Renderable {
 private:
   GraphicEngine &graphicEngine;
   SDL2pp::Renderer &sdlRenderer;
+  SDL2pp::Rect hudBaseRectangle;
 
 public:
   explicit Hud(GraphicEngine &graphicEngine);

@@ -6,6 +6,7 @@
 #include "./graphics/graphic_engine.h"
 #include "./graphics/hud/hud.h"
 #include "./graphics/map/map.h"
+#include "./player.h"
 #include "./renderable.h"
 #include "client.h"
 #include <SDL2pp/SDL2pp.hh>
@@ -33,6 +34,7 @@ private:
   DebugPanel debugPanel;
 
   Client client;
+  Player &player;
 
   /*
    * Returns current time in seconds since epoch.
@@ -46,7 +48,7 @@ private:
   void sleep(double timeToSleep);
 
 public:
-  Renderer(GraphicEngine &graphicEngine, int id, Socket socket);
+  Renderer(GraphicEngine &graphicEngine, int id, Socket socket, Player &player);
 
   /*
    * It executes the game logic repeatedly, keeping a constant time rate between
