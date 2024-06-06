@@ -18,7 +18,8 @@ Renderer::Renderer(GraphicEngine &graphicEngine, int id, Socket socket)
     : client_id(id), keep_running(true), rate(RATE),
       graphicEngine(graphicEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
-      debugPanel(this->sdlRenderer), client(std::move(socket), id) {}
+      map(this->graphicEngine), debugPanel(this->sdlRenderer),
+      client(std::move(socket), id) {}
 
 void Renderer::addRenderable(std::unique_ptr<Renderable> renderable) {
   this->renderables.push_back(std::move(renderable));
@@ -44,7 +45,7 @@ void Renderer::processKeyboardEvents() {
         break;
 
       case SDLK_j:
-        this->addRenderable(std::make_unique<Jazz>(this->sdlRenderer));
+        this->addRenderable(std::make_unique<Jazz>(this->graphicEngine));
         std::cout << "Adding Jazz"
                   << "\n";
         break;
@@ -63,6 +64,8 @@ void Renderer::runMainActions(int iterationNumber) {
   this->processKeyboardEvents();
 
   this->sdlRenderer.Clear();
+
+  this->map.render(iterationNumber);
 
   for (auto &renderable : this->renderables) {
     renderable->render(iterationNumber);

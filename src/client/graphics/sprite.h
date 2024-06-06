@@ -6,16 +6,14 @@
 #include <SDL2pp/SDL2pp.hh>
 #include <vector>
 
-class Sprite : public Renderable {
+class Sprite {
 private:
+public:
   SDL2pp::Renderer &sdlRenderer;
   SDL2pp::Texture texture;
 
   // cppcheck-suppress unusedStructMember
   std::string animationBasePath;
-  // cppcheck-suppress unusedStructMember
-  int currentFrame;
-  Coordinates currentCoords;
 
   // cppcheck-suppress unusedStructMember
   int maxAnimationFrames;
@@ -27,7 +25,6 @@ private:
   // cppcheck-suppress unusedStructMember
   std::vector<int> height;
 
-public:
   Sprite(SDL2pp::Renderer &sdlRenderer, SDL2pp::Texture texture,
          std::string &animationBasePath);
 
@@ -42,10 +39,6 @@ public:
    */
   Sprite(Sprite &&);
   Sprite &operator=(Sprite &&);
-
-  virtual void render(int iterationNumber) override;
-
-  ~Sprite() override;
 };
 
 #endif // SPRITE_H
