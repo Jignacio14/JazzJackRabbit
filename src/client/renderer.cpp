@@ -44,6 +44,30 @@ void Renderer::processKeyboardEvents() {
         throw StopIteration();
         break;
 
+      case SDLK_LEFT:
+        if (this->renderables.size() > 0) {
+          this->renderables.front()->update(true, false, "left");
+        }
+        break;
+
+      case SDLK_RIGHT:
+        if (this->renderables.size() > 0) {
+          this->renderables.front()->update(true, false, "right");
+        }
+        break;
+
+      case SDLK_UP:
+        if (this->renderables.size() > 0) {
+          this->renderables.front()->update(true, false, "up");
+        }
+        break;
+
+      case SDLK_DOWN:
+        if (this->renderables.size() > 0) {
+          this->renderables.front()->update(true, false, "down");
+        }
+        break;
+
       case SDLK_j:
         this->addRenderable(std::make_unique<Jazz>(this->graphicEngine));
         std::cout << "Adding Jazz"
@@ -54,6 +78,32 @@ void Renderer::processKeyboardEvents() {
         std::cout << "Toggling debug panel"
                   << "\n";
         this->debugPanel.activationToggle();
+        break;
+      }
+    } else if (event.type == SDL_KEYUP) {
+      switch (event.key.keysym.sym) {
+      case SDLK_LEFT:
+        if (this->renderables.size() > 0) {
+          this->renderables.front()->update(false, false, "left");
+        }
+        break;
+
+      case SDLK_RIGHT:
+        if (this->renderables.size() > 0) {
+          this->renderables.front()->update(false, false, "right");
+        }
+        break;
+
+      case SDLK_UP:
+        if (this->renderables.size() > 0) {
+          this->renderables.front()->update(false, false, "up");
+        }
+        break;
+
+      case SDLK_DOWN:
+        if (this->renderables.size() > 0) {
+          this->renderables.front()->update(false, false, "down");
+        }
         break;
       }
     }
