@@ -4,6 +4,7 @@
 
 #include "./debug/debug_panel.h"
 #include "./graphics/graphic_engine.h"
+#include "./graphics/hud/hud.h"
 #include "./graphics/map/map.h"
 #include "./renderable.h"
 #include "client.h"
@@ -27,6 +28,7 @@ private:
 
   // cppcheck-suppress unusedStructMember
   std::list<std::unique_ptr<Renderable>> renderables;
+  Hud hud;
   Map map;
   DebugPanel debugPanel;
 

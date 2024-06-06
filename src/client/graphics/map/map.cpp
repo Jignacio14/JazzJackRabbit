@@ -1,13 +1,17 @@
 #include "./map.h"
 #include "../../../common/global_configs.h"
 #include "../../../common/random_string_generator.h"
+#include "../hud/hud.h"
 #include <yaml-cpp/yaml.h>
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
-const static int SCREEN_SIZE_X = globalConfigs.getScreenSizeX();
-const static int SCREEN_SIZE_Y = globalConfigs.getScreenSizeY();
+const static int HUD_HORIZONTAL_SIZE = Hud::getHorizontalSize();
+const static int MAP_SIZE_X =
+    globalConfigs.getScreenSizeX() - HUD_HORIZONTAL_SIZE;
+const static int MAP_SIZE_Y = globalConfigs.getScreenSizeY();
 
+const static int TILE_SIZE = 32; // In px
 const static int MAX_RANDOM_SOURCE = 30;
 
 Map::Map(GraphicEngine &graphicEngine)
@@ -85,58 +89,137 @@ Map::Map(GraphicEngine &graphicEngine)
                         platform4CoordsFullDirt);
 }
 
-void Map::renderBackground() {
-  // int spriteX = this->backgroundSprite.spriteCoords[0].getX();
-  // int spriteY = this->backgroundSprite.spriteCoords[0].getY();
-  // int spriteWidth = this->backgroundSprite.width[0];
-  // int spriteHeight = this->backgroundSprite.height[0];
-
-  this->sdlRenderer.Copy(this->backgroundSprite.texture,
-                         SDL2pp::Rect(0, 0, SCREEN_SIZE_X, SCREEN_SIZE_Y),
-                         SDL2pp::Rect(0, 0, SCREEN_SIZE_X, SCREEN_SIZE_Y));
-
-  this->sdlRenderer.Copy(this->decorationSprite.texture,
-                         SDL2pp::Rect(0, 0, SCREEN_SIZE_X, SCREEN_SIZE_Y),
-                         SDL2pp::Rect(0, 0, SCREEN_SIZE_X, SCREEN_SIZE_Y));
-}
-
 uint8_t Map::nextRandomNumber(const int current) const {
   int index = current % MAX_RANDOM_SOURCE;
   return this->randomSource[index];
 }
 
-void Map::render(int iterationNumber) {
-  this->renderBackground();
-  int tileSize = 32;
+void Map::renderBackground() {
+  /*int spriteX = this->backgroundSprite.spriteCoords[0].getX();
+  int spriteY = this->backgroundSprite.spriteCoords[0].getY();
+  int spriteWidth = this->backgroundSprite.width[0];
+  int spriteHeight = this->backgroundSprite.height[0];*/
 
-  int max = this->ceilingCoordsFullDirt.size() / 2;
-  int i = 0;
-  for (int j = 0; j < max; j++) {
-    Coordinates start = this->ceilingCoordsFullDirt[i];
-    Coordinates end = this->ceilingCoordsFullDirt[i + 1];
-    i += 2;
+  this->sdlRenderer.Copy(this->backgroundSprite.texture,
+                         SDL2pp::Rect(0, 0, MAP_SIZE_X, MAP_SIZE_Y),
+                         SDL2pp::Rect(0, 0, MAP_SIZE_X, MAP_SIZE_Y));
+
+  this->sdlRenderer.Copy(this->decorationSprite.texture,
+                         SDL2pp::Rect(0, 0, MAP_SIZE_X, MAP_SIZE_Y),
+                         SDL2pp::Rect(0, 0, MAP_SIZE_X, MAP_SIZE_Y));
+}
+
+void Map::renderCeiling(const std::vector<Coordinates> &coordinatesVector,
+                        Sprite &sprite) {
+  int maxPieces = coordinatesVector.size() /
+                  2; // 2 Because the coords go in pairs start-end
+  int pieceCounter = 0;
+
+  for (int i = 0; i < maxPieces; i++) {
+    const Coordinates &start = coordinatesVector[pieceCounter];
+    const Coordinates &end = coordinatesVector[pieceCounter + 1];
+    pieceCounter += 2;
 
     int k = 0;
-    int pxCount = tileSize;
+    int pxCount = TILE_SIZE;
     int remaining = end.getX() - pxCount;
-    while (remaining >= tileSize) {
-      int nextRandom = this->nextRandomNumber(k) % 3;
-      this->sdlRenderer.Copy(this->fullDirtSprite.texture,
-                             SDL2pp::Rect(tileSize * nextRandom + nextRandom, 0,
-                                          tileSize, tileSize),
-                             SDL2pp::Rect(start.getX() + pxCount - tileSize,
-                                          start.getY(), tileSize, tileSize));
-      pxCount += tileSize;
+    while (remaining >= TILE_SIZE) {
+      int nextRandom = this->nextRandomNumber(k) % sprite.maxAnimationFrames;
+      this->sdlRenderer.Copy(sprite.texture,
+                             SDL2pp::Rect(TILE_SIZE * nextRandom + nextRandom,
+                                          0, TILE_SIZE, TILE_SIZE),
+                             SDL2pp::Rect(start.getX() + pxCount - TILE_SIZE,
+                                          start.getY(), TILE_SIZE, TILE_SIZE));
+      pxCount += TILE_SIZE;
       remaining = end.getX() - pxCount;
       k++;
     }
-    this->sdlRenderer.Copy(this->fullDirtSprite.texture,
-                           SDL2pp::Rect(remaining, 0, remaining, tileSize),
-                           SDL2pp::Rect(start.getX() + pxCount - tileSize,
-                                        start.getY(),
-                                        start.getX() + end.getX() - pxCount,
-                                        start.getY() + tileSize));
+
+    this->sdlRenderer.Copy(
+        sprite.texture, SDL2pp::Rect(remaining, 0, remaining, TILE_SIZE),
+        SDL2pp::Rect(start.getX() + pxCount - TILE_SIZE, start.getY(),
+                     start.getX() + end.getX() - pxCount,
+                     start.getY() + TILE_SIZE));
   }
+}
+
+void Map::renderSides(const std::vector<Coordinates> &coordinatesVector,
+                      Sprite &sprite) {
+  int maxPieces = coordinatesVector.size() /
+                  2; // 2 Because the coords go in pairs start-end
+  int pieceCounter = 0;
+
+  for (int i = 0; i < maxPieces; i++) {
+    const Coordinates &start = coordinatesVector[pieceCounter];
+    const Coordinates &end = coordinatesVector[pieceCounter + 1];
+    pieceCounter += 2;
+
+    int k = 0;
+    int pxCount = TILE_SIZE;
+    int remaining = end.getY() - pxCount;
+    while (remaining >= TILE_SIZE) {
+      int nextRandom = this->nextRandomNumber(k) % sprite.maxAnimationFrames;
+      this->sdlRenderer.Copy(sprite.texture,
+                             SDL2pp::Rect(TILE_SIZE * nextRandom + nextRandom,
+                                          0, TILE_SIZE, TILE_SIZE),
+                             SDL2pp::Rect(start.getX(),
+                                          start.getY() + pxCount - TILE_SIZE,
+                                          TILE_SIZE, TILE_SIZE));
+      pxCount += TILE_SIZE;
+      remaining = end.getY() - pxCount;
+      k++;
+    }
+
+    this->sdlRenderer.Copy(
+        sprite.texture, SDL2pp::Rect(remaining, 0, remaining, TILE_SIZE),
+        SDL2pp::Rect(start.getX(), start.getY() + pxCount - TILE_SIZE,
+                     start.getX() + TILE_SIZE,
+                     start.getY() + end.getX() - pxCount));
+  }
+}
+
+void Map::renderBaseGround(const std::vector<Coordinates> &coordinatesVector,
+                           Sprite &sprite) {
+  int maxPieces = coordinatesVector.size() /
+                  2; // 2 Because the coords go in pairs start-end
+  int pieceCounter = 0;
+
+  for (int i = 0; i < maxPieces; i++) {
+    const Coordinates &start = coordinatesVector[pieceCounter];
+    const Coordinates &end = coordinatesVector[pieceCounter + 1];
+    pieceCounter += 2;
+
+    int k = 0;
+    int pxCount = TILE_SIZE;
+    int remaining = end.getX() - pxCount;
+    while (remaining >= TILE_SIZE) {
+      int nextRandom = this->nextRandomNumber(k) % sprite.maxAnimationFrames;
+      this->sdlRenderer.Copy(sprite.texture,
+                             SDL2pp::Rect(TILE_SIZE * nextRandom + nextRandom,
+                                          0, TILE_SIZE, TILE_SIZE),
+                             SDL2pp::Rect(start.getX() + pxCount - TILE_SIZE,
+                                          start.getY(), TILE_SIZE, TILE_SIZE));
+      pxCount += TILE_SIZE;
+      remaining = end.getX() - pxCount;
+      k++;
+    }
+
+    this->sdlRenderer.Copy(
+        sprite.texture, SDL2pp::Rect(remaining, 0, remaining, TILE_SIZE),
+        SDL2pp::Rect(start.getX() + pxCount - TILE_SIZE, start.getY(),
+                     start.getX() + end.getX() - pxCount,
+                     start.getY() + TILE_SIZE));
+  }
+}
+
+void Map::render(int iterationNumber) {
+  this->renderBackground();
+  this->renderCeiling(ceilingCoordsFullDirt, fullDirtSprite);
+  this->renderCeiling(ceilingCoordsTopGrass, topGrassSprite);
+  this->renderSides(sidesCoordsFullDirt, fullDirtSprite);
+  this->renderSides(sidesCoordsTopGrass, topGrassSprite);
+  this->renderBaseGround(baseGroundCoordsFullDirt, fullDirtSprite);
+  this->renderBaseGround(baseGroundCoordsTopGrass, topGrassSprite);
 }
 
 Map::~Map() {}

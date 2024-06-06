@@ -18,8 +18,8 @@ Renderer::Renderer(GraphicEngine &graphicEngine, int id, Socket socket)
     : client_id(id), keep_running(true), rate(RATE),
       graphicEngine(graphicEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
-      map(this->graphicEngine), debugPanel(this->sdlRenderer),
-      client(std::move(socket), id) {}
+      hud(this->graphicEngine), map(this->graphicEngine),
+      debugPanel(this->sdlRenderer), client(std::move(socket), id) {}
 
 void Renderer::addRenderable(std::unique_ptr<Renderable> renderable) {
   this->renderables.push_back(std::move(renderable));
@@ -66,6 +66,7 @@ void Renderer::runMainActions(int iterationNumber) {
   this->sdlRenderer.Clear();
 
   this->map.render(iterationNumber);
+  this->hud.render(iterationNumber);
 
   for (auto &renderable : this->renderables) {
     renderable->render(iterationNumber);

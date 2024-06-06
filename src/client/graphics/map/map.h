@@ -61,8 +61,14 @@ private:
   // cppcheck-suppress unusedStructMember
   std::vector<Coordinates> platform4CoordsFullDirt;
 
-  void renderBackground();
   uint8_t nextRandomNumber(const int current) const;
+  void renderBackground();
+  void renderCeiling(const std::vector<Coordinates> &coordinatesVector,
+                     Sprite &sprite);
+  void renderSides(const std::vector<Coordinates> &coordinatesVector,
+                   Sprite &sprite);
+  void renderBaseGround(const std::vector<Coordinates> &coordinatesVector,
+                        Sprite &sprite);
 
 public:
   explicit Map(GraphicEngine &graphicEngine);
