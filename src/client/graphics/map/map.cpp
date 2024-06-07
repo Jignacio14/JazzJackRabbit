@@ -138,19 +138,29 @@ void Map::renderCeiling(const std::vector<Coordinates> &coordinatesVector,
                           endAbsolute.getY() - this->leftCorner.getY());
 
     int k = 0;
-    int pxCount = TILE_SIZE;
+    int pxCount = 0;
     int remaining = endAbsolute.getX() - pxCount;
-    while (remaining >= 0) {
-      int nextRandom = this->nextRandomNumber(k) % sprite.maxAnimationFrames;
-
-      this->sdlRenderer.Copy(sprite.texture,
-                             SDL2pp::Rect(TILE_SIZE * nextRandom + nextRandom,
-                                          0, TILE_SIZE, TILE_SIZE),
-                             SDL2pp::Rect(start.getX() + pxCount - TILE_SIZE,
-                                          start.getY(), TILE_SIZE, TILE_SIZE));
-
+    while (remaining > 0) {
       pxCount += TILE_SIZE;
       remaining = endAbsolute.getX() - pxCount;
+
+      if (remaining <= -TILE_SIZE) {
+        break;
+      }
+
+      int sizeToRender = remaining >= 0 ? TILE_SIZE : abs(remaining);
+
+      if (sizeToRender != TILE_SIZE) {
+        pxCount = pxCount - (TILE_SIZE - abs(remaining));
+      }
+
+      int nextRandom = this->nextRandomNumber(k) % sprite.maxAnimationFrames;
+      this->sdlRenderer.Copy(sprite.texture,
+                             SDL2pp::Rect(TILE_SIZE * nextRandom + nextRandom,
+                                          0, sizeToRender, TILE_SIZE),
+                             SDL2pp::Rect(start.getX() + pxCount - sizeToRender,
+                                          start.getY(), sizeToRender,
+                                          TILE_SIZE));
       k++;
     }
   }
@@ -173,18 +183,29 @@ void Map::renderSides(const std::vector<Coordinates> &coordinatesVector,
                           endAbsolute.getY() - this->leftCorner.getY());
 
     int k = 0;
-    int pxCount = TILE_SIZE;
+    int pxCount = 0;
     int remaining = endAbsolute.getY() - pxCount;
-    while (remaining >= 0) {
+    while (remaining > 0) {
+      pxCount += TILE_SIZE;
+      remaining = endAbsolute.getY() - pxCount;
+
+      if (remaining <= -TILE_SIZE) {
+        break;
+      }
+
+      int sizeToRender = remaining >= 0 ? TILE_SIZE : abs(remaining);
+
+      if (sizeToRender != TILE_SIZE) {
+        pxCount = pxCount - (TILE_SIZE - abs(remaining));
+      }
+
       int nextRandom = this->nextRandomNumber(k) % sprite.maxAnimationFrames;
       this->sdlRenderer.Copy(sprite.texture,
                              SDL2pp::Rect(TILE_SIZE * nextRandom + nextRandom,
-                                          0, TILE_SIZE, TILE_SIZE),
+                                          0, TILE_SIZE, sizeToRender),
                              SDL2pp::Rect(start.getX(),
-                                          start.getY() + pxCount - TILE_SIZE,
-                                          TILE_SIZE, TILE_SIZE));
-      pxCount += TILE_SIZE;
-      remaining = endAbsolute.getY() - pxCount;
+                                          start.getY() + pxCount - sizeToRender,
+                                          TILE_SIZE, sizeToRender));
       k++;
     }
   }
@@ -207,10 +228,10 @@ void Map::renderBaseGround(const std::vector<Coordinates> &coordinatesVector,
                           endAbsolute.getY() - this->leftCorner.getY());
 
     int k = 0;
-    int pxCount = TILE_SIZE;
+    int pxCount = 0;
     int remaining = endAbsolute.getX() - pxCount;
-    while (remaining >= 0) {
-
+    while (remaining > 0) {
+      pxCount += TILE_SIZE;
       remaining = endAbsolute.getX() - pxCount;
 
       if (remaining < 0) {
@@ -218,6 +239,10 @@ void Map::renderBaseGround(const std::vector<Coordinates> &coordinatesVector,
       }
 
       int sizeToRender = remaining >= TILE_SIZE ? TILE_SIZE : remaining;
+
+      if (sizeToRender != TILE_SIZE) {
+        pxCount = pxCount - (TILE_SIZE - remaining);
+      }
 
       int nextRandom = this->nextRandomNumber(k) % sprite.maxAnimationFrames;
       this->sdlRenderer.Copy(sprite.texture,
@@ -227,15 +252,7 @@ void Map::renderBaseGround(const std::vector<Coordinates> &coordinatesVector,
                                           start.getY(), sizeToRender,
                                           TILE_SIZE));
       k++;
-      pxCount += sizeToRender;
     }
-
-    /*remaining = -remaining;
-
-    this->sdlRenderer.Copy(sprite.texture,
-                           SDL2pp::Rect(0, 0, remaining, TILE_SIZE),
-                           SDL2pp::Rect(end.getX() - remaining, start.getY(),
-                                        remaining, TILE_SIZE));*/
   }
 }
 

@@ -6,18 +6,18 @@ ceiling:
   full_dirt:
     - x: 0
       'y': 0
-    - x: 1768
+    - x: 1800
       'y': 32
   top_grass:
 
 sides:
   full_dirt:
     - x: 0
-      'y': 0
+      'y': 32
     - x: 32
       'y': 1200
     - x: 1768
-      'y': 0
+      'y': 32
     - x: 1800
       'y': 1200
 
