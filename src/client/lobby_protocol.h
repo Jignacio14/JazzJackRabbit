@@ -14,6 +14,7 @@
 #define REFRESH 1
 #define NEW_GAME 2
 #define ERROR -1
+#define GAME_START 1
 
 class LobbyProtocol {
 private:

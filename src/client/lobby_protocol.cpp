@@ -75,15 +75,13 @@ void LobbyProtocol::send_refresh() {
 
 bool LobbyProtocol::wait_game_start() {
   try {
-    uint16_t len = receive_header();
-    std::vector<char> players;
-    for (int i = 0; i < len; ++i) {
-      char actual;
-      skt.recvall_bytewise(&actual, sizeof(char), &was_closed);
-      players.push_back(actual);
-    }
+    uint8_t message;
+    skt.recvall_bytewise(&message, sizeof(uint8_t), &was_closed);
     this->skt_was_closed();
-    return true;
+    if (message == GAME_START)
+      return true;
+    else
+      return false;
   } catch (const std::exception &err) {
     std::cout << "Some error ocurred while trying to receive a message from "
                  "the server."
