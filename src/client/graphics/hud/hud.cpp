@@ -26,6 +26,8 @@ void Hud::render(int iterationNumber) {
                                  BLACK_RGBA[3]);
 }
 
+void Hud::render(int iterationNumber, Coordinates &coords) {}
+
 int Hud::getHorizontalSize() { return HUD_HORIZONTAL_SIZE; }
 
 Hud::~Hud() {}

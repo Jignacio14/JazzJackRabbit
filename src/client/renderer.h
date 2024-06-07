@@ -29,12 +29,12 @@ private:
 
   // cppcheck-suppress unusedStructMember
   std::list<std::unique_ptr<Renderable>> renderables;
+  Player &player;
   Hud hud;
   Map map;
   DebugPanel debugPanel;
 
   Client client;
-  Player &player;
 
   /*
    * Returns current time in seconds since epoch.

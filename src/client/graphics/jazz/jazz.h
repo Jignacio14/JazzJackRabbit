@@ -19,7 +19,7 @@ private:
 
   // cppcheck-suppress unusedStructMember
   int currentFrame;
-  Coordinates currentCoords;
+  Coordinates &currentCoords;
   // cppcheck-suppress unusedStructMember
   bool isWalkingLeft;
   // cppcheck-suppress unusedStructMember
@@ -36,9 +36,10 @@ private:
   void debugUpdateLocation(int iterationNumber);
 
 public:
-  Jazz(GraphicEngine &graphicEngine, const Coordinates &currentCoords);
+  Jazz(GraphicEngine &graphicEngine, Coordinates &currentCoords);
   virtual void render(int iterationNumber) override;
-  virtual void updateByCoords(int x, int y) override;
+  virtual void render(int iterationNumber, Coordinates &coords) override;
+  virtual void updateByCoordsDelta(int deltaX, int deltaY) override;
   virtual void update(bool isWalking, bool isRunning,
                       std::string movingDirection) override;
   ~Jazz() override;

@@ -7,7 +7,8 @@
 class PlayableCharacter : public Renderable {
 private:
 public:
-  virtual void render(int it) override = 0;
+  virtual void render(int iterationNumber) override = 0;
+  virtual void render(int iterationNumber, Coordinates &coords) override = 0;
 };
 
 #endif // PLAYABLE_CHARACTER_H

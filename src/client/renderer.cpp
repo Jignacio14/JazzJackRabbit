@@ -9,7 +9,7 @@
 
 #include "./graphics/jazz/jazz.h"
 
-static const Coordinates DEBUG_INIT_COORDS = Coordinates(0, 0);
+static Coordinates DEBUG_INIT_COORDS = Coordinates(0, 0);
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
@@ -21,9 +21,9 @@ Renderer::Renderer(GraphicEngine &graphicEngine, int id, Socket socket,
     : client_id(id), keep_running(true), rate(RATE),
       graphicEngine(graphicEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
-      hud(this->graphicEngine), map(this->graphicEngine),
-      debugPanel(this->sdlRenderer), client(std::move(socket), id),
-      player(player) {}
+      player(player), hud(this->graphicEngine),
+      map(this->graphicEngine, player), debugPanel(this->sdlRenderer),
+      client(std::move(socket), id) {}
 
 void Renderer::addRenderable(std::unique_ptr<Renderable> renderable) {
   this->renderables.push_back(std::move(renderable));
@@ -106,8 +106,6 @@ void Renderer::runMainActions(int iterationNumber) {
 
   this->map.render(iterationNumber);
   this->hud.render(iterationNumber);
-
-  this->player.render(iterationNumber);
 
   for (auto &renderable : this->renderables) {
     renderable->render(iterationNumber);

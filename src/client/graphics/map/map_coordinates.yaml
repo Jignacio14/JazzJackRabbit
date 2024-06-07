@@ -7,25 +7,26 @@ ceiling:
     - x: 0
       'y': 0
     - x: 1768
-      'y': 0
+      'y': 32
+  top_grass:
 
 sides:
   full_dirt:
     - x: 0
       'y': 0
-    - x: 0
-      'y': 1168
+    - x: 32
+      'y': 1200
     - x: 1768
       'y': 0
-    - x: 1768
-      'y': 1168
+    - x: 1800
+      'y': 1200
 
 base_ground:
   top_grass:
     - x: 32
       'y': 1168
     - x: 1768
-      'y': 1168
+      'y': 1200
   full_dirt:
 
 platform_1:
@@ -33,24 +34,24 @@ platform_1:
     - x: 297
       'y': 926
     - x: 415
-      'y': 926
+      'y': 958
     - x: 599
       'y': 926
     - x: 733
-      'y': 926
+      'y': 958
     - x: 416
       'y': 862
     - x: 598
-      'y': 862
+      'y': 894
   full_dirt:
     - x: 416
       'y': 926
     - x: 598
-      'y': 926
+      'y': 958
     - x: 416
       'y': 894
     - x: 598
-      'y': 894
+      'y': 926
 
 # Offseted +719 in x-axis from platform_1
 platform_2:
@@ -58,52 +59,52 @@ platform_2:
     - x: 1016
       'y': 926
     - x: 1134
-      'y': 926
+      'y': 958
     - x: 1318
       'y': 926
     - x: 1452
-      'y': 926
+      'y': 958
     - x: 1135
       'y': 862
     - x: 1317
-      'y': 862
+      'y': 894
   full_dirt:
     - x: 1135
       'y': 926
     - x: 1317
-      'y': 926
+      'y': 958
     - x: 1135
       'y': 894
     - x: 1317
-      'y': 894
+      'y': 926
 
 platform_3:
   top_grass:
     - x: 540
       'y': 583
     - x: 727 #Needs reforming when adding angles
-      'y': 583
+      'y': 615
     - x: 1014 #Needs reforming when adding angles
       'y': 583
     - x: 1225
-      'y': 583
+      'y': 615
     - x: 728
       'y': 519
     - x: 1013
-      'y': 519
+      'y': 551
   full_dirt:
     - x: 728
       'y': 583
     - x: 1013
-      'y': 583
+      'y': 615
     - x: 728
       'y': 551
     - x: 1013
-      'y': 551
+      'y': 583
 
 platform_4:
   top_grass:
     - x: 781
       'y': 292
     - x: 963
-      'y': 292
+      'y': 324

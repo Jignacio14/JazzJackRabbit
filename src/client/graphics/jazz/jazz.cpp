@@ -6,7 +6,7 @@ static const std::string INITIAL_STATE = "idle1";
 static const std::unordered_map<std::string, int> MOVING_DIRECTIONS = {
     {"left", 0}, {"right", 1}, {"up", 2}, {"down", 3}};
 
-Jazz::Jazz(GraphicEngine &graphicEngine, const Coordinates &currentCoords)
+Jazz::Jazz(GraphicEngine &graphicEngine, Coordinates &currentCoords)
     : graphicEngine(graphicEngine),
       currentState(&this->graphicEngine.getJazzGenericSprite(INITIAL_STATE)),
       currentFrame(0), currentCoords(currentCoords), isWalkingLeft(false),
@@ -55,6 +55,27 @@ void Jazz::render(int iterationNumber) {
                    spriteHeight));
 }
 
+void Jazz::render(int iterationNumber, Coordinates &coords) {
+  this->currentFrame = iterationNumber % this->currentState->maxAnimationFrames;
+  this->debugUpdateLocation(iterationNumber);
+
+  // Pick sprite from running animantion sequence
+  int spriteX = this->currentState->spriteCoords[this->currentFrame].getX();
+  int spriteY = this->currentState->spriteCoords[this->currentFrame].getY();
+  int spriteWidth = this->currentState->width[this->currentFrame];
+  int spriteHeight = this->currentState->height[this->currentFrame];
+
+  int positionX = coords.getX();
+  int positionY = coords.getY();
+
+  // Draw player sprite
+  this->currentState->sdlRenderer.Copy(
+      this->currentState->texture,
+      SDL2pp::Rect(spriteX, spriteY, spriteWidth, spriteHeight),
+      SDL2pp::Rect(positionX, positionY - spriteHeight, spriteWidth,
+                   spriteHeight));
+}
+
 void Jazz::update(bool isWalking, bool isRunning, std::string movingDirection) {
 
   bool wasWalking = this->isWalkingLeft || this->isWalkingRight ||
@@ -85,9 +106,9 @@ void Jazz::update(bool isWalking, bool isRunning, std::string movingDirection) {
   }
 }
 
-void Jazz::updateByCoords(int x, int y) {
-  this->currentCoords.setX(this->currentCoords.getX() + x);
-  this->currentCoords.setY(this->currentCoords.getY() + y);
+void Jazz::updateByCoordsDelta(int deltaX, int deltaY) {
+  this->currentCoords.setX(this->currentCoords.getX() + deltaX);
+  this->currentCoords.setY(this->currentCoords.getY() + deltaY);
 }
 
 Jazz::~Jazz() {}

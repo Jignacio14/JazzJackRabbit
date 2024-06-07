@@ -18,6 +18,8 @@ public:
 
   virtual void render(int iterationNumber) override;
 
+  virtual void render(int iterationNumber, Coordinates &coords) override;
+
   static int getHorizontalSize();
 
   ~Hud() override;

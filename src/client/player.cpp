@@ -28,13 +28,19 @@ void Player::render(int iterationNumber) {
   this->character->render(iterationNumber);
 }
 
-void Player::updateByCoords(int x, int y) {
-  this->character->updateByCoords(x, y);
+void Player::render(int iterationNumber, Coordinates &coords) {
+  this->character->render(iterationNumber, coords);
+}
+
+void Player::updateByCoordsDelta(int deltaX, int deltaY) {
+  this->character->updateByCoordsDelta(deltaX, deltaY);
 };
 
 void Player::update(bool isWalking, bool isRunning,
                     std::string movingDirection) {
   this->character->update(isWalking, isRunning, movingDirection);
 };
+
+Coordinates Player::getCoords() const { return this->currentCoords; }
 
 Player::~Player() {}
