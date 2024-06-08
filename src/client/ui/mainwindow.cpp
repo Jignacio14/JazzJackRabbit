@@ -143,7 +143,11 @@ void MainWindow::on_connectButton_released() {
     const char *portStr = std::to_string(this->port).c_str();
     std::unique_ptr<Lobby> lobbyAttempt =
         std::make_unique<Lobby>(this->hostname.c_str(), portStr);
+
     this->lobby = std::move(lobbyAttempt);
+
+    std::vector<GameConfigs> games = this->getGamesFromServer();
+    this->addGamesToList(games);
 
     this->enableButton(this->ui->createGameButton, "createGameButton");
     this->enableButton(this->ui->joinGameButton, "joinGameButton");
@@ -175,10 +179,6 @@ void MainWindow::on_createGameButton_pressed() {
 
 void MainWindow::on_joinGameButton_pressed() {
   this->buttonClickSound.play();
-
-  std::vector<GameConfigs> games = this->getGamesFromServer();
-  this->addGamesToList(games);
-
   this->ui->stackedWidget->setCurrentWidget(this->ui->joinGameScreen);
 }
 
@@ -430,6 +430,7 @@ const bool MainWindow::isNumberOfPlayersValid(std::string &message) {
 
 std::vector<GameConfigs> MainWindow::getGamesFromServer() {
   std::vector<GameConfigs> games;
+
   std::vector<GameInfoDto> gamesDto = this->lobby->get_games();
 
   for (auto &gameDto : gamesDto) {

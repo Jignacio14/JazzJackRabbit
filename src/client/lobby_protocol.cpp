@@ -5,8 +5,8 @@
 LobbyProtocol::LobbyProtocol(Socket &a_skt) : was_closed(false), skt(a_skt) {}
 
 uint16_t LobbyProtocol::receive_header() {
-  uint16_t header;
-  skt.recvall_bytewise(&header, sizeof(uint16_t), &was_closed);
+  uint16_t header = 0;
+  this->skt.recvall_bytewise(&header, sizeof(uint16_t), &was_closed);
   header = ntohs(header);
   this->skt_was_closed();
   return header;
@@ -103,8 +103,6 @@ void LobbyProtocol::send_refresh() {
 Snapshot LobbyProtocol::wait_game_start() {
   try {
     Snapshot first_snap;
-    std::cout << sizeof(Snapshot) << " is the size"
-              << "\n";
     skt.recvall_bytewise(&first_snap, sizeof(Snapshot), &was_closed);
     this->skt_was_closed();
     return first_snap;

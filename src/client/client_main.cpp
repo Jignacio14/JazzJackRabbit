@@ -25,7 +25,7 @@ const static char JAZZ_SELECTED = 'J';
 const static char SPAZ_SELECTED = 'S';
 const static char LORI_SELECTED = 'L';
 
-const static bool TEST_ONLY_SDL_MODE = true;
+const static bool TEST_ONLY_SDL_MODE = false;
 
 void debugPrint(std::string &hostname, uint32_t &port, std::string &username,
                 char &userCharacter, GameConfigs &gameConfig) {
