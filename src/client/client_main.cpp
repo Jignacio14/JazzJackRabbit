@@ -25,7 +25,7 @@ const static char JAZZ_SELECTED = 'J';
 const static char SPAZ_SELECTED = 'S';
 const static char LORI_SELECTED = 'L';
 
-const static bool TEST_ONLY_SDL_MODE = false;
+const static bool TEST_ONLY_SDL_MODE = true;
 
 void debugPrint(std::string &hostname, uint32_t &port, std::string &username,
                 char &userCharacter, GameConfigs &gameConfig) {
@@ -90,7 +90,8 @@ int main(int argc, char *argv[]) {
     int client_id = 1;
     Player player(username, userCharacter, graphicEngine);
     Socket skt = lobby->transfer_socket();
-    Renderer renderer(graphicEngine, client_id, std::move(skt), player);
+    Renderer renderer(graphicEngine, client_id, std::move(skt), player,
+                      initialSnapshot);
     renderer.run();
 
     return exitCode;

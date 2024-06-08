@@ -16,6 +16,7 @@ private:
   GraphicEngine &graphicEngine;
   // cppcheck-suppress unusedStructMember
   Sprite *currentState;
+  // std::unique_ptr<AnimationState> currentAnimation;
 
   // cppcheck-suppress unusedStructMember
   int currentFrame;

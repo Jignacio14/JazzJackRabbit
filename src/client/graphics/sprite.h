@@ -6,9 +6,7 @@
 #include <SDL2pp/SDL2pp.hh>
 #include <vector>
 
-class Sprite {
-private:
-public:
+struct Sprite {
   SDL2pp::Renderer &sdlRenderer;
   SDL2pp::Texture texture;
 

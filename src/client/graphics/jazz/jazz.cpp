@@ -122,8 +122,8 @@ void Jazz::renderFromLeftCorner(int iterationNumber,
   int spriteWidth = this->currentState->width[this->currentFrame];
   int spriteHeight = this->currentState->height[this->currentFrame];
 
-  int positionX = leftCorner.getX() - this->currentCoords.getX();
-  int positionY = leftCorner.getY() - this->currentCoords.getY();
+  int positionX = this->currentCoords.getX() - leftCorner.getX();
+  int positionY = this->currentCoords.getY() - leftCorner.getY();
 
   // Draw player sprite
   this->currentState->sdlRenderer.Copy(

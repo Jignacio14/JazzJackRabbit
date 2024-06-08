@@ -11,12 +11,12 @@ Client::Client(Socket &&socket, int id)
   sender.start();
 }
 
-std::optional<Snapshot> Client::get_current_snapshot() {
+std::unique_ptr<Snapshot> Client::get_current_snapshot() {
   Snapshot snapshot;
   if (receiver_queue.try_pop(snapshot)) {
-    return std::optional<Snapshot>(snapshot);
+    return std::make_unique<Snapshot>(snapshot);
   } else {
-    return std::optional<Snapshot>();
+    return nullptr;
   }
 }
 

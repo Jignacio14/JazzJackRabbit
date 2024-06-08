@@ -36,6 +36,8 @@ private:
   DebugPanel debugPanel;
 
   Client client;
+  // cppcheck-suppress unusedStructMember
+  Snapshot &initialSnapshot;
 
   /*
    * Returns current time in seconds since epoch.
@@ -49,7 +51,8 @@ private:
   void sleep(double timeToSleep);
 
 public:
-  Renderer(GraphicEngine &graphicEngine, int id, Socket socket, Player &player);
+  Renderer(GraphicEngine &graphicEngine, int id, Socket socket, Player &player,
+           Snapshot &initialSnapshot);
 
   /*
    * It executes the game logic repeatedly, keeping a constant time rate between

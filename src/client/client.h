@@ -9,6 +9,7 @@
 #include "client_receiver.h"
 #include "client_sender.h"
 #include <atomic>
+#include <memory>
 #include <optional>
 
 class Client {
@@ -25,7 +26,7 @@ private:
 public:
   Client(Socket &&socket, int id);
 
-  std::optional<Snapshot> get_current_snapshot();
+  std::unique_ptr<Snapshot> get_current_snapshot();
 
   void move_right();
 

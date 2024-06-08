@@ -14,16 +14,16 @@ static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 const static double TARGET_FPS = globalConfigs.getTargetFps();
 const static double RATE = ((double)1) / TARGET_FPS;
 
-static Coordinates DEBUG_INIT_COORDS = Coordinates(0, 0);
+static Coordinates DEBUG_INIT_COORDS = Coordinates(100, 100);
 
 Renderer::Renderer(GraphicEngine &graphicEngine, int id, Socket socket,
-                   Player &player)
+                   Player &player, Snapshot &initialSnapshot)
     : client_id(id), keep_running(true), rate(RATE),
       graphicEngine(graphicEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
       player(player), hud(this->graphicEngine),
       map(this->graphicEngine, this->player), debugPanel(this->sdlRenderer),
-      client(std::move(socket), id) {}
+      client(std::move(socket), id), initialSnapshot(initialSnapshot) {}
 
 void Renderer::addRenderable(std::unique_ptr<Renderable> renderable) {
   this->renderables.push_back(std::move(renderable));
@@ -112,13 +112,12 @@ void Renderer::runMainActions(int iterationNumber) {
   this->map.renderPlayer(iterationNumber);
   this->hud.render(iterationNumber);
 
-  const Coordinates &leftCorner = this->map.getLeftCorner();
+  std::unique_ptr<Snapshot> snapshot =
+      iterationNumber != 0 ? client.get_current_snapshot()
+                           : std::make_unique<Snapshot>(initialSnapshot);
 
-  std::optional<Snapshot> snapshotOptional = client.get_current_snapshot();
-  if (snapshotOptional.has_value()) {
-    // cppcheck-suppress unreadVariable
-    const Snapshot &snapshot = snapshotOptional.value();
-    if (snapshot.enemies_alive) {
+  if (snapshot != nullptr) {
+    if (snapshot->enemies_alive) {
     } // This is just for the compiler, to use the var
 
     /*for (auto &renderable : this->renderables) {
@@ -126,6 +125,7 @@ void Renderer::runMainActions(int iterationNumber) {
     }*/
   }
 
+  const Coordinates &leftCorner = this->map.getLeftCorner();
   for (auto &renderable : this->renderables) {
     renderable->renderFromLeftCorner(iterationNumber, leftCorner);
   }
