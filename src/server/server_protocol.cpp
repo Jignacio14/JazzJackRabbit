@@ -80,6 +80,9 @@ PlayerInfo ServerProtocol::getGameInfo() {
   bool wasClose = this->getTemporalWasClose();
   PlayerInfo info;
   this->skt.recvall_bytewise(&info, sizeof(info), &wasClose);
+  std::cout << "code: " << info.character_code
+            << "| game name: " << info.game_name[0]
+            << "player name: " << info.player_name[0] << "\n";
   this->throwIfClosed(wasClose);
   return info;
 }

@@ -5,7 +5,9 @@
 #include "../common/snapshot_DTO.h"
 #include "./debug/debug_panel.h"
 #include "./graphics/graphic_engine.h"
+#include "./graphics/hud/hud.h"
 #include "./graphics/map/map.h"
+#include "./player.h"
 #include "./renderable.h"
 #include "client.h"
 #include <SDL2pp/SDL2pp.hh>
@@ -28,6 +30,8 @@ private:
 
   // cppcheck-suppress unusedStructMember
   std::list<std::unique_ptr<Renderable>> renderables;
+  Player &player;
+  Hud hud;
   Map map;
   DebugPanel debugPanel;
 
@@ -45,7 +49,7 @@ private:
   void sleep(double timeToSleep);
 
 public:
-  Renderer(GraphicEngine &graphicEngine, int id, Socket socket);
+  Renderer(GraphicEngine &graphicEngine, int id, Socket socket, Player &player);
 
   /*
    * It executes the game logic repeatedly, keeping a constant time rate between

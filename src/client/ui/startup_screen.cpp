@@ -7,11 +7,14 @@ const static char CHARACTER_NOT_SELECTED = '0';
 
 StartupScreen::StartupScreen(int &argc, char **argv, std::string &hostname,
                              uint32_t &port, std::string &username,
-                             GameConfigs *game, char &userCharacter)
+                             GameConfigs *game, Snapshot *initialSnapshot,
+                             char &userCharacter)
     : app(argc, argv), hostname(hostname), port(port), username(username),
-      game(game), userCharacter(userCharacter), lobby(nullptr),
-      mainWindow(nullptr, hostname, port, username, this->game, userCharacter,
-                 std::move(this->lobby)) {}
+      game(game), initialSnapshot(initialSnapshot),
+      userCharacter(userCharacter), lobby(nullptr),
+      mainWindow(nullptr, hostname, port, username, this->game,
+                 this->initialSnapshot, userCharacter, std::move(this->lobby)) {
+}
 
 const int StartupScreen::show() {
   this->mainWindow.show();

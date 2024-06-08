@@ -7,9 +7,6 @@
 struct Snapshot {
   // cppcheck-suppress unusedStructMember
   uint8_t enemies_alive;
-  // etc
-
-  Snapshot();
-};
+} __attribute__((packed));
 
 #endif // JAZZJACKRABBIT_SNAPSHOT_H

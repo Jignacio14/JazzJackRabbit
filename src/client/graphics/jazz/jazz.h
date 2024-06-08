@@ -4,23 +4,46 @@
 #include "../../coordinates.h"
 #include "../../renderable.h"
 #include "../graphic_engine.h"
+#include "../playable_character.h"
 #include "../sprite.h"
 #include <SDL2pp/SDL2pp.hh>
 #include <optional>
+#include <string>
 #include <vector>
 
-class Jazz : public Renderable {
+class Jazz : public PlayableCharacter {
 private:
   GraphicEngine &graphicEngine;
-  Sprite &currentState;
+  // cppcheck-suppress unusedStructMember
+  Sprite *currentState;
 
   // cppcheck-suppress unusedStructMember
   int currentFrame;
-  Coordinates currentCoords;
+  Coordinates &currentCoords;
+  // cppcheck-suppress unusedStructMember
+  bool isWalkingLeft;
+  // cppcheck-suppress unusedStructMember
+  bool isWalkingRight;
+  // cppcheck-suppress unusedStructMember
+  bool isWalkingUp;
+  // cppcheck-suppress unusedStructMember
+  bool isWalkingDown;
+  // cppcheck-suppress unusedStructMember
+  bool isRunning;
+  // cppcheck-suppress unusedStructMember
+  std::string movingDirection;
+
+  void debugUpdateLocation(int iterationNumber);
 
 public:
-  explicit Jazz(GraphicEngine &graphicEngine);
+  Jazz(GraphicEngine &graphicEngine, Coordinates &currentCoords);
   virtual void render(int iterationNumber) override;
+  virtual void render(int iterationNumber, Coordinates &coords) override;
+  virtual void updateByCoordsDelta(int deltaX, int deltaY) override;
+  virtual void renderFromLeftCorner(int iterationNumber,
+                                    const Coordinates &leftCorner) override;
+  virtual void update(bool isWalking, bool isRunning,
+                      std::string movingDirection) override;
   ~Jazz() override;
 };
 

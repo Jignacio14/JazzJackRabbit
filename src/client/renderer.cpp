@@ -14,11 +14,16 @@ static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 const static double TARGET_FPS = globalConfigs.getTargetFps();
 const static double RATE = ((double)1) / TARGET_FPS;
 
-Renderer::Renderer(GraphicEngine &graphicEngine, int id, Socket socket)
+static Coordinates DEBUG_INIT_COORDS = Coordinates(0, 0);
+
+Renderer::Renderer(GraphicEngine &graphicEngine, int id, Socket socket,
+                   Player &player)
     : client_id(id), keep_running(true), rate(RATE),
       graphicEngine(graphicEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
-      debugPanel(this->sdlRenderer), client(std::move(socket), id) {}
+      player(player), hud(this->graphicEngine),
+      map(this->graphicEngine, this->player), debugPanel(this->sdlRenderer),
+      client(std::move(socket), id) {}
 
 void Renderer::addRenderable(std::unique_ptr<Renderable> renderable) {
   this->renderables.push_back(std::move(renderable));
@@ -44,7 +49,8 @@ void Renderer::processKeyboardEvents() {
         break;
 
       case SDLK_j:
-        this->addRenderable(std::make_unique<Jazz>(this->sdlRenderer));
+        this->addRenderable(
+            std::make_unique<Jazz>(this->graphicEngine, DEBUG_INIT_COORDS));
         std::cout << "Adding Jazz"
                   << "\n";
         break;
@@ -55,16 +61,44 @@ void Renderer::processKeyboardEvents() {
         this->debugPanel.activationToggle();
         break;
 
+      case SDLK_UP:
+        this->player.update(true, false, "up");
+        break;
+
+      case SDLK_DOWN:
+        this->player.update(true, false, "down");
+        break;
+
       case SDLK_RIGHT:
         this->client.move_right();
+        this->player.update(true, false, "right");
         break;
 
       case SDLK_LEFT:
         this->client.move_left();
+        this->player.update(true, false, "left");
         break;
 
       case SDLK_SPACE:
         this->client.jump();
+        break;
+      }
+    } else if (event.type == SDL_KEYUP) {
+      switch (event.key.keysym.sym) {
+      case SDLK_LEFT:
+        this->player.update(false, false, "left");
+        break;
+
+      case SDLK_RIGHT:
+        this->player.update(false, false, "right");
+        break;
+
+      case SDLK_UP:
+        this->player.update(false, false, "up");
+        break;
+
+      case SDLK_DOWN:
+        this->player.update(false, false, "down");
         break;
       }
     }
@@ -72,20 +106,28 @@ void Renderer::processKeyboardEvents() {
 }
 
 void Renderer::runMainActions(int iterationNumber) {
-
   this->sdlRenderer.Clear();
+
+  this->map.render(iterationNumber);
+  this->map.renderPlayer(iterationNumber);
+  this->hud.render(iterationNumber);
+
+  const Coordinates &leftCorner = this->map.getLeftCorner();
 
   std::optional<Snapshot> snapshotOptional = client.get_current_snapshot();
   if (snapshotOptional.has_value()) {
     // cppcheck-suppress unreadVariable
-    Snapshot snapshot = snapshotOptional.value();
-    //    for (auto &renderable : this->renderables) {
-    //      renderable->update(snapshot);
-    //    }
+    const Snapshot &snapshot = snapshotOptional.value();
+    if (snapshot.enemies_alive) {
+    } // This is just for the compiler, to use the var
+
+    /*for (auto &renderable : this->renderables) {
+      renderable->update(snapshot);
+    }*/
   }
 
   for (auto &renderable : this->renderables) {
-    renderable->render(iterationNumber);
+    renderable->renderFromLeftCorner(iterationNumber, leftCorner);
   }
 
   this->debugPanel.display();

@@ -20,12 +20,12 @@ private:
   // cppcheck-suppress unusedStructMember
   uint16_t health;
   // cppcheck-suppress unusedStructMember
-  std::unique_ptr<BaseWeapon> *weapon;
+  std::unique_ptr<BaseWeapon> weapon;
   // cppcheck-suppress unusedStructMember
-  std::unique_ptr<BaseState> *state;
+  std::unique_ptr<BaseState> state;
 
 public:
-  explicit BasePlayer(uint8_t player_id, const std::string &player_name);
+  BasePlayer(uint8_t player_id, const std::string &player_name);
   void virtual shoot() = 0;
   void virtual run() = 0;
   void virtual runFast() = 0;
@@ -33,7 +33,7 @@ public:
   void virtual specialAttack() = 0;
 
   void receive_damage(uint16_t damage);
-  void change_state(BaseState *new_state);
+  void change_state(std::unique_ptr<BaseState> new_state);
 
   ~BasePlayer();
 };

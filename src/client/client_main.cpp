@@ -1,5 +1,7 @@
+#include "../common/snapshot_DTO.h"
 #include "./game_configs.h"
 #include "./graphics/graphic_engine.h"
+#include "./player.h"
 #include "./ui/startup_screen.h"
 #include "lobby.h"
 #include "renderer.h"
@@ -23,7 +25,7 @@ const static char JAZZ_SELECTED = 'J';
 const static char SPAZ_SELECTED = 'S';
 const static char LORI_SELECTED = 'L';
 
-const static bool TEST_ONLY_SDL_MODE = true;
+const static bool TEST_ONLY_SDL_MODE = false;
 
 void debugPrint(std::string &hostname, uint32_t &port, std::string &username,
                 char &userCharacter, GameConfigs &gameConfig) {
@@ -51,6 +53,8 @@ int main(int argc, char *argv[]) {
   uint32_t port(0);
   std::string username("");
   char userCharacter = CHARACTER_NOT_SELECTED;
+  Snapshot initialSnapshot;
+  Snapshot *initialSnapshotPtr = &initialSnapshot;
   GameConfigs gameConfig;
   GameConfigs *gamePtr = &gameConfig;
   std::unique_ptr<Lobby> lobby = nullptr;
@@ -61,7 +65,7 @@ int main(int argc, char *argv[]) {
 
     if (TEST_ONLY_SDL_MODE == false) {
       StartupScreen startupScreen(argc, argv, hostname, port, username, gamePtr,
-                                  userCharacter);
+                                  initialSnapshotPtr, userCharacter);
 
       exitCode = startupScreen.show();
       lobby = startupScreen.getLobby();
@@ -84,8 +88,9 @@ int main(int argc, char *argv[]) {
     debugPrint(hostname, port, username, userCharacter, gameConfig);
 
     int client_id = 1;
+    Player player(username, userCharacter, graphicEngine);
     Socket skt = lobby->transfer_socket();
-    Renderer renderer(graphicEngine, client_id, std::move(skt));
+    Renderer renderer(graphicEngine, client_id, std::move(skt), player);
     renderer.run();
 
     return exitCode;

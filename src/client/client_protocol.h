@@ -11,7 +11,6 @@
 class ClientProtocol {
 private:
   Socket skt;
-  std::atomic<bool> was_closed{false};
 
 public:
   explicit ClientProtocol(Socket &&socket);
@@ -19,6 +18,8 @@ public:
   void send_status(bool &was_closed, const std::vector<uint8_t> &command);
 
   Snapshot receive_snapshot(bool &was_closed);
+
+  void send_id(bool &was_closed, const uint8_t id);
 
   void close_and_shutdown();
 };

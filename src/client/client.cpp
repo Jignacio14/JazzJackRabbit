@@ -5,7 +5,7 @@
 
 Client::Client(Socket &&socket, int id)
     : client_id(id), protocol(std::move(socket)), keep_talking(true),
-      sender(keep_talking, sender_queue, protocol),
+      sender(keep_talking, sender_queue, protocol, id),
       receiver(keep_talking, protocol, receiver_queue) {
   receiver.start();
   sender.start();
