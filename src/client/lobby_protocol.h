@@ -3,6 +3,7 @@
 #define JAZZJACKRABBIT_LOBBY_PROTOCOL_H
 
 #include "../common/game_info.h"
+#include "../common/snapshot_DTO.h"
 #include "../common/socket.h"
 #include "../data/player_info_dto.h"
 #include <atomic>
@@ -56,10 +57,9 @@ public:
                              const std::vector<char> &username);
 
   /*
-   * Waits for the server to send the confirmation message. Returns true if this
-   * happens, false if not.
+   *
    * */
-  bool wait_game_start();
+  Snapshot wait_game_start();
 
   /*
    * Throws an error if the socket was closed during a communication.

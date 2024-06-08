@@ -2,6 +2,7 @@
 #ifndef JAZZJACKRABBIT_LOBBY_H
 #define JAZZJACKRABBIT_LOBBY_H
 
+#include "../common/snapshot_DTO.h"
 #include "lobby_protocol.h"
 #include <cstdint>
 
@@ -48,7 +49,7 @@ public:
   /*
    *
    * */
-  bool wait_game_start();
+  Snapshot wait_game_start();
 
   /*
    * Close and shutdown the socket.

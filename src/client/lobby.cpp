@@ -31,7 +31,7 @@ void Lobby::send_selected_game(const std::string &gamename, char user_character,
 
 uint8_t Lobby::get_player_id() { return this->player_id; }
 
-bool Lobby::wait_game_start() { return protocol.wait_game_start(); }
+Snapshot Lobby::wait_game_start() { return protocol.wait_game_start(); }
 
 Socket Lobby::transfer_socket() {
   this->skt_ownership = false;

@@ -73,20 +73,16 @@ void LobbyProtocol::send_refresh() {
   }
 }
 
-bool LobbyProtocol::wait_game_start() {
+Snapshot LobbyProtocol::wait_game_start() {
   try {
-    uint8_t message;
-    skt.recvall_bytewise(&message, sizeof(uint8_t), &was_closed);
+    Snapshot first_snap;
+    skt.recvall_bytewise(&first_snap, sizeof(Snapshot), &was_closed);
     this->skt_was_closed();
-    if (message == GAME_START)
-      return true;
-    else
-      return false;
+    return first_snap;
   } catch (const std::exception &err) {
-    std::cout << "Some error ocurred while trying to receive a message from "
-                 "the server."
-              << std::endl;
-    return false;
+    throw std::runtime_error(
+        "Some error ocurred while trying to receive a message from "
+        "the server.");
   }
 }
 
