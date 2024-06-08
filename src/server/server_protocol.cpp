@@ -131,6 +131,12 @@ std::pair<uint8_t, uint8_t> ServerProtocol::asyncGetEventCode() {
   return std::make_pair(buf[0], buf[1]);
 }
 
+void ServerProtocol::sendSnapshot(const Snapshot &snapshot) {
+  bool wasClose = this->getTemporalWasClose();
+  this->skt.sendall_bytewise(&snapshot, sizeof(snapshot), &wasClose);
+  this->throwIfClosed(wasClose);
+}
+
 void ServerProtocol::shutdown() {
   this->skt.shutdown(HOW);
   this->skt.close();
