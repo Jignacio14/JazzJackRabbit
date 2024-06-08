@@ -123,6 +123,10 @@ void ServerProtocol::throwIfClosed(const bool &result) {
   }
 }
 
+std::pair<uint8_t, uint8_t> ServerProtocol::asyncGetEventCode() {
+  return std::pair<uint8_t, uint8_t>(0, 0);
+}
+
 void ServerProtocol::shutdown() {
   this->skt.shutdown(HOW);
   this->skt.close();

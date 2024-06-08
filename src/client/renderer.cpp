@@ -14,11 +14,16 @@ static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 const static double TARGET_FPS = globalConfigs.getTargetFps();
 const static double RATE = ((double)1) / TARGET_FPS;
 
-Renderer::Renderer(GraphicEngine &graphicEngine, int id, Socket socket)
+static Coordinates DEBUG_INIT_COORDS = Coordinates(0, 0);
+
+Renderer::Renderer(GraphicEngine &graphicEngine, int id, Socket socket,
+                   Player &player)
     : client_id(id), keep_running(true), rate(RATE),
       graphicEngine(graphicEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
-      debugPanel(this->sdlRenderer), client(std::move(socket), id) {}
+      player(player), hud(this->graphicEngine),
+      map(this->graphicEngine, this->player), debugPanel(this->sdlRenderer),
+      client(std::move(socket), id) {}
 
 void Renderer::addRenderable(std::unique_ptr<Renderable> renderable) {
   this->renderables.push_back(std::move(renderable));
@@ -44,7 +49,8 @@ void Renderer::processKeyboardEvents() {
         break;
 
       case SDLK_j:
-        this->addRenderable(std::make_unique<Jazz>(this->sdlRenderer));
+        this->addRenderable(
+            std::make_unique<Jazz>(this->graphicEngine, DEBUG_INIT_COORDS));
         std::cout << "Adding Jazz"
                   << "\n";
         break;
@@ -72,13 +78,17 @@ void Renderer::processKeyboardEvents() {
 }
 
 void Renderer::runMainActions(int iterationNumber) {
-
   this->sdlRenderer.Clear();
+
+  this->map.render(iterationNumber);
+  this->hud.render(iterationNumber);
 
   std::optional<Snapshot> snapshotOptional = client.get_current_snapshot();
   if (snapshotOptional.has_value()) {
     // cppcheck-suppress unreadVariable
     Snapshot snapshot = snapshotOptional.value();
+    if (snapshot.enemies_alive) {
+    } // This is just for the compiler, to use the var
     //    for (auto &renderable : this->renderables) {
     //      renderable->update(snapshot);
     //    }

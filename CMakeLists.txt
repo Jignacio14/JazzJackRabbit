@@ -64,7 +64,6 @@ file(GLOB_RECURSE SERVER_SOURCES CONFIGURE_DEPENDS
     "${PROJECT_SOURCE_DIR}/src/server/*.cpp"
     "${PROJECT_SOURCE_DIR}/src/engine/*.h"
     "${PROJECT_SOURCE_DIR}/src/engine/*.cpp"
-    "${PROJECT_SOURCE_DIR}/src/server/placeholder.cpp"
     "${PROJECT_SOURCE_DIR}/src/engine/weapons/*.h"
     "${PROJECT_SOURCE_DIR}/src/engine/weapons/*.cpp"
     "${PROJECT_SOURCE_DIR}/src/engine/states/*.h"

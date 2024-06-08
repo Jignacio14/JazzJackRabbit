@@ -12,6 +12,8 @@ void Receiver::run() {
     // BaseDTO *dto = this->servprot.receive(dto);
     // cppcheck-suppress unreadVariable
     std::pair<u_int8_t, u_int8_t> dto = this->servprot.asyncGetEventCode();
+    if (dto.first) {
+    } // Just for the compiler not to complain of unused variable
     // this->receiver_queue.try_pop(dto);
   }
 }

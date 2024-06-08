@@ -10,6 +10,8 @@ void GameWrapper::start() {
   return;
 }
 
+const u_int16_t GameWrapper::getGamePlayers() { return 0; }
+
 void GameWrapper::killGame() { this->game.kill(); }
 
 std::pair<Queue<std::pair<u_int8_t, u_int8_t>> &, uint8_t>
