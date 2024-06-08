@@ -23,7 +23,6 @@ private:
   std::unordered_map<uint8_t, BasePlayer *> players_data;
 
   void gameLoop();
-  void waitingRoomLoop();
   // cppcheck-suppress unusedPrivateFunction
   void executeAction(const uint8_t &player_id, const uint8_t &action);
   BasePlayer *constructPlayer(uint8_t player_id, std::string &player_name);

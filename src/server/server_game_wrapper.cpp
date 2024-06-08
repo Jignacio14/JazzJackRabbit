@@ -23,5 +23,6 @@ GameWrapper::addPlayer(Queue<Snapshot> &queue, const PlayerInfo &player_info) {
 }
 
 void GameWrapper::ereasedPlayer(uint8_t player_id) {
+  // this->monitor.ereasePlayer();
   this->game.ereasePlayer(player_id);
 }

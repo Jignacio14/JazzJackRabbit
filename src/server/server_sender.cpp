@@ -75,6 +75,7 @@ void Sender::runSenderLoop() {
 }
 
 void Sender::kill() {
+  // this->gamesMonitor.erasePlayer(this->sender_queue);
   this->_is_alive = false;
   this->servprot.shutdown();
 }

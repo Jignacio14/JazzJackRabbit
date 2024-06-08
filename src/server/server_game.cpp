@@ -3,19 +3,19 @@
 #include <iostream>
 #include <thread>
 #include <utility>
-#define MIN_PLAYERS 2
+
+#define JAZZ_CODE "J"
+#define LORI_CODE "L"
+#define SPAZ_CODE "S"
 
 Game::Game(GameMonitor &monitor, Queue<std::pair<uint8_t, uint8_t>> &queue)
     : monitor(monitor), messages(queue), players(0) {}
 
-void Game::waitingRoomLoop() {
-  while (this->players < MIN_PLAYERS) {
-  }
-}
-
 void Game::gameLoop() {
   while (this->_is_alive) {
     /// Empiezo a calcular la diferencia de tiempo para hacer el sleep
+    Snapshot snapshot = Snapshot();
+    this->monitor.broadcast(snapshot);
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }
 }
@@ -25,24 +25,20 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action) {
   std::cout << "Executing action" << std::endl;
 }
 
-void Game::run() {
-  this->waitingRoomLoop();
-  this->gameLoop();
-}
+void Game::run() { this->gameLoop(); }
 
 BasePlayer *Game::constructPlayer(uint8_t player_id, std::string &player_name) {
-  using PlayerFactory = std::function<BasePlayer *(uint8_t, std::string &)>;
-  static const std::unordered_map<uint8_t, PlayerFactory> factories = {
-      {1, [](uint8_t id, std::string &name) { return new Jazz(id, name); }},
-      {2, [](uint8_t id, std::string &name) { return new Lori(id, name); }},
-      {3, [](uint8_t id, std::string &name) { return new Spaz(id, name); }},
-  };
-  auto it = factories.find(player_id);
-  return it != factories.end() ? it->second(player_id, player_name) : nullptr;
+  if (player_name == JAZZ_CODE) {
+    return new Jazz(player_id, player_name);
+  } else if (player_name == LORI_CODE) {
+    return new Lori(player_id, player_name);
+  } else if (player_name == SPAZ_CODE) {
+    return new Spaz(player_id, player_name);
+  }
+  return nullptr;
 }
 
 void Game::addPlayer(const PlayerInfo &player_info) {
-  this->players++;
   std::string player_name(player_info.player_name.begin(),
                           player_info.player_name.end());
   BasePlayer *new_player = this->constructPlayer(this->players, player_name);
