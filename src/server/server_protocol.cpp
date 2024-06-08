@@ -127,7 +127,17 @@ void ServerProtocol::throwIfClosed(const bool &result) {
 }
 
 std::pair<uint8_t, uint8_t> ServerProtocol::asyncGetEventCode() {
-  return std::pair<uint8_t, uint8_t>(0, 0);
+  bool wasClose = this->getTemporalWasClose();
+  uint8_t buf[2];
+  this->skt.recvall_bytewise(&buf, sizeof(buf), &wasClose);
+  this->throwIfClosed(wasClose);
+  return std::make_pair(buf[0], buf[1]);
+}
+
+void ServerProtocol::sendSnapshot(const Snapshot &snapshot) {
+  bool wasClose = this->getTemporalWasClose();
+  this->skt.sendall_bytewise(&snapshot, sizeof(snapshot), &wasClose);
+  this->throwIfClosed(wasClose);
 }
 
 void ServerProtocol::shutdown() {
