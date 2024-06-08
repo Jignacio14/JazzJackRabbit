@@ -16,6 +16,10 @@ Snapshot ClientProtocol::receive_snapshot(bool &was_closed) {
   return status;
 }
 
+void ClientProtocol::send_id(bool &was_closed, const uint8_t id) {
+  skt.sendall_bytewise(&id, sizeof(uint8_t), &was_closed);
+}
+
 void ClientProtocol::close_and_shutdown() {
   skt.shutdown(SHUT_RDWR);
   skt.close();

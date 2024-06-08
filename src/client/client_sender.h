@@ -12,13 +12,14 @@ class ClientSender : public Thread {
 
 private:
   std::atomic<bool> &keep_talking;
-  // O quizas una queue de punteros al DTO?
   Queue<std::vector<uint8_t>> &sender_queue;
   ClientProtocol &protocol;
+  // cppcheck-suppress unusedStructMember
+  uint8_t id;
 
 public:
   ClientSender(std::atomic<bool> &keep_talking, Queue<std::vector<uint8_t>> &q,
-               ClientProtocol &protocol);
+               ClientProtocol &protocol, uint8_t id);
   void run() override;
 
   void kill();
