@@ -44,8 +44,7 @@ BasePlayer *Game::constructPlayer(uint8_t player_id, std::string &player_name) {
 void Game::addPlayer(const PlayerInfo &player_info) {
   this->players++;
 
-  std::string player_name(player_info.player_name.begin(),
-                          player_info.player_name.end());
+  std::string player_name(player_info.player_name);
   BasePlayer *new_player = this->constructPlayer(this->players, player_name);
   if (new_player == nullptr) {
     return;

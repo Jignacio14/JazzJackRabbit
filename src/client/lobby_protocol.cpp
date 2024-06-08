@@ -43,13 +43,40 @@ uint8_t LobbyProtocol::receive_player_id() {
   }
 }
 
-uint8_t LobbyProtocol::send_selected_game(const std::vector<char> &gamename,
-                                          char user_character,
-                                          const std::vector<char> &username) {
+uint8_t
+LobbyProtocol::send_selected_game(const std::vector<char> &gamenameToSend,
+                                  char user_character,
+                                  const std::vector<char> &usernameToSend) {
   try {
     uint8_t game_option = NEW_GAME;
     skt.sendall_bytewise(&game_option, sizeof(uint8_t), &was_closed);
-    PlayerInfo player_info(username, gamename, user_character);
+    PlayerInfo player_info;
+
+    player_info.character_code = user_character;
+    player_info.str_len = (uint16_t)usernameToSend.size();
+
+    size_t i = 0;
+    for (i = 0; i < usernameToSend.size(); i++) {
+      player_info.player_name[i] = usernameToSend.at(i);
+    }
+    player_info.player_name[i] = '\0';
+    i++;
+
+    for (size_t j = i; j < usernameToSend.size(); j++) {
+      player_info.player_name[j] = 0;
+    }
+
+    i = 0;
+    for (i = 0; i < gamenameToSend.size(); i++) {
+      player_info.game_name[i] = gamenameToSend.at(i);
+    }
+    player_info.game_name[i] = '\0';
+    i++;
+
+    for (size_t j = i; j < usernameToSend.size(); j++) {
+      player_info.game_name[j] = 0;
+    }
+
     skt.sendall_bytewise(&player_info, sizeof(player_info), &was_closed);
     this->skt_was_closed();
     return this->receive_player_id();

@@ -24,9 +24,8 @@ GamesMonitor::registerPlayer(PlayerInfo &player_status,
     std::cout << "char: " << a << "\n";
   }
 
-  std::string server_name(player_status.game_name.begin(),
-                          player_status.game_name.end());
-  if (game_tracker.find(server_name) != game_tracker.end()) {
+  std::string server_name(player_status.game_name);
+  if (game_tracker.find(server_name) == game_tracker.end()) {
     /// El juego no existe por lo tanto debo crear uno
     // return
     // cppcheck-suppress missingReturn
@@ -37,8 +36,7 @@ GamesMonitor::registerPlayer(PlayerInfo &player_status,
 }
 
 std::string GamesMonitor::getGameName(PlayerInfo &player_status) {
-  return std::string(player_status.game_name.begin(),
-                     player_status.game_name.end());
+  return std::string(player_status.game_name);
 }
 
 std::pair<Queue<std::pair<u_int8_t, u_int8_t>> &, uint8_t>

@@ -18,7 +18,7 @@ private:
   Queue<Snapshot> sender_queue;
 
   void sendGamesOptions();
-  Queue<std::pair<uint8_t, uint8_t>> &setUpPlayerLoop();
+  Queue<std::pair<uint8_t, uint8_t>> setUpPlayerLoop();
   void runSenderLoop();
   void ValidatePlayerInfo(const PlayerInfo &player_info);
 
