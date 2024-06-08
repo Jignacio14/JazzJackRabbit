@@ -7,7 +7,7 @@ ClientProtocol::ClientProtocol(Socket &&socket) : skt(std::move(socket)) {}
 
 void ClientProtocol::send_status(bool &was_closed,
                                  const std::vector<uint8_t> &command) {
-  skt.sendall_bytewise(comand.data(), command.size(), &was_closed);
+  skt.sendall_bytewise(command.data(), command.size(), &was_closed);
 }
 
 Snapshot ClientProtocol::receive_snapshot(bool &was_closed) {

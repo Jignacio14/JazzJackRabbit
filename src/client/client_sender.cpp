@@ -2,7 +2,8 @@
 #include "client_sender.h"
 
 ClientSender::ClientSender(std::atomic<bool> &keep_talking,
-                           Queue<PlayerStatusDTO> &q, ClientProtocol &protocol)
+                           Queue<std::vector<uint8_t>> &q,
+                           ClientProtocol &protocol)
     : keep_talking((keep_talking)), sender_queue(q), protocol(protocol) {}
 
 void ClientSender::run() {
