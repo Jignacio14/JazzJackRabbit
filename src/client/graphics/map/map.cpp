@@ -124,8 +124,6 @@ void Map::renderCeiling(const std::vector<Coordinates> &coordinatesVector,
 
     const Coordinates start(startAbsolute.getX() - this->leftCorner.getX(),
                             startAbsolute.getY() - this->leftCorner.getY());
-    const Coordinates end(endAbsolute.getX() - this->leftCorner.getX(),
-                          endAbsolute.getY() - this->leftCorner.getY());
 
     int k = 0;
     int pxCount = 0;
@@ -169,8 +167,6 @@ void Map::renderSides(const std::vector<Coordinates> &coordinatesVector,
 
     const Coordinates start(startAbsolute.getX() - this->leftCorner.getX(),
                             startAbsolute.getY() - this->leftCorner.getY());
-    const Coordinates end(endAbsolute.getX() - this->leftCorner.getX(),
-                          endAbsolute.getY() - this->leftCorner.getY());
 
     int k = 0;
     int pxCount = 0;
@@ -214,8 +210,6 @@ void Map::renderBaseGround(const std::vector<Coordinates> &coordinatesVector,
 
     const Coordinates start(startAbsolute.getX() - this->leftCorner.getX(),
                             startAbsolute.getY() - this->leftCorner.getY());
-    const Coordinates end(endAbsolute.getX() - this->leftCorner.getX(),
-                          endAbsolute.getY() - this->leftCorner.getY());
 
     int k = 0;
     int pxCount = 0;
@@ -259,8 +253,6 @@ void Map::renderPlatform(const std::vector<Coordinates> &coordinatesVector,
 
     const Coordinates start(startAbsolute.getX() - this->leftCorner.getX(),
                             startAbsolute.getY() - this->leftCorner.getY());
-    const Coordinates end(endAbsolute.getX() - this->leftCorner.getX(),
-                          endAbsolute.getY() - this->leftCorner.getY());
 
     int k = 0;
     int pxCount = 0;
