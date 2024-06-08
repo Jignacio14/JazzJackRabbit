@@ -14,6 +14,7 @@
 #include <ostream>
 #include <stdexcept>
 #include <string>
+#include <sys/types.h>
 #include <unordered_map>
 #include <utility>
 
@@ -46,7 +47,7 @@ public:
   uint8_t getLobbyOption();
   std::pair<std::string, std::string> getGameNameAndPlayerName();
 
-  // const PlayerStatusDTO getGameStatus();
+  std::pair<uint8_t, uint8_t> asyncGetEventCode();
 
   void shutdown();
 

@@ -3,7 +3,6 @@
 
 #include "../common/player_status_DTO.h"
 #include "../common/queue.h"
-#include "../data/base_dto.h"
 #include "../data/player_info_dto.h"
 #include "server_game.h"
 #include "server_game_monitor.h"
@@ -13,12 +12,12 @@
 #include <cstdint>
 #include <string>
 #include <sys/types.h>
+#include <utility>
 
 class GameWrapper {
 private:
   GameMonitor monitor;
-  Queue<BaseDTO *> receiver_queue;
-  std::atomic_uint16_t players_count;
+  Queue<std::pair<u_int8_t, u_int8_t>> receiver_queue;
   Game game;
 
 public:
@@ -27,8 +26,8 @@ public:
   const u_int16_t getGamePlayers();
   void killGame();
   void ereasedPlayer(uint8_t player_id);
-  std::pair<Queue<BaseDTO *> &, uint8_t> addPlayer(Queue<BaseDTO *> &queue,
-                                                   PlayerInfo &player_info);
+  std::pair<Queue<std::pair<uint8_t, uint8_t>> &, uint8_t>
+  addPlayer(Queue<Snapshot> &queue, const PlayerInfo &player_info);
 };
 
 #endif

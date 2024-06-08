@@ -29,19 +29,35 @@ GameInfoDto LobbyProtocol::receive_game() {
   }
 }
 
-void LobbyProtocol::send_selected_game(const std::vector<char> &gamename,
-                                       char user_character,
-                                       const std::vector<char> &username) {
+uint8_t LobbyProtocol::receive_player_id() {
+  try {
+    uint8_t player_id;
+    skt.recvall_bytewise(&player_id, sizeof(uint8_t), &was_closed);
+    this->skt_was_closed();
+    return player_id;
+  } catch (const std::exception &err) {
+    std::cout << "Some error ocurred while trying to receive a message from "
+                 "the server."
+              << std::endl;
+    return ERROR;
+  }
+}
+
+uint8_t LobbyProtocol::send_selected_game(const std::vector<char> &gamename,
+                                          char user_character,
+                                          const std::vector<char> &username) {
   try {
     uint8_t game_option = NEW_GAME;
     skt.sendall_bytewise(&game_option, sizeof(uint8_t), &was_closed);
     PlayerInfo player_info(username, gamename, user_character);
     skt.sendall_bytewise(&player_info, sizeof(player_info), &was_closed);
     this->skt_was_closed();
+    return this->receive_player_id();
   } catch (const std::exception &err) {
     std::cout
         << "Some error ocurred while trying to send a message to the server."
         << std::endl;
+    return ERROR;
   }
 }
 
@@ -57,22 +73,16 @@ void LobbyProtocol::send_refresh() {
   }
 }
 
-bool LobbyProtocol::wait_game_start() {
+Snapshot LobbyProtocol::wait_game_start() {
   try {
-    uint16_t len = receive_header();
-    std::vector<char> players;
-    for (int i = 0; i < len; ++i) {
-      char actual;
-      skt.recvall_bytewise(&actual, sizeof(char), &was_closed);
-      players.push_back(actual);
-    }
+    Snapshot first_snap;
+    skt.recvall_bytewise(&first_snap, sizeof(Snapshot), &was_closed);
     this->skt_was_closed();
-    return true;
+    return first_snap;
   } catch (const std::exception &err) {
-    std::cout << "Some error ocurred while trying to receive a message from "
-                 "the server."
-              << std::endl;
-    return false;
+    throw std::runtime_error(
+        "Some error ocurred while trying to receive a message from "
+        "the server.");
   }
 }
 

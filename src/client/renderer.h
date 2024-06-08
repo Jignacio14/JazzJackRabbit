@@ -2,8 +2,10 @@
 #ifndef JAZZJACKRABBIT_CONSTANTRATELOOP_H
 #define JAZZJACKRABBIT_CONSTANTRATELOOP_H
 
+#include "../common/snapshot_DTO.h"
 #include "./debug/debug_panel.h"
 #include "./graphics/graphic_engine.h"
+#include "./graphics/map/map.h"
 #include "./renderable.h"
 #include "client.h"
 #include <SDL2pp/SDL2pp.hh>
@@ -26,6 +28,7 @@ private:
 
   // cppcheck-suppress unusedStructMember
   std::list<std::unique_ptr<Renderable>> renderables;
+  Map map;
   DebugPanel debugPanel;
 
   Client client;

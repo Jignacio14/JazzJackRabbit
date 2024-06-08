@@ -1,9 +1,11 @@
 #include "server_game.h"
+#include <cstdint>
 #include <iostream>
 #include <thread>
+#include <utility>
 #define MIN_PLAYERS 2
 
-Game::Game(GameMonitor &monitor, Queue<BaseDTO *> &queue)
+Game::Game(GameMonitor &monitor, Queue<std::pair<uint8_t, uint8_t>> &queue)
     : monitor(monitor), messages(queue), players(0) {}
 
 void Game::waitingRoomLoop() {
@@ -14,17 +16,12 @@ void Game::waitingRoomLoop() {
 void Game::gameLoop() {
   while (this->_is_alive) {
     /// Empiezo a calcular la diferencia de tiempo para hacer el sleep
-    BaseDTO *dto;
-    if (!this->messages.try_pop(dto)) {
-      continue;
-    }
-    this->executeAction(dto);
-    delete dto;
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }
 }
 
-void Game::executeAction(BaseDTO *dto) {
+// cppcheck-suppress unusedPrivateFunction
+void Game::executeAction(const uint8_t &player_id, const uint8_t &action) {
   std::cout << "Executing action" << std::endl;
 }
 
@@ -56,7 +53,7 @@ void Game::addPlayer(const PlayerInfo &player_info) {
 }
 
 void Game::ereasePlayer(uint8_t player_id) {
-  this->monitor.ereasePlayer(this->messages);
+  // this->monitor.ereasePlayer(this->messages);
   this->players_data.erase(player_id);
   this->players--;
 }

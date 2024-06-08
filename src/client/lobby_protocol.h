@@ -3,15 +3,19 @@
 #define JAZZJACKRABBIT_LOBBY_PROTOCOL_H
 
 #include "../common/game_info.h"
+#include "../common/snapshot_DTO.h"
 #include "../common/socket.h"
 #include "../data/player_info_dto.h"
 #include <atomic>
+#include <cstdint>
 #include <iostream>
 #include <netinet/in.h>
 #include <vector>
 
 #define REFRESH 1
 #define NEW_GAME 2
+#define ERROR -1
+#define GAME_START 1
 
 class LobbyProtocol {
 private:
@@ -39,19 +43,23 @@ public:
   void send_refresh();
 
   /*
-   * Sends the game de player selected to the server. This includes game option,
-   * gamename, the gamename. Then, it sends the character chosen by the player,
-   * and the username.
-   * */
-  void send_selected_game(const std::vector<char> &gamename,
-                          char user_character,
-                          const std::vector<char> &username);
+   * Receives the player id from the server and returns it.
+   */
+  uint8_t receive_player_id();
 
   /*
-   * Waits for the server to send the confirmation message. Returns true if this
-   * happens, false if not.
+   * Sends the game de player selected to the server. This includes game option,
+   * gamename, the gamename. Then, it sends the character chosen by the player,
+   * and the username. Finally, it returns the player id.
    * */
-  bool wait_game_start();
+  uint8_t send_selected_game(const std::vector<char> &gamename,
+                             char user_character,
+                             const std::vector<char> &username);
+
+  /*
+   *
+   * */
+  Snapshot wait_game_start();
 
   /*
    * Throws an error if the socket was closed during a communication.

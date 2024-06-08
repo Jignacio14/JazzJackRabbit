@@ -16,9 +16,9 @@ private:
 public:
   explicit ClientProtocol(Socket &&socket);
 
-  void send_status(bool &was_closed, PlayerStatusDTO status);
+  void send_status(bool &was_closed, const std::vector<uint8_t> &command);
 
-  void receive_snapshot(bool &was_closed, Snapshot &status);
+  Snapshot receive_snapshot(bool &was_closed);
 
   void close_and_shutdown();
 };

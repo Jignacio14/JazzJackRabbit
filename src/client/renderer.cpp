@@ -54,21 +54,43 @@ void Renderer::processKeyboardEvents() {
                   << "\n";
         this->debugPanel.activationToggle();
         break;
+
+      case SDLK_RIGHT:
+        this->client.move_right();
+        break;
+
+      case SDLK_LEFT:
+        this->client.move_left();
+        break;
+
+      case SDLK_SPACE:
+        this->client.jump();
+        break;
       }
     }
   }
 }
 
 void Renderer::runMainActions(int iterationNumber) {
-  this->processKeyboardEvents();
 
   this->sdlRenderer.Clear();
+
+  std::optional<Snapshot> snapshotOptional = client.get_current_snapshot();
+  if (snapshotOptional.has_value()) {
+    // cppcheck-suppress unreadVariable
+    Snapshot snapshot = snapshotOptional.value();
+    //    for (auto &renderable : this->renderables) {
+    //      renderable->update(snapshot);
+    //    }
+  }
 
   for (auto &renderable : this->renderables) {
     renderable->render(iterationNumber);
   }
 
   this->debugPanel.display();
+
+  this->processKeyboardEvents();
 
   this->sdlRenderer.Present();
 }

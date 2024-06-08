@@ -2,12 +2,18 @@
 #ifndef JAZZJACKRABBIT_LOBBY_H
 #define JAZZJACKRABBIT_LOBBY_H
 
+#include "../common/snapshot_DTO.h"
 #include "lobby_protocol.h"
+#include <cstdint>
 
 class Lobby {
 private:
   Socket skt;
   LobbyProtocol protocol;
+  // cppcheck-suppress unusedStructMember
+  uint8_t player_id;
+  // cppcheck-suppress unusedStructMember
+  bool skt_ownership;
 
 public:
   Lobby(const char *hostname, const char *port);
@@ -31,6 +37,11 @@ public:
                           const std::string &username);
 
   /*
+   * Returns the player id.
+   */
+  uint8_t get_player_id();
+
+  /*
    * Moves socket ownership with move semantics.
    * */
   Socket transfer_socket();
@@ -38,12 +49,17 @@ public:
   /*
    *
    * */
-  bool wait_game_start();
+  Snapshot wait_game_start();
 
   /*
    * Close and shutdown the socket.
    * */
   void quit_game();
+
+  /*
+   * Close and shutdown the socket, if the socket is owned by the lobby.
+   */
+  ~Lobby();
 };
 
 #endif // JAZZJACKRABBIT_LOBBY_H

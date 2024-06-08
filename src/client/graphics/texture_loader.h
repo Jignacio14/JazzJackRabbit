@@ -31,9 +31,26 @@ private:
   // cppcheck-suppress unusedStructMember
   std::unique_ptr<Sprite> loriHudIcon;
 
+  // cppcheck-suppress unusedStructMember
+  std::unordered_map<std::string, Sprite> carrotusScenarioSprites;
+
 public:
   explicit TextureLoader(SDL2pp::Renderer &sdlRenderer);
   void preloadTextures();
+
+  Sprite &getJazzGenericSprite(const std::string &spriteName);
+  Sprite &getJazzSpecialSprite(const std::string &spriteName);
+  Sprite &getJazzHudIcon();
+
+  Sprite &getSpazGenericSprite(const std::string &spriteName);
+  Sprite &getSpazSpecialSprite(const std::string &spriteName);
+  Sprite &getSpazHudIcon();
+
+  Sprite &getLoriGenericSprite(const std::string &spriteName);
+  Sprite &getLoriSpecialSprite(const std::string &spriteName);
+  Sprite &getLoriHudIcon();
+
+  Sprite &getCarrotusScenarioSprite(const std::string &spriteName);
 };
 
 #endif // TEXTURE_LOADER_H

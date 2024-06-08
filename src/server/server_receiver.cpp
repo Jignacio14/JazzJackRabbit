@@ -1,18 +1,18 @@
 #include "./server_receiver.h"
 #include "./server_protocol.h"
+#include <sys/types.h>
+#include <utility>
 
-Receiver::Receiver(ServerProtocol &servprot, Queue<BaseDTO *> &receiver_queue)
+Receiver::Receiver(ServerProtocol &servprot,
+                   Queue<std::pair<u_int8_t, u_int8_t>> &receiver_queue)
     : servprot(servprot), receiver_queue(receiver_queue) {}
 
 void Receiver::run() {
   while (this->is_alive()) {
-    BaseDTO *dto;
     // BaseDTO *dto = this->servprot.receive(dto);
-    // cppcheck-suppress uninitvar
-    if (dto == nullptr) {
-      continue;
-    }
-    this->receiver_queue.try_pop(dto);
+    // cppcheck-suppress unreadVariable
+    std::pair<u_int8_t, u_int8_t> dto = this->servprot.asyncGetEventCode();
+    // this->receiver_queue.try_pop(dto);
   }
 }
 

@@ -11,9 +11,37 @@ Client::Client(Socket &&socket, int id)
   sender.start();
 }
 
+std::optional<Snapshot> Client::get_current_snapshot() {
+  Snapshot snapshot;
+  if (receiver_queue.try_pop(snapshot)) {
+    return std::optional<Snapshot>(snapshot);
+  } else {
+    return std::optional<Snapshot>();
+  }
+}
+
+void Client::move_right() {
+  std::vector<uint8_t> command;
+  command.push_back(MOVE_RIGHT);
+  sender_queue.try_push(command);
+}
+
+void Client::move_left() {
+  std::vector<uint8_t> command;
+  command.push_back(MOVE_LEFT);
+  sender_queue.try_push(command);
+}
+
+void Client::jump() {
+  std::vector<uint8_t> command;
+  command.push_back(JUMP);
+  sender_queue.try_push(command);
+}
+
 void Client::kill() {
   protocol.close_and_shutdown();
-  // Tamb close de los hilos?
+  receiver.kill();
+  sender.kill();
   sender.join();
   receiver.join();
 }
@@ -22,8 +50,7 @@ Client::~Client() {
   protocol.close_and_shutdown();
   this->sender_queue.close();
   this->receiver_queue.close();
-
-  this->receiver.stop();
+  this->receiver.kill();
   this->sender.stop();
   this->receiver.join();
   this->sender.join();
