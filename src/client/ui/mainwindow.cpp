@@ -32,6 +32,9 @@ const static uint32_t MAX_USERNAME_SIZE = globalConfigs.getMaxUsernameLength();
 const static uint32_t MAX_PORT_NUMBER = globalConfigs.getMaxPortNumber();
 const static uint32_t MIN_NUMBER_OF_PLAYERS =
     globalConfigs.getMinNumberOfPlayers();
+const static uint32_t MAX_NUMBER_OF_PLAYERS =
+    globalConfigs.getMaxPlayersPerGame();
+const static uint32_t MAX_GAME_DURATION = globalConfigs.getMaxGameDuration();
 
 const static char CHARACTER_NOT_SELECTED = '0';
 const static char JAZZ_SELECTED = 'J';
@@ -160,6 +163,14 @@ void MainWindow::on_createGameButton_pressed() {
                                "gameDurationInput");
   this->enableAndResetLineEdit(this->ui->maxPlayersInput, "maxPlayersInput");
   this->ui->stackedWidget->setCurrentWidget(this->ui->createGameScreen);
+
+  this->ui->gameDurationInput->setText(
+      QString::fromStdString(std::to_string(MAX_GAME_DURATION)));
+  this->disableLineEdit(this->ui->gameDurationInput, "gameDurationInput");
+
+  this->ui->maxPlayersInput->setText(
+      QString::fromStdString(std::to_string(MAX_NUMBER_OF_PLAYERS)));
+  this->disableLineEdit(this->ui->maxPlayersInput, "maxPlayersInput");
 }
 
 void MainWindow::on_joinGameButton_pressed() {
@@ -276,19 +287,8 @@ void MainWindow::startGame() {
       GameConfigs(this->gameOwnerName, this->maxPlayers, this->currentPlayers,
                   this->gameDuration);
 
-  this->lobby->send_selected_game(this->gameOwnerName, this->characterSelected,
-                                  this->username);
-  std::cout << "Waiting for players to join"
-            << "\n";
-
-  // std::this_thread::sleep_for(std::chrono::duration<double>(5));
-  *this->initialSnapshot = this->lobby->wait_game_start();
-  std::cout << "Game starting!"
-            << "\n";
-  this->close();
-  /*this->waitingPlayersAndStartTask =
-      std::make_unique<std::thread>(&MainWindow::waitForPlayers, this);
-  this->waitingPlayersAndStartTask->join();*/
+  auto lambda = [=]() { this->waitForPlayers(); };
+  this->waitingPlayersAndStartTask = std::make_unique<std::thread>(lambda);
 }
 
 void MainWindow::waitForPlayers() {
@@ -296,7 +296,6 @@ void MainWindow::waitForPlayers() {
                                   this->username);
   std::cout << "Waiting for players to join"
             << "\n";
-  std::this_thread::sleep_for(std::chrono::duration<double>(5));
   *this->initialSnapshot = this->lobby->wait_game_start();
   std::cout << "Game starting!"
             << "\n";
@@ -559,7 +558,8 @@ std::unique_ptr<Lobby> MainWindow::getLobby() {
 
 MainWindow::~MainWindow() {
   delete ui;
-  if (!this->lobbyMoved && this->waitingPlayersAndStartTask != nullptr) {
-    this->waitingPlayersAndStartTask->join();
+  if (this->waitingPlayersAndStartTask != nullptr) {
+    if (this->waitingPlayersAndStartTask->joinable())
+      this->waitingPlayersAndStartTask->join();
   }
 }

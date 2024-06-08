@@ -31,7 +31,7 @@ GameInfoDto LobbyProtocol::receive_game() {
 
 uint8_t LobbyProtocol::receive_player_id() {
   try {
-    uint8_t player_id;
+    uint8_t player_id = 0;
     skt.recvall_bytewise(&player_id, sizeof(uint8_t), &was_closed);
     this->skt_was_closed();
     return player_id;
@@ -103,6 +103,8 @@ void LobbyProtocol::send_refresh() {
 Snapshot LobbyProtocol::wait_game_start() {
   try {
     Snapshot first_snap;
+    std::cout << sizeof(Snapshot) << " is the size"
+              << "\n";
     skt.recvall_bytewise(&first_snap, sizeof(Snapshot), &was_closed);
     this->skt_was_closed();
     return first_snap;
