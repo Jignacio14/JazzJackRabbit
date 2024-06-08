@@ -19,6 +19,11 @@ std::pair<Queue<std::pair<u_int8_t, u_int8_t>> &, uint8_t>
 GamesMonitor::registerPlayer(PlayerInfo &player_status,
                              Queue<Snapshot> &sender_queue) {
   std::lock_guard<std::mutex> lck(this->mtx);
+
+  for (const auto &a : player_status.player_name) {
+    std::cout << "char: " << a << "\n";
+  }
+
   std::string server_name(player_status.game_name.begin(),
                           player_status.game_name.end());
   if (game_tracker.find(server_name) != game_tracker.end()) {

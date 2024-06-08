@@ -40,11 +40,12 @@ const static char LORI_SELECTED = 'L';
 
 MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
                        std::string &username, GameConfigs *game,
-                       char &userCharacter, std::unique_ptr<Lobby> lobby)
+                       Snapshot *initialSnapshot, char &userCharacter,
+                       std::unique_ptr<Lobby> lobby)
     : QMainWindow(parent), ui(new Ui::MainWindow), hostname(hostname),
-      port(port), username(username), finalGameConfigs(game), gameOwnerName(""),
-      gameDuration(0), maxPlayers(0), currentPlayers(1),
-      characterSelected(userCharacter),
+      port(port), username(username), finalGameConfigs(game),
+      initialSnapshot(initialSnapshot), gameOwnerName(""), gameDuration(0),
+      maxPlayers(0), currentPlayers(1), characterSelected(userCharacter),
       buttonClickSound(BUTTON_CLICK_RESOURCE_SOUND_PATH),
       jazzAnimation(JAZZ_MENU_ANIMATION_RESOURCE_PATH),
       spazAnimation(SPAZ_MENU_ANIMATION_RESOURCE_PATH),
@@ -239,7 +240,7 @@ void MainWindow::on_selectLoriButton_released() {
 
 void MainWindow::on_refreshGamesButton_released() {
   this->buttonClickSound.play();
-  std::vector<GameConfigs> games = this->getGamesFromServer();
+  std::vector<GameConfigs> games = this->getRefreshedGamesFromServer();
 
   this->addGamesToList(games);
 
@@ -275,9 +276,18 @@ void MainWindow::startGame() {
       GameConfigs(this->gameOwnerName, this->maxPlayers, this->currentPlayers,
                   this->gameDuration);
 
-  this->waitingPlayersAndStartTask =
+  this->lobby->send_selected_game(this->gameOwnerName, this->characterSelected,
+                                  this->username);
+  std::cout << "Waiting for players to join"
+            << "\n";
+  std::this_thread::sleep_for(std::chrono::duration<double>(5));
+  *this->initialSnapshot = this->lobby->wait_game_start();
+  std::cout << "Game starting!"
+            << "\n";
+  this->close();
+  /*this->waitingPlayersAndStartTask =
       std::make_unique<std::thread>(&MainWindow::waitForPlayers, this);
-  this->waitingPlayersAndStartTask->join();
+  this->waitingPlayersAndStartTask->join();*/
 }
 
 void MainWindow::waitForPlayers() {
@@ -285,7 +295,8 @@ void MainWindow::waitForPlayers() {
                                   this->username);
   std::cout << "Waiting for players to join"
             << "\n";
-  this->lobby->wait_game_start();
+  std::this_thread::sleep_for(std::chrono::duration<double>(5));
+  *this->initialSnapshot = this->lobby->wait_game_start();
   std::cout << "Game starting!"
             << "\n";
   this->close();
@@ -421,11 +432,19 @@ std::vector<GameConfigs> MainWindow::getGamesFromServer() {
   std::vector<GameConfigs> games;
   std::vector<GameInfoDto> gamesDto = this->lobby->get_games();
 
-  /*for (int i = 0; i < 19; i++) {
-    uint32_t userId = i + this->debug_counter;
-    games.push_back(GameConfigs("user_" + std::to_string(userId), 3, 2, 120));
-    this->debug_counter++;
-  }*/
+  for (auto &gameDto : gamesDto) {
+    std::string gameName = gameDto.game_name;
+    games.push_back(GameConfigs(gameName, globalConfigs.getMaxPlayersPerGame(),
+                                gameDto.player_count,
+                                globalConfigs.getMaxGameDuration()));
+  }
+
+  return games;
+}
+
+std::vector<GameConfigs> MainWindow::getRefreshedGamesFromServer() {
+  std::vector<GameConfigs> games;
+  std::vector<GameInfoDto> gamesDto = this->lobby->refresh_games();
 
   for (auto &gameDto : gamesDto) {
     std::string gameName = gameDto.game_name;
