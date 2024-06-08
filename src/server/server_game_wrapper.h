@@ -7,6 +7,7 @@
 #include "server_game.h"
 #include "server_game_monitor.h"
 
+#include "../common/global_configs.h"
 #include "server_game.h"
 #include <atomic>
 #include <cstdint>
@@ -19,6 +20,7 @@ private:
   GameMonitor monitor;
   Queue<std::pair<u_int8_t, u_int8_t>> receiver_queue;
   Game game;
+  std::atomic_int8_t players;
 
 public:
   explicit GameWrapper();
