@@ -10,12 +10,15 @@ void ClientReceiver::run() {
     bool was_closed = false;
     while (!was_closed && keep_talking) {
       Snapshot snapshot;
-      protocol.receive_snapshot(was_closed, snapshot);
+      snapshot = protocol.receive_snapshot(was_closed);
+      receiver_queue.push(snapshot);
     }
-  } catch (... /*Nuestra clase manejadora de errores*/) {
-    // close de la queue del receiver
+  } catch (const std::runtime_error &e) {
+    std::cout << "Receiver queue was closed." << std::endl;
   }
   keep_talking = false;
 }
+
+void ClientReceiver::kill() { keep_talking = false; }
 
 ClientReceiver::~ClientReceiver() {}

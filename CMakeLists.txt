@@ -53,6 +53,9 @@ file(GLOB_RECURSE CLIENT_SOURCES CONFIGURE_DEPENDS
     "${PROJECT_SOURCE_DIR}/src/client/graphics/"
     "${PROJECT_SOURCE_DIR}/src/client/graphics/*.h"
     "${PROJECT_SOURCE_DIR}/src/client/graphics/*.cpp"
+    "${PROJECT_SOURCE_DIR}/src/client/graphics/map/"
+    "${PROJECT_SOURCE_DIR}/src/client/graphics/map/*.h"
+    "${PROJECT_SOURCE_DIR}/src/client/graphics/map/*.cpp"
 )
 
 # Get all sources from the corresponding directories to build the server executable
@@ -62,6 +65,10 @@ file(GLOB_RECURSE SERVER_SOURCES CONFIGURE_DEPENDS
     "${PROJECT_SOURCE_DIR}/src/engine/*.h"
     "${PROJECT_SOURCE_DIR}/src/engine/*.cpp"
     "${PROJECT_SOURCE_DIR}/src/server/placeholder.cpp"
+    "${PROJECT_SOURCE_DIR}/src/engine/weapons/*.h"
+    "${PROJECT_SOURCE_DIR}/src/engine/weapons/*.cpp"
+    "${PROJECT_SOURCE_DIR}/src/engine/states/*.h"
+    "${PROJECT_SOURCE_DIR}/src/engine/states/*.cpp"
 )
 
 # Get all sources from the corresponding directories to include common sources

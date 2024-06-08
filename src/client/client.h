@@ -2,12 +2,14 @@
 #ifndef JAZZJACKRABBIT_CLIENT_H
 #define JAZZJACKRABBIT_CLIENT_H
 
+#include "../common/player_commands.h"
 #include "../common/queue.h"
 #include "../common/snapshot_DTO.h"
 #include "client_protocol.h"
 #include "client_receiver.h"
 #include "client_sender.h"
 #include <atomic>
+#include <optional>
 
 class Client {
 private:
@@ -17,11 +19,19 @@ private:
   std::atomic<bool> keep_talking;
   ClientSender sender;
   ClientReceiver receiver;
-  Queue<PlayerStatusDTO> sender_queue;
+  Queue<std::vector<uint8_t>> sender_queue;
   Queue<Snapshot> receiver_queue;
 
 public:
   Client(Socket &&socket, int id);
+
+  std::optional<Snapshot> get_current_snapshot();
+
+  void move_right();
+
+  void move_left();
+
+  void jump();
 
   /*
    * Kills the client´s back-end, joining receiver and sender thread, and closes
