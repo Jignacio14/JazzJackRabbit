@@ -1,5 +1,6 @@
 #include "./game_configs.h"
 #include "./graphics/graphic_engine.h"
+#include "./player.h"
 #include "./ui/startup_screen.h"
 #include "lobby.h"
 #include "renderer.h"
@@ -84,8 +85,9 @@ int main(int argc, char *argv[]) {
     debugPrint(hostname, port, username, userCharacter, gameConfig);
 
     int client_id = 1;
+    Player player(username, userCharacter, graphicEngine);
     Socket skt = lobby->transfer_socket();
-    Renderer renderer(graphicEngine, client_id, std::move(skt));
+    Renderer renderer(graphicEngine, client_id, std::move(skt), player);
     renderer.run();
 
     return exitCode;

@@ -2,6 +2,7 @@
 #define MAP_H
 
 #include "../../coordinates.h"
+#include "../../player.h"
 #include "../../renderable.h"
 #include "../graphic_engine.h"
 #include "../sprite.h"
@@ -25,6 +26,10 @@ private:
   int fullMapSizeX;
   // cppcheck-suppress unusedStructMember
   int fullMapSizeY;
+
+  Coordinates leftCorner;
+
+  Player &player;
 
   // cppcheck-suppress unusedStructMember
   std::vector<Coordinates> ceilingCoordsTopGrass;
@@ -61,12 +66,30 @@ private:
   // cppcheck-suppress unusedStructMember
   std::vector<Coordinates> platform4CoordsFullDirt;
 
-  void renderBackground();
   uint8_t nextRandomNumber(const int current) const;
 
+  void updateLeftCornerLocation();
+
+  Coordinates getPlayerDrawingCoords();
+
+  void renderBackground();
+
+  void renderCeiling(const std::vector<Coordinates> &coordinatesVector,
+                     Sprite &sprite);
+
+  void renderSides(const std::vector<Coordinates> &coordinatesVector,
+                   Sprite &sprite);
+
+  void renderBaseGround(const std::vector<Coordinates> &coordinatesVector,
+                        Sprite &sprite);
+
+  void renderPlatform(const std::vector<Coordinates> &coordinatesVector,
+                      Sprite &sprite);
+
 public:
-  explicit Map(GraphicEngine &graphicEngine);
+  explicit Map(GraphicEngine &graphicEngine, Player &player);
   virtual void render(int iterationNumber) override;
+  virtual void render(int iterationNumber, Coordinates &coords) override;
   ~Map() override;
 };
 
