@@ -22,7 +22,6 @@ GamesMonitor::registerPlayer(PlayerInfo &player_status,
   std::string server_name(player_status.game_name.begin(),
                           player_status.game_name.end());
   if (game_tracker.find(server_name) != game_tracker.end()) {
-    // game_tracker[server_name] = new GameWrapper(server_name);
     /// El juego no existe por lo tanto debo crear uno
     // return
     // cppcheck-suppress missingReturn

@@ -3,7 +3,8 @@
 #include <sys/types.h>
 #include <utility>
 
-Receiver::Receiver(ServerProtocol &servprot, Queue<u_int8_t> &receiver_queue)
+Receiver::Receiver(ServerProtocol &servprot,
+                   Queue<std::pair<u_int8_t, u_int8_t>> &receiver_queue)
     : servprot(servprot), receiver_queue(receiver_queue) {}
 
 void Receiver::run() {
