@@ -61,16 +61,44 @@ void Renderer::processKeyboardEvents() {
         this->debugPanel.activationToggle();
         break;
 
+      case SDLK_UP:
+        this->player.update(true, false, "up");
+        break;
+
+      case SDLK_DOWN:
+        this->player.update(true, false, "down");
+        break;
+
       case SDLK_RIGHT:
         this->client.move_right();
+        this->player.update(true, false, "right");
         break;
 
       case SDLK_LEFT:
         this->client.move_left();
+        this->player.update(true, false, "left");
         break;
 
       case SDLK_SPACE:
         this->client.jump();
+        break;
+      }
+    } else if (event.type == SDL_KEYUP) {
+      switch (event.key.keysym.sym) {
+      case SDLK_LEFT:
+        this->player.update(false, false, "left");
+        break;
+
+      case SDLK_RIGHT:
+        this->player.update(false, false, "right");
+        break;
+
+      case SDLK_UP:
+        this->player.update(false, false, "up");
+        break;
+
+      case SDLK_DOWN:
+        this->player.update(false, false, "down");
         break;
       }
     }
@@ -81,21 +109,25 @@ void Renderer::runMainActions(int iterationNumber) {
   this->sdlRenderer.Clear();
 
   this->map.render(iterationNumber);
+  this->map.renderPlayer(iterationNumber);
   this->hud.render(iterationNumber);
+
+  const Coordinates &leftCorner = this->map.getLeftCorner();
 
   std::optional<Snapshot> snapshotOptional = client.get_current_snapshot();
   if (snapshotOptional.has_value()) {
     // cppcheck-suppress unreadVariable
-    Snapshot snapshot = snapshotOptional.value();
+    const Snapshot &snapshot = snapshotOptional.value();
     if (snapshot.enemies_alive) {
     } // This is just for the compiler, to use the var
-    //    for (auto &renderable : this->renderables) {
-    //      renderable->update(snapshot);
-    //    }
+
+    /*for (auto &renderable : this->renderables) {
+      renderable->update(snapshot);
+    }*/
   }
 
   for (auto &renderable : this->renderables) {
-    renderable->render(iterationNumber);
+    renderable->renderFromLeftCorner(iterationNumber, leftCorner);
   }
 
   this->debugPanel.display();

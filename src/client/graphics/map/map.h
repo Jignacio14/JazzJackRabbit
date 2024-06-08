@@ -88,8 +88,18 @@ private:
 
 public:
   explicit Map(GraphicEngine &graphicEngine, Player &player);
+
   virtual void render(int iterationNumber) override;
+
   virtual void render(int iterationNumber, Coordinates &coords) override;
+
+  void renderFromLeftCorner(int iterationNumber,
+                            const Coordinates &leftCorner) override;
+
+  void renderPlayer(int iterationNumber);
+
+  const Coordinates &getLeftCorner() const;
+
   ~Map() override;
 };
 

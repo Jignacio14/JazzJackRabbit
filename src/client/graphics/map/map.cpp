@@ -349,6 +349,11 @@ Coordinates Map::getPlayerDrawingCoords() {
   return playerDrawingCoords;
 }
 
+void Map::renderPlayer(int iterationNumber) {
+  Coordinates playerDrawingCoords = this->getPlayerDrawingCoords();
+  this->player.render(iterationNumber, playerDrawingCoords);
+}
+
 void Map::render(int iterationNumber) {
   this->updateLeftCornerLocation();
 
@@ -374,11 +379,13 @@ void Map::render(int iterationNumber) {
 
   this->renderPlatform(platform4CoordsFullDirt, fullDirtSprite);
   this->renderPlatform(platform4CoordsTopGrass, topGrassSprite);
-
-  Coordinates playerDrawingCoords = this->getPlayerDrawingCoords();
-  this->player.render(iterationNumber, playerDrawingCoords);
 }
 
+const Coordinates &Map::getLeftCorner() const { return this->leftCorner; }
+
 void Map::render(int iterationNumber, Coordinates &coords) {}
+
+void Map::renderFromLeftCorner(int iterationNumber,
+                               const Coordinates &leftCorner) {}
 
 Map::~Map() {}

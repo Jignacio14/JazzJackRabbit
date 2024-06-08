@@ -9,6 +9,8 @@ private:
 public:
   virtual void render(int iterationNumber) override = 0;
   virtual void render(int iterationNumber, Coordinates &coords) override = 0;
+  virtual void renderFromLeftCorner(int iterationNumber,
+                                    const Coordinates &leftCorner) override = 0;
 };
 
 #endif // PLAYABLE_CHARACTER_H

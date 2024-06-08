@@ -19,6 +19,13 @@ public:
    */
   virtual void render(int iterationNumber, Coordinates &coords) = 0;
 
+  /**
+   * Renders the Renderable based on an iterationNumber using its own
+   * coordinates rendering from the left corner coordinates
+   */
+  virtual void renderFromLeftCorner(int iterationNumber,
+                                    const Coordinates &leftCorner) = 0;
+
   virtual void updateByCoordsDelta(int deltaX, int deltaY){};
 
   virtual void update(bool isWalking, bool isRunning,

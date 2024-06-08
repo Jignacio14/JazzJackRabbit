@@ -20,6 +20,9 @@ public:
 
   virtual void render(int iterationNumber, Coordinates &coords) override;
 
+  virtual void renderFromLeftCorner(int iterationNumber,
+                                    const Coordinates &leftCorner) override;
+
   static int getHorizontalSize();
 
   ~Hud() override;

@@ -111,4 +111,26 @@ void Jazz::updateByCoordsDelta(int deltaX, int deltaY) {
   this->currentCoords.setY(this->currentCoords.getY() + deltaY);
 }
 
+void Jazz::renderFromLeftCorner(int iterationNumber,
+                                const Coordinates &leftCorner) {
+
+  this->currentFrame = iterationNumber % this->currentState->maxAnimationFrames;
+
+  // Pick sprite from running animantion sequence
+  int spriteX = this->currentState->spriteCoords[this->currentFrame].getX();
+  int spriteY = this->currentState->spriteCoords[this->currentFrame].getY();
+  int spriteWidth = this->currentState->width[this->currentFrame];
+  int spriteHeight = this->currentState->height[this->currentFrame];
+
+  int positionX = leftCorner.getX() - this->currentCoords.getX();
+  int positionY = leftCorner.getY() - this->currentCoords.getY();
+
+  // Draw player sprite
+  this->currentState->sdlRenderer.Copy(
+      this->currentState->texture,
+      SDL2pp::Rect(spriteX, spriteY, spriteWidth, spriteHeight),
+      SDL2pp::Rect(positionX, positionY - spriteHeight, spriteWidth,
+                   spriteHeight));
+}
+
 Jazz::~Jazz() {}

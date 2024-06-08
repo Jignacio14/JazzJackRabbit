@@ -28,6 +28,9 @@ void Hud::render(int iterationNumber) {
 
 void Hud::render(int iterationNumber, Coordinates &coords) {}
 
+void Hud::renderFromLeftCorner(int iterationNumber,
+                               const Coordinates &leftCorner) {}
+
 int Hud::getHorizontalSize() { return HUD_HORIZONTAL_SIZE; }
 
 Hud::~Hud() {}

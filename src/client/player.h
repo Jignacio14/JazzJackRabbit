@@ -25,6 +25,9 @@ public:
 
   virtual void render(int iterationNumber, Coordinates &coords) override;
 
+  virtual void renderFromLeftCorner(int iterationNumber,
+                                    const Coordinates &leftCorner) override;
+
   virtual void updateByCoordsDelta(int deltaX, int deltaY) override;
 
   virtual void update(bool isWalking, bool isRunning,

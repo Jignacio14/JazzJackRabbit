@@ -32,6 +32,9 @@ void Player::render(int iterationNumber, Coordinates &coords) {
   this->character->render(iterationNumber, coords);
 }
 
+void Player::renderFromLeftCorner(int iterationNumber,
+                                  const Coordinates &leftCorner) {}
+
 void Player::updateByCoordsDelta(int deltaX, int deltaY) {
   this->character->updateByCoordsDelta(deltaX, deltaY);
 };
