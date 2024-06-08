@@ -19,9 +19,10 @@ private:
 
 public:
   GameMonitor();
-  void broadcast(Snapshot &msj);
-  const uint8_t addPlayer(PlayerInfo &player_info, Queue<Snapshot &> &queue);
-  void ereasePlayer(const Queue<Snapshot &> &queue);
+  void broadcast(const Snapshot &game_state);
+  const uint8_t addPlayer(const PlayerInfo &player_info,
+                          Queue<Snapshot> &queue);
+  void ereasePlayer(const Queue<Snapshot> &queue);
   ~GameMonitor();
 };
 
