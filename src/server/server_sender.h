@@ -7,6 +7,8 @@
 #include "./server_protocol.h"
 #include "server_games_monitor.h"
 #include "server_receiver.h"
+#include <cstdint>
+#include <utility>
 
 class Sender : public Thread {
 private:
@@ -16,7 +18,7 @@ private:
   Queue<Snapshot> sender_queue;
 
   void sendGamesOptions();
-  Queue<BaseDTO *> &setUpPlayerLoop();
+  Queue<std::pair<uint8_t, uint8_t>> &setUpPlayerLoop();
   void runSenderLoop();
   void ValidatePlayerInfo(const PlayerInfo &player_info);
 

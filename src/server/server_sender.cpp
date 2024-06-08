@@ -22,7 +22,7 @@ void Sender::sendGamesOptions() {
   }
 }
 
-Queue<BaseDTO *> &Sender::setUpPlayerLoop() {
+Queue<std::pair<u_int8_t, u_int8_t>> &Sender::setUpPlayerLoop() {
   while (true) {
     uint8_t option = this->servprot.getLobbyOption();
     if (option == RESEND_GAME_INFO) {
@@ -32,7 +32,7 @@ Queue<BaseDTO *> &Sender::setUpPlayerLoop() {
     if (option == REGISTER_PLAYER) {
       PlayerInfo player_info = this->servprot.getGameInfo();
       this->ValidatePlayerInfo(player_info);
-      std::pair<Queue<BaseDTO *> &, uint8_t> result =
+      std::pair<Queue<std::pair<uint8_t, uint8_t>> &, uint8_t> result =
           this->gamesMonitor.registerPlayer(player_info, this->sender_queue);
       this->servprot.sendPlayerId(result.second);
       return result.first;
@@ -51,7 +51,8 @@ void Sender::ValidatePlayerInfo(const PlayerInfo &player_info) {
 void Sender::run() {
   try {
     this->sendGamesOptions();
-    Queue<BaseDTO *> &receiver_queue = this->setUpPlayerLoop();
+    Queue<std::pair<uint8_t, uint8_t>> &receiver_queue =
+        this->setUpPlayerLoop();
     Receiver receiver(this->servprot, receiver_queue);
     receiver.start();
     this->runSenderLoop();
@@ -65,16 +66,11 @@ void Sender::run() {
 
 void Sender::runSenderLoop() {
   while (this->is_alive()) {
-    BaseDTO *dto;
-    if (!this->sender_queue.try_pop(dto)) {
-      continue;
-    }
     // if (!this->servprot.sendDTO(*dto)) {
     //   this->error = true;
     //   delete dto;
     //   break;
     // }
-    delete dto;
   }
 }
 

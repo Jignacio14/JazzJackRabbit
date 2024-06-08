@@ -15,7 +15,7 @@ std::unordered_map<std::string, uint16_t> GamesMonitor::getGamesStartInfo() {
   return games_info;
 }
 
-std::pair<Queue<Snapshot> &, uint8_t>
+std::pair<Queue<std::pair<u_int8_t, u_int8_t>> &, uint8_t>
 GamesMonitor::registerPlayer(PlayerInfo &player_status,
                              Queue<Snapshot> &sender_queue) {
   std::lock_guard<std::mutex> lck(this->mtx);
@@ -37,7 +37,7 @@ std::string GamesMonitor::getGameName(PlayerInfo &player_status) {
                      player_status.game_name.end());
 }
 
-std::pair<Queue<Snapshot> &, uint8_t>
+std::pair<Queue<std::pair<u_int8_t, u_int8_t>> &, uint8_t>
 GamesMonitor::registerToExistingGame(PlayerInfo &player_status,
                                      Queue<Snapshot> &sender_queue) {
   std::lock_guard<std::mutex> lck(this->mtx);
@@ -45,7 +45,7 @@ GamesMonitor::registerToExistingGame(PlayerInfo &player_status,
   return game_tracker[server_name]->addPlayer(sender_queue, player_status);
 }
 
-std::pair<Queue<Snapshot> &, uint8_t>
+std::pair<Queue<std::pair<u_int8_t, u_int8_t>> &, uint8_t>
 GamesMonitor::createNewGame(PlayerInfo &player_status,
                             Queue<Snapshot> &sender_queue) {
   std::lock_guard<std::mutex> lck(this->mtx);
