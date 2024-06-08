@@ -361,6 +361,7 @@ void Map::render(int iterationNumber) {
   this->updateLeftCornerLocation();
 
   this->renderBackground();
+
   this->renderCeiling(ceilingCoordsFullDirt, fullDirtSprite);
   this->renderCeiling(ceilingCoordsTopGrass, topGrassSprite);
 
