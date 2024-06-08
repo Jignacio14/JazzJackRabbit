@@ -25,7 +25,13 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action) {
   std::cout << "Executing action" << std::endl;
 }
 
-void Game::run() { this->gameLoop(); }
+void Game::run() {
+  try {
+    this->gameLoop();
+  } catch (...) {
+    std::cout << "Paso algo en el game loop";
+  }
+}
 
 BasePlayer *Game::constructPlayer(uint8_t player_id, std::string &player_name) {
   if (player_name == JAZZ_CODE) {
