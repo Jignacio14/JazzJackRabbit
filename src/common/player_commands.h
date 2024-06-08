@@ -2,7 +2,7 @@
 #ifndef JAZZJACKRABBIT_PLAYER_COMMANDS_H
 #define JAZZJACKRABBIT_PLAYER_COMMANDS_H
 
-enum player_commands : uint8_t {
+enum player_commands {
   MOVE_LEFT,
   MOVE_RIGHT,
   JUMP,
