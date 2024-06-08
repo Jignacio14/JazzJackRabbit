@@ -6,7 +6,7 @@ GameWrapper::GameWrapper() : monitor(), game(monitor, receiver_queue) {}
 
 void GameWrapper::start() { this->game.start(); }
 
-const u_int16_t GameWrapper::getGamePlayers() { return 0; }
+const u_int16_t GameWrapper::getGamePlayers() { return this->players; }
 
 void GameWrapper::killGame() { this->game.kill(); }
 
@@ -26,5 +26,6 @@ GameWrapper::addPlayer(Queue<Snapshot> &queue, const PlayerInfo &player_info) {
 
 void GameWrapper::ereasedPlayer(uint8_t player_id) {
   // this->monitor.ereasePlayer();
+  this->players--;
   this->game.ereasePlayer(player_id);
 }
