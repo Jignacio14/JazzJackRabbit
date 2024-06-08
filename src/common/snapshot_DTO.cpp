@@ -1,4 +1,4 @@
 
 #include "snapshot_DTO.h"
 
-Snapshot::Snapshot() : enemies_alive(0) {}
+Snapshot::Snapshot() : enemies_alive(7) {}
