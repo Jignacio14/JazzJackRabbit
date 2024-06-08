@@ -4,10 +4,6 @@
 #include <vector>
 
 static const std::vector<std::string> genericSpriteNames = {
-    "crouching",
-    "crouch_shooting",
-    "dashing",
-    "dashing_transition",
     "death",
     "hud_icon",
     "hurt",
@@ -21,17 +17,14 @@ static const std::vector<std::string> genericSpriteNames = {
     "jumping_up",
     "jumping_up_falling",
     "jumping_up_falling_transition",
-    "looking_up",
     "running",
     "shooting_forward",
-    "shooting_up",
     "stop_shooting_forward",
     "walking",
 };
 
 static const std::vector<std::string> jazzSpecials = {
     "uppercut_transition",
-    "uppercut_falling",
 };
 
 static const std::vector<std::string> spazSpecials = {
