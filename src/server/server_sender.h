@@ -2,8 +2,8 @@
 #define SENDER
 
 #include "../common/queue.h"
+#include "../common/snapshot_DTO.h"
 #include "../common/thread.h"
-#include "../data/base_dto.h"
 #include "./server_protocol.h"
 #include "server_games_monitor.h"
 #include "server_receiver.h"
@@ -13,7 +13,7 @@ private:
   ServerProtocol servprot;
   GamesMonitor &gamesMonitor;
   std::atomic<bool> error;
-  Queue<BaseDTO *> sender_queue;
+  Queue<Snapshot> sender_queue;
 
   void sendGamesOptions();
   Queue<BaseDTO *> &setUpPlayerLoop();
