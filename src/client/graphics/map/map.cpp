@@ -111,16 +111,6 @@ void Map::renderBackground() {
       SDL2pp::Rect(0, 0, MAP_SCREEN_SIZE_X, MAP_SCREEN_SIZE_Y));
 }
 
-/*int Map::closestMultiple(int multipleTarget, int currentNumber) {
-  int remainder = currentNumber % multipleTarget;
-
-  if (remainder < multipleTarget / 2) {
-    return currentNumber - remainder;
-  } else {
-    return currentNumber + (multipleTarget - remainder);
-  }
-}*/
-
 void Map::renderCeiling(const std::vector<Coordinates> &coordinatesVector,
                         Sprite &sprite) {
   int maxPieces = coordinatesVector.size() /
@@ -256,6 +246,51 @@ void Map::renderBaseGround(const std::vector<Coordinates> &coordinatesVector,
   }
 }
 
+void Map::renderPlatform(const std::vector<Coordinates> &coordinatesVector,
+                         Sprite &sprite) {
+  int maxPieces = coordinatesVector.size() /
+                  2; // 2 Because the coords go in pairs start-end
+  int pieceCounter = 0;
+
+  for (int i = 0; i < maxPieces; i++) {
+    const Coordinates &startAbsolute = coordinatesVector[pieceCounter];
+    const Coordinates &endAbsolute = coordinatesVector[pieceCounter + 1];
+    pieceCounter += 2;
+
+    const Coordinates start(startAbsolute.getX() - this->leftCorner.getX(),
+                            startAbsolute.getY() - this->leftCorner.getY());
+    const Coordinates end(endAbsolute.getX() - this->leftCorner.getX(),
+                          endAbsolute.getY() - this->leftCorner.getY());
+
+    int k = 0;
+    int pxCount = 0;
+    int remaining = endAbsolute.getX() - (startAbsolute.getX() + pxCount);
+    while (remaining > 0) {
+      pxCount += TILE_SIZE;
+      remaining = endAbsolute.getX() - (startAbsolute.getX() + pxCount);
+
+      if (remaining <= -TILE_SIZE) {
+        break;
+      }
+
+      int sizeToRender = remaining >= 0 ? TILE_SIZE : abs(remaining);
+
+      if (sizeToRender != TILE_SIZE) {
+        pxCount = pxCount - (TILE_SIZE - abs(remaining));
+      }
+
+      int nextRandom = this->nextRandomNumber(k) % sprite.maxAnimationFrames;
+      this->sdlRenderer.Copy(sprite.texture,
+                             SDL2pp::Rect(TILE_SIZE * nextRandom + nextRandom,
+                                          0, sizeToRender, TILE_SIZE),
+                             SDL2pp::Rect(start.getX() + pxCount - sizeToRender,
+                                          start.getY(), sizeToRender,
+                                          TILE_SIZE));
+      k++;
+    }
+  }
+}
+
 void Map::updateLeftCornerLocation() {
   Coordinates playerCoords = this->player.getCoords();
 
@@ -328,10 +363,24 @@ void Map::render(int iterationNumber) {
   this->renderBackground();
   this->renderCeiling(ceilingCoordsFullDirt, fullDirtSprite);
   this->renderCeiling(ceilingCoordsTopGrass, topGrassSprite);
+
   this->renderSides(sidesCoordsFullDirt, fullDirtSprite);
   this->renderSides(sidesCoordsTopGrass, topGrassSprite);
+
   this->renderBaseGround(baseGroundCoordsFullDirt, fullDirtSprite);
   this->renderBaseGround(baseGroundCoordsTopGrass, topGrassSprite);
+
+  this->renderPlatform(platform1CoordsFullDirt, fullDirtSprite);
+  this->renderPlatform(platform1CoordsTopGrass, topGrassSprite);
+
+  this->renderPlatform(platform2CoordsFullDirt, fullDirtSprite);
+  this->renderPlatform(platform2CoordsTopGrass, topGrassSprite);
+
+  this->renderPlatform(platform3CoordsFullDirt, fullDirtSprite);
+  this->renderPlatform(platform3CoordsTopGrass, topGrassSprite);
+
+  this->renderPlatform(platform4CoordsFullDirt, fullDirtSprite);
+  this->renderPlatform(platform4CoordsTopGrass, topGrassSprite);
 
   Coordinates playerDrawingCoords = this->getPlayerDrawingCoords();
   this->player.render(iterationNumber, playerDrawingCoords);

@@ -68,8 +68,6 @@ private:
 
   uint8_t nextRandomNumber(const int current) const;
 
-  // int closestMultiple(int multipleTarget, int currentNumber);
-
   void updateLeftCornerLocation();
 
   Coordinates getPlayerDrawingCoords();
@@ -84,6 +82,9 @@ private:
 
   void renderBaseGround(const std::vector<Coordinates> &coordinatesVector,
                         Sprite &sprite);
+
+  void renderPlatform(const std::vector<Coordinates> &coordinatesVector,
+                      Sprite &sprite);
 
 public:
   explicit Map(GraphicEngine &graphicEngine, Player &player);

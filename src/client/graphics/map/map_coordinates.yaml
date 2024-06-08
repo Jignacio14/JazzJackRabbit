@@ -31,80 +31,80 @@ base_ground:
 
 platform_1:
   top_grass:
-    - x: 297
+    - x: 301
       'y': 926
-    - x: 415
+    - x: 365 # -64
       'y': 958
-    - x: 599
+    - x: 685 # +64
       'y': 926
-    - x: 733
+    - x: 749
       'y': 958
-    - x: 416
+    - x: 429
       'y': 862
-    - x: 598
+    - x: 621
       'y': 894
   full_dirt:
-    - x: 416
+    - x: 365 # -64
       'y': 926
-    - x: 598
+    - x: 685 # +64
       'y': 958
-    - x: 416
+    - x: 397 # -32
       'y': 894
-    - x: 598
+    - x: 653 # +32
       'y': 926
 
-# Offseted +719 in x-axis from platform_1
+# Offseted +800 in x-axis from platform_1
 platform_2:
   top_grass:
-    - x: 1016
+    - x: 1101
       'y': 926
-    - x: 1134
+    - x: 1165
       'y': 958
-    - x: 1318
+    - x: 1485
       'y': 926
-    - x: 1452
+    - x: 1549
       'y': 958
-    - x: 1135
+    - x: 1229
       'y': 862
-    - x: 1317
+    - x: 1421
       'y': 894
   full_dirt:
-    - x: 1135
+    - x: 1165
       'y': 926
-    - x: 1317
+    - x: 1485
       'y': 958
-    - x: 1135
+    - x: 1197
       'y': 894
-    - x: 1317
+    - x: 1453
       'y': 926
 
 platform_3:
   top_grass:
     - x: 540
       'y': 583
-    - x: 727 #Needs reforming when adding angles
+    - x: 732 #Needs reforming when adding angles
       'y': 615
-    - x: 1014 #Needs reforming when adding angles
+    - x: 1020 #Needs reforming when adding angles
       'y': 583
-    - x: 1225
+    - x: 1212
       'y': 615
-    - x: 728
+    - x: 732
       'y': 519
-    - x: 1013
+    - x: 1020
       'y': 551
   full_dirt:
-    - x: 728
+    - x: 732
       'y': 583
-    - x: 1013
+    - x: 1020
       'y': 615
-    - x: 728
+    - x: 732
       'y': 551
-    - x: 1013
+    - x: 1020
       'y': 583
 
 platform_4:
   top_grass:
     - x: 781
       'y': 292
-    - x: 963
+    - x: 972
       'y': 324
