@@ -20,10 +20,6 @@ GamesMonitor::registerPlayer(PlayerInfo &player_status,
                              Queue<Snapshot> &sender_queue) {
   std::lock_guard<std::mutex> lck(this->mtx);
 
-  for (const auto &a : player_status.player_name) {
-    std::cout << "char: " << a << "\n";
-  }
-
   std::string server_name(player_status.game_name);
   if (game_tracker.find(server_name) == game_tracker.end()) {
     /// El juego no existe por lo tanto debo crear uno
@@ -42,7 +38,6 @@ std::string GamesMonitor::getGameName(PlayerInfo &player_status) {
 std::pair<Queue<std::pair<u_int8_t, u_int8_t>> &, uint8_t>
 GamesMonitor::registerToExistingGame(PlayerInfo &player_status,
                                      Queue<Snapshot> &sender_queue) {
-  std::lock_guard<std::mutex> lck(this->mtx);
   std::string server_name = this->getGameName(player_status);
   return game_tracker[server_name]->addPlayer(sender_queue, player_status);
 }
@@ -50,7 +45,6 @@ GamesMonitor::registerToExistingGame(PlayerInfo &player_status,
 std::pair<Queue<std::pair<u_int8_t, u_int8_t>> &, uint8_t>
 GamesMonitor::createNewGame(PlayerInfo &player_status,
                             Queue<Snapshot> &sender_queue) {
-  std::lock_guard<std::mutex> lck(this->mtx);
   GameWrapper *game = new GameWrapper();
   std::string server_name = this->getGameName(player_status);
   game_tracker[server_name] = game;

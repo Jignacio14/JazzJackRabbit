@@ -280,7 +280,8 @@ void MainWindow::startGame() {
                                   this->username);
   std::cout << "Waiting for players to join"
             << "\n";
-  std::this_thread::sleep_for(std::chrono::duration<double>(5));
+
+  // std::this_thread::sleep_for(std::chrono::duration<double>(5));
   *this->initialSnapshot = this->lobby->wait_game_start();
   std::cout << "Game starting!"
             << "\n";
