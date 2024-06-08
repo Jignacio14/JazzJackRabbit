@@ -30,9 +30,11 @@ void Game::run() { this->gameLoop(); }
 BasePlayer *Game::constructPlayer(uint8_t player_id, std::string &player_name) {
   if (player_name == JAZZ_CODE) {
     return new Jazz(player_id, player_name);
-  } else if (player_name == LORI_CODE) {
+  }
+  if (player_name == LORI_CODE) {
     return new Lori(player_id, player_name);
-  } else if (player_name == SPAZ_CODE) {
+  }
+  if (player_name == SPAZ_CODE) {
     return new Spaz(player_id, player_name);
   }
   return nullptr;
