@@ -123,6 +123,14 @@ void ServerProtocol::throwIfClosed(const bool &result) {
   }
 }
 
+std::pair<uint8_t, uint8_t> ServerProtocol::asyncGetEventCode() {
+  bool wasClose = this->getTemporalWasClose();
+  uint8_t buf[2];
+  this->skt.recvall_bytewise(&buf, sizeof(buf), &wasClose);
+  this->throwIfClosed(wasClose);
+  return std::make_pair(buf[0], buf[1]);
+}
+
 void ServerProtocol::shutdown() {
   this->skt.shutdown(HOW);
   this->skt.close();
