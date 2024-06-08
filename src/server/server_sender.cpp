@@ -66,11 +66,8 @@ void Sender::run() {
 
 void Sender::runSenderLoop() {
   while (this->is_alive()) {
-    // if (!this->servprot.sendDTO(*dto)) {
-    //   this->error = true;
-    //   delete dto;
-    //   break;
-    // }
+    Snapshot snapshot = this->sender_queue.pop();
+    this->servprot.sendSnapshot(snapshot);
   }
 }
 

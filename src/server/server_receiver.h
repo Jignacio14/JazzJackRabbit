@@ -12,6 +12,7 @@ class Receiver : public Thread {
 private:
   ServerProtocol &servprot;
   Queue<std::pair<u_int8_t, u_int8_t>> &receiver_queue;
+  void recevierLoop();
 
 public:
   explicit Receiver(ServerProtocol &servprot,

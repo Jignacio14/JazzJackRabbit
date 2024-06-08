@@ -15,6 +15,7 @@ void Game::gameLoop() {
   while (this->_is_alive) {
     /// Empiezo a calcular la diferencia de tiempo para hacer el sleep
     Snapshot snapshot = Snapshot();
+    this->executeAction(1, 1);
     this->monitor.broadcast(snapshot);
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }

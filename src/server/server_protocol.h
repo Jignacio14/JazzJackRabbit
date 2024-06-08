@@ -4,6 +4,7 @@
 #include "../common/game_info.h"
 #include "../common/liberror.h"
 #include "../common/player_status_DTO.h"
+#include "../common/snapshot_DTO.h"
 #include "../common/socket.h"
 #include "../data/player_info_dto.h"
 #include "./server_serializer.h"
@@ -48,6 +49,8 @@ public:
   std::pair<std::string, std::string> getGameNameAndPlayerName();
 
   std::pair<uint8_t, uint8_t> asyncGetEventCode();
+
+  void sendSnapshot(const Snapshot &snapshot);
 
   void shutdown();
 

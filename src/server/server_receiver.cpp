@@ -8,11 +8,16 @@ Receiver::Receiver(ServerProtocol &servprot,
     : servprot(servprot), receiver_queue(receiver_queue) {}
 
 void Receiver::run() {
+  try {
+    this->recevierLoop();
+  } catch (...) {
+  }
+}
+
+void Receiver::recevierLoop() {
   while (this->is_alive()) {
-    // BaseDTO *dto = this->servprot.receive(dto);
-    // cppcheck-suppress unreadVariable
     std::pair<u_int8_t, u_int8_t> dto = this->servprot.asyncGetEventCode();
-    // this->receiver_queue.try_pop(dto);
+    this->receiver_queue.push(dto);
   }
 }
 
