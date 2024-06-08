@@ -67,6 +67,8 @@ file(GLOB_RECURSE SERVER_SOURCES CONFIGURE_DEPENDS
     "${PROJECT_SOURCE_DIR}/src/server/placeholder.cpp"
     "${PROJECT_SOURCE_DIR}/src/engine/weapons/*.h"
     "${PROJECT_SOURCE_DIR}/src/engine/weapons/*.cpp"
+    "${PROJECT_SOURCE_DIR}/src/engine/states/*.h"
+    "${PROJECT_SOURCE_DIR}/src/engine/states/*.cpp"
 )
 
 # Get all sources from the corresponding directories to include common sources
