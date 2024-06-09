@@ -37,7 +37,7 @@ private:
 
   Client client;
   // cppcheck-suppress unusedStructMember
-  Snapshot &initialSnapshot;
+  std::unique_ptr<SnapshotWrapper> latestSnapshot;
 
   /*
    * Returns current time in seconds since epoch.
@@ -46,13 +46,22 @@ private:
 
   void processKeyboardEvents();
 
-  void runMainActions(int iterationNumber);
+  void renderGame(int iterationNumber);
+
+  void updateGame(int iterationNumber);
 
   void sleep(double timeToSleep);
 
+  void createNewRenderables();
+
+  void createNewPlayableCharacters(const Snapshot &const snapshot);
+  void createNewEnemies(const Snapshot &const snapshot);
+  void createNewCollectables(const Snapshot &const snapshot);
+  void createNewBullets(const Snapshot &const snapshot);
+
 public:
   Renderer(GraphicEngine &graphicEngine, int id, Socket socket, Player &player,
-           Snapshot &initialSnapshot);
+           SnapshotWrapper &initialSnapshot);
 
   /*
    * It executes the game logic repeatedly, keeping a constant time rate between

@@ -33,4 +33,6 @@ void Hud::renderFromLeftCorner(int iterationNumber,
 
 int Hud::getHorizontalSize() { return HUD_HORIZONTAL_SIZE; }
 
+uint8_t Hud::getId() const { return 255; }
+
 Hud::~Hud() {}

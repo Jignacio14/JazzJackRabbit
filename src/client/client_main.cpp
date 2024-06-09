@@ -45,14 +45,16 @@ int main(int argc, char *argv[]) {
   }
 
   std::string hostname("");
-  // cppcheck-suppress unreadVariable
   uint32_t port(0);
   std::string username("");
   uint8_t userCharacter = PlayableCharactersIds::NoneSelected;
-  Snapshot initialSnapshot;
-  Snapshot *initialSnapshotPtr = &initialSnapshot;
+
+  Snapshot initialSnapshotDto;
+  Snapshot *initialSnapshotDtoPtr = &initialSnapshotDto;
+
   GameConfigs gameConfig;
   GameConfigs *gamePtr = &gameConfig;
+
   std::unique_ptr<Lobby> lobby = nullptr;
 
   int exitCode = 0;
@@ -61,7 +63,7 @@ int main(int argc, char *argv[]) {
 
     if (TEST_ONLY_SDL_MODE == false) {
       StartupScreen startupScreen(argc, argv, hostname, port, username, gamePtr,
-                                  initialSnapshotPtr, userCharacter);
+                                  initialSnapshotDtoPtr, userCharacter);
 
       exitCode = startupScreen.show();
       lobby = startupScreen.getLobby();
@@ -83,10 +85,13 @@ int main(int argc, char *argv[]) {
 
     debugPrint(hostname, port, username, userCharacter, gameConfig);
 
-    int client_id = 1;
-    Player player(username, userCharacter, graphicEngine);
+    SnapshotWrapper initialSnapshot(initialSnapshotDto);
+
+    uint8_t playerId = lobby->get_player_id();
+    Player player(username, userCharacter, graphicEngine, initialSnapshot,
+                  playerId);
     Socket skt = lobby->transfer_socket();
-    Renderer renderer(graphicEngine, client_id, std::move(skt), player,
+    Renderer renderer(graphicEngine, playerId, std::move(skt), player,
                       initialSnapshot);
     renderer.run();
 

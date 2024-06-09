@@ -25,6 +25,8 @@ public:
 
   static int getHorizontalSize();
 
+  virtual uint8_t getId() const override;
+
   ~Hud() override;
 };
 

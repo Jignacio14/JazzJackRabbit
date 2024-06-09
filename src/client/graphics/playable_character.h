@@ -1,6 +1,7 @@
 #ifndef PLAYABLE_CHARACTER_H
 #define PLAYABLE_CHARACTER_H
 
+#include "../coordinates.h"
 #include "../renderable.h"
 #include <string>
 
@@ -13,7 +14,13 @@ public:
                                     const Coordinates &leftCorner) override = 0;
   virtual void update(bool isWalking, bool isRunning,
                       std::string movingDirection) override = 0;
-  virtual void update(Snapshot &snapshot) override = 0;
+  virtual void update(SnapshotWrapper &snapshot) override = 0;
+
+  virtual uint8_t getId() const override = 0;
+
+  virtual Coordinates getCoords() = 0;
+  virtual void setX(int x) = 0;
+  virtual void setY(int y) = 0;
 };
 
 #endif // PLAYABLE_CHARACTER_H

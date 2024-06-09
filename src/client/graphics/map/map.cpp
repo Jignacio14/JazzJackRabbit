@@ -388,4 +388,6 @@ void Map::render(int iterationNumber, Coordinates &coords) {}
 void Map::renderFromLeftCorner(int iterationNumber,
                                const Coordinates &leftCorner) {}
 
+uint8_t Map::getId() const { return 255; }
+
 Map::~Map() {}

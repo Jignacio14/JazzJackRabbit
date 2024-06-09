@@ -1,9 +1,9 @@
 #include "startup_screen.h"
+#include "../../data/convention.h"
 #include <iostream>
 
 const static int EXIT_SUCCESS_CODE = 0;
 const static int EXIT_ERROR_CODE = -1;
-const static char CHARACTER_NOT_SELECTED = '0';
 
 StartupScreen::StartupScreen(int &argc, char **argv, std::string &hostname,
                              uint32_t &port, std::string &username,
@@ -45,7 +45,7 @@ const int StartupScreen::show() {
     return EXIT_ERROR_CODE;
   }
 
-  if (this->userCharacter == CHARACTER_NOT_SELECTED) {
+  if (this->userCharacter == PlayableCharactersIds::NoneSelected) {
     const std::string errorMessage =
         "After closing StartupScreen no character selected. Shutting down.";
     std::cerr << errorMessage << std::endl;

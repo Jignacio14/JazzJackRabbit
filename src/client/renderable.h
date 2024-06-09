@@ -1,8 +1,10 @@
 #ifndef RENDERABLE_H
 #define RENDERABLE_H
 
+#include "../common/snapshot_wrapper.h"
 #include "../data/snapshot_dto.h"
 #include "./coordinates.h"
+#include <cstdint>
 #include <string>
 
 class Renderable {
@@ -32,7 +34,9 @@ public:
   virtual void update(bool isWalking, bool isRunning,
                       std::string movingDirection){};
 
-  virtual void update(Snapshot &snapshot){};
+  virtual void update(SnapshotWrapper &snapshot){};
+
+  virtual uint8_t getId() const = 0;
 
   virtual ~Renderable(){};
 };

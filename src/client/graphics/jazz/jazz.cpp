@@ -1,4 +1,6 @@
 #include "./jazz.h"
+#include "../../../common/jjr2_error.h"
+#include "../../../data/convention.h"
 #include <unordered_map>
 
 static const std::string INITIAL_STATE = "idle1";
@@ -6,12 +8,22 @@ static const std::string INITIAL_STATE = "idle1";
 static const std::unordered_map<std::string, int> MOVING_DIRECTIONS = {
     {"left", 0}, {"right", 1}, {"up", 2}, {"down", 3}};
 
-Jazz::Jazz(GraphicEngine &graphicEngine, Coordinates &currentCoords)
-    : graphicEngine(graphicEngine),
+Jazz::Jazz(GraphicEngine &graphicEngine, Coordinates &currentCoords,
+           const uint8_t &entityId, SnapshotWrapper &snapshot)
+    : entityId(entityId), graphicEngine(graphicEngine),
       currentState(&this->graphicEngine.getJazzGenericSprite(INITIAL_STATE)),
       currentFrame(0), currentCoords(currentCoords), isWalkingLeft(false),
       isWalkingRight(false), isWalkingUp(false), isWalkingDown(false),
-      isRunning(false) {}
+      isRunning(false), entityInfo() {
+
+  bool foundEntity = snapshot.getPlayerById(this->entityId, &this->entityInfo);
+  if (!foundEntity) {
+    std::string errorMessage = "Jazz with id " +
+                               std::to_string(this->entityId) +
+                               " was not found in the initialization snapshot";
+    throw JJR2Error(errorMessage, __LINE__, __FILE__);
+  }
+}
 
 void Jazz::debugUpdateLocation(int iterationNumber) {
   int speed = 0;
@@ -133,6 +145,78 @@ void Jazz::renderFromLeftCorner(int iterationNumber,
                    spriteHeight));
 }
 
-void Jazz::update(Snapshot &snapshot) {}
+Coordinates Jazz::getCoords() { return this->currentCoords; }
+
+void Jazz::setX(int x) { this->currentCoords.setX(x); }
+
+void Jazz::setY(int y) { this->currentCoords.setX(y); }
+
+void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
+                           const PlayerDto &newEntityInfo) {
+
+  if (newEntityInfo.is_dead == NumericBool::True) {
+    // render death
+    return;
+  }
+
+  if (newEntityInfo.was_hurt == NumericBool::True) {
+    // render hurt
+    return;
+  }
+
+  if (newEntityInfo.shot == NumericBool::True) {
+    // render shot
+    return;
+  } else if (newEntityInfo.shot_special == NumericBool::True) {
+    // render special
+    return;
+  }
+
+  if (newEntityInfo.is_walking == NumericBool::True) {
+    if (newEntityInfo.is_intoxicated == NumericBool::True) {
+      // render intoxicated walking
+      return;
+    } else {
+      // render walking
+      return;
+    }
+  } else if (newEntityInfo.is_running == NumericBool::True) {
+    // render running
+    return;
+  } else if (newEntityInfo.is_falling == NumericBool::True) {
+    // render falling
+    return;
+  } else if (newEntityInfo.is_jumping == NumericBool::True) {
+    // render jumping
+    return;
+  }
+
+  if (newEntityInfo.is_intoxicated == NumericBool::True) {
+    // render intoxicated idle
+    return;
+  } else {
+    // render idle
+    return;
+  }
+}
+
+void Jazz::update(SnapshotWrapper &snapshot) {
+  PlayerDto newEntityInfo;
+  bool foundPlayableCharacter =
+      snapshot.getPlayerById(this->entityId, &newEntityInfo);
+  if (!foundPlayableCharacter) {
+    std::cerr << "Jazz with entity id " + std::to_string(this->entityId) +
+                     " was not found in snapshot at update time";
+    return;
+  }
+
+  this->currentCoords.setX(newEntityInfo.position_x);
+  this->currentCoords.setY(newEntityInfo.position_y);
+
+  this->updateAnimation(snapshot, newEntityInfo);
+  this->entityInfo = newEntityInfo;
+}
+
+uint8_t Jazz::getId() const { return this->entityId; }
 
 Jazz::~Jazz() {}

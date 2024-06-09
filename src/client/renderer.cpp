@@ -1,6 +1,7 @@
 
-#include "renderer.h"
-#include "StopIteration.h"
+#include "./renderer.h"
+#include "../common/snapshot_wrapper.h"
+#include "./StopIteration.h"
 #include <chrono>
 #include <cmath>
 #include <thread>
@@ -14,16 +15,16 @@ static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 const static double TARGET_FPS = globalConfigs.getTargetFps();
 const static double RATE = ((double)1) / TARGET_FPS;
 
-static Coordinates DEBUG_INIT_COORDS = Coordinates(100, 100);
-
 Renderer::Renderer(GraphicEngine &graphicEngine, int id, Socket socket,
-                   Player &player, Snapshot &initialSnapshot)
+                   Player &player, SnapshotWrapper &initialSnapshot)
     : client_id(id), keep_running(true), rate(RATE),
       graphicEngine(graphicEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
       player(player), hud(this->graphicEngine),
       map(this->graphicEngine, this->player), debugPanel(this->sdlRenderer),
-      client(std::move(socket), id), initialSnapshot(initialSnapshot) {}
+      client(std::move(socket), id),
+      latestSnapshot(std::make_unique<SnapshotWrapper>(
+          initialSnapshot.transferSnapshotDto())) {}
 
 void Renderer::addRenderable(std::unique_ptr<Renderable> renderable) {
   this->renderables.push_back(std::move(renderable));
@@ -48,13 +49,6 @@ void Renderer::processKeyboardEvents() {
         throw StopIteration();
         break;
 
-      case SDLK_j:
-        this->addRenderable(
-            std::make_unique<Jazz>(this->graphicEngine, DEBUG_INIT_COORDS));
-        std::cout << "Adding Jazz"
-                  << "\n";
-        break;
-
       case SDLK_F1:
         std::cout << "Toggling debug panel"
                   << "\n";
@@ -63,21 +57,14 @@ void Renderer::processKeyboardEvents() {
 
       case SDLK_UP:
         this->client.jump();
-        this->player.update(true, false, "up");
-        break;
-
-      case SDLK_DOWN:
-        this->player.update(true, false, "down");
         break;
 
       case SDLK_RIGHT:
         this->client.move_right();
-        this->player.update(true, false, "right");
         break;
 
       case SDLK_LEFT:
         this->client.move_left();
-        this->player.update(true, false, "left");
         break;
 
       case SDLK_SPACE:
@@ -104,20 +91,10 @@ void Renderer::processKeyboardEvents() {
       switch (event.key.keysym.sym) {
       case SDLK_LEFT:
         this->client.stop_moving();
-        this->player.update(false, false, "left");
         break;
 
       case SDLK_RIGHT:
         this->client.stop_moving();
-        this->player.update(false, false, "right");
-        break;
-
-      case SDLK_UP:
-        this->player.update(false, false, "up");
-        break;
-
-      case SDLK_DOWN:
-        this->player.update(false, false, "down");
         break;
 
       case SDLK_LSHIFT:
@@ -128,25 +105,12 @@ void Renderer::processKeyboardEvents() {
   }
 }
 
-void Renderer::runMainActions(int iterationNumber) {
+void Renderer::renderGame(int iterationNumber) {
   this->sdlRenderer.Clear();
 
   this->map.render(iterationNumber);
   this->map.renderPlayer(iterationNumber);
   this->hud.render(iterationNumber);
-
-  std::unique_ptr<Snapshot> snapshot =
-      iterationNumber != 0 ? client.get_current_snapshot()
-                           : std::make_unique<Snapshot>(initialSnapshot);
-
-  if (snapshot != nullptr) {
-
-    this->player.update(std::ref(*snapshot));
-
-    for (auto &renderable : this->renderables) {
-      renderable->update(std::ref(*snapshot));
-    }
-  }
 
   const Coordinates &leftCorner = this->map.getLeftCorner();
   for (auto &renderable : this->renderables) {
@@ -154,10 +118,157 @@ void Renderer::runMainActions(int iterationNumber) {
   }
 
   this->debugPanel.display();
-
-  this->processKeyboardEvents();
-
   this->sdlRenderer.Present();
+}
+
+void Renderer::updateGame(int iterationNumber) {
+  std::unique_ptr<Snapshot> snapshotDto = client.get_current_snapshot();
+
+  if (snapshotDto != nullptr) {
+    this->latestSnapshot =
+        std::make_unique<SnapshotWrapper>(std::move(snapshotDto));
+  }
+
+  this->player.update(*this->latestSnapshot);
+
+  for (auto &renderable : this->renderables) {
+    renderable->update(*this->latestSnapshot);
+  }
+
+  this->createNewRenderables();
+}
+
+void Renderer::createNewPlayableCharacters(const Snapshot &const snapshot) {
+  for (int i = 0; i < snapshot.sizePlayers; i++) {
+    bool exists =
+        std::any_of(this->renderables.begin(), this->renderables.end(),
+                    [snapshot](const auto &renderable) {
+                      return snapshot.players[i].user_id == renderable->getId();
+                    });
+
+    if (exists) {
+      continue;
+    }
+
+    Coordinates coords(snapshot.players[i].position_x,
+                       snapshot.players[i].position_y);
+
+    switch (snapshot.players[i].type) {
+    case PlayableCharactersIds::Jazz:
+      this->addRenderable(std::make_unique<Jazz>(this->graphicEngine, coords,
+                                                 snapshot.players[i].user_id,
+                                                 *this->latestSnapshot));
+      break;
+    case PlayableCharactersIds::Spaz:
+      /*this->addRenderable(std::make_unique<Spaz>(this->graphicEngine, coords,
+                                                 snapshot.players[i].user_id,
+                                                 *this->latestSnapshot));*/
+      break;
+    case PlayableCharactersIds::Lori:
+      /*this->addRenderable(std::make_unique<Lori>(this->graphicEngine, coords,
+                                                 snapshot.players[i].user_id,
+                                                 *this->latestSnapshot));*/
+      break;
+    }
+  }
+}
+
+void Renderer::createNewEnemies(const Snapshot &const snapshot) {
+  for (int i = 0; i < snapshot.sizeEnemies; i++) {
+    bool exists =
+        std::any_of(this->renderables.begin(), this->renderables.end(),
+                    [snapshot](const auto &renderable) {
+                      return snapshot.enemies[i].user_id == renderable->getId();
+                    });
+
+    if (exists) {
+      continue;
+    }
+
+    Coordinates coords(snapshot.enemies[i].position_x,
+                       snapshot.enemies[i].position_y);
+
+    switch (snapshot.enemies[i].type) {
+    case EnemiesIds::Bubba:
+      // this->addRenderable(std::make_unique<>());
+      break;
+    case EnemiesIds::TurtleGoon:
+      // this->addRenderable(std::make_unique<>());
+      break;
+    case EnemiesIds::Schwarzenguard:
+      // this->addRenderable(std::make_unique<>());
+      break;
+    }
+  }
+}
+
+void Renderer::createNewCollectables(const Snapshot &const snapshot) {
+  for (int i = 0; i < snapshot.sizeCollectables; i++) {
+    bool exists = std::any_of(
+        this->renderables.begin(), this->renderables.end(),
+        [snapshot](const auto &renderable) {
+          return snapshot.collectables[i].user_id == renderable->getId();
+        });
+
+    if (exists) {
+      continue;
+    }
+
+    Coordinates coords(snapshot.collectables[i].position_x,
+                       snapshot.collectables[i].position_y);
+
+    switch (snapshot.collectables[i].type) {
+    case CollectableIds::Coin:
+      // this->addRenderable(std::make_unique<>());
+      break;
+    case CollectableIds::Diamond:
+      // this->addRenderable(std::make_unique<>());
+      break;
+    case CollectableIds::Carrot:
+      // this->addRenderable(std::make_unique<>());
+      break;
+    case CollectableIds::AmmoGun1:
+      // this->addRenderable(std::make_unique<>());
+      break;
+    case CollectableIds::AmmoGun2:
+      // this->addRenderable(std::make_unique<>());
+      break;
+    }
+  }
+}
+
+void Renderer::createNewBullets(const Snapshot &const snapshot) {
+  for (int i = 0; i < snapshot.sizeBullets; i++) {
+    bool exists =
+        std::any_of(this->renderables.begin(), this->renderables.end(),
+                    [snapshot](const auto &renderable) {
+                      return snapshot.bullets[i].user_id == renderable->getId();
+                    });
+
+    if (exists) {
+      continue;
+    }
+
+    Coordinates coords(snapshot.bullets[i].position_x,
+                       snapshot.bullets[i].position_y);
+
+    switch (snapshot.bullets[i].type) {
+    case GunsIds::Gun1:
+      // this->addRenderable(std::make_unique<>());
+      break;
+    case GunsIds::Gun2:
+      // this->addRenderable(std::make_unique<>());
+      break;
+    }
+  }
+}
+
+void Renderer::createNewRenderables() {
+  const Snapshot &const snapshot = this->latestSnapshot->getSnapshotReference();
+  this->createNewPlayableCharacters(snapshot);
+  this->createNewEnemies(snapshot);
+  this->createNewCollectables(snapshot);
+  this->createNewBullets(snapshot);
 }
 
 void Renderer::sleep(double timeToSleep) {
@@ -171,7 +282,9 @@ void Renderer::run() {
     double timestampStart = this->now();
 
     try {
-      this->runMainActions(iterationNumber);
+      this->renderGame(iterationNumber);
+      this->updateGame(iterationNumber);
+      this->processKeyboardEvents();
     } catch (const StopIteration &) {
       break;
     }
@@ -183,12 +296,10 @@ void Renderer::run() {
       double behind = -timeToRest;
       timeToRest = rate - fmod(behind, rate);
       double lost = behind + timeToRest;
-      // timestampStart += lost;
       iterationNumber += std::floor(lost / rate);
 
     } else {
       this->sleep(timeToRest);
-      // timestampStart += rate;
       iterationNumber++;
     }
 

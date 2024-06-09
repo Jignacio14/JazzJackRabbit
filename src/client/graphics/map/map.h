@@ -100,6 +100,8 @@ public:
 
   const Coordinates &getLeftCorner() const;
 
+  virtual uint8_t getId() const override;
+
   ~Map() override;
 };
 

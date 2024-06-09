@@ -11,18 +11,20 @@
 class Player : public Renderable {
 private:
   // cppcheck-suppress unusedStructMember
+  const uint8_t playerId;
+  // cppcheck-suppress unusedStructMember
   PlayerDto playerInfo;
   // cppcheck-suppress unusedStructMember
-  std::string username;
+  const std::string username;
   // cppcheck-suppress unusedStructMember
-  uint8_t characterSelected;
+  const uint8_t characterSelected;
   GraphicEngine &graphicEngine;
   std::unique_ptr<PlayableCharacter> character;
-  Coordinates currentCoords;
 
 public:
   Player(const std::string &username, const uint8_t &characterSelected,
-         GraphicEngine &graphicEngine);
+         GraphicEngine &graphicEngine, SnapshotWrapper &initialSnapshot,
+         const uint8_t &playerId);
 
   virtual void render(int iterationNumber) override;
 
@@ -36,9 +38,11 @@ public:
   virtual void update(bool isWalking, bool isRunning,
                       std::string movingDirection) override;
 
-  virtual void update(Snapshot &snapshot) override;
+  virtual void update(SnapshotWrapper &snapshot) override;
 
   Coordinates getCoords() const;
+
+  virtual uint8_t getId() const override;
 
   ~Player() override;
 };
