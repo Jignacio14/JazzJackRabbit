@@ -3,9 +3,9 @@
 
 #include "./sprite.h"
 #include <SDL2pp/SDL2pp.hh>
+#include <cstdint>
 #include <memory>
 #include <string>
-#include <cstdint>
 #include <unordered_map>
 
 class TextureLoader {

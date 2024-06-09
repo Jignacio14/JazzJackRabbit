@@ -1,7 +1,7 @@
 #ifndef JAZZ_H
 #define JAZZ_H
 
-#include "../../coordinates.h"
+#include "../../../common/coordinates.h"
 #include "../../renderable.h"
 #include "../graphic_engine.h"
 #include "../playable_character.h"
@@ -18,7 +18,7 @@ class Jazz : public PlayableCharacter {
 private:
   // cppcheck-suppress unusedStructMember
   const uint8_t entityId;
-    GraphicEngine &graphicEngine;
+  GraphicEngine &graphicEngine;
 
   std::unique_ptr<AnimationState> currentAnimation;
 

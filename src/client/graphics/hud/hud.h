@@ -1,7 +1,7 @@
 #ifndef HUD_H
 #define HUD_H
 
-#include "../../coordinates.h"
+#include "../../../common/coordinates.h"
 #include "../../renderable.h"
 #include "../graphic_engine.h"
 #include "../sprite.h"

@@ -48,7 +48,8 @@ void Jazz::debugUpdateLocation(int iterationNumber) {
 }
 
 void Jazz::render(int iterationNumber) {
-  /*this->currentFrame = iterationNumber % this->currentState->maxAnimationFrames;
+  /*this->currentFrame = iterationNumber %
+  this->currentState->maxAnimationFrames;
   this->debugUpdateLocation(iterationNumber);
 
   // Pick sprite from running animantion sequence
