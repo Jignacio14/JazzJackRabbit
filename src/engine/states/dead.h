@@ -4,6 +4,10 @@
 
 #include "base_state.h"
 
-class Dead : public BaseState {};
+class Dead : public BaseState {
+
+public:
+  bool can_move() override;
+};
 
 #endif // JAZZJACKRABBIT_DEAD_H
