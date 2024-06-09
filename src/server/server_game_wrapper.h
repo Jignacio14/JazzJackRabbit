@@ -1,14 +1,14 @@
 #ifndef GAME_WRAPPER
 #define GAME_WRAPPER
 
+#include "../common/global_configs.h"
 #include "../common/player_status_DTO.h"
 #include "../common/queue.h"
+#include "../data/command_code_dto.h"
 #include "../data/player_info_dto.h"
+#include "../data/snapshot_dto.h"
 #include "server_game.h"
 #include "server_game_monitor.h"
-
-#include "../common/global_configs.h"
-#include "server_game.h"
 #include <atomic>
 #include <cstdint>
 #include <string>
@@ -18,7 +18,7 @@
 class GameWrapper {
 private:
   GameMonitor monitor;
-  Queue<std::pair<u_int8_t, u_int8_t>> receiver_queue;
+  Queue<CommandCodeDto> receiver_queue;
   Game game;
   std::atomic_int8_t players;
 
@@ -28,7 +28,7 @@ public:
   const u_int16_t getGamePlayers();
   void killGame();
   void ereasedPlayer(uint8_t player_id);
-  std::pair<Queue<std::pair<uint8_t, uint8_t>> &, uint8_t>
+  std::pair<Queue<CommandCodeDto> &, uint8_t>
   addPlayer(Queue<Snapshot> &queue, const PlayerInfo &player_info);
 };
 

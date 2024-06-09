@@ -15,7 +15,8 @@ int main(int argc, const char *argv[]) {
     server.execute();
     return 0;
   } catch (const std::exception &exception) {
-    std::cout << "An unexpected error has ocurred" << std::endl;
+    std::cout << "An unexpected error has ocurred" << exception.what()
+              << std::endl;
     return -1;
   }
 }

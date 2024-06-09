@@ -3,6 +3,7 @@
 
 #include "../common/queue.h"
 #include "../common/thread.h"
+#include "../data/command_code_dto.h"
 #include "../data/snapshot_dto.h"
 #include "./server_protocol.h"
 #include <sys/types.h>
@@ -11,12 +12,12 @@
 class Receiver : public Thread {
 private:
   ServerProtocol &servprot;
-  Queue<std::pair<u_int8_t, u_int8_t>> &receiver_queue;
+  Queue<CommandCodeDto> &receiver_queue;
   void recevierLoop();
 
 public:
   explicit Receiver(ServerProtocol &servprot,
-                    Queue<std::pair<u_int8_t, u_int8_t>> &receiver_queue);
+                    Queue<CommandCodeDto> &receiver_queue);
   void run() override;
   void kill();
   ~Receiver() override;

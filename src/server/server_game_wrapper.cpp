@@ -10,7 +10,7 @@ const u_int16_t GameWrapper::getGamePlayers() { return this->players; }
 
 void GameWrapper::killGame() { this->game.kill(); }
 
-std::pair<Queue<std::pair<u_int8_t, u_int8_t>> &, uint8_t>
+std::pair<Queue<CommandCodeDto> &, uint8_t>
 GameWrapper::addPlayer(Queue<Snapshot> &queue, const PlayerInfo &player_info) {
 
   const uint8_t player_id = this->monitor.addPlayer(player_info, queue);
@@ -20,8 +20,8 @@ GameWrapper::addPlayer(Queue<Snapshot> &queue, const PlayerInfo &player_info) {
     this->game.start();
   }
 
-  return std::pair<Queue<std::pair<uint8_t, uint8_t>> &, uint8_t>(
-      this->receiver_queue, player_id);
+  return std::pair<Queue<CommandCodeDto> &, uint8_t>(this->receiver_queue,
+                                                     player_id);
 }
 
 void GameWrapper::ereasedPlayer(uint8_t player_id) {
