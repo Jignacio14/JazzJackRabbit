@@ -3,8 +3,9 @@
 BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name)
     : player_id(player_id), player_name(player_name), health(MAX_HEALTH),
       weapon(std::make_unique<InitialWeapon>()),
-      state(std::make_unique<Alive>()), position_x(INITIAL_POS_X),
-      position_y(INITIAL_POS_Y), facing_direction(FacingDirectionsIds::Right) {}
+      state(std::make_unique<Alive>()),
+      rectangle(Rectangle(Coordinates(0, 0), Coordinates(40, 50))),
+      facing_direction(FacingDirectionsIds::Right) {}
 
 void BasePlayer::receive_damage(uint8_t damage) {
   if (damage >= health) {
@@ -20,19 +21,19 @@ void BasePlayer::change_state(std::unique_ptr<BaseState> new_state) {
 }
 
 void BasePlayer::move_right() {
-  // Probablemente el player necesite tener una referencia al mapa y chequear
-  // que se mueva a una posición válida.
-  if (state->can_move()) {
-    position_x += 1;
+  Rectangle new_rectangle = rectangle;
+  new_rectangle.move_right();
+  if (state->can_move() && map.available_position(new_rectangle)) {
+    rectangle = new_rectangle;
     facing_direction = FacingDirectionsIds::Right;
   }
 }
 
 void BasePlayer::move_left() {
-  // Probablemente el player necesite tener una referencia al mapa y chequear
-  // que se mueva a una posición válida.
-  if (state->can_move()) {
-    position_x -= 1;
+  Rectangle new_rectangle = rectangle;
+  new_rectangle.move_left();
+  if (state->can_move() && map.available_position(new_rectangle)) {
+    rectangle = new_rectangle;
     facing_direction = FacingDirectionsIds::Left;
   }
 }

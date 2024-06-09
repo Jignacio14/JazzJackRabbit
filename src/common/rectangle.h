@@ -18,6 +18,12 @@ public:
   Coordinates getTopLeftCorner() const;
 
   Coordinates getBottomRightCorner() const;
+
+  void move_left();
+
+  void move_right();
+
+  bool intersects(Rectangle other) const;
 };
 
 #endif // RECTANGLE_H
