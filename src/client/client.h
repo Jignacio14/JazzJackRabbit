@@ -32,7 +32,19 @@ public:
 
   void move_left();
 
-  void jump();
+  void stop_moving();
+
+  void jump(); // up
+
+  void shoot(); // space
+
+  void run(); // shift izquierdo
+
+  void stop_running();
+
+  void special_attack(); // ctrl izq
+
+  void change_weapon(uint8_t weapon_number);
 
   /*
    * Kills the client´s back-end, joining receiver and sender thread, and closes

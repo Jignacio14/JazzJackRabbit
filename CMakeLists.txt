@@ -74,6 +74,9 @@ file(GLOB_RECURSE SERVER_SOURCES CONFIGURE_DEPENDS
 file(GLOB_RECURSE COMMON_SOURCES CONFIGURE_DEPENDS
     "${PROJECT_SOURCE_DIR}/src/common/*.h"
     "${PROJECT_SOURCE_DIR}/src/common/*.cpp"
+    "${PROJECT_SOURCE_DIR}/src/data/"
+    "${PROJECT_SOURCE_DIR}/src/data/*.h"
+    "${PROJECT_SOURCE_DIR}/src/data/*.cpp"
 )
 
 # The client executable will be called "client". The main entry point is defined with all the other sources

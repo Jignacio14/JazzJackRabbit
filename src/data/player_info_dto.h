@@ -14,4 +14,4 @@ struct PlayerInfo {
   uint8_t character_code;
 } __attribute__((packed));
 
-#endif
+#endif // PLAYER_INFO

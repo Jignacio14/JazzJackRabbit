@@ -1,3 +1,6 @@
+#ifndef JAZZJACKRABBIT_CONVENTION_H
+#define JAZZJACKRABBIT_CONVENTION_H
+
 #include <cstdint>
 
 struct PlayerCommands {
@@ -17,6 +20,10 @@ struct PlayerCommands {
   static const uint8_t CHANGE_WEAPON = 6;
   // cppcheck-suppress unusedStructMember
   static const uint8_t SPECIAL_ATTACK = 7;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t RUN = 8;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t STOP_RUNNING = 9;
 };
 
 struct PlayableCharactersIds {
@@ -76,3 +83,5 @@ struct EnemiesIds {
   // cppcheck-suppress unusedStructMember
   static const uint8_t Schwarzenguard = 2;
 };
+
+#endif // JAZZJACKRABBIT_CONVENTION_H
