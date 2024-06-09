@@ -1,7 +1,7 @@
 #ifndef PLAYABLE_CHARACTER_H
 #define PLAYABLE_CHARACTER_H
 
-#include "../coordinates.h"
+#include "../../common/coordinates.h"
 #include "../renderable.h"
 #include <string>
 

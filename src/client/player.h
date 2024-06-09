@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "./coordinates.h"
+#include "../common/coordinates.h"
 #include "./graphics/graphic_engine.h"
 #include "./graphics/playable_character.h"
 #include <cstdint>

@@ -1,7 +1,7 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include "../../coordinates.h"
+#include "../../../common/coordinates.h"
 #include "../../player.h"
 #include "../../renderable.h"
 #include "../graphic_engine.h"

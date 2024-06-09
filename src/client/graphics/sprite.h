@@ -1,7 +1,7 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
-#include "../coordinates.h"
+#include "../../common/coordinates.h"
 #include "../renderable.h"
 #include <SDL2pp/SDL2pp.hh>
 #include <vector>

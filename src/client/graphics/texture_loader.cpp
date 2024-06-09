@@ -1,41 +1,36 @@
 #include "./texture_loader.h"
 #include "../../common/jjr2_error.h"
-#include <cstdint>
+#include "./sprite_props.h"
+
 #include <vector>
 
-static const std::vector<std::string> genericSpriteNames = {
-    "death",
-    "hud_icon",
-    "hurt",
-    "idle1",
-    "intoxicated_idle",
-    "intoxicated_walking",
-    "jumping_forward",
-    "jumping_forward_falling",
-    "jumping_landing",
-    "jumping_transition",
-    "jumping_up",
-    "jumping_up_falling",
-    "jumping_up_falling_transition",
-    "running",
-    "shooting_forward",
-    "stop_shooting_forward",
-    "walking",
+static const std::vector<uint8_t> genericSpriteNames = {
+    GenericSpriteNames::Death,
+    GenericSpriteNames::HudIcon,
+    GenericSpriteNames::Hurt,
+    GenericSpriteNames::Idle,
+    GenericSpriteNames::IntoxicatedIdle,
+    GenericSpriteNames::IntoxicatedWalking,
+    GenericSpriteNames::Jumping,
+    GenericSpriteNames::Landing,
+    GenericSpriteNames::Falling,
+    GenericSpriteNames::Running,
+    GenericSpriteNames::Shooting,
+    GenericSpriteNames::Walking,
 };
 
-static const std::vector<std::string> jazzSpecials = {
-    "uppercut_transition",
+static const std::vector<uint8_t> jazzSpecials = {JazzSpecials::Uppercut};
+
+static const std::vector<uint8_t> spazSpecials = {SpazSpecials::SideKick};
+
+static const std::vector<uint8_t> loriSpecials = {LoriSpecials::ShortKick};
+
+static const std::vector<uint8_t> scenarioSpriteNames = {
+    ScenarioSpriteNames::Background,
+    ScenarioSpriteNames::Decoration,
+    ScenarioSpriteNames::TopGrass,
+    ScenarioSpriteNames::FullDirt,
 };
-
-static const std::vector<std::string> spazSpecials = {
-    "side_kick",
-    "side_kick_transition",
-};
-
-static const std::vector<std::string> loriSpecials = {"short_kick"};
-
-static const std::vector<std::string> scenarioSpriteNames = {
-    "background", "decoration", "top_grass", "full_dirt"};
 
 const static int CHARACTERS_COLOR_KEY_RGB[3] = {44, 102, 150};
 const static int MAP_COLOR_KEY_RGB[3] = {87, 0, 203};

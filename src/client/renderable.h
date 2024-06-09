@@ -1,9 +1,9 @@
 #ifndef RENDERABLE_H
 #define RENDERABLE_H
 
+#include "../common/coordinates.h"
 #include "../common/snapshot_wrapper.h"
 #include "../data/snapshot_dto.h"
-#include "./coordinates.h"
 #include <cstdint>
 #include <string>
 
