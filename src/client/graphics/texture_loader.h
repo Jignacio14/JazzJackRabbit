@@ -12,46 +12,46 @@ class TextureLoader {
 private:
   SDL2pp::Renderer &sdlRenderer;
   // cppcheck-suppress unusedStructMember
-  std::unordered_map<uint8_t, Sprite> jazzGenericSprites;
+  std::unordered_map<std::string, Sprite> jazzGenericSprites;
   // cppcheck-suppress unusedStructMember
-  std::unordered_map<uint8_t, Sprite> jazzSpecial;
+  std::unordered_map<std::string, Sprite> jazzSpecial;
   // cppcheck-suppress unusedStructMember
   std::unique_ptr<Sprite> jazzHudIcon;
 
   // cppcheck-suppress unusedStructMember
-  std::unordered_map<uint8_t, Sprite> spazGenericSprites;
+  std::unordered_map<std::string, Sprite> spazGenericSprites;
   // cppcheck-suppress unusedStructMember
-  std::unordered_map<uint8_t, Sprite> spazSpecial;
+  std::unordered_map<std::string, Sprite> spazSpecial;
   // cppcheck-suppress unusedStructMember
   std::unique_ptr<Sprite> spazHudIcon;
 
   // cppcheck-suppress unusedStructMember
-  std::unordered_map<uint8_t, Sprite> loriGenericSprites;
+  std::unordered_map<std::string, Sprite> loriGenericSprites;
   // cppcheck-suppress unusedStructMember
-  std::unordered_map<uint8_t, Sprite> loriSpecial;
+  std::unordered_map<std::string, Sprite> loriSpecial;
   // cppcheck-suppress unusedStructMember
   std::unique_ptr<Sprite> loriHudIcon;
 
   // cppcheck-suppress unusedStructMember
-  std::unordered_map<uint8_t, Sprite> carrotusScenarioSprites;
+  std::unordered_map<std::string, Sprite> carrotusScenarioSprites;
 
 public:
   explicit TextureLoader(SDL2pp::Renderer &sdlRenderer);
   void preloadTextures();
 
-  Sprite &getJazzGenericSprite(const std::string &spriteName);
-  Sprite &getJazzSpecialSprite(const std::string &spriteName);
+  Sprite &getJazzGenericSprite(const u_int8_t &spriteCode);
+  Sprite &getJazzSpecialSprite(const u_int8_t &spriteCode);
   Sprite &getJazzHudIcon();
 
-  Sprite &getSpazGenericSprite(const std::string &spriteName);
-  Sprite &getSpazSpecialSprite(const std::string &spriteName);
+  Sprite &getSpazGenericSprite(const u_int8_t &spriteCode);
+  Sprite &getSpazSpecialSprite(const u_int8_t &spriteCode);
   Sprite &getSpazHudIcon();
 
-  Sprite &getLoriGenericSprite(const std::string &spriteName);
-  Sprite &getLoriSpecialSprite(const std::string &spriteName);
+  Sprite &getLoriGenericSprite(const u_int8_t &spriteCode);
+  Sprite &getLoriSpecialSprite(const u_int8_t &spriteCode);
   Sprite &getLoriHudIcon();
 
-  Sprite &getCarrotusScenarioSprite(const std::string &spriteName);
+  Sprite &getCarrotusScenarioSprite(const u_int8_t &spriteName);
 };
 
 #endif // TEXTURE_LOADER_H

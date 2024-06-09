@@ -1,11 +1,10 @@
 #include "./jazz.h"
 #include "../../../common/jjr2_error.h"
 #include "../../../data/convention.h"
+#include "../sprite_props.h"
 #include <unordered_map>
 
 #include "./states/jazz_idle.h"
-
-static const std::string INITIAL_STATE = "idle1";
 
 static const std::unordered_map<std::string, int> MOVING_DIRECTIONS = {
     {"left", 0}, {"right", 1}, {"up", 2}, {"down", 3}};
@@ -13,9 +12,13 @@ static const std::unordered_map<std::string, int> MOVING_DIRECTIONS = {
 Jazz::Jazz(GraphicEngine &graphicEngine, Coordinates &currentCoords,
            const uint8_t &entityId, SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(std::make_unique<JazzIdle>(this->graphicEngine)),
-      currentCoords(currentCoords), isWalkingLeft(false), isWalkingRight(false),
-      isWalkingUp(false), isWalkingDown(false), isRunning(false), entityInfo() {
+      currentAnimation(nullptr), currentCoords(currentCoords),
+      isWalkingLeft(false), isWalkingRight(false), isWalkingUp(false),
+      isWalkingDown(false), isRunning(false), entityInfo() {
+
+  this->currentAnimation = std::make_unique<AnimationState>(
+      this->graphicEngine, GenericSpriteCodes::Idle,
+      &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Idle));
 
   bool foundEntity = snapshot.getPlayerById(this->entityId, &this->entityInfo);
   if (!foundEntity) {
@@ -26,7 +29,7 @@ Jazz::Jazz(GraphicEngine &graphicEngine, Coordinates &currentCoords,
   }
 }
 
-void Jazz::debugUpdateLocation(int iterationNumber) {
+/*void Jazz::debugUpdateLocation(int iterationNumber) {
   int speed = 0;
   bool isWalking = this->isWalkingLeft || this->isWalkingRight ||
                    this->isWalkingUp || this->isWalkingDown;
@@ -45,7 +48,7 @@ void Jazz::debugUpdateLocation(int iterationNumber) {
     this->currentCoords.setY(this->currentCoords.getY() - speed);
   if (this->isWalkingDown)
     this->currentCoords.setY(this->currentCoords.getY() + speed);
-}
+}*/
 
 void Jazz::render(int iterationNumber) {
   /*this->currentFrame = iterationNumber %

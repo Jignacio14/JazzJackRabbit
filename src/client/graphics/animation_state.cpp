@@ -1,17 +1,15 @@
 #include "./animation_state.h"
 #include <string>
 
-static const std::string ANIMATION_KEY = "idle1";
-
 static const double ANIMATION_SLOWDOWN_COEFFICIENT = 1.0;
 
-AnimationState::AnimationState(GraphicEngine &graphicEngine)
+AnimationState::AnimationState(GraphicEngine &graphicEngine,
+                               const uint8_t &spriteCode, Sprite *sprite)
     : graphicEngine(graphicEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
-      currentFrame(0),
-      sprite(&this->graphicEngine.getJazzGenericSprite(ANIMATION_KEY)) {}
+      currentFrame(0), spriteCode(spriteCode), sprite(sprite) {}
 
-void AnimationState::render(int iterationNumber, Coordinates &coords) {
+void AnimationState::render(int iterationNumber, const Coordinates &coords) {
   int newIterationNumber = ANIMATION_SLOWDOWN_COEFFICIENT * iterationNumber;
   this->currentFrame = newIterationNumber % this->sprite->maxAnimationFrames;
 

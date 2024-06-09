@@ -6,6 +6,7 @@
 
 class ServerMap {
 private:
+  // cppcheck-suppress unusedStructMember
   std::vector<Rectangle> rectangles;
   // cppcheck-suppress unusedStructMember
   int fullMapSizeX;

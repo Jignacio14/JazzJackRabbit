@@ -2,6 +2,7 @@
 #include "../../../common/global_configs.h"
 #include "../../../common/random_string_generator.h"
 #include "../hud/hud.h"
+#include "../sprite_props.h"
 #include <yaml-cpp/yaml.h>
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
@@ -19,14 +20,14 @@ const static int MAX_RANDOM_SOURCE = 30;
 Map::Map(GraphicEngine &graphicEngine, Player &player)
     : graphicEngine(graphicEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
-      backgroundSprite(
-          this->graphicEngine.getCarrotusScenarioSprite("background")),
-      decorationSprite(
-          this->graphicEngine.getCarrotusScenarioSprite("decoration")),
-      topGrassSprite(
-          this->graphicEngine.getCarrotusScenarioSprite("top_grass")),
-      fullDirtSprite(
-          this->graphicEngine.getCarrotusScenarioSprite("full_dirt")),
+      backgroundSprite(this->graphicEngine.getCarrotusScenarioSprite(
+          ScenarioSpriteCodes::Background)),
+      decorationSprite(this->graphicEngine.getCarrotusScenarioSprite(
+          ScenarioSpriteCodes::Decoration)),
+      topGrassSprite(this->graphicEngine.getCarrotusScenarioSprite(
+          ScenarioSpriteCodes::TopGrass)),
+      fullDirtSprite(this->graphicEngine.getCarrotusScenarioSprite(
+          ScenarioSpriteCodes::FullDirt)),
       leftCorner(0, 0), player(player) {
 
   for (int i = 0; i < MAX_RANDOM_SOURCE; i++) {

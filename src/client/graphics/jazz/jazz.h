@@ -39,7 +39,7 @@ private:
   // cppcheck-suppress unusedStructMember
   PlayerDto entityInfo;
 
-  void debugUpdateLocation(int iterationNumber);
+  // void debugUpdateLocation(int iterationNumber);
 
   void updateAnimation(const SnapshotWrapper &snapshot,
                        const PlayerDto &newEntityInfo);

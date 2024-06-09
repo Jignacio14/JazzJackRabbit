@@ -21,43 +21,42 @@ SDL2pp::Renderer &GraphicEngine::getSdlRendererReference() {
   return std::ref(this->sdlRenderer);
 }
 
-Sprite &GraphicEngine::getJazzGenericSprite(const std::string &spriteName) {
-  return this->textureLoader.getJazzGenericSprite(spriteName);
+Sprite &GraphicEngine::getJazzGenericSprite(const uint8_t &spriteCode) {
+  return this->textureLoader.getJazzGenericSprite(spriteCode);
 }
 
-Sprite &GraphicEngine::getJazzSpecialSprite(const std::string &spriteName) {
-  return this->textureLoader.getJazzSpecialSprite(spriteName);
+Sprite &GraphicEngine::getJazzSpecialSprite(const uint8_t &spriteCode) {
+  return this->textureLoader.getJazzSpecialSprite(spriteCode);
 }
 
 Sprite &GraphicEngine::getJazzHudIcon() {
   return this->textureLoader.getJazzHudIcon();
 }
 
-Sprite &GraphicEngine::getSpazGenericSprite(const std::string &spriteName) {
-  return this->textureLoader.getSpazGenericSprite(spriteName);
+Sprite &GraphicEngine::getSpazGenericSprite(const uint8_t &spriteCode) {
+  return this->textureLoader.getSpazGenericSprite(spriteCode);
 }
 
-Sprite &GraphicEngine::getSpazSpecialSprite(const std::string &spriteName) {
-  return this->textureLoader.getSpazSpecialSprite(spriteName);
+Sprite &GraphicEngine::getSpazSpecialSprite(const uint8_t &spriteCode) {
+  return this->textureLoader.getSpazSpecialSprite(spriteCode);
 }
 
 Sprite &GraphicEngine::getSpazHudIcon() {
   return this->textureLoader.getSpazHudIcon();
 }
 
-Sprite &GraphicEngine::getLoriGenericSprite(const std::string &spriteName) {
-  return this->textureLoader.getLoriGenericSprite(spriteName);
+Sprite &GraphicEngine::getLoriGenericSprite(const uint8_t &spriteCode) {
+  return this->textureLoader.getLoriGenericSprite(spriteCode);
 }
 
-Sprite &GraphicEngine::getLoriSpecialSprite(const std::string &spriteName) {
-  return this->textureLoader.getLoriSpecialSprite(spriteName);
+Sprite &GraphicEngine::getLoriSpecialSprite(const uint8_t &spriteCode) {
+  return this->textureLoader.getLoriSpecialSprite(spriteCode);
 }
 
 Sprite &GraphicEngine::getLoriHudIcon() {
   return this->textureLoader.getLoriHudIcon();
 }
 
-Sprite &
-GraphicEngine::getCarrotusScenarioSprite(const std::string &spriteName) {
-  return this->textureLoader.getCarrotusScenarioSprite(spriteName);
+Sprite &GraphicEngine::getCarrotusScenarioSprite(const uint8_t &spriteCode) {
+  return this->textureLoader.getCarrotusScenarioSprite(spriteCode);
 }

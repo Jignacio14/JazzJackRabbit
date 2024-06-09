@@ -4,32 +4,37 @@
 
 #include <vector>
 
-static const std::vector<uint8_t> genericSpriteNames = {
-    GenericSpriteNames::Death,
-    GenericSpriteNames::HudIcon,
-    GenericSpriteNames::Hurt,
-    GenericSpriteNames::Idle,
-    GenericSpriteNames::IntoxicatedIdle,
-    GenericSpriteNames::IntoxicatedWalking,
-    GenericSpriteNames::Jumping,
-    GenericSpriteNames::Landing,
-    GenericSpriteNames::Falling,
-    GenericSpriteNames::Running,
-    GenericSpriteNames::Shooting,
-    GenericSpriteNames::Walking,
+static const SpriteNamesMap spriteNamesMap = SpriteNamesMap();
+
+static const std::vector<uint8_t> genericSpriteNamesVector = {
+    GenericSpriteCodes::Death,
+    GenericSpriteCodes::HudIcon,
+    GenericSpriteCodes::Hurt,
+    GenericSpriteCodes::Idle,
+    GenericSpriteCodes::IntoxicatedIdle,
+    GenericSpriteCodes::IntoxicatedWalking,
+    GenericSpriteCodes::Jumping,
+    GenericSpriteCodes::Landing,
+    GenericSpriteCodes::Falling,
+    GenericSpriteCodes::Running,
+    GenericSpriteCodes::Shooting,
+    GenericSpriteCodes::Walking,
 };
 
-static const std::vector<uint8_t> jazzSpecials = {JazzSpecials::Uppercut};
+static const std::vector<uint8_t> jazzSpecialsVector = {
+    JazzSpecialsCodes::Uppercut};
 
-static const std::vector<uint8_t> spazSpecials = {SpazSpecials::SideKick};
+static const std::vector<uint8_t> spazSpecialsVector = {
+    SpazSpecialsCodes::SideKick};
 
-static const std::vector<uint8_t> loriSpecials = {LoriSpecials::ShortKick};
+static const std::vector<uint8_t> loriSpecialsVector = {
+    LoriSpecialsCodes::ShortKick};
 
-static const std::vector<uint8_t> scenarioSpriteNames = {
-    ScenarioSpriteNames::Background,
-    ScenarioSpriteNames::Decoration,
-    ScenarioSpriteNames::TopGrass,
-    ScenarioSpriteNames::FullDirt,
+static const std::vector<uint8_t> scenarioSpriteNamesVector = {
+    ScenarioSpriteCodes::Background,
+    ScenarioSpriteCodes::Decoration,
+    ScenarioSpriteCodes::TopGrass,
+    ScenarioSpriteCodes::FullDirt,
 };
 
 const static int CHARACTERS_COLOR_KEY_RGB[3] = {44, 102, 150};
@@ -43,8 +48,8 @@ TextureLoader::TextureLoader(SDL2pp::Renderer &sdlRenderer)
 void TextureLoader::preloadTextures() {
 
   auto loadSpriteLambda =
-      [=](const std::string &basePath, const std::string &spriteName,
-          const int *COLOR_KEY_RGB,
+      [=](const std::string &basePath, const uint8_t &spriteCode,
+          const std::string &spriteName, const int *COLOR_KEY_RGB,
           std::unordered_map<std::string, Sprite> &spriteMap) {
         std::string texturePath = basePath + spriteName + "/spritesheet.png";
         SDL2pp::Surface surface(texturePath);
@@ -74,8 +79,8 @@ void TextureLoader::preloadTextures() {
       };
 
   auto loadSpriteWithAlphaModLambda =
-      [=](const std::string &basePath, const std::string &spriteName,
-          const int *COLOR_KEY_RGB,
+      [=](const std::string &basePath, const uint8_t &spriteCode,
+          const std::string &spriteName, const int *COLOR_KEY_RGB,
           std::unordered_map<std::string, Sprite> &spriteMap, int alpha) {
         std::string texturePath = basePath + spriteName + "/spritesheet.png";
         SDL2pp::Surface surface(texturePath);
@@ -134,146 +139,172 @@ void TextureLoader::preloadTextures() {
   };
 
   // JAZZ GENERICS SPRITES INITIALIZATION
-  for (auto &spriteName : genericSpriteNames) {
-    loadSpriteLambda("src/client/sprites/jazz/", spriteName,
+  for (auto &spriteCode : genericSpriteNamesVector) {
+    loadSpriteLambda("src/client/sprites/jazz/", spriteCode,
+                     spriteNamesMap.map.at(spriteCode),
                      CHARACTERS_COLOR_KEY_RGB, this->jazzGenericSprites);
   }
 
   // JAZZ SPECIALS SPRITES INITIALIZATION
-  for (auto &spriteName : jazzSpecials) {
-    loadSpriteLambda("src/client/sprites/jazz/", spriteName,
-                     CHARACTERS_COLOR_KEY_RGB, this->jazzSpecial);
+  for (auto &spriteCode : jazzSpecialsVector) {
+    loadSpriteLambda("src/client/sprites/jazz/", spriteCode,
+                     spriteNamesMap.map.at(spriteCode),
+                     CHARACTERS_COLOR_KEY_RGB, this->jazzGenericSprites);
   }
 
   // JAZZ HUB ICON INITIALIZATION
-  loadSpriteHudIconLambda("src/client/sprites/jazz/", "hud_icon",
+  loadSpriteHudIconLambda("src/client/sprites/jazz/",
+                          spriteNamesMap.map.at(GenericSpriteCodes::HudIcon),
                           CHARACTERS_COLOR_KEY_RGB, this->jazzHudIcon);
 
   // SPAZ GENERICS SPRITES INITIALIZATION
-  for (auto &spriteName : genericSpriteNames) {
-    loadSpriteLambda("src/client/sprites/spaz/", spriteName,
-                     CHARACTERS_COLOR_KEY_RGB, this->spazGenericSprites);
+  for (auto &spriteCode : genericSpriteNamesVector) {
+    loadSpriteLambda("src/client/sprites/jazz/", spriteCode,
+                     spriteNamesMap.map.at(spriteCode),
+                     CHARACTERS_COLOR_KEY_RGB, this->jazzGenericSprites);
   }
 
   // SPAZ SPECIALS SPRITES INITIALIZATION
-  for (auto &spriteName : spazSpecials) {
-    loadSpriteLambda("src/client/sprites/spaz/", spriteName,
-                     CHARACTERS_COLOR_KEY_RGB, this->spazSpecial);
+  for (auto &spriteCode : spazSpecialsVector) {
+    loadSpriteLambda("src/client/sprites/jazz/", spriteCode,
+                     spriteNamesMap.map.at(spriteCode),
+                     CHARACTERS_COLOR_KEY_RGB, this->jazzGenericSprites);
   }
 
   // SPAZ HUB ICON INITIALIZATION
-  loadSpriteHudIconLambda("src/client/sprites/spaz/", "hud_icon",
+  loadSpriteHudIconLambda("src/client/sprites/spaz/",
+                          spriteNamesMap.map.at(GenericSpriteCodes::HudIcon),
                           CHARACTERS_COLOR_KEY_RGB, this->spazHudIcon);
 
   // LORI GENERICS SPRITES INITIALIZATION
-  for (auto &spriteName : genericSpriteNames) {
-    loadSpriteLambda("src/client/sprites/lori/", spriteName,
-                     CHARACTERS_COLOR_KEY_RGB, this->loriGenericSprites);
+  for (auto &spriteCode : genericSpriteNamesVector) {
+    loadSpriteLambda("src/client/sprites/jazz/", spriteCode,
+                     spriteNamesMap.map.at(spriteCode),
+                     CHARACTERS_COLOR_KEY_RGB, this->jazzGenericSprites);
   }
 
   // LORI SPECIALS SPRITES INITIALIZATION
-  for (auto &spriteName : loriSpecials) {
-    loadSpriteLambda("src/client/sprites/lori/", spriteName,
-                     CHARACTERS_COLOR_KEY_RGB, this->loriSpecial);
+  for (auto &spriteCode : loriSpecialsVector) {
+    loadSpriteLambda("src/client/sprites/jazz/", spriteCode,
+                     spriteNamesMap.map.at(spriteCode),
+                     CHARACTERS_COLOR_KEY_RGB, this->jazzGenericSprites);
   }
 
   // LORI HUB ICON INITIALIZATION
-  loadSpriteHudIconLambda("src/client/sprites/lori/", "hud_icon",
+  loadSpriteHudIconLambda("src/client/sprites/lori/",
+                          spriteNamesMap.map.at(GenericSpriteCodes::HudIcon),
                           CHARACTERS_COLOR_KEY_RGB, this->loriHudIcon);
 
   // CARROTUS SCENARIO SPRITES INITIALIZATION
 
   // Load background
-  loadSpriteLambda("src/client/sprites/carrotus_scenario/", "background",
+  loadSpriteLambda("src/client/sprites/carrotus_scenario/",
+                   ScenarioSpriteCodes::Background,
+                   spriteNamesMap.map.at(ScenarioSpriteCodes::Background),
                    nullptr, this->carrotusScenarioSprites);
 
   // Load decoration
   int decorationAlpha = 160;
-  loadSpriteWithAlphaModLambda("src/client/sprites/carrotus_scenario/",
-                               "decoration", WHITE_COLOR_KEY,
-                               this->carrotusScenarioSprites, decorationAlpha);
+  loadSpriteWithAlphaModLambda(
+      "src/client/sprites/carrotus_scenario/", ScenarioSpriteCodes::Decoration,
+      spriteNamesMap.map.at(ScenarioSpriteCodes::Decoration), WHITE_COLOR_KEY,
+      this->carrotusScenarioSprites, decorationAlpha);
 
   // Load top_grass
-  loadSpriteLambda("src/client/sprites/carrotus_scenario/", "top_grass",
+  loadSpriteLambda("src/client/sprites/carrotus_scenario/",
+                   ScenarioSpriteCodes::TopGrass,
+                   spriteNamesMap.map.at(ScenarioSpriteCodes::TopGrass),
                    MAP_COLOR_KEY_RGB, this->carrotusScenarioSprites);
 
   // Load full_dirt
-  loadSpriteLambda("src/client/sprites/carrotus_scenario/", "full_dirt",
+  loadSpriteLambda("src/client/sprites/carrotus_scenario/",
+                   ScenarioSpriteCodes::FullDirt,
+                   spriteNamesMap.map.at(ScenarioSpriteCodes::FullDirt),
                    nullptr, this->carrotusScenarioSprites);
 }
 
-Sprite &TextureLoader::getJazzGenericSprite(const std::string &spriteName) {
+Sprite &TextureLoader::getJazzGenericSprite(const u_int8_t &spriteCode) {
   try {
-    return std::ref(this->jazzGenericSprites.at(spriteName));
+    return std::ref(
+        this->jazzGenericSprites.at(spriteNamesMap.map.at(spriteCode)));
   } catch (...) {
-    std::string errorMessage =
-        "Failed retrieving " + spriteName + " from jazzGenericSprites map.";
+    std::string errorMessage = "Failed retrieving " +
+                               spriteNamesMap.map.at(spriteCode) +
+                               " from jazzGenericSprites map.";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
   }
 }
 
-Sprite &TextureLoader::getJazzSpecialSprite(const std::string &spriteName) {
+Sprite &TextureLoader::getJazzSpecialSprite(const u_int8_t &spriteCode) {
   try {
-    return std::ref(this->jazzSpecial.at(spriteName));
+    return std::ref(this->jazzSpecial.at(spriteNamesMap.map.at(spriteCode)));
   } catch (...) {
-    std::string errorMessage =
-        "Failed retrieving " + spriteName + " from jazzSpecial map.";
+    std::string errorMessage = "Failed retrieving " +
+                               spriteNamesMap.map.at(spriteCode) +
+                               " from jazzSpecial map.";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
   }
 }
 
 Sprite &TextureLoader::getJazzHudIcon() { return std::ref(*this->jazzHudIcon); }
 
-Sprite &TextureLoader::getSpazGenericSprite(const std::string &spriteName) {
+Sprite &TextureLoader::getSpazGenericSprite(const u_int8_t &spriteCode) {
   try {
-    return std::ref(this->spazGenericSprites.at(spriteName));
+    return std::ref(
+        this->spazGenericSprites.at(spriteNamesMap.map.at(spriteCode)));
   } catch (...) {
-    std::string errorMessage =
-        "Failed retrieving " + spriteName + " from spazGenericSprites map.";
+    std::string errorMessage = "Failed retrieving " +
+                               spriteNamesMap.map.at(spriteCode) +
+                               " from spazGenericSprites map.";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
   }
 }
 
-Sprite &TextureLoader::getSpazSpecialSprite(const std::string &spriteName) {
+Sprite &TextureLoader::getSpazSpecialSprite(const u_int8_t &spriteCode) {
   try {
-    return std::ref(this->spazSpecial.at(spriteName));
+    return std::ref(this->spazSpecial.at(spriteNamesMap.map.at(spriteCode)));
   } catch (...) {
-    std::string errorMessage =
-        "Failed retrieving " + spriteName + " from spazSpecial map.";
+    std::string errorMessage = "Failed retrieving " +
+                               spriteNamesMap.map.at(spriteCode) +
+                               " from spazSpecial map.";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
   }
 }
 
 Sprite &TextureLoader::getSpazHudIcon() { return std::ref(*this->spazHudIcon); }
 
-Sprite &TextureLoader::getLoriGenericSprite(const std::string &spriteName) {
+Sprite &TextureLoader::getLoriGenericSprite(const u_int8_t &spriteCode) {
   try {
-    return std::ref(this->loriGenericSprites.at(spriteName));
+    return std::ref(
+        this->loriGenericSprites.at(spriteNamesMap.map.at(spriteCode)));
   } catch (...) {
-    std::string errorMessage =
-        "Failed retrieving " + spriteName + " from loriGenericSprites map.";
+    std::string errorMessage = "Failed retrieving " +
+                               spriteNamesMap.map.at(spriteCode) +
+                               " from loriGenericSprites map.";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
   }
 }
 
-Sprite &TextureLoader::getLoriSpecialSprite(const std::string &spriteName) {
+Sprite &TextureLoader::getLoriSpecialSprite(const u_int8_t &spriteCode) {
   try {
-    return std::ref(this->loriSpecial.at(spriteName));
+    return std::ref(this->loriSpecial.at(spriteNamesMap.map.at(spriteCode)));
   } catch (...) {
-    std::string errorMessage =
-        "Failed retrieving " + spriteName + " from loriSpecial map.";
+    std::string errorMessage = "Failed retrieving " +
+                               spriteNamesMap.map.at(spriteCode) +
+                               " from loriSpecial map.";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
   }
 }
 
 Sprite &TextureLoader::getLoriHudIcon() { return std::ref(*this->loriHudIcon); }
 
-Sprite &
-TextureLoader::getCarrotusScenarioSprite(const std::string &spriteName) {
+Sprite &TextureLoader::getCarrotusScenarioSprite(const u_int8_t &spriteCode) {
   try {
-    return std::ref(this->carrotusScenarioSprites.at(spriteName));
+    return std::ref(
+        this->carrotusScenarioSprites.at(spriteNamesMap.map.at(spriteCode)));
   } catch (...) {
-    std::string errorMessage = "Failed retrieving " + spriteName +
+    std::string errorMessage = "Failed retrieving " +
+                               spriteNamesMap.map.at(spriteCode) +
                                " from carrotusScenarioSprites map.";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
   }
