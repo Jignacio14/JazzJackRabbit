@@ -15,6 +15,10 @@ private:
 
 public:
   ServerMap();
+
+  int getFullMapSizeX() const;
+
+  bool available_position(Rectangle rectangle) const;
 };
 
 #endif // SERVER_MAP_H

@@ -1,7 +1,9 @@
 #ifndef BASE_PLAYER
 #define BASE_PLAYER
 
+#include "../common/rectangle.h"
 #include "../data/convention.h"
+#include "server_map.h"
 #include "states/alive.h"
 #include "states/dead.h"
 #include "states/intoxicated.h"
@@ -28,11 +30,11 @@ private:
   // cppcheck-suppress unusedStructMember
   std::unique_ptr<BaseState> state;
   // cppcheck-suppress unusedStructMember
-  int16_t position_x;
-  // cppcheck-suppress unusedStructMember
-  int16_t position_y;
+  Rectangle rectangle;
   // cppcheck-suppress unusedStructMember
   uint8_t facing_direction;
+
+  ServerMap map;
 
 public:
   BasePlayer(uint8_t player_id, const std::string &player_name);
