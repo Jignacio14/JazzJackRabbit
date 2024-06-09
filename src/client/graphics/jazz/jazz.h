@@ -45,6 +45,8 @@ public:
                                     const Coordinates &leftCorner) override;
   virtual void update(bool isWalking, bool isRunning,
                       std::string movingDirection) override;
+
+  virtual void update(Snapshot &snapshot) override;
   ~Jazz() override;
 };
 

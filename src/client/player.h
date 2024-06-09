@@ -4,11 +4,14 @@
 #include "./coordinates.h"
 #include "./graphics/graphic_engine.h"
 #include "./graphics/playable_character.h"
+#include <cstdint>
 #include <memory>
 #include <string>
 
 class Player : public Renderable {
 private:
+  // cppcheck-suppress unusedStructMember
+  PlayerDto playerInfo;
   // cppcheck-suppress unusedStructMember
   std::string username;
   // cppcheck-suppress unusedStructMember
@@ -32,6 +35,8 @@ public:
 
   virtual void update(bool isWalking, bool isRunning,
                       std::string movingDirection) override;
+
+  virtual void update(Snapshot &snapshot) override;
 
   Coordinates getCoords() const;
 
