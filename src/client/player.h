@@ -15,13 +15,13 @@ private:
   // cppcheck-suppress unusedStructMember
   std::string username;
   // cppcheck-suppress unusedStructMember
-  char characterSelected;
+  uint8_t characterSelected;
   GraphicEngine &graphicEngine;
   std::unique_ptr<PlayableCharacter> character;
   Coordinates currentCoords;
 
 public:
-  Player(const std::string &username, const char &characterSelected,
+  Player(const std::string &username, const uint8_t &characterSelected,
          GraphicEngine &graphicEngine);
 
   virtual void render(int iterationNumber) override;

@@ -22,19 +22,19 @@ std::unique_ptr<Snapshot> Client::get_current_snapshot() {
 
 void Client::move_right() {
   std::vector<uint8_t> command;
-  command.push_back(MOVE_RIGHT);
+  command.push_back(PlayerCommands::MOVE_RIGHT);
   sender_queue.try_push(command);
 }
 
 void Client::move_left() {
   std::vector<uint8_t> command;
-  command.push_back(MOVE_LEFT);
+  command.push_back(PlayerCommands::MOVE_LEFT);
   sender_queue.try_push(command);
 }
 
 void Client::jump() {
   std::vector<uint8_t> command;
-  command.push_back(JUMP);
+  command.push_back(PlayerCommands::JUMP);
   sender_queue.try_push(command);
 }
 

@@ -17,7 +17,7 @@ private:
   std::string &username;
   GameConfigs *game;
   Snapshot *initialSnapshot;
-  char &userCharacter;
+  uint8_t &userCharacter;
   std::unique_ptr<Lobby> lobby;
 
   MainWindow mainWindow;
@@ -25,7 +25,7 @@ private:
 public:
   StartupScreen(int &argc, char **argv, std::string &hostname, uint32_t &port,
                 std::string &username, GameConfigs *game,
-                Snapshot *initialSnapshot, char &userCharacter);
+                Snapshot *initialSnapshot, uint8_t &userCharacter);
   const int show();
   std::unique_ptr<Lobby> getLobby();
 };

@@ -1,5 +1,24 @@
 #include <cstdint>
 
+struct PlayerCommands {
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t MOVE_LEFT = 0;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t MOVE_RIGHT = 1;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t JUMP = 2;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t STOP_MOVING = 3;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t SHOOT = 4;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t STOP_SHOOTING = 5;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t CHANGE_WEAPON = 6;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t SPECIAL_ATTACK = 7;
+};
+
 struct PlayableCharactersIds {
   // cppcheck-suppress unusedStructMember
   static const uint8_t Jazz = 0;

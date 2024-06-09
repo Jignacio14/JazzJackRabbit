@@ -1,23 +1,20 @@
 #include "./player.h"
+#include "../data/convention.h"
 #include "./graphics/jazz/jazz.h"
-
-const static char JAZZ_SELECTED = 'J';
-const static char SPAZ_SELECTED = 'S';
-const static char LORI_SELECTED = 'L';
 
 const static int INITIAL_X_POSITION = 0;
 const static int INITIAL_Y_POSITION = 0;
 
-Player::Player(const std::string &username, const char &characterSelected,
+Player::Player(const std::string &username, const uint8_t &characterSelected,
                GraphicEngine &graphicEngine)
     : playerInfo(), username(username), characterSelected(characterSelected),
       graphicEngine(graphicEngine),
       currentCoords(INITIAL_X_POSITION, INITIAL_Y_POSITION) {
 
-  if (characterSelected == JAZZ_SELECTED) {
+  if (characterSelected == PlayableCharactersIds::Jazz) {
     this->character =
         std::make_unique<Jazz>(this->graphicEngine, currentCoords);
-  } else if (characterSelected == SPAZ_SELECTED) {
+  } else if (characterSelected == PlayableCharactersIds::Spaz) {
     // this->character = std::make_unique<Spaz>(this->graphicEngine);
   } else {
     // this->character = std::make_unique<Lori>(this->graphicEngine);

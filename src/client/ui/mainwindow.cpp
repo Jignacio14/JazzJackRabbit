@@ -11,6 +11,7 @@
 #include "../../common/game_info.h"
 #include "../../common/global_configs.h"
 #include "../../common/random_string_generator.h"
+#include "../../data/convention.h"
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
@@ -36,14 +37,9 @@ const static uint32_t MAX_NUMBER_OF_PLAYERS =
     globalConfigs.getMaxPlayersPerGame();
 const static uint32_t MAX_GAME_DURATION = globalConfigs.getMaxGameDuration();
 
-const static char CHARACTER_NOT_SELECTED = '0';
-const static char JAZZ_SELECTED = 'J';
-const static char SPAZ_SELECTED = 'S';
-const static char LORI_SELECTED = 'L';
-
 MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
                        std::string &username, GameConfigs *game,
-                       Snapshot *initialSnapshot, char &userCharacter,
+                       Snapshot *initialSnapshot, uint8_t &userCharacter,
                        std::unique_ptr<Lobby> lobby)
     : QMainWindow(parent), ui(new Ui::MainWindow), hostname(hostname),
       port(port), username(username), finalGameConfigs(game),
@@ -227,7 +223,7 @@ void MainWindow::on_chooseCharacterButton_released() {
 
 void MainWindow::on_selectJazzButton_released() {
   this->buttonClickSound.play();
-  this->characterSelected = JAZZ_SELECTED;
+  this->characterSelected = PlayableCharactersIds::Jazz;
   this->jazzAnimation.start();
   QTimer::singleShot(TIME_FOR_CHARACTER_ANIMATION_WAIT, this,
                      SLOT(startGame()));
@@ -235,7 +231,7 @@ void MainWindow::on_selectJazzButton_released() {
 
 void MainWindow::on_selectSpazButton_released() {
   this->buttonClickSound.play();
-  this->characterSelected = SPAZ_SELECTED;
+  this->characterSelected = PlayableCharactersIds::Spaz;
   this->spazAnimation.start();
   QTimer::singleShot(TIME_FOR_CHARACTER_ANIMATION_WAIT, this,
                      SLOT(startGame()));
@@ -243,7 +239,7 @@ void MainWindow::on_selectSpazButton_released() {
 
 void MainWindow::on_selectLoriButton_released() {
   this->buttonClickSound.play();
-  this->characterSelected = LORI_SELECTED;
+  this->characterSelected = PlayableCharactersIds::Lori;
   this->loriAnimation.start();
   QTimer::singleShot(TIME_FOR_CHARACTER_ANIMATION_WAIT, this,
                      SLOT(startGame()));

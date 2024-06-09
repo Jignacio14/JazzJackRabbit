@@ -8,7 +8,7 @@ const static char CHARACTER_NOT_SELECTED = '0';
 StartupScreen::StartupScreen(int &argc, char **argv, std::string &hostname,
                              uint32_t &port, std::string &username,
                              GameConfigs *game, Snapshot *initialSnapshot,
-                             char &userCharacter)
+                             uint8_t &userCharacter)
     : app(argc, argv), hostname(hostname), port(port), username(username),
       game(game), initialSnapshot(initialSnapshot),
       userCharacter(userCharacter), lobby(nullptr),

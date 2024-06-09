@@ -2,8 +2,8 @@
 #ifndef JAZZJACKRABBIT_CLIENT_H
 #define JAZZJACKRABBIT_CLIENT_H
 
-#include "../common/player_commands.h"
 #include "../common/queue.h"
+#include "../data/convention.h"
 #include "../data/snapshot_dto.h"
 #include "client_protocol.h"
 #include "client_receiver.h"
