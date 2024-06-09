@@ -62,6 +62,7 @@ void Renderer::processKeyboardEvents() {
         break;
 
       case SDLK_UP:
+        this->client.jump();
         this->player.update(true, false, "up");
         break;
 
@@ -80,16 +81,34 @@ void Renderer::processKeyboardEvents() {
         break;
 
       case SDLK_SPACE:
-        this->client.jump();
+        this->client.shoot();
+        break;
+
+      case SDLK_LSHIFT:
+        this->client.run();
+        break;
+
+      case SDLK_LCTRL:
+        this->client.special_attack();
+        break;
+
+      case SDLK_1:
+        this->client.change_weapon(1);
+        break;
+
+      case SDLK_2:
+        this->client.change_weapon(2);
         break;
       }
     } else if (event.type == SDL_KEYUP) {
       switch (event.key.keysym.sym) {
       case SDLK_LEFT:
+        this->client.stop_moving();
         this->player.update(false, false, "left");
         break;
 
       case SDLK_RIGHT:
+        this->client.stop_moving();
         this->player.update(false, false, "right");
         break;
 
@@ -99,6 +118,10 @@ void Renderer::processKeyboardEvents() {
 
       case SDLK_DOWN:
         this->player.update(false, false, "down");
+        break;
+
+      case SDLK_LSHIFT:
+        this->client.stop_running();
         break;
       }
     }

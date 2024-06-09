@@ -5,10 +5,11 @@
 enum player_commands {
   MOVE_LEFT,
   MOVE_RIGHT,
-  JUMP,
   STOP_MOVING,
+  JUMP,
   SHOOT,
-  STOP_SHOOTING,
+  RUN,
+  STOP_RUNNING,
   CHANGE_WEAPON,
   SPECIAL_ATTACK,
 };

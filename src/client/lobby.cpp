@@ -1,6 +1,7 @@
 
 #include "lobby.h"
 #include <cstdint>
+#include <functional>
 #include <sys/socket.h>
 
 Lobby::Lobby(const char *hostname, const char *port)

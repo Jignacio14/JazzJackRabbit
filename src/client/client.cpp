@@ -32,9 +32,46 @@ void Client::move_left() {
   sender_queue.try_push(command);
 }
 
+void Client::stop_moving() {
+  std::vector<uint8_t> command;
+  command.push_back(STOP_MOVING);
+  sender_queue.try_push(command);
+}
+
 void Client::jump() {
   std::vector<uint8_t> command;
   command.push_back(JUMP);
+  sender_queue.try_push(command);
+}
+
+void Client::shoot() {
+  std::vector<uint8_t> command;
+  command.push_back(SHOOT);
+  sender_queue.try_push(command);
+}
+
+void Client::run() {
+  std::vector<uint8_t> command;
+  command.push_back(RUN);
+  sender_queue.try_push(command);
+}
+
+void Client::stop_running() {
+  std::vector<uint8_t> command;
+  command.push_back(STOP_RUNNING);
+  sender_queue.try_push(command);
+}
+
+void Client::special_attack() {
+  std::vector<uint8_t> command;
+  command.push_back(SPECIAL_ATTACK);
+  sender_queue.try_push(command);
+}
+
+void Client::change_weapon(uint8_t weapon_number) {
+  std::vector<uint8_t> command;
+  command.push_back(CHANGE_WEAPON);
+  command.push_back(weapon_number);
   sender_queue.try_push(command);
 }
 
