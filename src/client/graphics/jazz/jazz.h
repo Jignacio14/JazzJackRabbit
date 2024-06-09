@@ -12,17 +12,16 @@
 #include <string>
 #include <vector>
 
+#include "../animation_state.h"
+
 class Jazz : public PlayableCharacter {
 private:
   // cppcheck-suppress unusedStructMember
   const uint8_t entityId;
-  GraphicEngine &graphicEngine;
-  // cppcheck-suppress unusedStructMember
-  Sprite *currentState;
-  // std::unique_ptr<AnimationState> currentAnimation;
+    GraphicEngine &graphicEngine;
 
-  // cppcheck-suppress unusedStructMember
-  int currentFrame;
+  std::unique_ptr<AnimationState> currentAnimation;
+
   Coordinates currentCoords;
   // cppcheck-suppress unusedStructMember
   bool isWalkingLeft;

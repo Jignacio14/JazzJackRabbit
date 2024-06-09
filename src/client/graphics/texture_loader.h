@@ -5,34 +5,35 @@
 #include <SDL2pp/SDL2pp.hh>
 #include <memory>
 #include <string>
+#include <cstdint>
 #include <unordered_map>
 
 class TextureLoader {
 private:
   SDL2pp::Renderer &sdlRenderer;
   // cppcheck-suppress unusedStructMember
-  std::unordered_map<std::string, Sprite> jazzGenericSprites;
+  std::unordered_map<uint8_t, Sprite> jazzGenericSprites;
   // cppcheck-suppress unusedStructMember
-  std::unordered_map<std::string, Sprite> jazzSpecial;
+  std::unordered_map<uint8_t, Sprite> jazzSpecial;
   // cppcheck-suppress unusedStructMember
   std::unique_ptr<Sprite> jazzHudIcon;
 
   // cppcheck-suppress unusedStructMember
-  std::unordered_map<std::string, Sprite> spazGenericSprites;
+  std::unordered_map<uint8_t, Sprite> spazGenericSprites;
   // cppcheck-suppress unusedStructMember
-  std::unordered_map<std::string, Sprite> spazSpecial;
+  std::unordered_map<uint8_t, Sprite> spazSpecial;
   // cppcheck-suppress unusedStructMember
   std::unique_ptr<Sprite> spazHudIcon;
 
   // cppcheck-suppress unusedStructMember
-  std::unordered_map<std::string, Sprite> loriGenericSprites;
+  std::unordered_map<uint8_t, Sprite> loriGenericSprites;
   // cppcheck-suppress unusedStructMember
-  std::unordered_map<std::string, Sprite> loriSpecial;
+  std::unordered_map<uint8_t, Sprite> loriSpecial;
   // cppcheck-suppress unusedStructMember
   std::unique_ptr<Sprite> loriHudIcon;
 
   // cppcheck-suppress unusedStructMember
-  std::unordered_map<std::string, Sprite> carrotusScenarioSprites;
+  std::unordered_map<uint8_t, Sprite> carrotusScenarioSprites;
 
 public:
   explicit TextureLoader(SDL2pp::Renderer &sdlRenderer);

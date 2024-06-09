@@ -3,6 +3,8 @@
 #include "../../../data/convention.h"
 #include <unordered_map>
 
+#include "./states/jazz_idle.h"
+
 static const std::string INITIAL_STATE = "idle1";
 
 static const std::unordered_map<std::string, int> MOVING_DIRECTIONS = {
@@ -11,10 +13,9 @@ static const std::unordered_map<std::string, int> MOVING_DIRECTIONS = {
 Jazz::Jazz(GraphicEngine &graphicEngine, Coordinates &currentCoords,
            const uint8_t &entityId, SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentState(&this->graphicEngine.getJazzGenericSprite(INITIAL_STATE)),
-      currentFrame(0), currentCoords(currentCoords), isWalkingLeft(false),
-      isWalkingRight(false), isWalkingUp(false), isWalkingDown(false),
-      isRunning(false), entityInfo() {
+      currentAnimation(std::make_unique<JazzIdle>(this->graphicEngine)),
+      currentCoords(currentCoords), isWalkingLeft(false), isWalkingRight(false),
+      isWalkingUp(false), isWalkingDown(false), isRunning(false), entityInfo() {
 
   bool foundEntity = snapshot.getPlayerById(this->entityId, &this->entityInfo);
   if (!foundEntity) {
@@ -47,7 +48,7 @@ void Jazz::debugUpdateLocation(int iterationNumber) {
 }
 
 void Jazz::render(int iterationNumber) {
-  this->currentFrame = iterationNumber % this->currentState->maxAnimationFrames;
+  /*this->currentFrame = iterationNumber % this->currentState->maxAnimationFrames;
   this->debugUpdateLocation(iterationNumber);
 
   // Pick sprite from running animantion sequence
@@ -64,33 +65,16 @@ void Jazz::render(int iterationNumber) {
       this->currentState->texture,
       SDL2pp::Rect(spriteX, spriteY, spriteWidth, spriteHeight),
       SDL2pp::Rect(positionX, positionY - spriteHeight, spriteWidth,
-                   spriteHeight));
+                   spriteHeight));*/
 }
 
 void Jazz::render(int iterationNumber, Coordinates &coords) {
-  this->currentFrame = iterationNumber % this->currentState->maxAnimationFrames;
-  this->debugUpdateLocation(iterationNumber);
-
-  // Pick sprite from running animantion sequence
-  int spriteX = this->currentState->spriteCoords[this->currentFrame].getX();
-  int spriteY = this->currentState->spriteCoords[this->currentFrame].getY();
-  int spriteWidth = this->currentState->width[this->currentFrame];
-  int spriteHeight = this->currentState->height[this->currentFrame];
-
-  int positionX = coords.getX();
-  int positionY = coords.getY();
-
-  // Draw player sprite
-  this->currentState->sdlRenderer.Copy(
-      this->currentState->texture,
-      SDL2pp::Rect(spriteX, spriteY, spriteWidth, spriteHeight),
-      SDL2pp::Rect(positionX, positionY - spriteHeight, spriteWidth,
-                   spriteHeight));
+  this->currentAnimation->render(iterationNumber, coords);
 }
 
 void Jazz::update(bool isWalking, bool isRunning, std::string movingDirection) {
 
-  bool wasWalking = this->isWalkingLeft || this->isWalkingRight ||
+  /*bool wasWalking = this->isWalkingLeft || this->isWalkingRight ||
                     this->isWalkingUp || this->isWalkingDown;
 
   this->isRunning = isRunning;
@@ -115,7 +99,7 @@ void Jazz::update(bool isWalking, bool isRunning, std::string movingDirection) {
     this->currentState = &this->graphicEngine.getJazzGenericSprite("idle1");
   } else if (!wasWalking && isNowWalking) {
     this->currentState = &this->graphicEngine.getJazzGenericSprite("walking");
-  }
+  }*/
 }
 
 void Jazz::updateByCoordsDelta(int deltaX, int deltaY) {
@@ -125,24 +109,8 @@ void Jazz::updateByCoordsDelta(int deltaX, int deltaY) {
 
 void Jazz::renderFromLeftCorner(int iterationNumber,
                                 const Coordinates &leftCorner) {
-
-  this->currentFrame = iterationNumber % this->currentState->maxAnimationFrames;
-
-  // Pick sprite from running animantion sequence
-  int spriteX = this->currentState->spriteCoords[this->currentFrame].getX();
-  int spriteY = this->currentState->spriteCoords[this->currentFrame].getY();
-  int spriteWidth = this->currentState->width[this->currentFrame];
-  int spriteHeight = this->currentState->height[this->currentFrame];
-
-  int positionX = this->currentCoords.getX() - leftCorner.getX();
-  int positionY = this->currentCoords.getY() - leftCorner.getY();
-
-  // Draw player sprite
-  this->currentState->sdlRenderer.Copy(
-      this->currentState->texture,
-      SDL2pp::Rect(spriteX, spriteY, spriteWidth, spriteHeight),
-      SDL2pp::Rect(positionX, positionY - spriteHeight, spriteWidth,
-                   spriteHeight));
+  this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
+                                               this->currentCoords);
 }
 
 Coordinates Jazz::getCoords() { return this->currentCoords; }
