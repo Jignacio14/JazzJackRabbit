@@ -13,3 +13,9 @@ target_fps: 60
 # Client exclusive debug values
 debug_hostname: "localhost"
 debug_port: 1002
+
+# Player Parameters
+starting_points: 0
+max_life: 100
+starting_ammo: 20
+
