@@ -3,8 +3,8 @@
 #define JAZZJACKRABBIT_CLIENT_RECEIVER_H
 
 #include "../common/queue.h"
-#include "../common/snapshot_DTO.h"
 #include "../common/thread.h"
+#include "../data/snapshot_dto.h"
 #include "client_protocol.h"
 #include <atomic>
 #include <iostream>

@@ -1,7 +1,7 @@
 #ifndef STARTUP_SCREEN_H
 #define STARTUP_SCREEN_H
 
-#include "../../common/snapshot_DTO.h"
+#include "../../data/snapshot_dto.h"
 #include "../lobby.h"
 #include "mainwindow.h"
 #include <QApplication>

@@ -14,8 +14,10 @@ Game::Game(GameMonitor &monitor, Queue<std::pair<uint8_t, uint8_t>> &queue)
 void Game::gameLoop() {
   while (this->_is_alive) {
     /// Empiezo a calcular la diferencia de tiempo para hacer el sleep
-    Snapshot snapshot = Snapshot();
+    Snapshot snapshot;
+
     this->executeAction(1, 1);
+    // cppcheck-suppress uninitvar
     this->monitor.broadcast(snapshot);
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }

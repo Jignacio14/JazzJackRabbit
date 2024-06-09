@@ -3,8 +3,8 @@
 
 #include "../common/player_status_DTO.h"
 #include "../common/queue.h"
-#include "../common/snapshot_DTO.h"
 #include "../data/player_info_dto.h"
+#include "../data/snapshot_dto.h"
 #include <cstdint>
 #include <functional>
 #include <list>

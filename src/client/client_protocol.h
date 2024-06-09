@@ -4,8 +4,8 @@
 
 #include "../common/player_status_DTO.h"
 #include "../common/queue.h"
-#include "../common/snapshot_DTO.h"
 #include "../common/socket.h"
+#include "../data/snapshot_dto.h"
 #include <atomic>
 
 class ClientProtocol {

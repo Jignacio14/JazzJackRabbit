@@ -2,7 +2,7 @@
 #ifndef JAZZJACKRABBIT_CONSTANTRATELOOP_H
 #define JAZZJACKRABBIT_CONSTANTRATELOOP_H
 
-#include "../common/snapshot_DTO.h"
+#include "../data/snapshot_dto.h"
 #include "./debug/debug_panel.h"
 #include "./graphics/graphic_engine.h"
 #include "./graphics/hud/hud.h"

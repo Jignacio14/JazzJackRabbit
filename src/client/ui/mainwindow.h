@@ -12,7 +12,7 @@
 #include <string>
 #include <thread>
 
-#include "../../common/snapshot_DTO.h"
+#include "../../data/snapshot_dto.h"
 #include "../game_configs.h"
 #include "../lobby.h"
 

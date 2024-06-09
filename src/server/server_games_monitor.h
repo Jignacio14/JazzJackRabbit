@@ -2,8 +2,8 @@
 #define GAMES_MONITOR
 
 #include "../common/queue.h"
-#include "../common/snapshot_DTO.h"
 #include "../data/player_info_dto.h"
+#include "../data/snapshot_dto.h"
 #include "./server_game_wrapper.h"
 #include <cstdint>
 #include <mutex>

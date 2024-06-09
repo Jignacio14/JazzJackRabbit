@@ -2,8 +2,8 @@
 #define RECEIVER
 
 #include "../common/queue.h"
-#include "../common/snapshot_DTO.h"
 #include "../common/thread.h"
+#include "../data/snapshot_dto.h"
 #include "./server_protocol.h"
 #include <sys/types.h>
 #include <utility>

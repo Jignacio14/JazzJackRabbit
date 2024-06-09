@@ -4,7 +4,7 @@
 
 #include "../common/player_commands.h"
 #include "../common/queue.h"
-#include "../common/snapshot_DTO.h"
+#include "../data/snapshot_dto.h"
 #include "client_protocol.h"
 #include "client_receiver.h"
 #include "client_sender.h"

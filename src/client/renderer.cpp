@@ -117,8 +117,8 @@ void Renderer::runMainActions(int iterationNumber) {
                            : std::make_unique<Snapshot>(initialSnapshot);
 
   if (snapshot != nullptr) {
-    if (snapshot->enemies_alive) {
-    } // This is just for the compiler, to use the var
+    /*if (snapshot->enemies_alive) {
+    }*/ // This is just for the compiler, to use the var
 
     /*for (auto &renderable : this->renderables) {
       renderable->update(snapshot);
