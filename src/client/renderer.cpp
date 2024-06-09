@@ -140,12 +140,12 @@ void Renderer::runMainActions(int iterationNumber) {
                            : std::make_unique<Snapshot>(initialSnapshot);
 
   if (snapshot != nullptr) {
-    /*if (snapshot->enemies_alive) {
-    }*/ // This is just for the compiler, to use the var
 
-    /*for (auto &renderable : this->renderables) {
-      renderable->update(snapshot);
-    }*/
+    this->player.update(std::ref(*snapshot));
+
+    for (auto &renderable : this->renderables) {
+      renderable->update(std::ref(*snapshot));
+    }
   }
 
   const Coordinates &leftCorner = this->map.getLeftCorner();

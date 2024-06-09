@@ -11,6 +11,9 @@ public:
   virtual void render(int iterationNumber, Coordinates &coords) override = 0;
   virtual void renderFromLeftCorner(int iterationNumber,
                                     const Coordinates &leftCorner) override = 0;
+  virtual void update(bool isWalking, bool isRunning,
+                      std::string movingDirection) override = 0;
+  virtual void update(Snapshot &snapshot) override = 0;
 };
 
 #endif // PLAYABLE_CHARACTER_H

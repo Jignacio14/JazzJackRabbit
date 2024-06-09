@@ -133,4 +133,6 @@ void Jazz::renderFromLeftCorner(int iterationNumber,
                    spriteHeight));
 }
 
+void Jazz::update(Snapshot &snapshot) {}
+
 Jazz::~Jazz() {}

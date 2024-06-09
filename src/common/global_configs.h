@@ -28,6 +28,12 @@ private:
   std::string debugHostname;
   // cppcheck-suppress unusedStructMember
   uint32_t debugPort;
+  // cppcheck-suppress unusedStructMember
+  uint32_t playerStartingPoints;
+  // cppcheck-suppress unusedStructMember
+  uint32_t playerMaxLife;
+  // cppcheck-suppress unusedStructMember
+  uint32_t playerStartingAmmo;
 
   GlobalConfigs();
 
@@ -61,6 +67,9 @@ public:
   double getTargetFps() const;
   std::string getDebugHostname() const;
   uint32_t getDebugPort() const;
+  uint32_t getPlayerStartingPoints() const;
+  uint32_t getPlayerMaxLife() const;
+  uint32_t getPlayerStartingAmmo() const;
 };
 
 #endif // GLOBAL_CONFIGS_H

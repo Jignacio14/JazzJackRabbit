@@ -10,7 +10,7 @@ const static int INITIAL_Y_POSITION = 0;
 
 Player::Player(const std::string &username, const char &characterSelected,
                GraphicEngine &graphicEngine)
-    : username(username), characterSelected(characterSelected),
+    : playerInfo(), username(username), characterSelected(characterSelected),
       graphicEngine(graphicEngine),
       currentCoords(INITIAL_X_POSITION, INITIAL_Y_POSITION) {
 
@@ -45,5 +45,7 @@ void Player::update(bool isWalking, bool isRunning,
 };
 
 Coordinates Player::getCoords() const { return this->currentCoords; }
+
+void Player::update(Snapshot &snapshot) {}
 
 Player::~Player() {}

@@ -1,6 +1,7 @@
 #ifndef RENDERABLE_H
 #define RENDERABLE_H
 
+#include "../data/snapshot_dto.h"
 #include "./coordinates.h"
 #include <string>
 
@@ -31,7 +32,7 @@ public:
   virtual void update(bool isWalking, bool isRunning,
                       std::string movingDirection){};
 
-  // virtual void setRate(double rate) = 0;
+  virtual void update(Snapshot &snapshot){};
 
   virtual ~Renderable(){};
 };
