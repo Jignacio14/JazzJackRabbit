@@ -24,8 +24,8 @@ Player::Player(const std::string &username, const uint8_t &characterSelected,
   Coordinates coords(this->playerInfo.position_x, this->playerInfo.position_y);
 
   if (characterSelected == PlayableCharactersIds::Jazz) {
-    this->character =
-        std::make_unique<Jazz>(this->graphicEngine, coords, this->playerId);
+    this->character = std::make_unique<Jazz>(this->graphicEngine, coords,
+                                             this->playerId, initialSnapshot);
   } else if (characterSelected == PlayableCharactersIds::Spaz) {
     // this->character = std::make_unique<Spaz>(this->graphicEngine);
   } else {

@@ -78,6 +78,6 @@ std::unique_ptr<Snapshot> SnapshotWrapper::transferSnapshotDto() {
   return std::move(this->snapshot);
 }
 
-const Snapshot &const SnapshotWrapper::getSnapshotReference() const {
-  return *this->snapshot;
+Snapshot &SnapshotWrapper::getSnapshotReference() {
+  return std::ref(*this->snapshot);
 }

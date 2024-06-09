@@ -44,7 +44,7 @@ public:
 
   std::unique_ptr<Snapshot> transferSnapshotDto();
 
-  const Snapshot &const getSnapshotReference() const;
+  Snapshot &getSnapshotReference();
 };
 
 #endif // SNAPSHOT_WRAPPER_H
