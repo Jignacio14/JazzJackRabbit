@@ -21,8 +21,6 @@ struct PlayerDto {
   uint16_t points;
   uint8_t life;
   uint8_t current_gun; // 1: gun_1, 2: gun_2
-  uint8_t has_gun_1;   // 0, 1
-  uint8_t has_gun_2;   // 0, 1
   uint8_t ammo_gun_1;
   uint8_t ammo_gun_2;
   uint8_t type;             // 0,1,2 - Jazz, Spazz, Lori
