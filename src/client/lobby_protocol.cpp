@@ -19,13 +19,16 @@ GameInfoDto LobbyProtocol::receive_game() {
                          &was_closed);
     this->skt_was_closed();
     return single_game_info;
-  } catch (const std::exception &err) {
+  } catch (const LibError &skt_err) {
     std::cout << "Some error ocurred while trying to receive a message from "
                  "the server."
               << std::endl;
-    throw std::runtime_error(
-        "Some error ocurred while trying to receive a message from "
-        "the server.");
+    throw LibError(errno,
+                   "Some error ocurred while trying to receive a message from "
+                   "the server.");
+    // throw std::runtime_error(
+    //     "Some error ocurred while trying to receive a message from "
+    //     "the server.");
   }
 }
 
@@ -35,7 +38,7 @@ uint8_t LobbyProtocol::receive_player_id() {
     skt.recvall_bytewise(&player_id, sizeof(uint8_t), &was_closed);
     this->skt_was_closed();
     return player_id;
-  } catch (const std::exception &err) {
+  } catch (const LibError &skt_err) {
     std::cout << "Some error ocurred while trying to receive a message from "
                  "the server."
               << std::endl;
@@ -80,7 +83,7 @@ LobbyProtocol::send_selected_game(const std::vector<char> &gamenameToSend,
     skt.sendall_bytewise(&player_info, sizeof(player_info), &was_closed);
     this->skt_was_closed();
     return this->receive_player_id();
-  } catch (const std::exception &err) {
+  } catch (const LibError &skt_err) {
     std::cout
         << "Some error ocurred while trying to send a message to the server."
         << std::endl;
@@ -93,7 +96,7 @@ void LobbyProtocol::send_refresh() {
     uint8_t refresh = REFRESH;
     skt.sendall_bytewise(&refresh, sizeof(uint8_t), &was_closed);
     this->skt_was_closed();
-  } catch (const std::exception &err) {
+  } catch (const LibError &skt_err) {
     std::cout
         << "Some error ocurred while trying to send a message to the server."
         << std::endl;
@@ -106,16 +109,21 @@ Snapshot LobbyProtocol::wait_game_start() {
     skt.recvall_bytewise(&first_snap, sizeof(Snapshot), &was_closed);
     this->skt_was_closed();
     return first_snap;
-  } catch (const std::exception &err) {
-    throw std::runtime_error(
-        "Some error ocurred while trying to receive a message from "
-        "the server.");
+  } catch (const LibError &skt_err) {
+    throw LibError(errno,
+                   "Some error ocurred while trying to receive a message from "
+                   "the server.");
+    // throw std::runtime_error(
+    //     "Some error ocurred while trying to receive a message from "
+    //     "the server.");
   }
 }
 
 void LobbyProtocol::skt_was_closed() {
   if (was_closed) {
-    throw std::runtime_error(
-        "The socket was closed and the communication failed.");
+    throw LibError(errno,
+                   "The socket was closed and the communication failed.");
+    // throw std::runtime_error(
+    //     "The socket was closed and the communication failed.");
   }
 }

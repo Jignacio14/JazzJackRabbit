@@ -3,6 +3,7 @@
 #define JAZZJACKRABBIT_LOBBY_PROTOCOL_H
 
 #include "../common/game_info.h"
+#include "../common/liberror.h"
 #include "../common/socket.h"
 #include "../data/player_info_dto.h"
 #include "../data/snapshot_dto.h"

@@ -10,7 +10,6 @@ struct CommandCodeDto {
   uint8_t code;
   // cppcheck-suppress unusedStructMember
   uint8_t data;
-};
-__attribute__((packed));
+} __attribute__((packed));
 
 #endif
