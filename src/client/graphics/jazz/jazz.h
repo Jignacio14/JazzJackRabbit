@@ -48,6 +48,7 @@ private:
 public:
   Jazz(GraphicEngine &graphicEngine, Coordinates &currentCoords,
        const uint8_t &entityId, SnapshotWrapper &snapshot);
+
   virtual void render(int iterationNumber) override;
   virtual void render(int iterationNumber, Coordinates &coords) override;
   virtual void updateByCoordsDelta(int deltaX, int deltaY) override;

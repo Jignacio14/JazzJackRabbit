@@ -138,11 +138,11 @@ void Renderer::updateGame(int iterationNumber) {
   this->createNewRenderables();
 }
 
-void Renderer::createNewPlayableCharacters(const Snapshot &const snapshot) {
+void Renderer::createNewPlayableCharacters(const Snapshot &snapshot) {
   for (int i = 0; i < snapshot.sizePlayers; i++) {
     bool exists =
         std::any_of(this->renderables.begin(), this->renderables.end(),
-                    [snapshot](const auto &renderable) {
+                    [snapshot, i](const auto &renderable) {
                       return snapshot.players[i].user_id == renderable->getId();
                     });
 
@@ -152,12 +152,13 @@ void Renderer::createNewPlayableCharacters(const Snapshot &const snapshot) {
 
     Coordinates coords(snapshot.players[i].position_x,
                        snapshot.players[i].position_y);
+    SnapshotWrapper &storedSnapshotWrapper = std::ref(*this->latestSnapshot);
 
     switch (snapshot.players[i].type) {
     case PlayableCharactersIds::Jazz:
       this->addRenderable(std::make_unique<Jazz>(this->graphicEngine, coords,
                                                  snapshot.players[i].user_id,
-                                                 *this->latestSnapshot));
+                                                 storedSnapshotWrapper));
       break;
     case PlayableCharactersIds::Spaz:
       /*this->addRenderable(std::make_unique<Spaz>(this->graphicEngine, coords,
@@ -173,13 +174,13 @@ void Renderer::createNewPlayableCharacters(const Snapshot &const snapshot) {
   }
 }
 
-void Renderer::createNewEnemies(const Snapshot &const snapshot) {
+void Renderer::createNewEnemies(const Snapshot &snapshot) {
   for (int i = 0; i < snapshot.sizeEnemies; i++) {
-    bool exists =
-        std::any_of(this->renderables.begin(), this->renderables.end(),
-                    [snapshot](const auto &renderable) {
-                      return snapshot.enemies[i].user_id == renderable->getId();
-                    });
+    bool exists = std::any_of(
+        this->renderables.begin(), this->renderables.end(),
+        [snapshot, i](const auto &renderable) {
+          return snapshot.enemies[i].entity_id == renderable->getId();
+        });
 
     if (exists) {
       continue;
@@ -202,12 +203,12 @@ void Renderer::createNewEnemies(const Snapshot &const snapshot) {
   }
 }
 
-void Renderer::createNewCollectables(const Snapshot &const snapshot) {
+void Renderer::createNewCollectables(const Snapshot &snapshot) {
   for (int i = 0; i < snapshot.sizeCollectables; i++) {
     bool exists = std::any_of(
         this->renderables.begin(), this->renderables.end(),
-        [snapshot](const auto &renderable) {
-          return snapshot.collectables[i].user_id == renderable->getId();
+        [snapshot, i](const auto &renderable) {
+          return snapshot.collectables[i].entity_id == renderable->getId();
         });
 
     if (exists) {
@@ -237,13 +238,13 @@ void Renderer::createNewCollectables(const Snapshot &const snapshot) {
   }
 }
 
-void Renderer::createNewBullets(const Snapshot &const snapshot) {
+void Renderer::createNewBullets(const Snapshot &snapshot) {
   for (int i = 0; i < snapshot.sizeBullets; i++) {
-    bool exists =
-        std::any_of(this->renderables.begin(), this->renderables.end(),
-                    [snapshot](const auto &renderable) {
-                      return snapshot.bullets[i].user_id == renderable->getId();
-                    });
+    bool exists = std::any_of(
+        this->renderables.begin(), this->renderables.end(),
+        [snapshot, i](const auto &renderable) {
+          return snapshot.bullets[i].entity_id == renderable->getId();
+        });
 
     if (exists) {
       continue;
@@ -264,7 +265,7 @@ void Renderer::createNewBullets(const Snapshot &const snapshot) {
 }
 
 void Renderer::createNewRenderables() {
-  const Snapshot &const snapshot = this->latestSnapshot->getSnapshotReference();
+  const Snapshot &snapshot = this->latestSnapshot->getSnapshotReference();
   this->createNewPlayableCharacters(snapshot);
   this->createNewEnemies(snapshot);
   this->createNewCollectables(snapshot);

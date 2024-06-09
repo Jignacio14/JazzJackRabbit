@@ -18,11 +18,11 @@ private:
   // cppcheck-suppress unusedStructMember
   std::unordered_map<std::string, GameWrapper *> game_tracker;
 
-  std::pair<Queue<std::pair<u_int8_t, u_int8_t>> &, u_int8_t>
+  std::pair<Queue<CommandCodeDto> &, u_int8_t>
   registerToExistingGame(PlayerInfo &player_status,
                          Queue<Snapshot> &sender_queue);
 
-  std::pair<Queue<std::pair<u_int8_t, u_int8_t>> &, u_int8_t>
+  std::pair<Queue<CommandCodeDto> &, u_int8_t>
   createNewGame(PlayerInfo &player_status, Queue<Snapshot> &sender_queue);
 
   std::string getGameName(PlayerInfo &player_status);
@@ -31,7 +31,7 @@ public:
   explicit GamesMonitor();
 
   std::unordered_map<std::string, uint16_t> getGamesStartInfo();
-  std::pair<Queue<std::pair<u_int8_t, u_int8_t>> &, u_int8_t>
+  std::pair<Queue<CommandCodeDto> &, u_int8_t>
   registerPlayer(PlayerInfo &player_status, Queue<Snapshot> &sender_queue);
 
   ~GamesMonitor();

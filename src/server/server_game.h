@@ -2,6 +2,7 @@
 #define GAME
 
 #include "../common/thread.h"
+#include "../data/command_code_dto.h"
 #include "../engine/base_player.h"
 #include "../engine/jazz.h"
 #include "../engine/lori.h"
@@ -17,7 +18,7 @@
 class Game : public Thread {
 private:
   GameMonitor &monitor;
-  Queue<std::pair<uint8_t, uint8_t>> &messages;
+  Queue<CommandCodeDto> &messages;
   std::atomic_int32_t players;
   // cppcheck-suppress unusedStructMember
   std::unordered_map<uint8_t, BasePlayer *> players_data;
@@ -28,8 +29,7 @@ private:
   BasePlayer *constructPlayer(uint8_t player_id, std::string &player_name);
 
 public:
-  explicit Game(GameMonitor &monitor,
-                Queue<std::pair<uint8_t, uint8_t>> &messages);
+  explicit Game(GameMonitor &monitor, Queue<CommandCodeDto> &messages);
   void kill();
   void run() override;
   void addPlayer(const PlayerInfo &player_info);

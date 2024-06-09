@@ -54,10 +54,10 @@ private:
 
   void createNewRenderables();
 
-  void createNewPlayableCharacters(const Snapshot &const snapshot);
-  void createNewEnemies(const Snapshot &const snapshot);
-  void createNewCollectables(const Snapshot &const snapshot);
-  void createNewBullets(const Snapshot &const snapshot);
+  void createNewPlayableCharacters(const Snapshot &snapshot);
+  void createNewEnemies(const Snapshot &snapshot);
+  void createNewCollectables(const Snapshot &snapshot);
+  void createNewBullets(const Snapshot &snapshot);
 
 public:
   Renderer(GraphicEngine &graphicEngine, int id, Socket socket, Player &player,

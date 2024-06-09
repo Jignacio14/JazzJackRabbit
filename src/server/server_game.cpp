@@ -2,13 +2,12 @@
 #include <cstdint>
 #include <iostream>
 #include <thread>
-#include <utility>
 
 #define JAZZ_CODE "J"
 #define LORI_CODE "L"
 #define SPAZ_CODE "S"
 
-Game::Game(GameMonitor &monitor, Queue<std::pair<uint8_t, uint8_t>> &queue)
+Game::Game(GameMonitor &monitor, Queue<CommandCodeDto> &queue)
     : monitor(monitor), messages(queue), players(0) {}
 
 void Game::gameLoop() {
