@@ -14,8 +14,6 @@
 #include <string>
 
 #define MAX_HEALTH 100
-#define INITIAL_POS_X 0
-#define INITIAL_POS_Y 0
 
 class BasePlayer {
 private:
@@ -46,12 +44,11 @@ public:
 
   void receive_damage(uint8_t damage);
   void change_state(std::unique_ptr<BaseState> new_state);
+  void get_intoxicated();
+  void heal(uint8_t health_gain);
 
   void move_right();
   void move_left();
-
-  void get_intoxicated();
-  void heal(uint8_t health_gain);
 
   ~BasePlayer();
 };
