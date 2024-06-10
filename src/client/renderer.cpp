@@ -9,6 +9,8 @@
 #include "../common/global_configs.h"
 
 #include "./graphics/jazz/jazz.h"
+#include "./graphics/lori/lori.h"
+#include "./graphics/spaz/spaz.h"
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
@@ -161,14 +163,14 @@ void Renderer::createNewPlayableCharacters(const Snapshot &snapshot) {
                                                  storedSnapshotWrapper));
       break;
     case PlayableCharactersIds::Spaz:
-      /*this->addRenderable(std::make_unique<Spaz>(this->graphicEngine, coords,
+      this->addRenderable(std::make_unique<Spaz>(this->graphicEngine, coords,
                                                  snapshot.players[i].user_id,
-                                                 *this->latestSnapshot));*/
+                                                 *this->latestSnapshot));
       break;
     case PlayableCharactersIds::Lori:
-      /*this->addRenderable(std::make_unique<Lori>(this->graphicEngine, coords,
+      this->addRenderable(std::make_unique<Lori>(this->graphicEngine, coords,
                                                  snapshot.players[i].user_id,
-                                                 *this->latestSnapshot));*/
+                                                 *this->latestSnapshot));
       break;
     }
   }

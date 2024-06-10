@@ -2,6 +2,8 @@
 #include "../common/jjr2_error.h"
 #include "../data/convention.h"
 #include "./graphics/jazz/jazz.h"
+#include "./graphics/lori/lori.h"
+#include "./graphics/spaz/spaz.h"
 
 const static int INITIAL_X_POSITION = 0;
 const static int INITIAL_Y_POSITION = 0;
@@ -27,9 +29,11 @@ Player::Player(const std::string &username, const uint8_t &characterSelected,
     this->character = std::make_unique<Jazz>(this->graphicEngine, coords,
                                              this->playerId, initialSnapshot);
   } else if (characterSelected == PlayableCharactersIds::Spaz) {
-    // this->character = std::make_unique<Spaz>(this->graphicEngine);
+    this->character = std::make_unique<Spaz>(this->graphicEngine, coords,
+                                             this->playerId, initialSnapshot);
   } else {
-    // this->character = std::make_unique<Lori>(this->graphicEngine);
+    this->character = std::make_unique<Lori>(this->graphicEngine, coords,
+                                             this->playerId, initialSnapshot);
   }
 }
 
