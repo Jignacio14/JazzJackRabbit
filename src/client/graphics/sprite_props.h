@@ -64,26 +64,4 @@ struct SpriteNamesMap {
   SpriteNamesMap();
 };
 
-/*const std::map<const uint8_t, std::string> SpriteNamesMap{
-    {GenericSpriteCodes::Death, "death"},
-    {GenericSpriteCodes::HudIcon, "hud_icon"},
-    {GenericSpriteCodes::Hurt, "hurt"},
-    {GenericSpriteCodes::Idle, "idle"},
-    {GenericSpriteCodes::IntoxicatedIdle, "intoxicated_idle"},
-    {GenericSpriteCodes::IntoxicatedWalking, "intoxicated_walking"},
-    {GenericSpriteCodes::Jumping, "jumping"},
-    {GenericSpriteCodes::Landing, "landing"},
-    {GenericSpriteCodes::Falling, "falling"},
-    {GenericSpriteCodes::Running, "running"},
-    {GenericSpriteCodes::Shooting, "shooting"},
-    {GenericSpriteCodes::Walking, "walking"},
-    {JazzSpecialsCodes::Uppercut, "uppercut"},
-    {SpazSpecialsCodes::SideKick, "side_kick"},
-    {LoriSpecialsCodes::ShortKick, "short_kick"},
-    {ScenarioSpriteCodes::Background, "background"},
-    {ScenarioSpriteCodes::Decoration, "decoration"},
-    {ScenarioSpriteCodes::TopGrass, "top_grass"},
-    {ScenarioSpriteCodes::FullDirt, "full_dirt"},
-};*/
-
 #endif // SPRITE_PROPS_H

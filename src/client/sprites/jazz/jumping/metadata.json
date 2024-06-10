@@ -1,0 +1,60 @@
+{"frames": [
+
+{
+	"filename": "frames/0_jumping_up_falling_transition_0.png",
+	"frame": {"x":0,"y":0,"w":45,"h":47},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":45,"h":47},
+	"sourceSize": {"w":45,"h":47}
+},
+{
+	"filename": "frames/1_jumping_up_falling_transition_1.png",
+	"frame": {"x":54,"y":0,"w":51,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":51,"h":44},
+	"sourceSize": {"w":51,"h":44}
+},
+{
+	"filename": "frames/2_jumping_up_falling_transition_2.png",
+	"frame": {"x":108,"y":0,"w":54,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":54,"h":44},
+	"sourceSize": {"w":54,"h":44}
+},
+{
+	"filename": "frames/jumping_up_0.png",
+	"frame": {"x":162,"y":0,"w":40,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":48},
+	"sourceSize": {"w":40,"h":48}
+},
+{
+	"filename": "frames/jumping_up_1.png",
+	"frame": {"x":216,"y":0,"w":38,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":48},
+	"sourceSize": {"w":38,"h":48}
+},
+{
+	"filename": "frames/jumping_up_2.png",
+	"frame": {"x":270,"y":0,"w":37,"h":47},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":37,"h":47},
+	"sourceSize": {"w":37,"h":47}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spritesheet.png",
+	"format": "RGB888",
+	"size": {"w":324,"h":48},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:045b4c7029efc3d1df9e0243d0e13c2f:9a72f297699deb8345ad434f0bf63d54:8ec62f1fee1d06840401aebe0be01f82$"
+}
+}

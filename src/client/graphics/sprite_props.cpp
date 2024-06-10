@@ -36,9 +36,11 @@ SpriteNamesMap::SpriteNamesMap()
           {GenericSpriteCodes::Running, "running"},
           {GenericSpriteCodes::Shooting, "shooting"},
           {GenericSpriteCodes::Walking, "walking"},
+
           {JazzSpecialsCodes::Uppercut, "uppercut"},
           {SpazSpecialsCodes::SideKick, "side_kick"},
           {LoriSpecialsCodes::ShortKick, "short_kick"},
+
           {ScenarioSpriteCodes::Background, "background"},
           {ScenarioSpriteCodes::Decoration, "decoration"},
           {ScenarioSpriteCodes::TopGrass, "top_grass"},

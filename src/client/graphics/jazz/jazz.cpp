@@ -4,8 +4,6 @@
 #include "../sprite_props.h"
 #include <unordered_map>
 
-#include "./states/jazz_idle.h"
-
 /*static const std::unordered_map<std::string, int> MOVING_DIRECTIONS = {
     {"left", 0}, {"right", 1}, {"up", 2}, {"down", 3}};*/
 
@@ -18,7 +16,9 @@ Jazz::Jazz(GraphicEngine &graphicEngine, Coordinates &currentCoords,
 
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, GenericSpriteCodes::Idle,
-      &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Idle));
+      &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Idle),
+      AnimationState::Cycle, AnimationState::DefaultSlowdown,
+      AnimationState::NotFlip);
 
   bool foundEntity = snapshot.getPlayerById(this->entityId, &this->entityInfo);
   if (!foundEntity) {
@@ -126,48 +126,100 @@ void Jazz::setY(int y) { this->currentCoords.setX(y); }
 void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
                            const PlayerDto &newEntityInfo) {
 
+  bool shouldFlip = newEntityInfo.facing_direction == FacingDirectionsIds::Right
+                        ? AnimationState::NotFlip
+                        : AnimationState::Flip;
+
   if (newEntityInfo.is_dead == NumericBool::True) {
-    // render death
+    if (this->entityInfo.is_dead == NumericBool::False) {
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::Death,
+          &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Death),
+          AnimationState::NotCycle, AnimationState::DefaultSlowdown,
+          shouldFlip);
+    }
     return;
   }
 
   if (newEntityInfo.was_hurt == NumericBool::True) {
-    // render hurt
+    if (this->entityInfo.was_hurt == NumericBool::False) {
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::Hurt,
+          &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Hurt),
+          AnimationState::NotCycle, AnimationState::DefaultSlowdown,
+          shouldFlip);
+    }
     return;
   }
 
   if (newEntityInfo.shot == NumericBool::True) {
-    // render shot
+    this->currentAnimation = std::make_unique<AnimationState>(
+        this->graphicEngine, GenericSpriteCodes::Shooting,
+        &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Shooting),
+        AnimationState::NotCycle, AnimationState::DefaultSlowdown, shouldFlip);
     return;
+
   } else if (newEntityInfo.shot_special == NumericBool::True) {
-    // render special
+    this->currentAnimation = std::make_unique<AnimationState>(
+        this->graphicEngine, JazzSpecialsCodes::Uppercut,
+        &this->graphicEngine.getJazzSpecialSprite(JazzSpecialsCodes::Uppercut),
+        AnimationState::NotCycle, AnimationState::DefaultSlowdown, shouldFlip);
     return;
   }
 
-  if (newEntityInfo.is_walking == NumericBool::True) {
+  if (newEntityInfo.is_running == NumericBool::True) {
+    this->currentAnimation = std::make_unique<AnimationState>(
+        this->graphicEngine, GenericSpriteCodes::Running,
+        &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Running),
+        AnimationState::Cycle, AnimationState::DefaultSlowdown, shouldFlip);
+    return;
+
+  } else if (newEntityInfo.is_walking == NumericBool::True) {
     if (newEntityInfo.is_intoxicated == NumericBool::True) {
-      // render intoxicated walking
-      return;
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::IntoxicatedWalking,
+          &this->graphicEngine.getJazzGenericSprite(
+              GenericSpriteCodes::IntoxicatedWalking),
+          AnimationState::Cycle, AnimationState::DefaultSlowdown, shouldFlip);
     } else {
-      // render walking
-      return;
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::Walking,
+          &this->graphicEngine.getJazzGenericSprite(
+              GenericSpriteCodes::Walking),
+          AnimationState::Cycle, AnimationState::DefaultSlowdown, shouldFlip);
     }
-  } else if (newEntityInfo.is_running == NumericBool::True) {
-    // render running
     return;
+
   } else if (newEntityInfo.is_falling == NumericBool::True) {
-    // render falling
+    this->currentAnimation = std::make_unique<AnimationState>(
+        this->graphicEngine, GenericSpriteCodes::Falling,
+        &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Falling),
+        AnimationState::Cycle, AnimationState::DefaultSlowdown, shouldFlip);
     return;
+
   } else if (newEntityInfo.is_jumping == NumericBool::True) {
-    // render jumping
+    this->currentAnimation = std::make_unique<AnimationState>(
+        this->graphicEngine, GenericSpriteCodes::Jumping,
+        &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Jumping),
+        AnimationState::NotCycle, AnimationState::DefaultSlowdown, shouldFlip);
     return;
   }
 
-  if (newEntityInfo.is_intoxicated == NumericBool::True) {
-    // render intoxicated idle
+  bool canBreakAnimation = this->currentAnimation->canBreakAnimation();
+
+  if (newEntityInfo.is_intoxicated == NumericBool::True && canBreakAnimation) {
+    this->currentAnimation = std::make_unique<AnimationState>(
+        this->graphicEngine, GenericSpriteCodes::IntoxicatedIdle,
+        &this->graphicEngine.getJazzGenericSprite(
+            GenericSpriteCodes::IntoxicatedIdle),
+        AnimationState::Cycle, AnimationState::DefaultSlowdown, shouldFlip);
     return;
-  } else {
-    // render idle
+
+  } else if (canBreakAnimation) {
+    this->currentAnimation = std::make_unique<AnimationState>(
+        this->graphicEngine, GenericSpriteCodes::Idle,
+        &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Idle),
+        AnimationState::Cycle, AnimationState::DefaultSlowdown, shouldFlip);
     return;
   }
 }
