@@ -6,8 +6,8 @@
 
 #include "./states/jazz_idle.h"
 
-static const std::unordered_map<std::string, int> MOVING_DIRECTIONS = {
-    {"left", 0}, {"right", 1}, {"up", 2}, {"down", 3}};
+/*static const std::unordered_map<std::string, int> MOVING_DIRECTIONS = {
+    {"left", 0}, {"right", 1}, {"up", 2}, {"down", 3}};*/
 
 Jazz::Jazz(GraphicEngine &graphicEngine, Coordinates &currentCoords,
            const uint8_t &entityId, SnapshotWrapper &snapshot)
