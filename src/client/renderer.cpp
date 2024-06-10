@@ -8,6 +8,8 @@
 
 #include "../common/global_configs.h"
 
+#include "./graphics/bullets/bullet_gun_1.h"
+#include "./graphics/bullets/bullet_gun_2.h"
 #include "./graphics/collectables/ammo_gun_1.h"
 #include "./graphics/collectables/ammo_gun_2.h"
 #include "./graphics/jazz/jazz.h"
@@ -261,13 +263,18 @@ void Renderer::createNewBullets(const Snapshot &snapshot) {
 
     Coordinates coords(snapshot.bullets[i].position_x,
                        snapshot.bullets[i].position_y);
+    SnapshotWrapper &storedSnapshotWrapper = std::ref(*this->latestSnapshot);
 
     switch (snapshot.bullets[i].type) {
     case GunsIds::Gun1:
-      // this->addRenderable(std::make_unique<>());
+      this->addRenderable(std::make_unique<BulletGun1>(
+          this->graphicEngine, coords, snapshot.bullets[i].entity_id,
+          storedSnapshotWrapper));
       break;
     case GunsIds::Gun2:
-      // this->addRenderable(std::make_unique<>());
+      this->addRenderable(std::make_unique<BulletGun1>(
+          this->graphicEngine, coords, snapshot.bullets[i].entity_id,
+          storedSnapshotWrapper));
       break;
     }
   }

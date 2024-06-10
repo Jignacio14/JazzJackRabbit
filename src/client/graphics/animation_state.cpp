@@ -3,8 +3,9 @@
 
 AnimationState::AnimationState(GraphicEngine &graphicEngine,
                                const uint8_t &spriteCode, Sprite *sprite,
-                               bool &shouldCycle, double &slowdownCoefficient,
-                               bool &shouldFlip)
+                               const bool &shouldCycle,
+                               const double &slowdownCoefficient,
+                               const bool &shouldFlip)
     : shouldCycle(shouldCycle), shouldFlip(shouldFlip),
       slowdownCoefficient(slowdownCoefficient), graphicEngine(graphicEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),

@@ -20,7 +20,7 @@ private:
   // cppcheck-suppress unusedStructMember
   bool hasFinished;
   // cppcheck-suppress unusedStructMember
-  uint32_t totalRenders;
+  int totalRenders;
   // cppcheck-suppress unusedStructMember
   uint8_t spriteCode;
   // cppcheck-suppress unusedStructMember
@@ -39,19 +39,20 @@ private:
 public:
   explicit AnimationState(GraphicEngine &graphicEngine,
                           const uint8_t &spriteCode, Sprite *sprite,
-                          bool &shouldCycle, double &slowdownCoefficient,
-                          bool &shouldFlip);
+                          const bool &shouldCycle,
+                          const double &slowdownCoefficient,
+                          const bool &shouldFlip);
 
   // cppcheck-suppress unusedStructMember
-  static const bool Cycle = true;
+  static constexpr bool Cycle = true;
   // cppcheck-suppress unusedStructMember
-  static const bool NotCycle = false;
+  static constexpr bool NotCycle = false;
   // cppcheck-suppress unusedStructMember
-  static const double DefaultSlowdown = 1.0;
+  static constexpr double DefaultSlowdown = 1.0;
   // cppcheck-suppress unusedStructMember
-  static const bool Flip = true;
+  static constexpr bool Flip = true;
   // cppcheck-suppress unusedStructMember
-  static const bool NotFlip = false;
+  static constexpr bool NotFlip = false;
 
   void render(int iterationNumber, const Coordinates &coords);
 
