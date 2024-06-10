@@ -35,6 +35,16 @@ private:
   // cppcheck-suppress unusedStructMember
   std::unordered_map<std::string, Sprite> carrotusScenarioSprites;
 
+  // cppcheck-suppress unusedStructMember
+  std::unordered_map<std::string, Sprite> gun1Sprites;
+  // cppcheck-suppress unusedStructMember
+  std::unique_ptr<Sprite> gun1hudIcon;
+
+  // cppcheck-suppress unusedStructMember
+  std::unordered_map<std::string, Sprite> gun2Sprites;
+  // cppcheck-suppress unusedStructMember
+  std::unique_ptr<Sprite> gun2hudIcon;
+
 public:
   explicit TextureLoader(SDL2pp::Renderer &sdlRenderer);
   void preloadTextures();
@@ -52,6 +62,12 @@ public:
   Sprite &getLoriHudIcon();
 
   Sprite &getCarrotusScenarioSprite(const u_int8_t &spriteName);
+
+  Sprite &getGun1Sprite(const u_int8_t &spriteCode);
+  Sprite &getGun1HudIcon();
+
+  Sprite &getGun2Sprite(const u_int8_t &spriteCode);
+  Sprite &getGun2HudIcon();
 };
 
 #endif // TEXTURE_LOADER_H

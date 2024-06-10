@@ -37,6 +37,12 @@ static const std::vector<uint8_t> scenarioSpriteNamesVector = {
     ScenarioSpriteCodes::FullDirt,
 };
 
+static const std::vector<uint8_t> gunsSpriteNamesVector = {
+    GunSpriteCodes::FlyingBullet,
+    GunSpriteCodes::CollectableAmmo,
+    GunSpriteCodes::HudIcon,
+};
+
 const static int CHARACTERS_COLOR_KEY_RGB[3] = {44, 102, 150};
 const static int MAP_COLOR_KEY_RGB[3] = {87, 0, 203};
 const static int WHITE_COLOR_KEY[3] = {255, 255, 255};
@@ -221,6 +227,27 @@ void TextureLoader::preloadTextures() {
                    ScenarioSpriteCodes::FullDirt,
                    spriteNamesMap.map.at(ScenarioSpriteCodes::FullDirt),
                    nullptr, this->carrotusScenarioSprites);
+
+  // GUNS SPRITES INITIALIZATION
+  for (auto &spriteCode : gunsSpriteNamesVector) {
+    loadSpriteLambda("src/client/sprites/gun_1/", spriteCode,
+                     spriteNamesMap.map.at(spriteCode),
+                     CHARACTERS_COLOR_KEY_RGB, this->gun1Sprites);
+
+    loadSpriteLambda("src/client/sprites/gun_2/", spriteCode,
+                     spriteNamesMap.map.at(spriteCode),
+                     CHARACTERS_COLOR_KEY_RGB, this->gun2Sprites);
+  }
+
+  // GUN 1 HUD ICON INITIALIZATION
+  loadSpriteHudIconLambda("src/client/sprites/gun_1/",
+                          spriteNamesMap.map.at(GunSpriteCodes::HudIcon),
+                          CHARACTERS_COLOR_KEY_RGB, this->gun1hudIcon);
+
+  // GUN 2 HUD ICON INITIALIZATION
+  loadSpriteHudIconLambda("src/client/sprites/gun_2/",
+                          spriteNamesMap.map.at(GunSpriteCodes::HudIcon),
+                          CHARACTERS_COLOR_KEY_RGB, this->gun2hudIcon);
 }
 
 Sprite &TextureLoader::getJazzGenericSprite(const u_int8_t &spriteCode) {
@@ -309,3 +336,29 @@ Sprite &TextureLoader::getCarrotusScenarioSprite(const u_int8_t &spriteCode) {
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
   }
 }
+
+Sprite &TextureLoader::getGun1Sprite(const u_int8_t &spriteCode) {
+  try {
+    return std::ref(this->gun1Sprites.at(spriteNamesMap.map.at(spriteCode)));
+  } catch (...) {
+    std::string errorMessage = "Failed retrieving " +
+                               spriteNamesMap.map.at(spriteCode) +
+                               " from gun1 map.";
+    throw JJR2Error(errorMessage, __LINE__, __FILE__);
+  }
+}
+
+Sprite &TextureLoader::getGun1HudIcon() { return std::ref(*this->gun1hudIcon); }
+
+Sprite &TextureLoader::getGun2Sprite(const u_int8_t &spriteCode) {
+  try {
+    return std::ref(this->gun2Sprites.at(spriteNamesMap.map.at(spriteCode)));
+  } catch (...) {
+    std::string errorMessage = "Failed retrieving " +
+                               spriteNamesMap.map.at(spriteCode) +
+                               " from gun2 map.";
+    throw JJR2Error(errorMessage, __LINE__, __FILE__);
+  }
+}
+
+Sprite &TextureLoader::getGun2HudIcon() { return std::ref(*this->gun2hudIcon); }

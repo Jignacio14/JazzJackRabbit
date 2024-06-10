@@ -22,6 +22,10 @@ constexpr uint8_t ScenarioSpriteCodes::Decoration;
 constexpr uint8_t ScenarioSpriteCodes::TopGrass;
 constexpr uint8_t ScenarioSpriteCodes::FullDirt;
 
+constexpr uint8_t GunSpriteCodes::FlyingBullet;
+constexpr uint8_t GunSpriteCodes::CollectableAmmo;
+constexpr uint8_t GunSpriteCodes::HudIcon;
+
 SpriteNamesMap::SpriteNamesMap()
     : map({
           {GenericSpriteCodes::Death, "death"},
@@ -45,4 +49,8 @@ SpriteNamesMap::SpriteNamesMap()
           {ScenarioSpriteCodes::Decoration, "decoration"},
           {ScenarioSpriteCodes::TopGrass, "top_grass"},
           {ScenarioSpriteCodes::FullDirt, "full_dirt"},
+
+          {GunSpriteCodes::FlyingBullet, "flying_bullet"},
+          {GunSpriteCodes::CollectableAmmo, "collectable_ammo"},
+          {GunSpriteCodes::HudIcon, "hud_icon"},
       }) {}

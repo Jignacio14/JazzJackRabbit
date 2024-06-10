@@ -60,3 +60,19 @@ Sprite &GraphicEngine::getLoriHudIcon() {
 Sprite &GraphicEngine::getCarrotusScenarioSprite(const uint8_t &spriteCode) {
   return this->textureLoader.getCarrotusScenarioSprite(spriteCode);
 }
+
+Sprite &GraphicEngine::getGun1Sprite(const uint8_t &spriteCode) {
+  return this->textureLoader.getGun1Sprite(spriteCode);
+}
+
+Sprite &GraphicEngine::getGun1HudIcon() {
+  return this->textureLoader.getGun1HudIcon();
+}
+
+Sprite &GraphicEngine::getGun2Sprite(const uint8_t &spriteCode) {
+  return this->textureLoader.getGun2Sprite(spriteCode);
+}
+
+Sprite &GraphicEngine::getGun2HudIcon() {
+  return this->textureLoader.getGun2HudIcon();
+}

@@ -1,0 +1,36 @@
+{"frames": [
+
+{
+	"filename": "frames/flying_bullet_0.png",
+	"frame": {"x":0,"y":0,"w":10,"h":4},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":4},
+	"sourceSize": {"w":10,"h":4}
+},
+{
+	"filename": "frames/flying_bullet_1.png",
+	"frame": {"x":11,"y":0,"w":10,"h":4},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":4},
+	"sourceSize": {"w":10,"h":4}
+},
+{
+	"filename": "frames/flying_bullet_2.png",
+	"frame": {"x":22,"y":0,"w":11,"h":4},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":4},
+	"sourceSize": {"w":11,"h":4}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spritesheet.png",
+	"format": "RGB888",
+	"size": {"w":33,"h":4},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:8b73ccef1169c00eb1c4f191391e99f3:eb8e48d65ce4ce06cac9a7c498727878:8ec62f1fee1d06840401aebe0be01f82$"
+}
+}

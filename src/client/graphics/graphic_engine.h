@@ -33,6 +33,12 @@ public:
   Sprite &getLoriHudIcon();
 
   Sprite &getCarrotusScenarioSprite(const u_int8_t &spriteCode);
+
+  Sprite &getGun1Sprite(const u_int8_t &spriteCode);
+  Sprite &getGun1HudIcon();
+
+  Sprite &getGun2Sprite(const u_int8_t &spriteCode);
+  Sprite &getGun2HudIcon();
 };
 
 #endif // GRAPHIC_ENGINE_H

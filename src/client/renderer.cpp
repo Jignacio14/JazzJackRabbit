@@ -8,6 +8,8 @@
 
 #include "../common/global_configs.h"
 
+#include "./graphics/collectables/ammo_gun_1.h"
+#include "./graphics/collectables/ammo_gun_2.h"
 #include "./graphics/jazz/jazz.h"
 #include "./graphics/lori/lori.h"
 #include "./graphics/spaz/spaz.h"
@@ -219,6 +221,7 @@ void Renderer::createNewCollectables(const Snapshot &snapshot) {
 
     Coordinates coords(snapshot.collectables[i].position_x,
                        snapshot.collectables[i].position_y);
+    SnapshotWrapper &storedSnapshotWrapper = std::ref(*this->latestSnapshot);
 
     switch (snapshot.collectables[i].type) {
     case CollectableIds::Coin:
@@ -231,10 +234,14 @@ void Renderer::createNewCollectables(const Snapshot &snapshot) {
       // this->addRenderable(std::make_unique<>());
       break;
     case CollectableIds::AmmoGun1:
-      // this->addRenderable(std::make_unique<>());
+      this->addRenderable(std::make_unique<AmmoGun1>(
+          this->graphicEngine, coords, snapshot.collectables[i].entity_id,
+          storedSnapshotWrapper));
       break;
     case CollectableIds::AmmoGun2:
-      // this->addRenderable(std::make_unique<>());
+      this->addRenderable(std::make_unique<AmmoGun2>(
+          this->graphicEngine, coords, snapshot.collectables[i].entity_id,
+          storedSnapshotWrapper));
       break;
     }
   }
