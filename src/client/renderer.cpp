@@ -165,12 +165,12 @@ void Renderer::createNewPlayableCharacters(const Snapshot &snapshot) {
     case PlayableCharactersIds::Spaz:
       this->addRenderable(std::make_unique<Spaz>(this->graphicEngine, coords,
                                                  snapshot.players[i].user_id,
-                                                 *this->latestSnapshot));
+                                                 storedSnapshotWrapper));
       break;
     case PlayableCharactersIds::Lori:
       this->addRenderable(std::make_unique<Lori>(this->graphicEngine, coords,
                                                  snapshot.players[i].user_id,
-                                                 *this->latestSnapshot));
+                                                 storedSnapshotWrapper));
       break;
     }
   }
