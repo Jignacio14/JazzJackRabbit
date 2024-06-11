@@ -178,16 +178,16 @@ void TextureLoader::preloadTextures() {
 
   // SPAZ GENERICS SPRITES INITIALIZATION
   for (auto &spriteCode : genericSpriteNamesVector) {
-    loadSpriteLambda("src/client/sprites/jazz/", spriteCode,
+    loadSpriteLambda("src/client/sprites/spaz/", spriteCode,
                      spriteNamesMap.map.at(spriteCode),
-                     CHARACTERS_COLOR_KEY_RGB, this->jazzGenericSprites);
+                     CHARACTERS_COLOR_KEY_RGB, this->spazGenericSprites);
   }
 
   // SPAZ SPECIALS SPRITES INITIALIZATION
   for (auto &spriteCode : spazSpecialsVector) {
-    loadSpriteLambda("src/client/sprites/jazz/", spriteCode,
+    loadSpriteLambda("src/client/sprites/spaz/", spriteCode,
                      spriteNamesMap.map.at(spriteCode),
-                     CHARACTERS_COLOR_KEY_RGB, this->jazzGenericSprites);
+                     CHARACTERS_COLOR_KEY_RGB, this->spazSpecial);
   }
 
   // SPAZ HUB ICON INITIALIZATION
@@ -197,16 +197,16 @@ void TextureLoader::preloadTextures() {
 
   // LORI GENERICS SPRITES INITIALIZATION
   for (auto &spriteCode : genericSpriteNamesVector) {
-    loadSpriteLambda("src/client/sprites/jazz/", spriteCode,
+    loadSpriteLambda("src/client/sprites/lori/", spriteCode,
                      spriteNamesMap.map.at(spriteCode),
-                     CHARACTERS_COLOR_KEY_RGB, this->jazzGenericSprites);
+                     CHARACTERS_COLOR_KEY_RGB, this->loriGenericSprites);
   }
 
   // LORI SPECIALS SPRITES INITIALIZATION
   for (auto &spriteCode : loriSpecialsVector) {
-    loadSpriteLambda("src/client/sprites/jazz/", spriteCode,
+    loadSpriteLambda("src/client/sprites/lori/", spriteCode,
                      spriteNamesMap.map.at(spriteCode),
-                     CHARACTERS_COLOR_KEY_RGB, this->jazzGenericSprites);
+                     CHARACTERS_COLOR_KEY_RGB, this->loriSpecial);
   }
 
   // LORI HUB ICON INITIALIZATION
@@ -271,21 +271,21 @@ void TextureLoader::preloadTextures() {
 
   // BUBBA SPRITES INITIALIZATION
   for (auto &spriteCode : enemiesSpriteNamesVector) {
-    loadSpriteLambda("src/client/sprites/enemies/bubba/", spriteCode,
+    loadSpriteLambda("src/client/sprites/bubba/", spriteCode,
                      spriteNamesMap.map.at(spriteCode),
                      CHARACTERS_COLOR_KEY_RGB, this->bubbaSprites);
   }
 
   // TURTLE GOON SPRITES INITIALIZATION
   for (auto &spriteCode : enemiesSpriteNamesVector) {
-    loadSpriteLambda("src/client/sprites/enemies/turtle_goon/", spriteCode,
+    loadSpriteLambda("src/client/sprites/turtle_goon/", spriteCode,
                      spriteNamesMap.map.at(spriteCode),
                      CHARACTERS_COLOR_KEY_RGB, this->turtleGoonSprites);
   }
 
   // SCHWARZENGUARD GOON SPRITES INITIALIZATION
   for (auto &spriteCode : enemiesSpriteNamesVector) {
-    loadSpriteLambda("src/client/sprites/enemies/schwarzenguard/", spriteCode,
+    loadSpriteLambda("src/client/sprites/schwarzenguard/", spriteCode,
                      spriteNamesMap.map.at(spriteCode),
                      CHARACTERS_COLOR_KEY_RGB, this->schwarzenguardSprites);
   }
