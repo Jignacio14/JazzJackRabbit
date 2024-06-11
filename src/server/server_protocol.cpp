@@ -129,7 +129,8 @@ void ServerProtocol::throwIfClosed(const bool &result) {
 CommandCodeDto ServerProtocol::asyncGetEventCode() {
   CommandCodeDto code;
   bool wasClose = this->getTemporalWasClose();
-  this->skt.recvall_bytewise(&code, sizeof(code), &wasClose);
+  this->skt.recvall_bytewise(&code, sizeof(CommandCodeDto), &wasClose);
+  std::cout << "code: " << std::to_string(code.code) << "\n";
   this->throwIfClosed(wasClose);
   return code;
 }

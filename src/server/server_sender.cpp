@@ -22,7 +22,7 @@ void Sender::sendGamesOptions() {
   }
 }
 
-Queue<CommandCodeDto> Sender::setUpPlayerLoop() {
+Queue<CommandCodeDto> &Sender::setUpPlayerLoop() {
   while (true) {
     uint8_t option = this->servprot.getLobbyOption();
     if (option == RESEND_GAME_INFO) {
@@ -35,13 +35,16 @@ Queue<CommandCodeDto> Sender::setUpPlayerLoop() {
       std::pair<Queue<CommandCodeDto> &, uint8_t> result =
           this->gamesMonitor.registerPlayer(player_info, this->sender_queue);
       this->servprot.sendPlayerId(result.second);
-      return std::move(result.first);
+
+      // cppcheck-suppress returnReference
+      return result.first;
     }
   }
 }
 
 void Sender::ValidatePlayerInfo(const PlayerInfo &player_info) {
-  if (player_info.str_len == 0 || player_info.character_code == 0) {
+  if (player_info.str_len == 0 ||
+      player_info.character_code == PlayableCharactersIds::NoneSelected) {
     this->_is_alive = false;
     throw std::runtime_error("Error en la comunicacion con el cliente");
   }
@@ -50,7 +53,7 @@ void Sender::ValidatePlayerInfo(const PlayerInfo &player_info) {
 void Sender::run() {
   try {
     this->sendGamesOptions();
-    Queue<CommandCodeDto> receiver_queue = this->setUpPlayerLoop();
+    Queue<CommandCodeDto> &receiver_queue = this->setUpPlayerLoop();
     Receiver receiver(this->servprot, receiver_queue);
     receiver.start();
     this->runSenderLoop();
