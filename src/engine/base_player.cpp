@@ -33,6 +33,7 @@ void BasePlayer::move_right() {
         snapshot.players[i].position_x = rectangle.getTopLeftCorner().getX();
         snapshot.players[i].position_y = rectangle.getTopLeftCorner().getY();
         snapshot.players[i].facing_direction = FacingDirectionsIds::Right;
+        snapshot.players[i].is_walking = NumericBool::True;
         break;
       }
     }
@@ -51,6 +52,7 @@ void BasePlayer::move_left() {
         snapshot.players[i].position_x = rectangle.getTopLeftCorner().getX();
         snapshot.players[i].position_y = rectangle.getTopLeftCorner().getY();
         snapshot.players[i].facing_direction = FacingDirectionsIds::Left;
+        snapshot.players[i].is_walking = NumericBool::True;
         break;
       }
     }
