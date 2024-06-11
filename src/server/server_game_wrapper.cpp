@@ -2,7 +2,8 @@
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
-GameWrapper::GameWrapper() : monitor(), game(monitor, receiver_queue) {}
+GameWrapper::GameWrapper()
+    : monitor(), game(monitor, std::ref(this->receiver_queue)) {}
 
 void GameWrapper::start() { this->game.start(); }
 
