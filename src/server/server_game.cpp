@@ -62,27 +62,32 @@ void Game::run() {
   }
 }
 
-BasePlayer *Game::constructPlayer(uint8_t player_id, std::string &player_name) {
-  if (player_name == JAZZ_CODE) {
+BasePlayer *Game::constructPlayer(uint8_t player_id, std::string &player_name,
+                                  uint8_t player_type) {
+  if (player_type == PlayableCharactersIds::Jazz) {
     return new Jazz(player_id, player_name, snapshot);
   }
-  if (player_name == LORI_CODE) {
+
+  if (player_type == PlayableCharactersIds::Lori) {
     return new Lori(player_id, player_name, snapshot);
   }
-  if (player_name == SPAZ_CODE) {
+
+  if (player_type == PlayableCharactersIds::Spaz) {
     return new Spaz(player_id, player_name, snapshot);
   }
+
   return nullptr;
 }
 
-void Game::addPlayer(const PlayerInfo &player_info) {
+void Game::addPlayer(const PlayerInfo &player_info, const uint8_t &player_id) {
   if (this->snapshot.sizePlayers >= MAX_PLAYERS) {
     // No se pueden agregar más jugadores
     return;
   }
   this->players++;
   std::string player_name(player_info.player_name);
-  BasePlayer *new_player = this->constructPlayer(this->players, player_name);
+  BasePlayer *new_player =
+      this->constructPlayer(player_id, player_name, player_info.character_code);
   if (new_player == nullptr) {
     return;
   }

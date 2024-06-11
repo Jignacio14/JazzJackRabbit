@@ -16,6 +16,8 @@ GameWrapper::addPlayer(Queue<Snapshot> &queue, const PlayerInfo &player_info) {
   const uint8_t player_id = this->monitor.addPlayer(player_info, queue);
   this->players++;
 
+  this->game.addPlayer(player_info, player_id);
+
   if (globalConfigs.getMaxPlayersPerGame() == this->players) {
     this->game.start();
   }

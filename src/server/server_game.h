@@ -30,13 +30,14 @@ private:
   // cppcheck-suppress unusedPrivateFunction
   void executeAction(const uint8_t &player_id, const uint8_t &action,
                      const uint8_t &data);
-  BasePlayer *constructPlayer(uint8_t player_id, std::string &player_name);
+  BasePlayer *constructPlayer(uint8_t player_id, std::string &player_name,
+                              uint8_t player_type);
 
 public:
   explicit Game(GameMonitor &monitor, Queue<CommandCodeDto> &messages);
   void kill();
   void run() override;
-  void addPlayer(const PlayerInfo &player_info);
+  void addPlayer(const PlayerInfo &player_info, const uint8_t &player_id);
   void ereasePlayer(uint8_t player_id);
   void addPlayerToSnapshot(const PlayerInfo &player_info);
 };
