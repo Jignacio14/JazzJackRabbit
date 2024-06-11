@@ -5,12 +5,9 @@
 class Lori : public BasePlayer {
 private:
 public:
-  explicit Lori(uint8_t player_id, std::string &player_name);
-  void shoot() override;
-  void run() override;
-  void runFast() override;
-  void jump() override;
-  void specialAttack() override;
+  explicit Lori(uint8_t player_id, std::string &player_name,
+                Snapshot &snapshot);
+
   ~Lori();
 };
 

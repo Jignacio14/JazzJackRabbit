@@ -3,6 +3,7 @@
 
 #include "../common/rectangle.h"
 #include "../data/convention.h"
+#include "../data/snapshot_dto.h"
 #include "server_map.h"
 #include "states/alive.h"
 #include "states/dead.h"
@@ -33,14 +34,17 @@ private:
   uint8_t facing_direction;
 
   ServerMap map;
+  // cppcheck-suppress unusedStructMember
+  Snapshot &snapshot;
 
 public:
-  BasePlayer(uint8_t player_id, const std::string &player_name);
-  void virtual shoot() = 0;
-  void virtual run() = 0;
-  void virtual runFast() = 0;
-  void virtual jump(Snapshot &snapshot) = 0;
-  void virtual specialAttack(Snapshot &snapshot) = 0;
+  BasePlayer(uint8_t player_id, const std::string &player_name,
+             Snapshot &snapshot);
+  // void virtual shoot() = 0;
+  // void virtual run() = 0;
+  // void virtual runFast() = 0;
+  // void virtual jump(Snapshot &snapshot) = 0;
+  // void virtual specialAttack(Snapshot &snapshot) = 0;
 
   void receive_damage(uint8_t damage);
   void change_state(std::unique_ptr<BaseState> new_state);
