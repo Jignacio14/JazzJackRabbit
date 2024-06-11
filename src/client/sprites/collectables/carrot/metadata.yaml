@@ -1,0 +1,172 @@
+frames:
+  - filename: frames/carrot_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 25
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 25
+      h: 23
+    sourceSize:
+      w: 25
+      h: 23
+  - filename: frames/carrot_1.png
+    frame:
+      x: 35
+      'y': 0
+      w: 23
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 23
+      h: 23
+    sourceSize:
+      w: 23
+      h: 23
+  - filename: frames/carrot_2.png
+    frame:
+      x: 70
+      'y': 0
+      w: 19
+      h: 32
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 19
+      h: 32
+    sourceSize:
+      w: 19
+      h: 32
+  - filename: frames/carrot_3.png
+    frame:
+      x: 105
+      'y': 0
+      w: 15
+      h: 34
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 15
+      h: 34
+    sourceSize:
+      w: 15
+      h: 34
+  - filename: frames/carrot_4.png
+    frame:
+      x: 140
+      'y': 0
+      w: 35
+      h: 22
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 35
+      h: 22
+    sourceSize:
+      w: 35
+      h: 22
+  - filename: frames/carrot_5.png
+    frame:
+      x: 175
+      'y': 0
+      w: 25
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 25
+      h: 23
+    sourceSize:
+      w: 25
+      h: 23
+  - filename: frames/carrot_6.png
+    frame:
+      x: 210
+      'y': 0
+      w: 23
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 23
+      h: 23
+    sourceSize:
+      w: 23
+      h: 23
+  - filename: frames/carrot_7.png
+    frame:
+      x: 245
+      'y': 0
+      w: 19
+      h: 32
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 19
+      h: 32
+    sourceSize:
+      w: 19
+      h: 32
+  - filename: frames/carrot_8.png
+    frame:
+      x: 280
+      'y': 0
+      w: 15
+      h: 34
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 15
+      h: 34
+    sourceSize:
+      w: 15
+      h: 34
+  - filename: frames/carrot_9.png
+    frame:
+      x: 315
+      'y': 0
+      w: 35
+      h: 22
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 35
+      h: 22
+    sourceSize:
+      w: 35
+      h: 22
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 350
+    h: 34
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:f28d55d0891b6ce1567a2a2cefce3159:7414d2619a8f918710dce13512da4e35:8ec62f1fee1d06840401aebe0be01f82$

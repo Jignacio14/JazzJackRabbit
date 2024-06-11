@@ -76,3 +76,19 @@ Sprite &GraphicEngine::getGun2Sprite(const uint8_t &spriteCode) {
 Sprite &GraphicEngine::getGun2HudIcon() {
   return this->textureLoader.getGun2HudIcon();
 }
+
+Sprite &GraphicEngine::getCollectableSprite(const uint8_t &spriteCode) {
+  return this->textureLoader.getCollectableSprite(spriteCode);
+}
+
+Sprite &GraphicEngine::getBubbaSprite(const uint8_t &spriteCode) {
+  return this->textureLoader.getBubbaSprite(spriteCode);
+}
+
+Sprite &GraphicEngine::getTurtleGoonSprite(const uint8_t &spriteCode) {
+  return this->textureLoader.getTurtleGoonSprite(spriteCode);
+}
+
+Sprite &GraphicEngine::getSchwarzenguardSprite(const uint8_t &spriteCode) {
+  return this->textureLoader.getSchwarzenguardSprite(spriteCode);
+}

@@ -12,6 +12,12 @@
 #include "./graphics/bullets/bullet_gun_2.h"
 #include "./graphics/collectables/ammo_gun_1.h"
 #include "./graphics/collectables/ammo_gun_2.h"
+#include "./graphics/collectables/carrot.h"
+#include "./graphics/collectables/coin.h"
+#include "./graphics/collectables/diamond.h"
+#include "./graphics/enemies/bubba.h"
+#include "./graphics/enemies/schwarzenguard.h"
+#include "./graphics/enemies/turtle_goon.h"
 #include "./graphics/jazz/jazz.h"
 #include "./graphics/lori/lori.h"
 #include "./graphics/spaz/spaz.h"
@@ -194,16 +200,23 @@ void Renderer::createNewEnemies(const Snapshot &snapshot) {
 
     Coordinates coords(snapshot.enemies[i].position_x,
                        snapshot.enemies[i].position_y);
+    SnapshotWrapper &storedSnapshotWrapper = std::ref(*this->latestSnapshot);
 
     switch (snapshot.enemies[i].type) {
     case EnemiesIds::Bubba:
-      // this->addRenderable(std::make_unique<>());
+      this->addRenderable(std::make_unique<Bubba>(this->graphicEngine, coords,
+                                                  snapshot.enemies[i].entity_id,
+                                                  storedSnapshotWrapper));
       break;
     case EnemiesIds::TurtleGoon:
-      // this->addRenderable(std::make_unique<>());
+      this->addRenderable(std::make_unique<TurtleGoon>(
+          this->graphicEngine, coords, snapshot.enemies[i].entity_id,
+          storedSnapshotWrapper));
       break;
     case EnemiesIds::Schwarzenguard:
-      // this->addRenderable(std::make_unique<>());
+      this->addRenderable(std::make_unique<Schwarzenguard>(
+          this->graphicEngine, coords, snapshot.enemies[i].entity_id,
+          storedSnapshotWrapper));
       break;
     }
   }
@@ -227,13 +240,19 @@ void Renderer::createNewCollectables(const Snapshot &snapshot) {
 
     switch (snapshot.collectables[i].type) {
     case CollectableIds::Coin:
-      // this->addRenderable(std::make_unique<>());
+      this->addRenderable(std::make_unique<Coin>(
+          this->graphicEngine, coords, snapshot.collectables[i].entity_id,
+          storedSnapshotWrapper));
       break;
     case CollectableIds::Diamond:
-      // this->addRenderable(std::make_unique<>());
+      this->addRenderable(std::make_unique<Diamond>(
+          this->graphicEngine, coords, snapshot.collectables[i].entity_id,
+          storedSnapshotWrapper));
       break;
     case CollectableIds::Carrot:
-      // this->addRenderable(std::make_unique<>());
+      this->addRenderable(std::make_unique<Carrot>(
+          this->graphicEngine, coords, snapshot.collectables[i].entity_id,
+          storedSnapshotWrapper));
       break;
     case CollectableIds::AmmoGun1:
       this->addRenderable(std::make_unique<AmmoGun1>(
