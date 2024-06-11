@@ -10,8 +10,8 @@ Coin::Coin(GraphicEngine &graphicEngine, Coordinates &currentCoords,
       currentAnimation(nullptr), currentCoords(currentCoords), entityInfo() {
 
   this->currentAnimation = std::make_unique<AnimationState>(
-      this->graphicEngine, GunSpriteCodes::CollectableAmmo,
-      &this->graphicEngine.getGun1Sprite(GunSpriteCodes::CollectableAmmo),
+      this->graphicEngine, CollectablesSpriteCodes::Coin,
+      &this->graphicEngine.getCollectableSprite(CollectablesSpriteCodes::Coin),
       AnimationState::Cycle, AnimationState::DefaultSlowdown,
       AnimationState::NotFlip);
 

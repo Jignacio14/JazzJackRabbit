@@ -10,8 +10,9 @@ Carrot::Carrot(GraphicEngine &graphicEngine, Coordinates &currentCoords,
       currentAnimation(nullptr), currentCoords(currentCoords), entityInfo() {
 
   this->currentAnimation = std::make_unique<AnimationState>(
-      this->graphicEngine, GunSpriteCodes::CollectableAmmo,
-      &this->graphicEngine.getGun1Sprite(GunSpriteCodes::CollectableAmmo),
+      this->graphicEngine, CollectablesSpriteCodes::Carrot,
+      &this->graphicEngine.getCollectableSprite(
+          CollectablesSpriteCodes::Carrot),
       AnimationState::Cycle, AnimationState::DefaultSlowdown,
       AnimationState::NotFlip);
 

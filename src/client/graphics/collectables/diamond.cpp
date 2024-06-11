@@ -10,8 +10,9 @@ Diamond::Diamond(GraphicEngine &graphicEngine, Coordinates &currentCoords,
       currentAnimation(nullptr), currentCoords(currentCoords), entityInfo() {
 
   this->currentAnimation = std::make_unique<AnimationState>(
-      this->graphicEngine, GunSpriteCodes::CollectableAmmo,
-      &this->graphicEngine.getGun1Sprite(GunSpriteCodes::CollectableAmmo),
+      this->graphicEngine, CollectablesSpriteCodes::Diamond,
+      &this->graphicEngine.getCollectableSprite(
+          CollectablesSpriteCodes::Diamond),
       AnimationState::Cycle, AnimationState::DefaultSlowdown,
       AnimationState::NotFlip);
 
