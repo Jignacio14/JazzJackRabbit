@@ -1,0 +1,252 @@
+frames:
+  - filename: frames/shooting_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 37
+      h: 46
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 37
+      h: 46
+    sourceSize:
+      w: 37
+      h: 46
+  - filename: frames/shooting_1.png
+    frame:
+      x: 66
+      'y': 0
+      w: 39
+      h: 45
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 39
+      h: 45
+    sourceSize:
+      w: 39
+      h: 45
+  - filename: frames/shooting_2.png
+    frame:
+      x: 132
+      'y': 0
+      w: 35
+      h: 46
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 35
+      h: 46
+    sourceSize:
+      w: 35
+      h: 46
+  - filename: frames/shooting_3.png
+    frame:
+      x: 198
+      'y': 0
+      w: 39
+      h: 48
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 39
+      h: 48
+    sourceSize:
+      w: 39
+      h: 48
+  - filename: frames/shooting_4.png
+    frame:
+      x: 264
+      'y': 0
+      w: 41
+      h: 44
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 41
+      h: 44
+    sourceSize:
+      w: 41
+      h: 44
+  - filename: frames/shooting_5.png
+    frame:
+      x: 330
+      'y': 0
+      w: 44
+      h: 41
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 44
+      h: 41
+    sourceSize:
+      w: 44
+      h: 41
+  - filename: frames/shooting_6.png
+    frame:
+      x: 396
+      'y': 0
+      w: 43
+      h: 42
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 43
+      h: 42
+    sourceSize:
+      w: 43
+      h: 42
+  - filename: frames/shooting_7.png
+    frame:
+      x: 462
+      'y': 0
+      w: 41
+      h: 44
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 41
+      h: 44
+    sourceSize:
+      w: 41
+      h: 44
+  - filename: frames/shooting_8.png
+    frame:
+      x: 528
+      'y': 0
+      w: 44
+      h: 40
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 44
+      h: 40
+    sourceSize:
+      w: 44
+      h: 40
+  - filename: frames/shooting_9.png
+    frame:
+      x: 594
+      'y': 0
+      w: 52
+      h: 43
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 52
+      h: 43
+    sourceSize:
+      w: 52
+      h: 43
+  - filename: frames/shooting_10.png
+    frame:
+      x: 660
+      'y': 0
+      w: 66
+      h: 32
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 66
+      h: 32
+    sourceSize:
+      w: 66
+      h: 32
+  - filename: frames/shooting_11.png
+    frame:
+      x: 726
+      'y': 0
+      w: 66
+      h: 32
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 66
+      h: 32
+    sourceSize:
+      w: 66
+      h: 32
+  - filename: frames/shooting_12.png
+    frame:
+      x: 792
+      'y': 0
+      w: 62
+      h: 40
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 62
+      h: 40
+    sourceSize:
+      w: 62
+      h: 40
+  - filename: frames/shooting_13.png
+    frame:
+      x: 858
+      'y': 0
+      w: 56
+      h: 43
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 56
+      h: 43
+    sourceSize:
+      w: 56
+      h: 43
+  - filename: frames/shooting_14.png
+    frame:
+      x: 924
+      'y': 0
+      w: 42
+      h: 45
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 42
+      h: 45
+    sourceSize:
+      w: 42
+      h: 45
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 990
+    h: 48
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:fddeeca31ae56cb996be2d1cb32f4c72:fec8e0330d4e90d3b495b0793535a931:8ec62f1fee1d06840401aebe0be01f82$

@@ -5,7 +5,9 @@
 #include "../common/liberror.h"
 #include "../common/player_status_DTO.h"
 #include "../common/socket.h"
+#include "../data/command_code_dto.h"
 #include "../data/player_info_dto.h"
+#include "../data/snapshot_dto.h"
 #include "./server_serializer.h"
 #include <atomic>
 #include <cstdint>
@@ -47,7 +49,9 @@ public:
   uint8_t getLobbyOption();
   std::pair<std::string, std::string> getGameNameAndPlayerName();
 
-  std::pair<uint8_t, uint8_t> asyncGetEventCode();
+  CommandCodeDto asyncGetEventCode();
+
+  void sendSnapshot(const Snapshot &snapshot);
 
   void shutdown();
 

@@ -1,6 +1,7 @@
 #ifndef STARTUP_SCREEN_H
 #define STARTUP_SCREEN_H
 
+#include "../../data/snapshot_dto.h"
 #include "../lobby.h"
 #include "mainwindow.h"
 #include <QApplication>
@@ -15,14 +16,16 @@ private:
   uint32_t &port;
   std::string &username;
   GameConfigs *game;
-  char &userCharacter;
+  Snapshot *initialSnapshot;
+  uint8_t &userCharacter;
   std::unique_ptr<Lobby> lobby;
 
   MainWindow mainWindow;
 
 public:
   StartupScreen(int &argc, char **argv, std::string &hostname, uint32_t &port,
-                std::string &username, GameConfigs *game, char &userCharacter);
+                std::string &username, GameConfigs *game,
+                Snapshot *initialSnapshot, uint8_t &userCharacter);
   const int show();
   std::unique_ptr<Lobby> getLobby();
 };

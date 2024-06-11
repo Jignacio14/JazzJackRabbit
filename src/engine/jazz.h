@@ -6,12 +6,8 @@
 class Jazz : public BasePlayer {
 private:
 public:
-  explicit Jazz(uint8_t player_id, std::string &player_name);
-  void shoot() override;
-  void run() override;
-  void runFast() override;
-  void jump() override;
-  void specialAttack() override;
+  Jazz(uint8_t player_id, std::string &player_name, Snapshot &snapshot);
+
   ~Jazz();
 };
 

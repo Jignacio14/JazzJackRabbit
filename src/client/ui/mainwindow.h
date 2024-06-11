@@ -12,6 +12,7 @@
 #include <string>
 #include <thread>
 
+#include "../../data/snapshot_dto.h"
 #include "../game_configs.h"
 #include "../lobby.h"
 
@@ -63,11 +64,12 @@ private:
   uint32_t &port;
   std::string &username;
   GameConfigs *finalGameConfigs;
+  Snapshot *initialSnapshot;
   std::string gameOwnerName;
   uint32_t gameDuration;
   uint32_t maxPlayers;
   uint32_t currentPlayers;
-  char &characterSelected;
+  uint8_t &characterSelected;
 
   QSound buttonClickSound;
   QMovie jazzAnimation;
@@ -107,6 +109,8 @@ private:
 
   std::vector<GameConfigs> getGamesFromServer();
 
+  std::vector<GameConfigs> getRefreshedGamesFromServer();
+
   void addGamesToList(std::vector<GameConfigs> &games);
 
   QWidget *createGameItemWidget(const GameConfigs &game);
@@ -115,7 +119,8 @@ private:
 
 public:
   MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
-             std::string &username, GameConfigs *game, char &userCharacter,
+             std::string &username, GameConfigs *game,
+             Snapshot *initialSnapshot, uint8_t &userCharacter,
              std::unique_ptr<Lobby> lobby);
 
   std::unique_ptr<Lobby> getLobby();

@@ -1,0 +1,220 @@
+frames:
+  - filename: frames/idle_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 38
+      h: 44
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 38
+      h: 44
+    sourceSize:
+      w: 38
+      h: 44
+  - filename: frames/idle_1.png
+    frame:
+      x: 49
+      'y': 0
+      w: 41
+      h: 42
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 41
+      h: 42
+    sourceSize:
+      w: 41
+      h: 42
+  - filename: frames/idle_2.png
+    frame:
+      x: 98
+      'y': 0
+      w: 38
+      h: 51
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 38
+      h: 51
+    sourceSize:
+      w: 38
+      h: 51
+  - filename: frames/idle_3.png
+    frame:
+      x: 147
+      'y': 0
+      w: 44
+      h: 52
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 44
+      h: 52
+    sourceSize:
+      w: 44
+      h: 52
+  - filename: frames/idle_4.png
+    frame:
+      x: 196
+      'y': 0
+      w: 40
+      h: 48
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 40
+      h: 48
+    sourceSize:
+      w: 40
+      h: 48
+  - filename: frames/idle_5.png
+    frame:
+      x: 245
+      'y': 0
+      w: 38
+      h: 47
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 38
+      h: 47
+    sourceSize:
+      w: 38
+      h: 47
+  - filename: frames/idle_6.png
+    frame:
+      x: 294
+      'y': 0
+      w: 38
+      h: 48
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 38
+      h: 48
+    sourceSize:
+      w: 38
+      h: 48
+  - filename: frames/idle_7.png
+    frame:
+      x: 343
+      'y': 0
+      w: 46
+      h: 47
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 46
+      h: 47
+    sourceSize:
+      w: 46
+      h: 47
+  - filename: frames/idle_8.png
+    frame:
+      x: 392
+      'y': 0
+      w: 49
+      h: 48
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 49
+      h: 48
+    sourceSize:
+      w: 49
+      h: 48
+  - filename: frames/idle_9.png
+    frame:
+      x: 441
+      'y': 0
+      w: 46
+      h: 47
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 46
+      h: 47
+    sourceSize:
+      w: 46
+      h: 47
+  - filename: frames/idle_10.png
+    frame:
+      x: 490
+      'y': 0
+      w: 41
+      h: 48
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 41
+      h: 48
+    sourceSize:
+      w: 41
+      h: 48
+  - filename: frames/idle_11.png
+    frame:
+      x: 539
+      'y': 0
+      w: 37
+      h: 46
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 37
+      h: 46
+    sourceSize:
+      w: 37
+      h: 46
+  - filename: frames/idle_12.png
+    frame:
+      x: 588
+      'y': 0
+      w: 37
+      h: 46
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 37
+      h: 46
+    sourceSize:
+      w: 37
+      h: 46
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 637
+    h: 52
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:b60473899e30adf0b44c69f18ccc3848:92fd07e86561ed53cd106e725072aae4:8ec62f1fee1d06840401aebe0be01f82$

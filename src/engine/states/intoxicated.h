@@ -4,6 +4,10 @@
 
 #include "base_state.h"
 
-class Intoxicated : public BaseState {};
+class Intoxicated : public BaseState {
+
+public:
+  bool can_move() override;
+};
 
 #endif // JAZZJACKRABBIT_INTOXICATED_H

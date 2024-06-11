@@ -2,7 +2,7 @@
 #ifndef JAZZJACKRABBIT_LOBBY_H
 #define JAZZJACKRABBIT_LOBBY_H
 
-#include "../common/snapshot_DTO.h"
+#include "../data/snapshot_dto.h"
 #include "lobby_protocol.h"
 #include <cstdint>
 

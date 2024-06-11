@@ -1,0 +1,140 @@
+frames:
+  - filename: frames/diamond_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 26
+      h: 21
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 26
+      h: 21
+    sourceSize:
+      w: 26
+      h: 21
+  - filename: frames/diamond_1.png
+    frame:
+      x: 26
+      'y': 0
+      w: 26
+      h: 21
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 26
+      h: 21
+    sourceSize:
+      w: 26
+      h: 21
+  - filename: frames/diamond_2.png
+    frame:
+      x: 52
+      'y': 0
+      w: 26
+      h: 21
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 26
+      h: 21
+    sourceSize:
+      w: 26
+      h: 21
+  - filename: frames/diamond_3.png
+    frame:
+      x: 78
+      'y': 0
+      w: 26
+      h: 21
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 26
+      h: 21
+    sourceSize:
+      w: 26
+      h: 21
+  - filename: frames/diamond_4.png
+    frame:
+      x: 104
+      'y': 0
+      w: 26
+      h: 21
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 26
+      h: 21
+    sourceSize:
+      w: 26
+      h: 21
+  - filename: frames/diamond_5.png
+    frame:
+      x: 130
+      'y': 0
+      w: 26
+      h: 21
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 26
+      h: 21
+    sourceSize:
+      w: 26
+      h: 21
+  - filename: frames/diamond_6.png
+    frame:
+      x: 156
+      'y': 0
+      w: 26
+      h: 21
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 26
+      h: 21
+    sourceSize:
+      w: 26
+      h: 21
+  - filename: frames/diamond_7.png
+    frame:
+      x: 182
+      'y': 0
+      w: 26
+      h: 21
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 26
+      h: 21
+    sourceSize:
+      w: 26
+      h: 21
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 208
+    h: 21
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:16e86a785b48da31f652388dc6d29743:ff809a1554667b6533e150eeda369b91:8ec62f1fee1d06840401aebe0be01f82$

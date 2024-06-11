@@ -1,10 +1,12 @@
 
 #include "lobby.h"
 #include <cstdint>
+#include <functional>
 #include <sys/socket.h>
 
 Lobby::Lobby(const char *hostname, const char *port)
-    : skt(hostname, port), protocol(skt), player_id(0), skt_ownership(true) {}
+    : skt(hostname, port), protocol(std::ref(skt)), player_id(0),
+      skt_ownership(true) {}
 
 std::vector<GameInfoDto> Lobby::get_games() {
   std::vector<GameInfoDto> vect;

@@ -2,6 +2,7 @@
 #define BASE_DTO
 
 #include <cstdint>
+
 class BaseDTO {
 private:
   // cppcheck-suppress unusedStructMember
@@ -10,7 +11,7 @@ private:
   uint8_t player_id;
 
 public:
-  explicit BaseDTO(uint8_t operation_id, uint8_t player_id);
+  BaseDTO(uint8_t operation_id, uint8_t player_id);
 
   uint8_t getOperationId() const;
   uint8_t getPlayerId() const;
@@ -18,4 +19,4 @@ public:
   virtual ~BaseDTO();
 };
 
-#endif
+#endif // BASE_DTO

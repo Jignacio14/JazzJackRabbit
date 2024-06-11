@@ -4,6 +4,10 @@
 
 #include "base_state.h"
 
-class Alive : public BaseState {};
+class Alive : public BaseState {
+
+public:
+  bool can_move() override;
+};
 
 #endif // JAZZJACKRABBIT_ALIVE_H

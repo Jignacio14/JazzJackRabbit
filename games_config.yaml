@@ -1,4 +1,4 @@
-max_players_per_game: 5
+max_players_per_game: 2 # CANNOT EXEED 10
 max_game_duration: 90
 max_username_length: 29
 min_number_of_players: 1
@@ -13,3 +13,9 @@ target_fps: 60
 # Client exclusive debug values
 debug_hostname: "localhost"
 debug_port: 1002
+
+# Player Parameters
+starting_points: 0
+max_life: 100
+starting_ammo: 20
+

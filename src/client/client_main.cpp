@@ -1,5 +1,8 @@
+#include "../data/convention.h"
+#include "../data/snapshot_dto.h"
 #include "./game_configs.h"
 #include "./graphics/graphic_engine.h"
+#include "./player.h"
 #include "./ui/startup_screen.h"
 #include "lobby.h"
 #include "renderer.h"
@@ -18,15 +21,10 @@ static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 const static int EXIT_SUCCESS_CODE = 0;
 const static int EXIT_ERROR_CODE = -1;
 
-const static char CHARACTER_NOT_SELECTED = '0';
-const static char JAZZ_SELECTED = 'J';
-const static char SPAZ_SELECTED = 'S';
-const static char LORI_SELECTED = 'L';
-
-const static bool TEST_ONLY_SDL_MODE = true;
+const static bool TEST_ONLY_SDL_MODE = false;
 
 void debugPrint(std::string &hostname, uint32_t &port, std::string &username,
-                char &userCharacter, GameConfigs &gameConfig) {
+                uint8_t &userCharacter, GameConfigs &gameConfig) {
   std::cout << "username: " << username << "\n";
   std::cout << "character selected: " << userCharacter << "\n";
   std::cout << "Owner name: " << gameConfig.getOwnerName() << "|"
@@ -47,12 +45,16 @@ int main(int argc, char *argv[]) {
   }
 
   std::string hostname("");
-  // cppcheck-suppress unreadVariable
   uint32_t port(0);
   std::string username("");
-  char userCharacter = CHARACTER_NOT_SELECTED;
+  uint8_t userCharacter = PlayableCharactersIds::NoneSelected;
+
+  Snapshot initialSnapshotDto;
+  Snapshot *initialSnapshotDtoPtr = &initialSnapshotDto;
+
   GameConfigs gameConfig;
   GameConfigs *gamePtr = &gameConfig;
+
   std::unique_ptr<Lobby> lobby = nullptr;
 
   int exitCode = 0;
@@ -61,7 +63,7 @@ int main(int argc, char *argv[]) {
 
     if (TEST_ONLY_SDL_MODE == false) {
       StartupScreen startupScreen(argc, argv, hostname, port, username, gamePtr,
-                                  userCharacter);
+                                  initialSnapshotDtoPtr, userCharacter);
 
       exitCode = startupScreen.show();
       lobby = startupScreen.getLobby();
@@ -69,11 +71,11 @@ int main(int argc, char *argv[]) {
       if (exitCode != EXIT_SUCCESS_CODE) {
         return EXIT_ERROR_CODE;
       }
-    } else {
+    } else /* DEBUG MODE ON */ {
       hostname = globalConfigs.getDebugHostname();
       port = globalConfigs.getDebugPort();
       username = "testUsername";
-      userCharacter = JAZZ_SELECTED;
+      userCharacter = PlayableCharactersIds::Jazz;
       lobby = std::make_unique<Lobby>(hostname.c_str(),
                                       std::to_string(port).c_str());
     }
@@ -83,9 +85,14 @@ int main(int argc, char *argv[]) {
 
     debugPrint(hostname, port, username, userCharacter, gameConfig);
 
-    int client_id = 1;
+    SnapshotWrapper initialSnapshot(initialSnapshotDto);
+
+    uint8_t playerId = lobby->get_player_id();
+    Player player(username, userCharacter, graphicEngine, initialSnapshot,
+                  playerId);
     Socket skt = lobby->transfer_socket();
-    Renderer renderer(graphicEngine, client_id, std::move(skt));
+    Renderer renderer(graphicEngine, playerId, std::move(skt), player,
+                      initialSnapshot);
     renderer.run();
 
     return exitCode;

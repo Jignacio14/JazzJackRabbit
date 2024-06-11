@@ -3,6 +3,7 @@
 
 #include "./sprite.h"
 #include <SDL2pp/SDL2pp.hh>
+#include <cstdint>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -34,23 +35,57 @@ private:
   // cppcheck-suppress unusedStructMember
   std::unordered_map<std::string, Sprite> carrotusScenarioSprites;
 
+  // cppcheck-suppress unusedStructMember
+  std::unordered_map<std::string, Sprite> gun1Sprites;
+  // cppcheck-suppress unusedStructMember
+  std::unique_ptr<Sprite> gun1hudIcon;
+
+  // cppcheck-suppress unusedStructMember
+  std::unordered_map<std::string, Sprite> gun2Sprites;
+  // cppcheck-suppress unusedStructMember
+  std::unique_ptr<Sprite> gun2hudIcon;
+
+  // cppcheck-suppress unusedStructMember
+  std::unordered_map<std::string, Sprite> collectablesSprites;
+
+  // cppcheck-suppress unusedStructMember
+  std::unordered_map<std::string, Sprite> bubbaSprites;
+
+  // cppcheck-suppress unusedStructMember
+  std::unordered_map<std::string, Sprite> turtleGoonSprites;
+
+  // cppcheck-suppress unusedStructMember
+  std::unordered_map<std::string, Sprite> schwarzenguardSprites;
+
 public:
   explicit TextureLoader(SDL2pp::Renderer &sdlRenderer);
   void preloadTextures();
 
-  Sprite &getJazzGenericSprite(const std::string &spriteName);
-  Sprite &getJazzSpecialSprite(const std::string &spriteName);
+  Sprite &getJazzGenericSprite(const u_int8_t &spriteCode);
+  Sprite &getJazzSpecialSprite(const u_int8_t &spriteCode);
   Sprite &getJazzHudIcon();
 
-  Sprite &getSpazGenericSprite(const std::string &spriteName);
-  Sprite &getSpazSpecialSprite(const std::string &spriteName);
+  Sprite &getSpazGenericSprite(const u_int8_t &spriteCode);
+  Sprite &getSpazSpecialSprite(const u_int8_t &spriteCode);
   Sprite &getSpazHudIcon();
 
-  Sprite &getLoriGenericSprite(const std::string &spriteName);
-  Sprite &getLoriSpecialSprite(const std::string &spriteName);
+  Sprite &getLoriGenericSprite(const u_int8_t &spriteCode);
+  Sprite &getLoriSpecialSprite(const u_int8_t &spriteCode);
   Sprite &getLoriHudIcon();
 
-  Sprite &getCarrotusScenarioSprite(const std::string &spriteName);
+  Sprite &getCarrotusScenarioSprite(const u_int8_t &spriteName);
+
+  Sprite &getGun1Sprite(const u_int8_t &spriteCode);
+  Sprite &getGun1HudIcon();
+
+  Sprite &getGun2Sprite(const u_int8_t &spriteCode);
+  Sprite &getGun2HudIcon();
+
+  Sprite &getCollectableSprite(const u_int8_t &spriteCode);
+
+  Sprite &getBubbaSprite(const u_int8_t &spriteCode);
+  Sprite &getTurtleGoonSprite(const u_int8_t &spriteCode);
+  Sprite &getSchwarzenguardSprite(const u_int8_t &spriteCode);
 };
 
 #endif // TEXTURE_LOADER_H

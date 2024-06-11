@@ -22,7 +22,7 @@ void Sender::sendGamesOptions() {
   }
 }
 
-Queue<std::pair<u_int8_t, u_int8_t>> &Sender::setUpPlayerLoop() {
+Queue<CommandCodeDto> &Sender::setUpPlayerLoop() {
   while (true) {
     uint8_t option = this->servprot.getLobbyOption();
     if (option == RESEND_GAME_INFO) {
@@ -32,17 +32,19 @@ Queue<std::pair<u_int8_t, u_int8_t>> &Sender::setUpPlayerLoop() {
     if (option == REGISTER_PLAYER) {
       PlayerInfo player_info = this->servprot.getGameInfo();
       this->ValidatePlayerInfo(player_info);
-      std::pair<Queue<std::pair<uint8_t, uint8_t>> &, uint8_t> result =
+      std::pair<Queue<CommandCodeDto> &, uint8_t> result =
           this->gamesMonitor.registerPlayer(player_info, this->sender_queue);
       this->servprot.sendPlayerId(result.second);
+
+      // cppcheck-suppress returnReference
       return result.first;
     }
   }
 }
 
 void Sender::ValidatePlayerInfo(const PlayerInfo &player_info) {
-  if (player_info.game_name.empty() || player_info.player_name.empty() ||
-      player_info.character_code == 0) {
+  if (player_info.str_len == 0 ||
+      player_info.character_code == PlayableCharactersIds::NoneSelected) {
     this->_is_alive = false;
     throw std::runtime_error("Error en la comunicacion con el cliente");
   }
@@ -51,8 +53,7 @@ void Sender::ValidatePlayerInfo(const PlayerInfo &player_info) {
 void Sender::run() {
   try {
     this->sendGamesOptions();
-    Queue<std::pair<uint8_t, uint8_t>> &receiver_queue =
-        this->setUpPlayerLoop();
+    Queue<CommandCodeDto> &receiver_queue = this->setUpPlayerLoop();
     Receiver receiver(this->servprot, receiver_queue);
     receiver.start();
     this->runSenderLoop();
@@ -60,21 +61,21 @@ void Sender::run() {
     receiver.join();
   } catch (const std::runtime_error &e) {
     this->kill();
+    std::cerr << e.what() << std::endl;
   } catch (...) {
+    std::cerr << "Unknown error" << std::endl;
   }
 }
 
 void Sender::runSenderLoop() {
   while (this->is_alive()) {
-    // if (!this->servprot.sendDTO(*dto)) {
-    //   this->error = true;
-    //   delete dto;
-    //   break;
-    // }
+    Snapshot snapshot = this->sender_queue.pop();
+    this->servprot.sendSnapshot(snapshot);
   }
 }
 
 void Sender::kill() {
+  // this->gamesMonitor.erasePlayer(this->sender_queue);
   this->_is_alive = false;
   this->servprot.shutdown();
 }

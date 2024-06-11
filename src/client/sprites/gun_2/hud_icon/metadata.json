@@ -1,0 +1,20 @@
+{"frames": [
+
+{
+	"filename": "frames/bullet_4.png",
+	"frame": {"x":0,"y":0,"w":30,"h":30},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":30,"h":30},
+	"sourceSize": {"w":30,"h":30}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spritesheet.png",
+	"format": "RGB888",
+	"size": {"w":30,"h":30},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:c2fc663c43ae6ad4a66ae1109d773ed2:09fa839f12a237d17b75e12c1a319b28:8ec62f1fee1d06840401aebe0be01f82$"
+}
+}

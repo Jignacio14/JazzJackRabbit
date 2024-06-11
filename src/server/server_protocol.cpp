@@ -80,6 +80,9 @@ PlayerInfo ServerProtocol::getGameInfo() {
   bool wasClose = this->getTemporalWasClose();
   PlayerInfo info;
   this->skt.recvall_bytewise(&info, sizeof(info), &wasClose);
+  std::cout << "code: " << info.character_code
+            << "| game name: " << info.game_name[0]
+            << "player name: " << info.player_name[0] << "\n";
   this->throwIfClosed(wasClose);
   return info;
 }
@@ -121,6 +124,21 @@ void ServerProtocol::throwIfClosed(const bool &result) {
     this->was_close.store(true);
     throw LibError(errno, "Socket closed");
   }
+}
+
+CommandCodeDto ServerProtocol::asyncGetEventCode() {
+  CommandCodeDto code;
+  bool wasClose = this->getTemporalWasClose();
+  this->skt.recvall_bytewise(&code, sizeof(CommandCodeDto), &wasClose);
+  std::cout << "code: " << std::to_string(code.code) << "\n";
+  this->throwIfClosed(wasClose);
+  return code;
+}
+
+void ServerProtocol::sendSnapshot(const Snapshot &snapshot) {
+  bool wasClose = this->getTemporalWasClose();
+  this->skt.sendall_bytewise(&snapshot, sizeof(snapshot), &wasClose);
+  this->throwIfClosed(wasClose);
 }
 
 void ServerProtocol::shutdown() {

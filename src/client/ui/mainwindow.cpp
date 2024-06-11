@@ -11,6 +11,7 @@
 #include "../../common/game_info.h"
 #include "../../common/global_configs.h"
 #include "../../common/random_string_generator.h"
+#include "../../data/convention.h"
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
@@ -32,19 +33,18 @@ const static uint32_t MAX_USERNAME_SIZE = globalConfigs.getMaxUsernameLength();
 const static uint32_t MAX_PORT_NUMBER = globalConfigs.getMaxPortNumber();
 const static uint32_t MIN_NUMBER_OF_PLAYERS =
     globalConfigs.getMinNumberOfPlayers();
-
-const static char CHARACTER_NOT_SELECTED = '0';
-const static char JAZZ_SELECTED = 'J';
-const static char SPAZ_SELECTED = 'S';
-const static char LORI_SELECTED = 'L';
+const static uint32_t MAX_NUMBER_OF_PLAYERS =
+    globalConfigs.getMaxPlayersPerGame();
+const static uint32_t MAX_GAME_DURATION = globalConfigs.getMaxGameDuration();
 
 MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
                        std::string &username, GameConfigs *game,
-                       char &userCharacter, std::unique_ptr<Lobby> lobby)
+                       Snapshot *initialSnapshot, uint8_t &userCharacter,
+                       std::unique_ptr<Lobby> lobby)
     : QMainWindow(parent), ui(new Ui::MainWindow), hostname(hostname),
-      port(port), username(username), finalGameConfigs(game), gameOwnerName(""),
-      gameDuration(0), maxPlayers(0), currentPlayers(1),
-      characterSelected(userCharacter),
+      port(port), username(username), finalGameConfigs(game),
+      initialSnapshot(initialSnapshot), gameOwnerName(""), gameDuration(0),
+      maxPlayers(0), currentPlayers(1), characterSelected(userCharacter),
       buttonClickSound(BUTTON_CLICK_RESOURCE_SOUND_PATH),
       jazzAnimation(JAZZ_MENU_ANIMATION_RESOURCE_PATH),
       spazAnimation(SPAZ_MENU_ANIMATION_RESOURCE_PATH),
@@ -139,7 +139,11 @@ void MainWindow::on_connectButton_released() {
     const char *portStr = std::to_string(this->port).c_str();
     std::unique_ptr<Lobby> lobbyAttempt =
         std::make_unique<Lobby>(this->hostname.c_str(), portStr);
+
     this->lobby = std::move(lobbyAttempt);
+
+    std::vector<GameConfigs> games = this->getGamesFromServer();
+    this->addGamesToList(games);
 
     this->enableButton(this->ui->createGameButton, "createGameButton");
     this->enableButton(this->ui->joinGameButton, "joinGameButton");
@@ -159,14 +163,18 @@ void MainWindow::on_createGameButton_pressed() {
                                "gameDurationInput");
   this->enableAndResetLineEdit(this->ui->maxPlayersInput, "maxPlayersInput");
   this->ui->stackedWidget->setCurrentWidget(this->ui->createGameScreen);
+
+  this->ui->gameDurationInput->setText(
+      QString::fromStdString(std::to_string(MAX_GAME_DURATION)));
+  this->disableLineEdit(this->ui->gameDurationInput, "gameDurationInput");
+
+  this->ui->maxPlayersInput->setText(
+      QString::fromStdString(std::to_string(MAX_NUMBER_OF_PLAYERS)));
+  this->disableLineEdit(this->ui->maxPlayersInput, "maxPlayersInput");
 }
 
 void MainWindow::on_joinGameButton_pressed() {
   this->buttonClickSound.play();
-
-  std::vector<GameConfigs> games = this->getGamesFromServer();
-  this->addGamesToList(games);
-
   this->ui->stackedWidget->setCurrentWidget(this->ui->joinGameScreen);
 }
 
@@ -215,7 +223,7 @@ void MainWindow::on_chooseCharacterButton_released() {
 
 void MainWindow::on_selectJazzButton_released() {
   this->buttonClickSound.play();
-  this->characterSelected = JAZZ_SELECTED;
+  this->characterSelected = PlayableCharactersIds::Jazz;
   this->jazzAnimation.start();
   QTimer::singleShot(TIME_FOR_CHARACTER_ANIMATION_WAIT, this,
                      SLOT(startGame()));
@@ -223,7 +231,7 @@ void MainWindow::on_selectJazzButton_released() {
 
 void MainWindow::on_selectSpazButton_released() {
   this->buttonClickSound.play();
-  this->characterSelected = SPAZ_SELECTED;
+  this->characterSelected = PlayableCharactersIds::Spaz;
   this->spazAnimation.start();
   QTimer::singleShot(TIME_FOR_CHARACTER_ANIMATION_WAIT, this,
                      SLOT(startGame()));
@@ -231,7 +239,7 @@ void MainWindow::on_selectSpazButton_released() {
 
 void MainWindow::on_selectLoriButton_released() {
   this->buttonClickSound.play();
-  this->characterSelected = LORI_SELECTED;
+  this->characterSelected = PlayableCharactersIds::Lori;
   this->loriAnimation.start();
   QTimer::singleShot(TIME_FOR_CHARACTER_ANIMATION_WAIT, this,
                      SLOT(startGame()));
@@ -239,7 +247,7 @@ void MainWindow::on_selectLoriButton_released() {
 
 void MainWindow::on_refreshGamesButton_released() {
   this->buttonClickSound.play();
-  std::vector<GameConfigs> games = this->getGamesFromServer();
+  std::vector<GameConfigs> games = this->getRefreshedGamesFromServer();
 
   this->addGamesToList(games);
 
@@ -275,9 +283,8 @@ void MainWindow::startGame() {
       GameConfigs(this->gameOwnerName, this->maxPlayers, this->currentPlayers,
                   this->gameDuration);
 
-  this->waitingPlayersAndStartTask =
-      std::make_unique<std::thread>(&MainWindow::waitForPlayers, this);
-  this->waitingPlayersAndStartTask->join();
+  auto lambda = [=]() { this->waitForPlayers(); };
+  this->waitingPlayersAndStartTask = std::make_unique<std::thread>(lambda);
 }
 
 void MainWindow::waitForPlayers() {
@@ -285,7 +292,7 @@ void MainWindow::waitForPlayers() {
                                   this->username);
   std::cout << "Waiting for players to join"
             << "\n";
-  this->lobby->wait_game_start();
+  *this->initialSnapshot = this->lobby->wait_game_start();
   std::cout << "Game starting!"
             << "\n";
   this->close();
@@ -419,13 +426,22 @@ const bool MainWindow::isNumberOfPlayersValid(std::string &message) {
 
 std::vector<GameConfigs> MainWindow::getGamesFromServer() {
   std::vector<GameConfigs> games;
+
   std::vector<GameInfoDto> gamesDto = this->lobby->get_games();
 
-  /*for (int i = 0; i < 19; i++) {
-    uint32_t userId = i + this->debug_counter;
-    games.push_back(GameConfigs("user_" + std::to_string(userId), 3, 2, 120));
-    this->debug_counter++;
-  }*/
+  for (auto &gameDto : gamesDto) {
+    std::string gameName = gameDto.game_name;
+    games.push_back(GameConfigs(gameName, globalConfigs.getMaxPlayersPerGame(),
+                                gameDto.player_count,
+                                globalConfigs.getMaxGameDuration()));
+  }
+
+  return games;
+}
+
+std::vector<GameConfigs> MainWindow::getRefreshedGamesFromServer() {
+  std::vector<GameConfigs> games;
+  std::vector<GameInfoDto> gamesDto = this->lobby->refresh_games();
 
   for (auto &gameDto : gamesDto) {
     std::string gameName = gameDto.game_name;
@@ -539,7 +555,8 @@ std::unique_ptr<Lobby> MainWindow::getLobby() {
 
 MainWindow::~MainWindow() {
   delete ui;
-  if (!this->lobbyMoved && this->waitingPlayersAndStartTask != nullptr) {
-    this->waitingPlayersAndStartTask->join();
+  if (this->waitingPlayersAndStartTask != nullptr) {
+    if (this->waitingPlayersAndStartTask->joinable())
+      this->waitingPlayersAndStartTask->join();
   }
 }

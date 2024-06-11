@@ -2,8 +2,8 @@
 #define SENDER
 
 #include "../common/queue.h"
-#include "../common/snapshot_DTO.h"
 #include "../common/thread.h"
+#include "../data/snapshot_dto.h"
 #include "./server_protocol.h"
 #include "server_games_monitor.h"
 #include "server_receiver.h"
@@ -18,7 +18,7 @@ private:
   Queue<Snapshot> sender_queue;
 
   void sendGamesOptions();
-  Queue<std::pair<uint8_t, uint8_t>> &setUpPlayerLoop();
+  Queue<CommandCodeDto> &setUpPlayerLoop();
   void runSenderLoop();
   void ValidatePlayerInfo(const PlayerInfo &player_info);
 

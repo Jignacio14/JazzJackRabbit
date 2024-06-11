@@ -1,0 +1,140 @@
+frames:
+  - filename: frames/ammo_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 11
+      h: 7
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 11
+      h: 7
+    sourceSize:
+      w: 11
+      h: 7
+  - filename: frames/ammo_1.png
+    frame:
+      x: 13
+      'y': 0
+      w: 13
+      h: 7
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 13
+      h: 7
+    sourceSize:
+      w: 13
+      h: 7
+  - filename: frames/ammo_2.png
+    frame:
+      x: 26
+      'y': 0
+      w: 11
+      h: 9
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 11
+      h: 9
+    sourceSize:
+      w: 11
+      h: 9
+  - filename: frames/ammo_3.png
+    frame:
+      x: 39
+      'y': 0
+      w: 9
+      h: 9
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 9
+      h: 9
+    sourceSize:
+      w: 9
+      h: 9
+  - filename: frames/ammo_4.png
+    frame:
+      x: 52
+      'y': 0
+      w: 9
+      h: 9
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 9
+      h: 9
+    sourceSize:
+      w: 9
+      h: 9
+  - filename: frames/ammo_5.png
+    frame:
+      x: 65
+      'y': 0
+      w: 9
+      h: 9
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 9
+      h: 9
+    sourceSize:
+      w: 9
+      h: 9
+  - filename: frames/ammo_6.png
+    frame:
+      x: 78
+      'y': 0
+      w: 11
+      h: 9
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 11
+      h: 9
+    sourceSize:
+      w: 11
+      h: 9
+  - filename: frames/ammo_7.png
+    frame:
+      x: 91
+      'y': 0
+      w: 13
+      h: 7
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 13
+      h: 7
+    sourceSize:
+      w: 13
+      h: 7
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 104
+    h: 9
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:a7bfd465636882890954e1f08bed61a8:9edae03ad64e09cc37c1d0d856667656:8ec62f1fee1d06840401aebe0be01f82$

@@ -1,0 +1,84 @@
+{"frames": [
+
+{
+	"filename": "frames/collectable_ammo_0.png",
+	"frame": {"x":0,"y":0,"w":9,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":9,"h":5},
+	"sourceSize": {"w":9,"h":5}
+},
+{
+	"filename": "frames/collectable_ammo_1.png",
+	"frame": {"x":10,"y":0,"w":10,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":5},
+	"sourceSize": {"w":10,"h":5}
+},
+{
+	"filename": "frames/collectable_ammo_2.png",
+	"frame": {"x":20,"y":0,"w":8,"h":7},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":7},
+	"sourceSize": {"w":8,"h":7}
+},
+{
+	"filename": "frames/collectable_ammo_3.png",
+	"frame": {"x":30,"y":0,"w":7,"h":7},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":7,"h":7},
+	"sourceSize": {"w":7,"h":7}
+},
+{
+	"filename": "frames/collectable_ammo_4.png",
+	"frame": {"x":40,"y":0,"w":7,"h":7},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":7,"h":7},
+	"sourceSize": {"w":7,"h":7}
+},
+{
+	"filename": "frames/collectable_ammo_5.png",
+	"frame": {"x":50,"y":0,"w":7,"h":7},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":7,"h":7},
+	"sourceSize": {"w":7,"h":7}
+},
+{
+	"filename": "frames/collectable_ammo_6.png",
+	"frame": {"x":60,"y":0,"w":8,"h":7},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":7},
+	"sourceSize": {"w":8,"h":7}
+},
+{
+	"filename": "frames/collectable_ammo_7.png",
+	"frame": {"x":70,"y":0,"w":10,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":5},
+	"sourceSize": {"w":10,"h":5}
+},
+{
+	"filename": "frames/collectable_ammo_8.png",
+	"frame": {"x":80,"y":0,"w":9,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":9,"h":5},
+	"sourceSize": {"w":9,"h":5}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spritesheet.png",
+	"format": "RGB888",
+	"size": {"w":90,"h":7},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:199825e91af6e01b1aeb10523650f76e:ad02d2e7af833db68ec058906ddd9fe6:8ec62f1fee1d06840401aebe0be01f82$"
+}
+}
