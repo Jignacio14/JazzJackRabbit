@@ -76,3 +76,7 @@ Sprite &GraphicEngine::getGun2Sprite(const uint8_t &spriteCode) {
 Sprite &GraphicEngine::getGun2HudIcon() {
   return this->textureLoader.getGun2HudIcon();
 }
+
+Sprite &GraphicEngine::getCollectableSprite(const uint8_t &spriteCode) {
+  return this->textureLoader.getCollectableSprite(spriteCode);
+}

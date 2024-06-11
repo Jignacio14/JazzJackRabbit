@@ -39,6 +39,8 @@ public:
 
   Sprite &getGun2Sprite(const u_int8_t &spriteCode);
   Sprite &getGun2HudIcon();
+
+  Sprite &getCollectableSprite(const u_int8_t &spriteCode);
 };
 
 #endif // GRAPHIC_ENGINE_H

@@ -43,6 +43,12 @@ static const std::vector<uint8_t> gunsSpriteNamesVector = {
     GunSpriteCodes::HudIcon,
 };
 
+static const std::vector<uint8_t> collectablesSpriteNamesVector = {
+    CollectablesSpriteCodes::Carrot,
+    CollectablesSpriteCodes::Coin,
+    CollectablesSpriteCodes::Diamond,
+};
+
 const static int CHARACTERS_COLOR_KEY_RGB[3] = {44, 102, 150};
 const static int MAP_COLOR_KEY_RGB[3] = {87, 0, 203};
 const static int WHITE_COLOR_KEY[3] = {255, 255, 255};
@@ -248,6 +254,13 @@ void TextureLoader::preloadTextures() {
   loadSpriteHudIconLambda("src/client/sprites/gun_2/",
                           spriteNamesMap.map.at(GunSpriteCodes::HudIcon),
                           CHARACTERS_COLOR_KEY_RGB, this->gun2hudIcon);
+
+  // COLLECTABLES SPRITES INITIALIZATION
+  for (auto &spriteCode : collectablesSpriteNamesVector) {
+    loadSpriteLambda("src/client/sprites/collectables/", spriteCode,
+                     spriteNamesMap.map.at(spriteCode),
+                     CHARACTERS_COLOR_KEY_RGB, this->collectablesSprites);
+  }
 }
 
 Sprite &TextureLoader::getJazzGenericSprite(const u_int8_t &spriteCode) {
@@ -362,3 +375,15 @@ Sprite &TextureLoader::getGun2Sprite(const u_int8_t &spriteCode) {
 }
 
 Sprite &TextureLoader::getGun2HudIcon() { return std::ref(*this->gun2hudIcon); }
+
+Sprite &TextureLoader::getCollectableSprite(const u_int8_t &spriteCode) {
+  try {
+    return std::ref(
+        this->collectablesSprites.at(spriteNamesMap.map.at(spriteCode)));
+  } catch (...) {
+    std::string errorMessage = "Failed retrieving " +
+                               spriteNamesMap.map.at(spriteCode) +
+                               " from collectables map.";
+    throw JJR2Error(errorMessage, __LINE__, __FILE__);
+  }
+}

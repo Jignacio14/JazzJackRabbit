@@ -67,6 +67,15 @@ struct GunSpriteCodes {
   static constexpr uint8_t HudIcon = 72;
 };
 
+struct CollectablesSpriteCodes {
+  // cppcheck-suppress unusedStructMember
+  static constexpr uint8_t Carrot = 80;
+  // cppcheck-suppress unusedStructMember
+  static constexpr uint8_t Coin = 81;
+  // cppcheck-suppress unusedStructMember
+  static constexpr uint8_t Diamond = 82;
+};
+
 struct SpriteNamesMap {
   // cppcheck-suppress unusedStructMember
   const std::map<uint8_t, std::string> map;

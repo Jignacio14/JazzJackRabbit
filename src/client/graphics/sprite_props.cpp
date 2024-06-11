@@ -26,6 +26,10 @@ constexpr uint8_t GunSpriteCodes::FlyingBullet;
 constexpr uint8_t GunSpriteCodes::CollectableAmmo;
 constexpr uint8_t GunSpriteCodes::HudIcon;
 
+constexpr uint8_t CollectablesSpriteCodes::Carrot;
+constexpr uint8_t CollectablesSpriteCodes::Coin;
+constexpr uint8_t CollectablesSpriteCodes::Diamond;
+
 SpriteNamesMap::SpriteNamesMap()
     : map({
           {GenericSpriteCodes::Death, "death"},
@@ -53,4 +57,8 @@ SpriteNamesMap::SpriteNamesMap()
           {GunSpriteCodes::FlyingBullet, "flying_bullet"},
           {GunSpriteCodes::CollectableAmmo, "collectable_ammo"},
           {GunSpriteCodes::HudIcon, "hud_icon"},
+
+          {CollectablesSpriteCodes::Carrot, "carrot"},
+          {CollectablesSpriteCodes::Coin, "coin"},
+          {CollectablesSpriteCodes::Diamond, "diamond"},
       }) {}

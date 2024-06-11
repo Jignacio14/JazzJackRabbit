@@ -12,6 +12,9 @@
 #include "./graphics/bullets/bullet_gun_2.h"
 #include "./graphics/collectables/ammo_gun_1.h"
 #include "./graphics/collectables/ammo_gun_2.h"
+#include "./graphics/collectables/carrot.h"
+#include "./graphics/collectables/coin.h"
+#include "./graphics/collectables/diamond.h"
 #include "./graphics/jazz/jazz.h"
 #include "./graphics/lori/lori.h"
 #include "./graphics/spaz/spaz.h"
@@ -227,13 +230,19 @@ void Renderer::createNewCollectables(const Snapshot &snapshot) {
 
     switch (snapshot.collectables[i].type) {
     case CollectableIds::Coin:
-      // this->addRenderable(std::make_unique<>());
+      this->addRenderable(std::make_unique<Coin>(
+          this->graphicEngine, coords, snapshot.collectables[i].entity_id,
+          storedSnapshotWrapper));
       break;
     case CollectableIds::Diamond:
-      // this->addRenderable(std::make_unique<>());
+      this->addRenderable(std::make_unique<Diamond>(
+          this->graphicEngine, coords, snapshot.collectables[i].entity_id,
+          storedSnapshotWrapper));
       break;
     case CollectableIds::Carrot:
-      // this->addRenderable(std::make_unique<>());
+      this->addRenderable(std::make_unique<Carrot>(
+          this->graphicEngine, coords, snapshot.collectables[i].entity_id,
+          storedSnapshotWrapper));
       break;
     case CollectableIds::AmmoGun1:
       this->addRenderable(std::make_unique<AmmoGun1>(
