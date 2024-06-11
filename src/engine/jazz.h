@@ -6,7 +6,8 @@
 class Jazz : public BasePlayer {
 private:
 public:
-  Jazz(uint8_t player_id, std::string &player_name, Snapshot &snapshot);
+  Jazz(uint8_t player_id, std::string &player_name, Snapshot &snapshot,
+       int position);
 
   ~Jazz();
 };

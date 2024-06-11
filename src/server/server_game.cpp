@@ -14,6 +14,11 @@ Game::Game(GameMonitor &monitor, Queue<CommandCodeDto> &queue)
 void Game::gameLoop() {
   while (this->_is_alive) {
     /// Empiezo a calcular la diferencia de tiempo para hacer el sleep
+    for (auto &pair : players_data) {
+      if (pair.second) {
+        pair.second->update();
+      }
+    }
     CommandCodeDto command;
     bool has_command = messages.try_pop(command);
     if (has_command) {
@@ -64,13 +69,16 @@ void Game::run() {
 
 BasePlayer *Game::constructPlayer(uint8_t player_id, std::string &player_name) {
   if (player_name == JAZZ_CODE) {
-    return new Jazz(player_id, player_name, snapshot);
+    return new Jazz(player_id, player_name, snapshot,
+                    this->snapshot.sizePlayers);
   }
   if (player_name == LORI_CODE) {
-    return new Lori(player_id, player_name, snapshot);
+    return new Lori(player_id, player_name, snapshot,
+                    this->snapshot.sizePlayers);
   }
   if (player_name == SPAZ_CODE) {
-    return new Spaz(player_id, player_name, snapshot);
+    return new Spaz(player_id, player_name, snapshot,
+                    this->snapshot.sizePlayers);
   }
   return nullptr;
 }
