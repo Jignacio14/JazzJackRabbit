@@ -1,4 +1,5 @@
 #include "base_player.h"
+#include <iostream>
 
 BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
                        Snapshot &snapshot)
@@ -24,7 +25,12 @@ void BasePlayer::change_state(std::unique_ptr<BaseState> new_state) {
 void BasePlayer::move_right() {
   Rectangle new_rectangle = rectangle;
   new_rectangle.move_right();
+  std::cout << "Moving Right afuera del if"
+            << "\n";
   if (state->can_move() && map.available_position(new_rectangle)) {
+    std::cout << "Moving Right"
+              << "\n";
+
     rectangle = new_rectangle;
     facing_direction = FacingDirectionsIds::Right;
 
@@ -42,7 +48,11 @@ void BasePlayer::move_right() {
 void BasePlayer::move_left() {
   Rectangle new_rectangle = rectangle;
   new_rectangle.move_left();
+  std::cout << "Moving Left afuera del if"
+            << "\n";
   if (state->can_move() && map.available_position(new_rectangle)) {
+    std::cout << "Moving Left"
+              << "\n";
     rectangle = new_rectangle;
     facing_direction = FacingDirectionsIds::Left;
 
