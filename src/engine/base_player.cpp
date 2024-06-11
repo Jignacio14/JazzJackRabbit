@@ -12,8 +12,21 @@ void BasePlayer::receive_damage(uint8_t damage) {
   if (damage >= health) {
     health = 0;
     change_state(std::make_unique<Dead>());
+    for (int i = 0; i < snapshot.sizePlayers; ++i) {
+      if (snapshot.players[i].user_id == player_id) {
+        snapshot.players[i].is_dead = NumericBool::True;
+        break;
+      }
+    }
   } else {
     health -= damage;
+    for (int i = 0; i < snapshot.sizePlayers; ++i) {
+      if (snapshot.players[i].user_id == player_id) {
+        snapshot.players[i].was_hurt == NumericBool::True;
+        snapshot.players[i].life = health;
+        break;
+      }
+    }
   }
 }
 
@@ -55,6 +68,15 @@ void BasePlayer::move_left() {
         snapshot.players[i].is_walking = NumericBool::True;
         break;
       }
+    }
+  }
+}
+
+void BasePlayer::stop_moving() {
+  for (int i = 0; i < snapshot.sizePlayers; ++i) {
+    if (snapshot.players[i].user_id == player_id) {
+      snapshot.players[i].is_walking = NumericBool::False;
+      break;
     }
   }
 }

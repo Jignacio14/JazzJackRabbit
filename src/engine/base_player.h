@@ -53,6 +53,7 @@ public:
 
   void move_right();
   void move_left();
+  void stop_moving();
 
   ~BasePlayer();
 };
