@@ -39,8 +39,8 @@ public:
   void virtual shoot() = 0;
   void virtual run() = 0;
   void virtual runFast() = 0;
-  void virtual jump() = 0;
-  void virtual specialAttack() = 0;
+  void virtual jump(Snapshot &snapshot) = 0;
+  void virtual specialAttack(Snapshot &snapshot) = 0;
 
   void receive_damage(uint8_t damage);
   void change_state(std::unique_ptr<BaseState> new_state);

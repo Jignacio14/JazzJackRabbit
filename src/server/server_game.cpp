@@ -14,8 +14,14 @@ void Game::gameLoop() {
   while (this->_is_alive) {
     /// Empiezo a calcular la diferencia de tiempo para hacer el sleep
     Snapshot snapshot;
-
-    this->executeAction(1, 1);
+    CommandCodeDto command;
+    bool has_command = messages.try_pop(command);
+    if (has_command) {
+      uint8_t player_id = command.player_id;
+      uint8_t action = command.code;
+      uint8_t data = command.data;
+      this->executeAction(player_id, action, data);
+    }
     // cppcheck-suppress uninitvar
     this->monitor.broadcast(snapshot);
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -23,8 +29,29 @@ void Game::gameLoop() {
 }
 
 // cppcheck-suppress unusedPrivateFunction
-void Game::executeAction(const uint8_t &player_id, const uint8_t &action) {
+void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
+                         const uint8_t &data) {
   std::cout << "Executing action" << std::endl;
+  switch (action) {
+  case PlayerCommands::MOVE_LEFT:
+    this->players_data[player_id]->move_left();
+    break;
+  case PlayerCommands::MOVE_RIGHT:
+    this->players_data[player_id]->move_right();
+    break;
+  case PlayerCommands::JUMP:
+    this->players_data[player_id]->jump();
+    break;
+  case PlayerCommands::STOP_MOVING:
+    this->players_data[player_id]->stop_moving();
+    break;
+  case PlayerCommands::SHOOT:
+    this->players_data[player_id]->shoot();
+    break;
+  case PlayerCommands::SPECIAL_ATTACK:
+    this->players_data[player_id]->specialAttack();
+    break;
+  }
 }
 
 void Game::run() {

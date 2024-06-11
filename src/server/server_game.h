@@ -25,7 +25,8 @@ private:
 
   void gameLoop();
   // cppcheck-suppress unusedPrivateFunction
-  void executeAction(const uint8_t &player_id, const uint8_t &action);
+  void executeAction(const uint8_t &player_id, const uint8_t &action,
+                     const uint8_t &data);
   BasePlayer *constructPlayer(uint8_t player_id, std::string &player_name);
 
 public:
