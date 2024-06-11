@@ -20,7 +20,7 @@ private:
   GameMonitor monitor;
   Queue<CommandCodeDto> receiver_queue;
   Game game;
-  std::atomic_int8_t players;
+  u_int8_t players;
 
 public:
   explicit GameWrapper();
