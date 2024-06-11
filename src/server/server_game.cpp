@@ -109,9 +109,8 @@ void Game::addPlayerToSnapshot(const PlayerInfo &player_info) {
   new_player_dto.shot_special = 0;
   new_player_dto.is_dead = 0;
   new_player_dto.was_hurt = 0;
-  // INCONSISTENCIA
-  new_player_dto.position_x = 0;
-  new_player_dto.position_y = 0;
+  new_player_dto.position_x = 100;
+  new_player_dto.position_y = 1100;
 
   this->snapshot.players[this->snapshot.sizePlayers] = new_player_dto;
   this->snapshot.sizePlayers++;

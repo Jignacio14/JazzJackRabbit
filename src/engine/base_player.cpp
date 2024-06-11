@@ -5,7 +5,7 @@ BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
     : player_id(player_id), player_name(player_name), health(MAX_HEALTH),
       weapon(std::make_unique<InitialWeapon>()),
       state(std::make_unique<Alive>()),
-      rectangle(Rectangle(Coordinates(0, 0), Coordinates(40, 50))),
+      rectangle(Rectangle(Coordinates(100, 1100), Coordinates(60, 1050))),
       facing_direction(FacingDirectionsIds::Right), snapshot(snapshot) {}
 
 void BasePlayer::receive_damage(uint8_t damage) {
@@ -30,11 +30,9 @@ void BasePlayer::move_right() {
 
     for (int i = 0; i < snapshot.sizePlayers; ++i) {
       if (snapshot.players[i].user_id == player_id) {
-        snapshot.players[i].position_x =
-            rectangle.getBottomRightCorner().getX();
-        snapshot.players[i].position_y =
-            rectangle.getBottomRightCorner().getY();
-        snapshot.players[i].facing_direction = FacingDirectionsIds::Left;
+        snapshot.players[i].position_x = rectangle.getTopLeftCorner().getX();
+        snapshot.players[i].position_y = rectangle.getTopLeftCorner().getY();
+        snapshot.players[i].facing_direction = FacingDirectionsIds::Right;
         break;
       }
     }
@@ -47,6 +45,15 @@ void BasePlayer::move_left() {
   if (state->can_move() && map.available_position(new_rectangle)) {
     rectangle = new_rectangle;
     facing_direction = FacingDirectionsIds::Left;
+
+    for (int i = 0; i < snapshot.sizePlayers; ++i) {
+      if (snapshot.players[i].user_id == player_id) {
+        snapshot.players[i].position_x = rectangle.getTopLeftCorner().getX();
+        snapshot.players[i].position_y = rectangle.getTopLeftCorner().getY();
+        snapshot.players[i].facing_direction = FacingDirectionsIds::Left;
+        break;
+      }
+    }
   }
 }
 
