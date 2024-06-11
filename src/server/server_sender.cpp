@@ -22,7 +22,7 @@ void Sender::sendGamesOptions() {
   }
 }
 
-Queue<CommandCodeDto> Sender::setUpPlayerLoop() {
+Queue<CommandCodeDto> &Sender::setUpPlayerLoop() {
   while (true) {
     uint8_t option = this->servprot.getLobbyOption();
     if (option == RESEND_GAME_INFO) {
@@ -35,7 +35,7 @@ Queue<CommandCodeDto> Sender::setUpPlayerLoop() {
       std::pair<Queue<CommandCodeDto> &, uint8_t> result =
           this->gamesMonitor.registerPlayer(player_info, this->sender_queue);
       this->servprot.sendPlayerId(result.second);
-      return std::move(result.first);
+      return result.first;
     }
   }
 }
@@ -51,7 +51,7 @@ void Sender::ValidatePlayerInfo(const PlayerInfo &player_info) {
 void Sender::run() {
   try {
     this->sendGamesOptions();
-    Queue<CommandCodeDto> receiver_queue = this->setUpPlayerLoop();
+    Queue<CommandCodeDto> &receiver_queue = this->setUpPlayerLoop();
     Receiver receiver(this->servprot, receiver_queue);
     receiver.start();
     this->runSenderLoop();

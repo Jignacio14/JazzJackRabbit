@@ -18,7 +18,7 @@ private:
   Queue<Snapshot> sender_queue;
 
   void sendGamesOptions();
-  Queue<CommandCodeDto> setUpPlayerLoop();
+  Queue<CommandCodeDto> &setUpPlayerLoop();
   void runSenderLoop();
   void ValidatePlayerInfo(const PlayerInfo &player_info);
 
