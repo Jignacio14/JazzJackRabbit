@@ -1,0 +1,172 @@
+frames:
+  - filename: frames/0_side_kick_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 43
+      h: 32
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 43
+      h: 32
+    sourceSize:
+      w: 43
+      h: 32
+  - filename: frames/1_side_kick_1.png
+    frame:
+      x: 53
+      'y': 0
+      w: 46
+      h: 40
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 46
+      h: 40
+    sourceSize:
+      w: 46
+      h: 40
+  - filename: frames/2_side_kick_2.png
+    frame:
+      x: 106
+      'y': 0
+      w: 36
+      h: 43
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 36
+      h: 43
+    sourceSize:
+      w: 36
+      h: 43
+  - filename: frames/3_side_kick_3.png
+    frame:
+      x: 159
+      'y': 0
+      w: 33
+      h: 46
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 33
+      h: 46
+    sourceSize:
+      w: 33
+      h: 46
+  - filename: frames/4_side_kick_4.png
+    frame:
+      x: 212
+      'y': 0
+      w: 41
+      h: 42
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 41
+      h: 42
+    sourceSize:
+      w: 41
+      h: 42
+  - filename: frames/5_side_kick_5.png
+    frame:
+      x: 265
+      'y': 0
+      w: 44
+      h: 41
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 44
+      h: 41
+    sourceSize:
+      w: 44
+      h: 41
+  - filename: frames/6_side_kick_6.png
+    frame:
+      x: 318
+      'y': 0
+      w: 48
+      h: 39
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 48
+      h: 39
+    sourceSize:
+      w: 48
+      h: 39
+  - filename: frames/side_kick_0.png
+    frame:
+      x: 371
+      'y': 0
+      w: 53
+      h: 37
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 53
+      h: 37
+    sourceSize:
+      w: 53
+      h: 37
+  - filename: frames/side_kick_1.png
+    frame:
+      x: 424
+      'y': 0
+      w: 53
+      h: 37
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 53
+      h: 37
+    sourceSize:
+      w: 53
+      h: 37
+  - filename: frames/side_kick_2.png
+    frame:
+      x: 477
+      'y': 0
+      w: 53
+      h: 37
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 53
+      h: 37
+    sourceSize:
+      w: 53
+      h: 37
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 530
+    h: 46
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:9eadcee8ccc28a93c54986d029330394:55ad367f565771ea4708dbc6a0a81aeb:8ec62f1fee1d06840401aebe0be01f82$

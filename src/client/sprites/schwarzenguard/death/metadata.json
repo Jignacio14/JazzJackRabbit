@@ -1,0 +1,20 @@
+{"frames": [
+
+{
+	"filename": "frames/death_0.png",
+	"frame": {"x":0,"y":0,"w":31,"h":27},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":31,"h":27},
+	"sourceSize": {"w":31,"h":27}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spritesheet.png",
+	"format": "RGB888",
+	"size": {"w":31,"h":27},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:e3572719f0448d33d29103a6bb5924be:00742344aa5c8daaa19006e0138e291d:8ec62f1fee1d06840401aebe0be01f82$"
+}
+}

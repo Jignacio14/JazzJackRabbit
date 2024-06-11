@@ -1,0 +1,92 @@
+frames:
+  - filename: frames/death_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 65
+      h: 31
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 65
+      h: 31
+    sourceSize:
+      w: 65
+      h: 31
+  - filename: frames/death_1.png
+    frame:
+      x: 65
+      'y': 0
+      w: 58
+      h: 19
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 58
+      h: 19
+    sourceSize:
+      w: 58
+      h: 19
+  - filename: frames/death_2.png
+    frame:
+      x: 130
+      'y': 0
+      w: 48
+      h: 19
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 48
+      h: 19
+    sourceSize:
+      w: 48
+      h: 19
+  - filename: frames/death_3.png
+    frame:
+      x: 195
+      'y': 0
+      w: 44
+      h: 19
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 44
+      h: 19
+    sourceSize:
+      w: 44
+      h: 19
+  - filename: frames/death_4.png
+    frame:
+      x: 260
+      'y': 0
+      w: 39
+      h: 19
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 39
+      h: 19
+    sourceSize:
+      w: 39
+      h: 19
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 325
+    h: 31
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:2bdba43cb1171547d0152ece54a292a8:12e705c83f0a4f1aee7aa0ddc7d9f98d:8ec62f1fee1d06840401aebe0be01f82$

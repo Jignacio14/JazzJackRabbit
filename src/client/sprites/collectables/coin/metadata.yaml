@@ -1,0 +1,332 @@
+frames:
+  - filename: frames/coin_0.png
+    frame:
+      x: 0
+      'y': 0
+      w: 23
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 23
+      h: 23
+    sourceSize:
+      w: 23
+      h: 23
+  - filename: frames/coin_1.png
+    frame:
+      x: 23
+      'y': 0
+      w: 22
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 22
+      h: 23
+    sourceSize:
+      w: 22
+      h: 23
+  - filename: frames/coin_2.png
+    frame:
+      x: 46
+      'y': 0
+      w: 20
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 20
+      h: 23
+    sourceSize:
+      w: 20
+      h: 23
+  - filename: frames/coin_3.png
+    frame:
+      x: 69
+      'y': 0
+      w: 16
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 16
+      h: 23
+    sourceSize:
+      w: 16
+      h: 23
+  - filename: frames/coin_4.png
+    frame:
+      x: 92
+      'y': 0
+      w: 12
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 12
+      h: 23
+    sourceSize:
+      w: 12
+      h: 23
+  - filename: frames/coin_5.png
+    frame:
+      x: 115
+      'y': 0
+      w: 7
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 7
+      h: 23
+    sourceSize:
+      w: 7
+      h: 23
+  - filename: frames/coin_6.png
+    frame:
+      x: 138
+      'y': 0
+      w: 12
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 12
+      h: 23
+    sourceSize:
+      w: 12
+      h: 23
+  - filename: frames/coin_7.png
+    frame:
+      x: 161
+      'y': 0
+      w: 16
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 16
+      h: 23
+    sourceSize:
+      w: 16
+      h: 23
+  - filename: frames/coin_8.png
+    frame:
+      x: 184
+      'y': 0
+      w: 21
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 21
+      h: 23
+    sourceSize:
+      w: 21
+      h: 23
+  - filename: frames/coin_9.png
+    frame:
+      x: 207
+      'y': 0
+      w: 23
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 23
+      h: 23
+    sourceSize:
+      w: 23
+      h: 23
+  - filename: frames/coin_10.png
+    frame:
+      x: 230
+      'y': 0
+      w: 23
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 23
+      h: 23
+    sourceSize:
+      w: 23
+      h: 23
+  - filename: frames/coin_11.png
+    frame:
+      x: 253
+      'y': 0
+      w: 23
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 23
+      h: 23
+    sourceSize:
+      w: 23
+      h: 23
+  - filename: frames/coin_12.png
+    frame:
+      x: 276
+      'y': 0
+      w: 21
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 21
+      h: 23
+    sourceSize:
+      w: 21
+      h: 23
+  - filename: frames/coin_13.png
+    frame:
+      x: 299
+      'y': 0
+      w: 16
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 16
+      h: 23
+    sourceSize:
+      w: 16
+      h: 23
+  - filename: frames/coin_14.png
+    frame:
+      x: 322
+      'y': 0
+      w: 12
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 12
+      h: 23
+    sourceSize:
+      w: 12
+      h: 23
+  - filename: frames/coin_15.png
+    frame:
+      x: 345
+      'y': 0
+      w: 7
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 7
+      h: 23
+    sourceSize:
+      w: 7
+      h: 23
+  - filename: frames/coin_16.png
+    frame:
+      x: 368
+      'y': 0
+      w: 11
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 11
+      h: 23
+    sourceSize:
+      w: 11
+      h: 23
+  - filename: frames/coin_17.png
+    frame:
+      x: 391
+      'y': 0
+      w: 15
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 15
+      h: 23
+    sourceSize:
+      w: 15
+      h: 23
+  - filename: frames/coin_18.png
+    frame:
+      x: 414
+      'y': 0
+      w: 20
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 20
+      h: 23
+    sourceSize:
+      w: 20
+      h: 23
+  - filename: frames/coin_19.png
+    frame:
+      x: 437
+      'y': 0
+      w: 20
+      h: 23
+    rotated: false
+    trimmed: false
+    spriteSourceSize:
+      x: 0
+      'y': 0
+      w: 20
+      h: 23
+    sourceSize:
+      w: 20
+      h: 23
+meta:
+  app: https://www.codeandweb.com/texturepacker
+  version: '1.0'
+  image: spritesheet.png
+  format: RGB888
+  size:
+    w: 460
+    h: 23
+  scale: '1'
+  smartupdate: >-
+    $TexturePacker:SmartUpdate:1fbadf9f755c883f70de076bb635cc44:d0dac093f2c1aaa8b93d656486210b9d:8ec62f1fee1d06840401aebe0be01f82$

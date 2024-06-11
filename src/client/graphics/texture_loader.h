@@ -48,6 +48,15 @@ private:
   // cppcheck-suppress unusedStructMember
   std::unordered_map<std::string, Sprite> collectablesSprites;
 
+  // cppcheck-suppress unusedStructMember
+  std::unordered_map<std::string, Sprite> bubbaSprites;
+
+  // cppcheck-suppress unusedStructMember
+  std::unordered_map<std::string, Sprite> turtleGoonSprites;
+
+  // cppcheck-suppress unusedStructMember
+  std::unordered_map<std::string, Sprite> schwarzenguardSprites;
+
 public:
   explicit TextureLoader(SDL2pp::Renderer &sdlRenderer);
   void preloadTextures();
@@ -73,6 +82,10 @@ public:
   Sprite &getGun2HudIcon();
 
   Sprite &getCollectableSprite(const u_int8_t &spriteCode);
+
+  Sprite &getBubbaSprite(const u_int8_t &spriteCode);
+  Sprite &getTurtleGoonSprite(const u_int8_t &spriteCode);
+  Sprite &getSchwarzenguardSprite(const u_int8_t &spriteCode);
 };
 
 #endif // TEXTURE_LOADER_H

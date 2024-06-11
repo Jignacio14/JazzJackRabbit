@@ -49,6 +49,13 @@ static const std::vector<uint8_t> collectablesSpriteNamesVector = {
     CollectablesSpriteCodes::Diamond,
 };
 
+static const std::vector<uint8_t> enemiesSpriteNamesVector = {
+    EnemiesGenericSpriteCodes::Death,
+    EnemiesGenericSpriteCodes::Hurt,
+    EnemiesGenericSpriteCodes::Idle,
+    EnemiesGenericSpriteCodes::Shooting,
+};
+
 const static int CHARACTERS_COLOR_KEY_RGB[3] = {44, 102, 150};
 const static int MAP_COLOR_KEY_RGB[3] = {87, 0, 203};
 const static int WHITE_COLOR_KEY[3] = {255, 255, 255};
@@ -261,6 +268,27 @@ void TextureLoader::preloadTextures() {
                      spriteNamesMap.map.at(spriteCode),
                      CHARACTERS_COLOR_KEY_RGB, this->collectablesSprites);
   }
+
+  // BUBBA SPRITES INITIALIZATION
+  for (auto &spriteCode : enemiesSpriteNamesVector) {
+    loadSpriteLambda("src/client/sprites/enemies/bubba/", spriteCode,
+                     spriteNamesMap.map.at(spriteCode),
+                     CHARACTERS_COLOR_KEY_RGB, this->bubbaSprites);
+  }
+
+  // TURTLE GOON SPRITES INITIALIZATION
+  for (auto &spriteCode : enemiesSpriteNamesVector) {
+    loadSpriteLambda("src/client/sprites/enemies/turtle_goon/", spriteCode,
+                     spriteNamesMap.map.at(spriteCode),
+                     CHARACTERS_COLOR_KEY_RGB, this->turtleGoonSprites);
+  }
+
+  // SCHWARZENGUARD GOON SPRITES INITIALIZATION
+  for (auto &spriteCode : enemiesSpriteNamesVector) {
+    loadSpriteLambda("src/client/sprites/enemies/schwarzenguard/", spriteCode,
+                     spriteNamesMap.map.at(spriteCode),
+                     CHARACTERS_COLOR_KEY_RGB, this->schwarzenguardSprites);
+  }
 }
 
 Sprite &TextureLoader::getJazzGenericSprite(const u_int8_t &spriteCode) {
@@ -384,6 +412,41 @@ Sprite &TextureLoader::getCollectableSprite(const u_int8_t &spriteCode) {
     std::string errorMessage = "Failed retrieving " +
                                spriteNamesMap.map.at(spriteCode) +
                                " from collectables map.";
+    throw JJR2Error(errorMessage, __LINE__, __FILE__);
+  }
+}
+
+Sprite &TextureLoader::getBubbaSprite(const u_int8_t &spriteCode) {
+  try {
+    return std::ref(this->bubbaSprites.at(spriteNamesMap.map.at(spriteCode)));
+  } catch (...) {
+    std::string errorMessage = "Failed retrieving " +
+                               spriteNamesMap.map.at(spriteCode) +
+                               " from bubba map.";
+    throw JJR2Error(errorMessage, __LINE__, __FILE__);
+  }
+}
+
+Sprite &TextureLoader::getTurtleGoonSprite(const u_int8_t &spriteCode) {
+  try {
+    return std::ref(
+        this->turtleGoonSprites.at(spriteNamesMap.map.at(spriteCode)));
+  } catch (...) {
+    std::string errorMessage = "Failed retrieving " +
+                               spriteNamesMap.map.at(spriteCode) +
+                               " from turtleGoon map.";
+    throw JJR2Error(errorMessage, __LINE__, __FILE__);
+  }
+}
+
+Sprite &TextureLoader::getSchwarzenguardSprite(const u_int8_t &spriteCode) {
+  try {
+    return std::ref(
+        this->schwarzenguardSprites.at(spriteNamesMap.map.at(spriteCode)));
+  } catch (...) {
+    std::string errorMessage = "Failed retrieving " +
+                               spriteNamesMap.map.at(spriteCode) +
+                               " from schwarzenguard map.";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
   }
 }

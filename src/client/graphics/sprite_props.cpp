@@ -30,6 +30,11 @@ constexpr uint8_t CollectablesSpriteCodes::Carrot;
 constexpr uint8_t CollectablesSpriteCodes::Coin;
 constexpr uint8_t CollectablesSpriteCodes::Diamond;
 
+constexpr uint8_t EnemiesGenericSpriteCodes::Death;
+constexpr uint8_t EnemiesGenericSpriteCodes::Hurt;
+constexpr uint8_t EnemiesGenericSpriteCodes::Idle;
+constexpr uint8_t EnemiesGenericSpriteCodes::Shooting;
+
 SpriteNamesMap::SpriteNamesMap()
     : map({
           {GenericSpriteCodes::Death, "death"},
@@ -61,4 +66,9 @@ SpriteNamesMap::SpriteNamesMap()
           {CollectablesSpriteCodes::Carrot, "carrot"},
           {CollectablesSpriteCodes::Coin, "coin"},
           {CollectablesSpriteCodes::Diamond, "diamond"},
+
+          {EnemiesGenericSpriteCodes::Death, "death"},
+          {EnemiesGenericSpriteCodes::Hurt, "hurt"},
+          {EnemiesGenericSpriteCodes::Idle, "idle"},
+          {EnemiesGenericSpriteCodes::Shooting, "shooting"},
       }) {}
