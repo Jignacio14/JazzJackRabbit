@@ -65,7 +65,7 @@ LobbyProtocol::send_selected_game(const std::vector<char> &gamenameToSend,
     player_info.player_name[i] = '\0';
     i++;
 
-    for (size_t j = i; j < usernameToSend.size(); j++) {
+    for (size_t j = i; j < MAX_LEN; j++) {
       player_info.player_name[j] = 0;
     }
 
@@ -76,7 +76,7 @@ LobbyProtocol::send_selected_game(const std::vector<char> &gamenameToSend,
     player_info.game_name[i] = '\0';
     i++;
 
-    for (size_t j = i; j < usernameToSend.size(); j++) {
+    for (size_t j = i; j < MAX_LEN; j++) {
       player_info.game_name[j] = 0;
     }
 

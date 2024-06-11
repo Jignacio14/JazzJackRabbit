@@ -41,7 +41,8 @@ Queue<CommandCodeDto> Sender::setUpPlayerLoop() {
 }
 
 void Sender::ValidatePlayerInfo(const PlayerInfo &player_info) {
-  if (player_info.str_len == 0 || player_info.character_code == 0) {
+  if (player_info.str_len == 0 ||
+      player_info.character_code == PlayableCharactersIds::NoneSelected) {
     this->_is_alive = false;
     throw std::runtime_error("Error en la comunicacion con el cliente");
   }
