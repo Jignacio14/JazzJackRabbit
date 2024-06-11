@@ -26,13 +26,13 @@ Coordinates Rectangle::getBottomRightCorner() const {
 }
 
 void Rectangle::move_left() {
-  this->topLeftCorner.setX(this->topLeftCorner.getX() - 1);
-  this->bottomRightCorner.setX(this->bottomRightCorner.getX() - 1);
+  this->topLeftCorner.setX(this->topLeftCorner.getX() - 5);
+  this->bottomRightCorner.setX(this->bottomRightCorner.getX() - 5);
 }
 
 void Rectangle::move_right() {
-  this->topLeftCorner.setX(this->topLeftCorner.getX() + 1);
-  this->bottomRightCorner.setX(this->bottomRightCorner.getX() + 1);
+  this->topLeftCorner.setX(this->topLeftCorner.getX() + 5);
+  this->bottomRightCorner.setX(this->bottomRightCorner.getX() + 5);
 }
 
 bool Rectangle::intersects(Rectangle other) const {

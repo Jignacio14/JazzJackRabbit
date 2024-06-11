@@ -35,6 +35,8 @@ Queue<CommandCodeDto> &Sender::setUpPlayerLoop() {
       std::pair<Queue<CommandCodeDto> &, uint8_t> result =
           this->gamesMonitor.registerPlayer(player_info, this->sender_queue);
       this->servprot.sendPlayerId(result.second);
+
+      // cppcheck-suppress returnReference
       return result.first;
     }
   }

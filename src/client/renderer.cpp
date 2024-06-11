@@ -25,7 +25,7 @@
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
 const static double TARGET_FPS = globalConfigs.getTargetFps();
-const static double RATE = ((double)1) / TARGET_FPS;
+const static double RATE = ((double)1) / 1000000;
 
 Renderer::Renderer(GraphicEngine &graphicEngine, int id, Socket socket,
                    Player &player, SnapshotWrapper &initialSnapshot)
