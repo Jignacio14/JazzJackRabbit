@@ -2,6 +2,8 @@
 
 Repositorio del Grupo 7 para la materia Taller de Programación 1 - Curso Veiga
 
+Se presenta el manual de usuario en el archivo [./docs/Manual_de_usuario.md](./docs/Manual_de_usuario.md), que explica cómo usar este proyecto.
+
 #### Tabla de contenidos
 
 1. [Setup para desarrollo](#Setup-para-desarrollo)

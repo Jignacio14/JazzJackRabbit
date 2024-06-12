@@ -25,8 +25,6 @@ void Client::move_right() {
   std::vector<uint8_t> command;
   uint8_t command_to_push = PlayerCommands::MOVE_RIGHT;
   command.push_back(command_to_push);
-  std::cout << "Moving right"
-            << "\n";
   sender_queue.try_push(command);
 }
 
@@ -34,8 +32,6 @@ void Client::move_left() {
   std::vector<uint8_t> command;
   uint8_t command_to_push = PlayerCommands::MOVE_LEFT;
   command.push_back(command_to_push);
-  std::cout << "Moving Left"
-            << "\n";
   sender_queue.try_push(command);
 }
 
