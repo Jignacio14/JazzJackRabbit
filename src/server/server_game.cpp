@@ -14,6 +14,11 @@ Game::Game(GameMonitor &monitor, Queue<CommandCodeDto> &queue)
 void Game::gameLoop() {
   while (this->_is_alive) {
     /// Empiezo a calcular la diferencia de tiempo para hacer el sleep
+    for (auto &pair : players_data) {
+      if (pair.second) {
+        pair.second->update();
+      }
+    }
     CommandCodeDto command;
     bool has_command = messages.try_pop(command);
     if (has_command) {
@@ -38,12 +43,12 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
   case PlayerCommands::MOVE_RIGHT:
     this->players_data[player_id]->move_right();
     break;
+  case PlayerCommands::STOP_MOVING:
+    this->players_data[player_id]->stop_moving();
+    break;
     /*
     case PlayerCommands::JUMP:
       this->players_data[player_id]->jump();
-      break;
-    case PlayerCommands::STOP_MOVING:
-      this->players_data[player_id]->stop_moving();
       break;
     case PlayerCommands::SHOOT:
       this->players_data[player_id]->shoot();
