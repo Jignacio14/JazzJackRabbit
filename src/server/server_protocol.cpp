@@ -80,9 +80,6 @@ PlayerInfo ServerProtocol::getGameInfo() {
   bool wasClose = this->getTemporalWasClose();
   PlayerInfo info;
   this->skt.recvall_bytewise(&info, sizeof(info), &wasClose);
-  std::cout << "code: " << info.character_code
-            << "| game name: " << info.game_name[0]
-            << "player name: " << info.player_name[0] << "\n";
   this->throwIfClosed(wasClose);
   return info;
 }
@@ -130,7 +127,6 @@ CommandCodeDto ServerProtocol::asyncGetEventCode() {
   CommandCodeDto code;
   bool wasClose = this->getTemporalWasClose();
   this->skt.recvall_bytewise(&code, sizeof(CommandCodeDto), &wasClose);
-  std::cout << "code: " << std::to_string(code.code) << "\n";
   this->throwIfClosed(wasClose);
   return code;
 }
