@@ -35,7 +35,6 @@ void Game::gameLoop() {
 
 void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
                          const uint8_t &data) {
-  std::cout << "Executing action" << std::endl;
   switch (action) {
   case PlayerCommands::MOVE_LEFT:
     this->players_data[player_id]->move_left();

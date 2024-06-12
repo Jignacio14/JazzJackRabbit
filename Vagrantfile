@@ -8,7 +8,7 @@ Vagrant.configure('2') do |config|
     machine.vm.box = 'bento/ubuntu-22.04'
 
     # Make available port 3500, forward 3500->3500
-    config.vm.network "forwarded_port", guest: 3500, host:3500
+    #config.vm.network "forwarded_port", guest: 3500, host:3500
 
     # Disable ssh so no ssh key is required to interact with the system
     config.ssh.insert_key = false
