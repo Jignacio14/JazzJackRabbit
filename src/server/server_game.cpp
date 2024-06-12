@@ -70,15 +70,18 @@ void Game::run() {
 BasePlayer *Game::constructPlayer(uint8_t player_id, std::string &player_name,
                                   uint8_t player_type) {
   if (player_type == PlayableCharactersIds::Jazz) {
-    return new Jazz(player_id, player_name, snapshot);
+    return new Jazz(player_id, player_name, snapshot,
+                    this->snapshot.sizePlayers);
   }
 
   if (player_type == PlayableCharactersIds::Lori) {
-    return new Lori(player_id, player_name, snapshot);
+    return new Lori(player_id, player_name, snapshot,
+                    this->snapshot.sizePlayers);
   }
 
   if (player_type == PlayableCharactersIds::Spaz) {
-    return new Spaz(player_id, player_name, snapshot);
+    return new Spaz(player_id, player_name, snapshot,
+                    this->snapshot.sizePlayers);
   }
 
   return nullptr;
