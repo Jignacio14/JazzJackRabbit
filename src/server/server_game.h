@@ -10,6 +10,8 @@
 #include "../engine/spaz.h"
 #include "server_game_monitor.h"
 #include <atomic>
+#include <chrono>
+#include <cmath>
 #include <cstdint>
 #include <list>
 #include <map>
@@ -25,6 +27,10 @@ private:
   std::unordered_map<uint8_t, BasePlayer *> players_data;
   // cppcheck-suppress unusedStructMember
   Snapshot snapshot;
+  // cppcheck-suppress unusedStructMember
+  int iterationNumber;
+  // cppcheck-suppress unusedStructMember
+  double rate;
 
   void gameLoop();
   // cppcheck-suppress unusedPrivateFunction
@@ -32,6 +38,8 @@ private:
                      const uint8_t &data);
   BasePlayer *constructPlayer(uint8_t player_id, std::string &player_name,
                               uint8_t player_type);
+  double now();
+  void rateController(double start, double finish);
 
 public:
   explicit Game(GameMonitor &monitor, Queue<CommandCodeDto> &messages);

@@ -8,12 +8,21 @@
 #define LORI_CODE "L"
 #define SPAZ_CODE "S"
 
+const static double SERVER_RATE = ((double)1) / 200;
+
 Game::Game(GameMonitor &monitor, Queue<CommandCodeDto> &queue)
-    : monitor(monitor), messages(queue), players(0), snapshot{} {}
+    : monitor(monitor), messages(queue), players(0), snapshot{},
+      iterationNumber(0), rate(SERVER_RATE) {}
+
+double Game::now() {
+  return std::chrono::duration_cast<std::chrono::milliseconds>(
+             std::chrono::system_clock::now().time_since_epoch())
+      .count();
+}
 
 void Game::gameLoop() {
   while (this->_is_alive) {
-    /// Empiezo a calcular la diferencia de tiempo para hacer el sleep
+    double start = this->now();
     for (auto &pair : players_data) {
       if (pair.second) {
         pair.second->update();
@@ -29,7 +38,22 @@ void Game::gameLoop() {
     }
     // cppcheck-suppress uninitvar
     this->monitor.broadcast(snapshot);
-    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+    double finish = this->now();
+    this->rateController(start, finish);
+  }
+}
+
+void Game::rateController(double start, double finish) {
+  double timeToRest = rate - (finish - start);
+  if (timeToRest < 0) {
+    double behind = -timeToRest;
+    timeToRest = rate - fmod(behind, rate);
+    double lost = behind + timeToRest;
+    iterationNumber += std::floor(lost / rate);
+
+  } else {
+    std::this_thread::sleep_for(std::chrono::duration<double>(timeToRest));
+    iterationNumber++;
   }
 }
 
