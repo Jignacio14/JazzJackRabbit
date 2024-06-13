@@ -13,7 +13,6 @@ void BaseEnemy::receive_damage(uint8_t damage) {
     is_dead = NumericBool::True;
     if (position != -1) {
       snapshot.enemies[position].is_dead = NumericBool::True;
-      // Sacarlo de la snapshot
     }
   } else {
     health -= damage;

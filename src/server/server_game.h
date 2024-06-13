@@ -5,6 +5,7 @@
 #include "../data/command_code_dto.h"
 #include "../data/snapshot_dto.h"
 #include "../engine/base_player.h"
+#include "../engine/enemies/base_enemy.h"
 #include "../engine/jazz.h"
 #include "../engine/lori.h"
 #include "../engine/spaz.h"
@@ -26,6 +27,8 @@ private:
   // cppcheck-suppress unusedStructMember
   std::unordered_map<uint8_t, BasePlayer *> players_data;
   // cppcheck-suppress unusedStructMember
+  std::vector<BaseEnemy *> enemies;
+  // cppcheck-suppress unusedStructMember
   Snapshot snapshot;
   // cppcheck-suppress unusedStructMember
   int iterationNumber;
@@ -40,6 +43,7 @@ private:
                               uint8_t player_type);
   double now();
   void rateController(double start, double finish);
+  void addEnemies();
 
 public:
   explicit Game(GameMonitor &monitor, Queue<CommandCodeDto> &messages);
