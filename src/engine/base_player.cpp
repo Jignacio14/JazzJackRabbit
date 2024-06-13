@@ -6,15 +6,14 @@ BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
     : player_id(player_id), player_name(player_name), health(MAX_HEALTH),
       weapon(std::make_unique<InitialWeapon>()),
       state(std::make_unique<Alive>()),
-      rectangle(Rectangle(Coordinates(100, 1100), Coordinates(60, 1050))),
+      rectangle(Rectangle(Coordinates(60, 1050), Coordinates(100, 1100))),
       facing_direction(FacingDirectionsIds::Right), snapshot(snapshot),
       position(position) {}
 
 int BasePlayer::find_position() {
   for (int i = 0; i < snapshot.sizePlayers; ++i) {
-    if (snapshot.players[i].user_id == player_id) {
+    if (snapshot.players[i].user_id == player_id)
       return i;
-    }
   }
   return -1;
 }
@@ -95,14 +94,11 @@ void BasePlayer::heal(uint8_t health_gain) {
   uint8_t new_health = health + health_gain;
   if (new_health > MAX_HEALTH) {
     health = MAX_HEALTH;
-    if (position != -1) {
-      snapshot.players[position].life = health;
-    }
   } else {
     health = new_health;
-    if (position != -1) {
-      snapshot.players[position].life = health;
-    }
+  }
+  if (position != -1) {
+    snapshot.players[position].life = health;
   }
 }
 
