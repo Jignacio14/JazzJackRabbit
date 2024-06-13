@@ -68,7 +68,7 @@ int ServerMap::getFullMapSizeX() const { return this->fullMapSizeX; }
 bool ServerMap::available_position(Rectangle rectangle) const {
   if (std::any_of(this->rectangles.begin(), this->rectangles.end(),
                   [&rectangle](const auto &rect) {
-                    return rect.intersects(rectangle);
+                    return rectangle.intersects(rect);
                   })) {
     return false;
   }
