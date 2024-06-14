@@ -30,12 +30,18 @@ void Game::gameLoop() {
       }
     }
     CommandCodeDto command;
-    bool has_command = messages.try_pop(command);
-    if (has_command) {
-      uint8_t player_id = command.player_id;
-      uint8_t action = command.code;
-      uint8_t data = command.data;
-      this->executeAction(player_id, action, data);
+    int instructions_count = 0;
+    while (instructions_count < 200) {
+      bool has_command = messages.try_pop(command);
+      if (has_command) {
+        uint8_t player_id = command.player_id;
+        uint8_t action = command.code;
+        uint8_t data = command.data;
+        this->executeAction(player_id, action, data);
+      } else {
+        break;
+      }
+      instructions_count++;
     }
     // cppcheck-suppress uninitvar
     this->monitor.broadcast(snapshot);
@@ -171,8 +177,12 @@ void Game::addPlayerToSnapshot(const PlayerInfo &player_info) {
 
 void Game::ereasePlayer(uint8_t player_id) {
   // this->monitor.ereasePlayer(this->messages);
-  this->players_data.erase(player_id);
-  this->players--;
+  auto it = players_data.find(player_id);
+  if (it != players_data.end()) {
+    delete it->second;
+    players_data.erase(it);
+    this->players--;
+  }
 
   bool playerFound = false;
   for (int i = 0; i < this->snapshot.sizePlayers; ++i) {
@@ -193,3 +203,13 @@ void Game::ereasePlayer(uint8_t player_id) {
 }
 
 void Game::kill() { this->_is_alive = false; }
+
+Game::~Game() {
+  // cppcheck-suppress constVariableReference
+  for (auto &pair : players_data) {
+    delete pair.second;
+  }
+  for (auto &enemy : enemies) {
+    delete enemy;
+  }
+}
