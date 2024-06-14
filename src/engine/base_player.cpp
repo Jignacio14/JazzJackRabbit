@@ -8,7 +8,7 @@ BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
       state(std::make_unique<Alive>()),
       rectangle(Rectangle(Coordinates(60, 1050), Coordinates(100, 1100))),
       facing_direction(FacingDirectionsIds::Right), snapshot(snapshot),
-      position(position) {}
+      position(position), positions_to_jump(0) {}
 
 int BasePlayer::find_position() {
   for (int i = 0; i < snapshot.sizePlayers; ++i) {
@@ -20,12 +20,38 @@ int BasePlayer::find_position() {
 
 void BasePlayer::update() {
   position = find_position();
-  drag_down();
+  if (positions_to_jump > 0) {
+    move_up();
+    positions_to_jump--;
+  } else {
+    bool is_falling = move_down();
+    if (!is_falling)
+      snapshot.players[position].is_falling = NumericBool::False;
+  }
 }
 
-void BasePlayer::drag_down() {
+bool BasePlayer::move_down() {
   Rectangle new_rectangle = rectangle;
   new_rectangle.move_down();
+  if (map.available_position(new_rectangle)) {
+    rectangle = new_rectangle;
+
+    if (position != -1) {
+      snapshot.players[position].position_x =
+          rectangle.getTopLeftCorner().getX();
+      snapshot.players[position].position_y =
+          rectangle.getTopLeftCorner().getY();
+      snapshot.players[position].is_falling = NumericBool::True;
+      snapshot.players[position].is_jumping = NumericBool::False;
+    }
+    return true;
+  }
+  return false;
+}
+
+void BasePlayer::move_up() {
+  Rectangle new_rectangle = rectangle;
+  new_rectangle.move_up();
   if (map.available_position(new_rectangle)) {
     rectangle = new_rectangle;
 
@@ -92,6 +118,13 @@ void BasePlayer::move_left() {
       snapshot.players[position].facing_direction = FacingDirectionsIds::Left;
       snapshot.players[position].is_walking = NumericBool::True;
     }
+  }
+}
+
+void BasePlayer::jump() {
+  if (positions_to_jump == 0) {
+    positions_to_jump = 20;
+    snapshot.players[position].is_jumping = NumericBool::True;
   }
 }
 

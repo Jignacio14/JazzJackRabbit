@@ -38,8 +38,11 @@ private:
   Snapshot &snapshot;
   // cppcheck-suppress unusedStructMember
   int position;
+  // cppcheck-suppress unusedStructMember
+  int positions_to_jump;
 
-  void drag_down();
+  bool move_down();
+  void move_up();
   int find_position();
   void change_state(std::unique_ptr<BaseState> new_state);
 
@@ -49,7 +52,6 @@ public:
   // void virtual shoot() = 0;
   // void virtual run() = 0;
   // void virtual runFast() = 0;
-  // void virtual jump() = 0;
   // void virtual specialAttack() = 0;
 
   void update();
@@ -60,6 +62,7 @@ public:
   void move_right();
   void move_left();
   void stop_moving();
+  void jump();
 
   ~BasePlayer();
 };
