@@ -39,19 +39,21 @@ private:
   // cppcheck-suppress unusedStructMember
   int position;
 
+  void drag_down();
+  int find_position();
+  void change_state(std::unique_ptr<BaseState> new_state);
+
 public:
   BasePlayer(uint8_t player_id, const std::string &player_name,
              Snapshot &snapshot, int position);
   // void virtual shoot() = 0;
   // void virtual run() = 0;
   // void virtual runFast() = 0;
-  // void virtual jump(Snapshot &snapshot) = 0;
-  // void virtual specialAttack(Snapshot &snapshot) = 0;
+  // void virtual jump() = 0;
+  // void virtual specialAttack() = 0;
 
-  int find_position();
   void update();
   void receive_damage(uint8_t damage);
-  void change_state(std::unique_ptr<BaseState> new_state);
   void get_intoxicated();
   void heal(uint8_t health_gain);
 

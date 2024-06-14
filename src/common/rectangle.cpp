@@ -35,6 +35,11 @@ void Rectangle::move_right() {
   this->bottomRightCorner.setX(this->bottomRightCorner.getX() + 5);
 }
 
+void Rectangle::move_down() {
+  this->topLeftCorner.setY(this->topLeftCorner.getY() - 3);
+  this->bottomRightCorner.setY(this->bottomRightCorner.getY() - 3);
+}
+
 bool Rectangle::intersects(Rectangle other) const {
   return (this->topLeftCorner.getX() <= other.getBottomRightCorner().getX() &&
           this->bottomRightCorner.getX() >= other.getTopLeftCorner().getX()) &&

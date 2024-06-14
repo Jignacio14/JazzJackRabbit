@@ -23,6 +23,8 @@ public:
 
   void move_right();
 
+  void move_down();
+
   bool intersects(Rectangle other) const;
 };
 

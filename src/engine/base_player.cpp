@@ -18,7 +18,25 @@ int BasePlayer::find_position() {
   return -1;
 }
 
-void BasePlayer::update() { position = find_position(); }
+void BasePlayer::update() {
+  position = find_position();
+  drag_down();
+}
+
+void BasePlayer::drag_down() {
+  Rectangle new_rectangle = rectangle;
+  new_rectangle.move_down();
+  if (map.available_position(new_rectangle)) {
+    rectangle = new_rectangle;
+
+    if (position != -1) {
+      snapshot.players[position].position_x =
+          rectangle.getTopLeftCorner().getX();
+      snapshot.players[position].position_y =
+          rectangle.getTopLeftCorner().getY();
+    }
+  }
+}
 
 void BasePlayer::receive_damage(uint8_t damage) {
   if (damage >= health) {
