@@ -21,6 +21,7 @@ double Game::now() {
 }
 
 void Game::gameLoop() {
+  this->addEnemies();
   while (this->_is_alive) {
     double start = this->now();
     for (auto &pair : players_data) {
@@ -29,12 +30,18 @@ void Game::gameLoop() {
       }
     }
     CommandCodeDto command;
-    bool has_command = messages.try_pop(command);
-    if (has_command) {
-      uint8_t player_id = command.player_id;
-      uint8_t action = command.code;
-      uint8_t data = command.data;
-      this->executeAction(player_id, action, data);
+    int instructions_count = 0;
+    while (instructions_count < 200) {
+      bool has_command = messages.try_pop(command);
+      if (has_command) {
+        uint8_t player_id = command.player_id;
+        uint8_t action = command.code;
+        uint8_t data = command.data;
+        this->executeAction(player_id, action, data);
+      } else {
+        break;
+      }
+      instructions_count++;
     }
     // cppcheck-suppress uninitvar
     this->monitor.broadcast(snapshot);
@@ -55,6 +62,22 @@ void Game::rateController(double start, double finish) {
     std::this_thread::sleep_for(std::chrono::duration<double>(timeToRest));
     iterationNumber++;
   }
+}
+
+void Game::addEnemies() {
+  BaseEnemy *enemy = new BaseEnemy(1, snapshot, 0);
+  this->enemies.push_back(enemy);
+  EnemyDto new_enemy = {};
+  new_enemy.entity_id = 1;
+  new_enemy.facing_direction = FacingDirectionsIds::Left;
+  new_enemy.is_dead = 0;
+  new_enemy.was_hurt = 0;
+  new_enemy.shot = 0;
+  new_enemy.position_x = 500;
+  new_enemy.position_y = 1050;
+  new_enemy.type = EnemiesIds::Bubba;
+  this->snapshot.enemies[this->snapshot.sizeEnemies] = new_enemy;
+  this->snapshot.sizeEnemies++;
 }
 
 void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
@@ -145,8 +168,8 @@ void Game::addPlayerToSnapshot(const PlayerInfo &player_info) {
   new_player_dto.shot_special = 0;
   new_player_dto.is_dead = 0;
   new_player_dto.was_hurt = 0;
-  new_player_dto.position_x = 100;
-  new_player_dto.position_y = 1100;
+  new_player_dto.position_x = 60;
+  new_player_dto.position_y = 1050;
 
   this->snapshot.players[this->snapshot.sizePlayers] = new_player_dto;
   this->snapshot.sizePlayers++;
@@ -154,8 +177,12 @@ void Game::addPlayerToSnapshot(const PlayerInfo &player_info) {
 
 void Game::ereasePlayer(uint8_t player_id) {
   // this->monitor.ereasePlayer(this->messages);
-  this->players_data.erase(player_id);
-  this->players--;
+  auto it = players_data.find(player_id);
+  if (it != players_data.end()) {
+    delete it->second;
+    players_data.erase(it);
+    this->players--;
+  }
 
   bool playerFound = false;
   for (int i = 0; i < this->snapshot.sizePlayers; ++i) {
@@ -176,3 +203,13 @@ void Game::ereasePlayer(uint8_t player_id) {
 }
 
 void Game::kill() { this->_is_alive = false; }
+
+Game::~Game() {
+  // cppcheck-suppress constVariableReference
+  for (auto &pair : players_data) {
+    delete pair.second;
+  }
+  for (auto &enemy : enemies) {
+    delete enemy;
+  }
+}
