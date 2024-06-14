@@ -1,7 +1,7 @@
 
 #include "./renderer.h"
 #include "../common/snapshot_wrapper.h"
-#include "./StopIteration.h"
+#include "./stop_iteration_exception.h"
 #include <chrono>
 #include <cmath>
 #include <thread>
@@ -25,7 +25,7 @@
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
 const static double TARGET_FPS = globalConfigs.getTargetFps();
-const static double RATE = ((double)1) / 1000000;
+const static double RATE = ((double)1) / TARGET_FPS;
 
 Renderer::Renderer(GraphicEngine &graphicEngine, int id, Socket socket,
                    Player &player, SnapshotWrapper &initialSnapshot)
@@ -36,7 +36,8 @@ Renderer::Renderer(GraphicEngine &graphicEngine, int id, Socket socket,
       map(this->graphicEngine, this->player), debugPanel(this->sdlRenderer),
       client(std::move(socket), id),
       latestSnapshot(std::make_unique<SnapshotWrapper>(
-          initialSnapshot.transferSnapshotDto())) {}
+          initialSnapshot.transferSnapshotDto())),
+      keyboardHandler(this->client, this->debugPanel) {}
 
 void Renderer::addRenderable(std::unique_ptr<Renderable> renderable) {
   this->renderables.push_back(std::move(renderable));
@@ -48,86 +49,18 @@ double Renderer::now() {
       .count();
 }
 
-void Renderer::processKeyboardEvents() {
-  SDL_Event event;
-  while (SDL_PollEvent(&event)) {
-    if (event.type == SDL_QUIT) {
-      throw StopIteration();
-
-    } else if (event.type == SDL_KEYDOWN) {
-      switch (event.key.keysym.sym) {
-      case SDLK_ESCAPE:
-      case SDLK_q:
-        throw StopIteration();
-        break;
-
-      case SDLK_F1:
-        std::cout << "Toggling debug panel"
-                  << "\n";
-        this->debugPanel.activationToggle();
-        break;
-
-      case SDLK_UP:
-        this->client.jump();
-        break;
-
-      case SDLK_RIGHT:
-        this->client.move_right();
-        break;
-
-      case SDLK_LEFT:
-        this->client.move_left();
-        break;
-
-      case SDLK_SPACE:
-        this->client.shoot();
-        break;
-
-      case SDLK_LSHIFT:
-        this->client.run();
-        break;
-
-      case SDLK_LCTRL:
-        this->client.special_attack();
-        break;
-
-      case SDLK_1:
-        this->client.change_weapon(1);
-        break;
-
-      case SDLK_2:
-        this->client.change_weapon(2);
-        break;
-      }
-    } else if (event.type == SDL_KEYUP) {
-      switch (event.key.keysym.sym) {
-      case SDLK_LEFT:
-        this->client.stop_moving();
-        break;
-
-      case SDLK_RIGHT:
-        this->client.stop_moving();
-        break;
-
-      case SDLK_LSHIFT:
-        this->client.stop_running();
-        break;
-      }
-    }
-  }
-}
-
 void Renderer::renderGame(int iterationNumber) {
   this->sdlRenderer.Clear();
 
   this->map.render(iterationNumber);
   this->map.renderPlayer(iterationNumber);
-  this->hud.render(iterationNumber);
 
   const Coordinates &leftCorner = this->map.getLeftCorner();
   for (auto &renderable : this->renderables) {
     renderable->renderFromLeftCorner(iterationNumber, leftCorner);
   }
+
+  this->hud.render(iterationNumber);
 
   this->debugPanel.display();
   this->sdlRenderer.Present();
@@ -320,7 +253,7 @@ void Renderer::run() {
     try {
       this->renderGame(iterationNumber);
       this->updateGame(iterationNumber);
-      this->processKeyboardEvents();
+      this->keyboardHandler.processEvents(this->player);
     } catch (const StopIteration &) {
       break;
     }

@@ -1,13 +1,20 @@
 #include "./animation_state.h"
 #include <string>
 
+#include "../../common/global_configs.h"
+
+static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
+const static double TARGET_FPS = globalConfigs.getTargetFps();
+const static double RATE = ((double)1) / TARGET_FPS;
+
 AnimationState::AnimationState(GraphicEngine &graphicEngine,
                                const uint8_t &spriteCode, Sprite *sprite,
                                const bool &shouldCycle,
                                const double &slowdownCoefficient,
                                const bool &shouldFlip)
     : shouldCycle(shouldCycle), shouldFlip(shouldFlip),
-      slowdownCoefficient(slowdownCoefficient), graphicEngine(graphicEngine),
+      slowdownCoefficient(slowdownCoefficient * RATE),
+      graphicEngine(graphicEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
       currentFrame(0), hasFinished(false), totalRenders(0),
       spriteCode(spriteCode), sprite(sprite) {}

@@ -4,6 +4,13 @@
 #include "../sprite_props.h"
 #include <unordered_map>
 
+struct SchwarzenguardAnimationSpeedCoefs {
+  static constexpr double Death = 25;
+  static constexpr double Hurt = 25;
+  static constexpr double Idle = 35;
+  static constexpr double Shooting = 25;
+};
+
 Schwarzenguard::Schwarzenguard(GraphicEngine &graphicEngine,
                                Coordinates &currentCoords,
                                const uint8_t &entityId,
@@ -15,7 +22,7 @@ Schwarzenguard::Schwarzenguard(GraphicEngine &graphicEngine,
       this->graphicEngine, EnemiesGenericSpriteCodes::Idle,
       &this->graphicEngine.getSchwarzenguardSprite(
           EnemiesGenericSpriteCodes::Idle),
-      AnimationState::Cycle, AnimationState::DefaultSlowdown,
+      AnimationState::Cycle, SchwarzenguardAnimationSpeedCoefs::Idle,
       AnimationState::NotFlip);
 
   bool foundEntity = snapshot.getEnemyById(this->entityId, &this->entityInfo);
@@ -60,7 +67,7 @@ void Schwarzenguard::updateAnimation(const SnapshotWrapper &snapshot,
           this->graphicEngine, EnemiesGenericSpriteCodes::Death,
           &this->graphicEngine.getSchwarzenguardSprite(
               EnemiesGenericSpriteCodes::Death),
-          AnimationState::NotCycle, AnimationState::DefaultSlowdown,
+          AnimationState::NotCycle, SchwarzenguardAnimationSpeedCoefs::Death,
           shouldFlip);
     }
     return;
@@ -72,7 +79,7 @@ void Schwarzenguard::updateAnimation(const SnapshotWrapper &snapshot,
           this->graphicEngine, EnemiesGenericSpriteCodes::Hurt,
           &this->graphicEngine.getSchwarzenguardSprite(
               EnemiesGenericSpriteCodes::Hurt),
-          AnimationState::NotCycle, AnimationState::DefaultSlowdown,
+          AnimationState::NotCycle, SchwarzenguardAnimationSpeedCoefs::Hurt,
           shouldFlip);
     }
     return;
@@ -83,7 +90,8 @@ void Schwarzenguard::updateAnimation(const SnapshotWrapper &snapshot,
         this->graphicEngine, EnemiesGenericSpriteCodes::Shooting,
         &this->graphicEngine.getSchwarzenguardSprite(
             EnemiesGenericSpriteCodes::Shooting),
-        AnimationState::NotCycle, AnimationState::DefaultSlowdown, shouldFlip);
+        AnimationState::NotCycle, SchwarzenguardAnimationSpeedCoefs::Shooting,
+        shouldFlip);
     return;
   }
 
@@ -94,7 +102,8 @@ void Schwarzenguard::updateAnimation(const SnapshotWrapper &snapshot,
         this->graphicEngine, EnemiesGenericSpriteCodes::Idle,
         &this->graphicEngine.getSchwarzenguardSprite(
             EnemiesGenericSpriteCodes::Idle),
-        AnimationState::Cycle, AnimationState::DefaultSlowdown, shouldFlip);
+        AnimationState::Cycle, SchwarzenguardAnimationSpeedCoefs::Idle,
+        shouldFlip);
     return;
   }
 }

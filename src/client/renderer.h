@@ -7,6 +7,7 @@
 #include "./graphics/graphic_engine.h"
 #include "./graphics/hud/hud.h"
 #include "./graphics/map/map.h"
+#include "./keyboard_handler.h"
 #include "./player.h"
 #include "./renderable.h"
 #include "client.h"
@@ -39,12 +40,12 @@ private:
   // cppcheck-suppress unusedStructMember
   std::unique_ptr<SnapshotWrapper> latestSnapshot;
 
+  KeyboardHandler keyboardHandler;
+
   /*
    * Returns current time in seconds since epoch.
    */
   double now();
-
-  void processKeyboardEvents();
 
   void renderGame(int iterationNumber);
 

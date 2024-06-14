@@ -4,6 +4,10 @@
 #include "../sprite_props.h"
 #include <unordered_map>
 
+struct CoinAnimationSpeedCoefs {
+  static constexpr double Idle = 25;
+};
+
 Coin::Coin(GraphicEngine &graphicEngine, Coordinates &currentCoords,
            const uint8_t &entityId, SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
@@ -12,7 +16,7 @@ Coin::Coin(GraphicEngine &graphicEngine, Coordinates &currentCoords,
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, CollectablesSpriteCodes::Coin,
       &this->graphicEngine.getCollectableSprite(CollectablesSpriteCodes::Coin),
-      AnimationState::Cycle, AnimationState::DefaultSlowdown,
+      AnimationState::Cycle, CoinAnimationSpeedCoefs::Idle,
       AnimationState::NotFlip);
 
   bool foundEntity =
