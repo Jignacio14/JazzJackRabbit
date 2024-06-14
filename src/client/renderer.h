@@ -49,6 +49,8 @@ private:
 
   void renderGame(int iterationNumber);
 
+  void updateLatestSnapshot();
+
   void updateGame(int iterationNumber);
 
   void sleep(double timeToSleep);

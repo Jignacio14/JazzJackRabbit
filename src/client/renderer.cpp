@@ -66,13 +66,19 @@ void Renderer::renderGame(int iterationNumber) {
   this->sdlRenderer.Present();
 }
 
-void Renderer::updateGame(int iterationNumber) {
-  std::unique_ptr<Snapshot> snapshotDto = client.get_current_snapshot();
+void Renderer::updateLatestSnapshot() {
+  std::unique_ptr<Snapshot> snapshotDto = this->client.get_current_snapshot();
 
-  if (snapshotDto != nullptr) {
+  while (snapshotDto != nullptr) {
     this->latestSnapshot =
         std::make_unique<SnapshotWrapper>(std::move(snapshotDto));
+
+    snapshotDto = this->client.get_current_snapshot();
   }
+}
+
+void Renderer::updateGame(int iterationNumber) {
+  this->updateLatestSnapshot();
 
   this->player.update(*this->latestSnapshot);
 

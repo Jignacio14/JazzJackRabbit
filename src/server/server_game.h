@@ -52,7 +52,7 @@ public:
   void addPlayer(const PlayerInfo &player_info, const uint8_t &player_id);
   void ereasePlayer(uint8_t player_id);
   void addPlayerToSnapshot(const PlayerInfo &player_info);
-  ~Game();
+  ~Game() override;
 };
 
 #endif
