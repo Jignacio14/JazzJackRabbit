@@ -17,7 +17,10 @@ Hud::Hud(GraphicEngine &graphicEngine)
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
       hudLeftCorner(SCREEN_SIZE_X - HUD_HORIZONTAL_SIZE, 0),
       hudWidth(HUD_HORIZONTAL_SIZE), hudHeight(SCREEN_SIZE_Y),
-      frameSprite(this->graphicEngine.getHudSprite(HudSpriteCodes::Frame)) {}
+      frameSprite(this->graphicEngine.getHudSprite(HudSpriteCodes::Frame)),
+      jazzHudIcon(this->graphicEngine.getJazzHudIcon()),
+      spazHudIcon(this->graphicEngine.getSpazHudIcon()),
+      loriHudIcon(this->graphicEngine.getLoriHudIcon()) {}
 
 void Hud::renderBackgroundFrame() {
   int spriteWidth = this->frameSprite.width[0];

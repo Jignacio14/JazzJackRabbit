@@ -21,6 +21,10 @@ private:
 
   Sprite &frameSprite;
 
+  Sprite &jazzHudIcon;
+  Sprite &spazHudIcon;
+  Sprite &loriHudIcon;
+
   void renderBackgroundFrame();
 
 public:
