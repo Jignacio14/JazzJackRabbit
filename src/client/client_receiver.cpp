@@ -13,7 +13,7 @@ void ClientReceiver::run() {
       snapshot = protocol.receive_snapshot(was_closed);
       receiver_queue.push(snapshot);
     }
-  } catch (const std::runtime_error &e) {
+  } catch (const ClosedQueue &e) {
     std::cout << "Receiver queue was closed." << std::endl;
   }
   keep_talking = false;

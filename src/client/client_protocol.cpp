@@ -1,6 +1,6 @@
 
 #include "client_protocol.h"
-
+#include "../common/jjr2_error.h"
 #include <sys/socket.h>
 
 ClientProtocol::ClientProtocol(Socket &&socket) : skt(std::move(socket)) {}
@@ -23,8 +23,11 @@ Snapshot ClientProtocol::receive_snapshot(bool &was_closed) {
     skt.recvall_bytewise(&status, sizeof(Snapshot), &was_closed);
     return status;
   } catch (const LibError &skt_err) {
-    throw LibError(errno, "Some error ocurred while trying to receive a "
-                          "message from the server.");
+    // throw LibError(errno, "Some error ocurred while trying to receive a "
+    //                       "message from the server.");
+    std::string errorMessage = "Some error ocurred while trying to receive a "
+                               "message from the server.";
+    throw JJR2Error(errorMessage, __LINE__, __FILE__);
     // throw std::runtime_error("Some error ocurred while trying to receive a
     // message from the server.");
   }

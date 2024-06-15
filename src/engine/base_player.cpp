@@ -60,6 +60,7 @@ void BasePlayer::move_up() {
           rectangle.getTopLeftCorner().getX();
       snapshot.players[position].position_y =
           rectangle.getTopLeftCorner().getY();
+      snapshot.players[position].is_jumping = NumericBool::True;
     }
   }
 }

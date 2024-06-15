@@ -1,5 +1,6 @@
 
 #include "lobby_protocol.h"
+#include "../common/jjr2_error.h"
 #include <cstdint>
 
 LobbyProtocol::LobbyProtocol(Socket &a_skt) : was_closed(false), skt(a_skt) {}
@@ -20,12 +21,10 @@ GameInfoDto LobbyProtocol::receive_game() {
     this->skt_was_closed();
     return single_game_info;
   } catch (const LibError &skt_err) {
-    std::cout << "Some error ocurred while trying to receive a message from "
-                 "the server."
-              << std::endl;
-    throw LibError(errno,
-                   "Some error ocurred while trying to receive a message from "
-                   "the server.");
+    std::string errorMessage =
+        "Some error ocurred while trying to receive a message from "
+        "the server.";
+    throw JJR2Error(errorMessage, __LINE__, __FILE__);
     // throw std::runtime_error(
     //     "Some error ocurred while trying to receive a message from "
     //     "the server.");
@@ -110,9 +109,11 @@ Snapshot LobbyProtocol::wait_game_start() {
     this->skt_was_closed();
     return first_snap;
   } catch (const LibError &skt_err) {
-    throw LibError(errno,
-                   "Some error ocurred while trying to receive a message from "
-                   "the server.");
+    std::string errorMessage =
+        "Some error ocurred while trying to receive a message from "
+        "the server.";
+    throw JJR2Error(errorMessage, __LINE__, __FILE__);
+
     // throw std::runtime_error(
     //     "Some error ocurred while trying to receive a message from "
     //     "the server.");
@@ -121,8 +122,10 @@ Snapshot LobbyProtocol::wait_game_start() {
 
 void LobbyProtocol::skt_was_closed() {
   if (was_closed) {
-    throw LibError(errno,
-                   "The socket was closed and the communication failed.");
+    std::string errorMessage =
+        "Some error ocurred while trying to receive a message from "
+        "the server.";
+    throw JJR2Error(errorMessage, __LINE__, __FILE__);
     // throw std::runtime_error(
     //     "The socket was closed and the communication failed.");
   }

@@ -21,32 +21,38 @@ double Game::now() {
 }
 
 void Game::gameLoop() {
-  this->addEnemies();
-  while (this->_is_alive) {
-    double start = this->now();
-    for (auto &pair : players_data) {
-      if (pair.second) {
-        pair.second->update();
+  try {
+    this->addEnemies();
+    while (this->_is_alive) {
+      double start = this->now();
+      for (auto &pair : players_data) {
+        if (pair.second) {
+          pair.second->update();
+        }
       }
-    }
-    CommandCodeDto command;
-    int instructions_count = 0;
-    while (instructions_count < 200) {
-      bool has_command = messages.try_pop(command);
-      if (has_command) {
-        uint8_t player_id = command.player_id;
-        uint8_t action = command.code;
-        uint8_t data = command.data;
-        this->executeAction(player_id, action, data);
-      } else {
-        break;
+      CommandCodeDto command;
+      int instructions_count = 0;
+      while (instructions_count < 200) {
+        bool has_command = messages.try_pop(command);
+        if (has_command) {
+          uint8_t player_id = command.player_id;
+          uint8_t action = command.code;
+          uint8_t data = command.data;
+          this->executeAction(player_id, action, data);
+        } else {
+          break;
+        }
+        instructions_count++;
       }
-      instructions_count++;
+      // cppcheck-suppress uninitvar
+      this->monitor.broadcast(snapshot);
+      double finish = this->now();
+      this->rateController(start, finish);
     }
-    // cppcheck-suppress uninitvar
-    this->monitor.broadcast(snapshot);
-    double finish = this->now();
-    this->rateController(start, finish);
+  } catch (const ClosedQueue &e) {
+    std::cout << "Messages queue was closed." << std::endl;
+  } catch (...) {
+    std::cout << "Error in game loop." << std::endl;
   }
 }
 

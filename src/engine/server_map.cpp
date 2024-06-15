@@ -66,11 +66,11 @@ ServerMap::ServerMap() {
 int ServerMap::getFullMapSizeX() const { return this->fullMapSizeX; }
 
 bool ServerMap::available_position(Rectangle rectangle) const {
-  if (std::any_of(this->rectangles.begin(), this->rectangles.end(),
-                  [&rectangle](const auto &rect) {
-                    return rectangle.intersects(rect);
-                  })) {
-    return false;
+  // cppcheck-suppress useStlAlgorithm
+  for (const auto &rect : this->rectangles) {
+    if (rectangle.intersects(rect)) {
+      return false;
+    }
   }
   if (rectangle.getTopLeftCorner().getX() < 0 ||
       rectangle.getTopLeftCorner().getY() < 0 ||

@@ -32,7 +32,6 @@ private:
   Rectangle rectangle;
   // cppcheck-suppress unusedStructMember
   uint8_t facing_direction;
-
   ServerMap map;
   // cppcheck-suppress unusedStructMember
   Snapshot &snapshot;
