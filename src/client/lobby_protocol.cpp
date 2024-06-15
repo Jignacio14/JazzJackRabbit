@@ -19,6 +19,8 @@ GameInfoDto LobbyProtocol::receive_game() {
     skt.recvall_bytewise(&single_game_info, sizeof(single_game_info),
                          &was_closed);
     this->skt_was_closed();
+    single_game_info.str_len = ntohs(single_game_info.str_len);
+    single_game_info.player_count = ntohs(single_game_info.player_count);
     return single_game_info;
   } catch (const LibError &skt_err) {
     std::string errorMessage =
