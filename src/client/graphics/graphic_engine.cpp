@@ -96,3 +96,7 @@ Sprite &GraphicEngine::getSchwarzenguardSprite(const uint8_t &spriteCode) {
 Sprite &GraphicEngine::getSfxSprite(const u_int8_t &spriteCode) {
   return this->textureLoader.getSfxSprite(spriteCode);
 }
+
+Sprite &GraphicEngine::getHudSprite(const u_int8_t &spriteCode) {
+  return this->textureLoader.getHudSprite(spriteCode);
+}

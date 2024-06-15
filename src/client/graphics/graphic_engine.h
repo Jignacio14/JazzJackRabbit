@@ -47,6 +47,8 @@ public:
   Sprite &getSchwarzenguardSprite(const u_int8_t &spriteCode);
 
   Sprite &getSfxSprite(const u_int8_t &spriteCode);
+
+  Sprite &getHudSprite(const u_int8_t &spriteCode);
 };
 
 #endif // GRAPHIC_ENGINE_H

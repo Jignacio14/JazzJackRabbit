@@ -60,6 +60,9 @@ private:
   // cppcheck-suppress unusedStructMember
   std::unordered_map<std::string, Sprite> sfxSprites;
 
+  // cppcheck-suppress unusedStructMember
+  std::unordered_map<std::string, Sprite> hudSprites;
+
 public:
   explicit TextureLoader(SDL2pp::Renderer &sdlRenderer);
   void preloadTextures();
@@ -91,6 +94,8 @@ public:
   Sprite &getSchwarzenguardSprite(const u_int8_t &spriteCode);
 
   Sprite &getSfxSprite(const u_int8_t &spriteCode);
+
+  Sprite &getHudSprite(const u_int8_t &spriteCode);
 };
 
 #endif // TEXTURE_LOADER_H

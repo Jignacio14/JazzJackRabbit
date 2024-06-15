@@ -11,7 +11,17 @@ class Hud : public Renderable {
 private:
   GraphicEngine &graphicEngine;
   SDL2pp::Renderer &sdlRenderer;
-  SDL2pp::Rect hudBaseRectangle;
+
+  // cppcheck-suppress unusedStructMember
+  Coordinates hudLeftCorner;
+  // cppcheck-suppress unusedStructMember
+  int hudWidth;
+  // cppcheck-suppress unusedStructMember
+  int hudHeight;
+
+  Sprite &frameSprite;
+
+  void renderBackgroundFrame();
 
 public:
   explicit Hud(GraphicEngine &graphicEngine);

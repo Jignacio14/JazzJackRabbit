@@ -61,6 +61,10 @@ static const std::vector<uint8_t> sfxNamesVector = {
     SfxSpriteCodes::Shine,
 };
 
+static const std::vector<uint8_t> hudNamesVector = {
+    HudSpriteCodes::Frame,
+};
+
 const static int CHARACTERS_COLOR_KEY_RGB[3] = {44, 102, 150};
 const static int MAP_COLOR_KEY_RGB[3] = {87, 0, 203};
 const static int SHINE_COLOR_KEY_RGB[3] = {153, 217, 234};
@@ -310,6 +314,13 @@ void TextureLoader::preloadTextures() {
                      spriteNamesMap.map.at(spriteCode),
                      CHARACTERS_COLOR_KEY_RGB, this->sfxSprites);
   }
+
+  // HUD SPRITES INITIALIZATION
+  for (auto &spriteCode : hudNamesVector) {
+    loadSpriteLambda("src/client/sprites/hud/", spriteCode,
+                     spriteNamesMap.map.at(spriteCode), nullptr,
+                     this->hudSprites);
+  }
 }
 
 Sprite &TextureLoader::getJazzGenericSprite(const u_int8_t &spriteCode) {
@@ -479,6 +490,17 @@ Sprite &TextureLoader::getSfxSprite(const u_int8_t &spriteCode) {
     std::string errorMessage = "Failed retrieving " +
                                spriteNamesMap.map.at(spriteCode) +
                                " from sfx map.";
+    throw JJR2Error(errorMessage, __LINE__, __FILE__);
+  }
+}
+
+Sprite &TextureLoader::getHudSprite(const u_int8_t &spriteCode) {
+  try {
+    return std::ref(this->hudSprites.at(spriteNamesMap.map.at(spriteCode)));
+  } catch (...) {
+    std::string errorMessage = "Failed retrieving " +
+                               spriteNamesMap.map.at(spriteCode) +
+                               " from hud map.";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
   }
 }
