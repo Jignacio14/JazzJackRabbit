@@ -79,12 +79,10 @@ void KeyboardHandler::processEvents(const Player &player) {
         /*if (playerInfo.is_walking || playerInfo.is_running) {
           this->client.stop_moving();
         }*/
+        this->client.stop_moving();
         break;
 
       case SDLK_RIGHT:
-        this->client.stop_moving();
-        break;
-      case SDLK_LEFT:
         this->client.stop_moving();
         break;
       case SDLK_LSHIFT:

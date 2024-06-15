@@ -36,18 +36,23 @@ void Rectangle::move_right() {
 }
 
 void Rectangle::move_down() {
-  this->topLeftCorner.setY(this->topLeftCorner.getY() + 3);
-  this->bottomRightCorner.setY(this->bottomRightCorner.getY() + 3);
+  this->topLeftCorner.setY(this->topLeftCorner.getY() + 2);
+  this->bottomRightCorner.setY(this->bottomRightCorner.getY() + 2);
 }
 
 void Rectangle::move_up() {
-  this->topLeftCorner.setY(this->topLeftCorner.getY() - 3);
-  this->bottomRightCorner.setY(this->bottomRightCorner.getY() - 3);
+  this->topLeftCorner.setY(this->topLeftCorner.getY() - 2);
+  this->bottomRightCorner.setY(this->bottomRightCorner.getY() - 2);
 }
 
 bool Rectangle::intersects(Rectangle other) const {
-  return (this->topLeftCorner.getX() <= other.getBottomRightCorner().getX() &&
-          this->bottomRightCorner.getX() >= other.getTopLeftCorner().getX()) &&
-         (this->bottomRightCorner.getY() <= other.getTopLeftCorner().getY() &&
-          this->topLeftCorner.getY() >= other.getBottomRightCorner().getY());
+  /*
+return (this->topLeftCorner.getX() <= other.getBottomRightCorner().getX() &&
+        this->bottomRightCorner.getX() >= other.getTopLeftCorner().getX()) &&
+       (this->bottomRightCorner.getY() <= other.getTopLeftCorner().getY() &&
+        this->topLeftCorner.getY() >= other.getBottomRightCorner().getY());  */
+  return !(this->bottomRightCorner.getX() < other.getTopLeftCorner().getX() ||
+           this->topLeftCorner.getX() > other.getBottomRightCorner().getX() ||
+           this->bottomRightCorner.getY() < other.getTopLeftCorner().getY() ||
+           this->topLeftCorner.getY() > other.getBottomRightCorner().getY());
 }

@@ -129,7 +129,7 @@ void BasePlayer::move_left() {
 
 void BasePlayer::jump() {
   if (positions_to_jump == 0) {
-    positions_to_jump = 170;
+    positions_to_jump = 200;
     snapshot.players[position].is_jumping = NumericBool::True;
   }
 }
