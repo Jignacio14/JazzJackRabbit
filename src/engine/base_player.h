@@ -39,6 +39,8 @@ private:
   int position;
   // cppcheck-suppress unusedStructMember
   int positions_to_jump;
+  // cppcheck-suppress unusedStructMember
+  bool is_moving;
 
   bool move_down();
   void move_up();

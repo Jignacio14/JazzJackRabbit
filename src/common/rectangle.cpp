@@ -26,23 +26,23 @@ Coordinates Rectangle::getBottomRightCorner() const {
 }
 
 void Rectangle::move_left() {
-  this->topLeftCorner.setX(this->topLeftCorner.getX() - 5);
-  this->bottomRightCorner.setX(this->bottomRightCorner.getX() - 5);
+  this->topLeftCorner.setX(this->topLeftCorner.getX() - 1);
+  this->bottomRightCorner.setX(this->bottomRightCorner.getX() - 1);
 }
 
 void Rectangle::move_right() {
-  this->topLeftCorner.setX(this->topLeftCorner.getX() + 5);
-  this->bottomRightCorner.setX(this->bottomRightCorner.getX() + 5);
+  this->topLeftCorner.setX(this->topLeftCorner.getX() + 1);
+  this->bottomRightCorner.setX(this->bottomRightCorner.getX() + 1);
 }
 
 void Rectangle::move_down() {
-  this->topLeftCorner.setY(this->topLeftCorner.getY() + 1);
-  this->bottomRightCorner.setY(this->bottomRightCorner.getY() + 1);
+  this->topLeftCorner.setY(this->topLeftCorner.getY() + 3);
+  this->bottomRightCorner.setY(this->bottomRightCorner.getY() + 3);
 }
 
 void Rectangle::move_up() {
-  this->topLeftCorner.setY(this->topLeftCorner.getY() - 1);
-  this->bottomRightCorner.setY(this->bottomRightCorner.getY() - 1);
+  this->topLeftCorner.setY(this->topLeftCorner.getY() - 3);
+  this->bottomRightCorner.setY(this->bottomRightCorner.getY() - 3);
 }
 
 bool Rectangle::intersects(Rectangle other) const {

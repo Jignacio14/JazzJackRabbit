@@ -8,7 +8,7 @@ BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
       state(std::make_unique<Alive>()),
       rectangle(Rectangle(Coordinates(60, 1050), Coordinates(100, 1100))),
       facing_direction(FacingDirectionsIds::Right), snapshot(snapshot),
-      position(position), positions_to_jump(0) {}
+      position(position), positions_to_jump(0), is_moving(false) {}
 
 int BasePlayer::find_position() {
   for (int i = 0; i < snapshot.sizePlayers; ++i) {
@@ -27,6 +27,11 @@ void BasePlayer::update() {
     bool is_falling = move_down();
     if (!is_falling)
       snapshot.players[position].is_falling = NumericBool::False;
+  }
+  if (is_moving && facing_direction == FacingDirectionsIds::Right) {
+    move_right();
+  } else if (is_moving && facing_direction == FacingDirectionsIds::Left) {
+    move_left();
   }
 }
 
@@ -90,9 +95,9 @@ void BasePlayer::move_right() {
   Rectangle new_rectangle = rectangle;
   new_rectangle.move_right();
   if (state->can_move() && map.available_position(new_rectangle)) {
-
     rectangle = new_rectangle;
     facing_direction = FacingDirectionsIds::Right;
+    is_moving = true;
     if (position != -1) {
       snapshot.players[position].position_x =
           rectangle.getTopLeftCorner().getX();
@@ -110,7 +115,7 @@ void BasePlayer::move_left() {
   if (state->can_move() && map.available_position(new_rectangle)) {
     rectangle = new_rectangle;
     facing_direction = FacingDirectionsIds::Left;
-
+    is_moving = true;
     if (position != -1) {
       snapshot.players[position].position_x =
           rectangle.getTopLeftCorner().getX();
@@ -124,12 +129,13 @@ void BasePlayer::move_left() {
 
 void BasePlayer::jump() {
   if (positions_to_jump == 0) {
-    positions_to_jump = 300;
+    positions_to_jump = 170;
     snapshot.players[position].is_jumping = NumericBool::True;
   }
 }
 
 void BasePlayer::stop_moving() {
+  is_moving = false;
   if (position != -1) {
     snapshot.players[position].is_walking = NumericBool::False;
   }
