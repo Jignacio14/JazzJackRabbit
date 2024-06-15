@@ -56,8 +56,18 @@ static const std::vector<uint8_t> enemiesSpriteNamesVector = {
     EnemiesGenericSpriteCodes::Shooting,
 };
 
+static const std::vector<uint8_t> sfxNamesVector = {
+    SfxSpriteCodes::Impact,
+    SfxSpriteCodes::Shine,
+};
+
+static const std::vector<uint8_t> hudNamesVector = {
+    HudSpriteCodes::Frame,
+};
+
 const static int CHARACTERS_COLOR_KEY_RGB[3] = {44, 102, 150};
 const static int MAP_COLOR_KEY_RGB[3] = {87, 0, 203};
+const static int SHINE_COLOR_KEY_RGB[3] = {153, 217, 234};
 const static int WHITE_COLOR_KEY[3] = {255, 255, 255};
 
 TextureLoader::TextureLoader(SDL2pp::Renderer &sdlRenderer)
@@ -283,11 +293,33 @@ void TextureLoader::preloadTextures() {
                      CHARACTERS_COLOR_KEY_RGB, this->turtleGoonSprites);
   }
 
-  // SCHWARZENGUARD GOON SPRITES INITIALIZATION
+  // SCHWARZENGUARD SPRITES INITIALIZATION
   for (auto &spriteCode : enemiesSpriteNamesVector) {
     loadSpriteLambda("src/client/sprites/schwarzenguard/", spriteCode,
                      spriteNamesMap.map.at(spriteCode),
                      CHARACTERS_COLOR_KEY_RGB, this->schwarzenguardSprites);
+  }
+
+  // SFX SPRITES INITIALIZATION
+  for (auto &spriteCode : sfxNamesVector) {
+    // Because SfxSpriteCodes::Shine has a diferent color key
+    if (spriteCode == SfxSpriteCodes::Shine) {
+      loadSpriteLambda("src/client/sprites/sfx/", spriteCode,
+                       spriteNamesMap.map.at(spriteCode), SHINE_COLOR_KEY_RGB,
+                       this->sfxSprites);
+      continue;
+    }
+
+    loadSpriteLambda("src/client/sprites/sfx/", spriteCode,
+                     spriteNamesMap.map.at(spriteCode),
+                     CHARACTERS_COLOR_KEY_RGB, this->sfxSprites);
+  }
+
+  // HUD SPRITES INITIALIZATION
+  for (auto &spriteCode : hudNamesVector) {
+    loadSpriteLambda("src/client/sprites/hud/", spriteCode,
+                     spriteNamesMap.map.at(spriteCode), nullptr,
+                     this->hudSprites);
   }
 }
 
@@ -447,6 +479,28 @@ Sprite &TextureLoader::getSchwarzenguardSprite(const u_int8_t &spriteCode) {
     std::string errorMessage = "Failed retrieving " +
                                spriteNamesMap.map.at(spriteCode) +
                                " from schwarzenguard map.";
+    throw JJR2Error(errorMessage, __LINE__, __FILE__);
+  }
+}
+
+Sprite &TextureLoader::getSfxSprite(const u_int8_t &spriteCode) {
+  try {
+    return std::ref(this->sfxSprites.at(spriteNamesMap.map.at(spriteCode)));
+  } catch (...) {
+    std::string errorMessage = "Failed retrieving " +
+                               spriteNamesMap.map.at(spriteCode) +
+                               " from sfx map.";
+    throw JJR2Error(errorMessage, __LINE__, __FILE__);
+  }
+}
+
+Sprite &TextureLoader::getHudSprite(const u_int8_t &spriteCode) {
+  try {
+    return std::ref(this->hudSprites.at(spriteNamesMap.map.at(spriteCode)));
+  } catch (...) {
+    std::string errorMessage = "Failed retrieving " +
+                               spriteNamesMap.map.at(spriteCode) +
+                               " from hud map.";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
   }
 }

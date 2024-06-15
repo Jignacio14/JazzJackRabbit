@@ -35,6 +35,11 @@ constexpr uint8_t EnemiesGenericSpriteCodes::Hurt;
 constexpr uint8_t EnemiesGenericSpriteCodes::Idle;
 constexpr uint8_t EnemiesGenericSpriteCodes::Shooting;
 
+constexpr uint8_t SfxSpriteCodes::Impact;
+constexpr uint8_t SfxSpriteCodes::Shine;
+
+constexpr uint8_t HudSpriteCodes::Frame;
+
 SpriteNamesMap::SpriteNamesMap()
     : map({
           {GenericSpriteCodes::Death, "death"},
@@ -71,4 +76,9 @@ SpriteNamesMap::SpriteNamesMap()
           {EnemiesGenericSpriteCodes::Hurt, "hurt"},
           {EnemiesGenericSpriteCodes::Idle, "idle"},
           {EnemiesGenericSpriteCodes::Shooting, "shooting"},
+
+          {SfxSpriteCodes::Impact, "impact"},
+          {SfxSpriteCodes::Shine, "shine"},
+
+          {HudSpriteCodes::Frame, "frame"},
       }) {}

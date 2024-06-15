@@ -36,6 +36,8 @@ public:
 
   virtual void update(SnapshotWrapper &snapshot){};
 
+  virtual bool shouldDelete() const { return false; };
+
   virtual uint8_t getId() const = 0;
 
   virtual ~Renderable(){};

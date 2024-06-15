@@ -1,6 +1,7 @@
 #include "./hud.h"
 
 #include "../../../common/global_configs.h"
+#include "../sprite_props.h"
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
@@ -14,17 +15,24 @@ static const int BLACK_RGBA[4] = {0, 0, 0, 255};
 Hud::Hud(GraphicEngine &graphicEngine)
     : graphicEngine(graphicEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
-      hudBaseRectangle(SCREEN_SIZE_X - HUD_HORIZONTAL_SIZE, 0, SCREEN_SIZE_X,
-                       SCREEN_SIZE_Y) {}
+      hudLeftCorner(SCREEN_SIZE_X - HUD_HORIZONTAL_SIZE, 0),
+      hudWidth(HUD_HORIZONTAL_SIZE), hudHeight(SCREEN_SIZE_Y),
+      frameSprite(this->graphicEngine.getHudSprite(HudSpriteCodes::Frame)),
+      jazzHudIcon(this->graphicEngine.getJazzHudIcon()),
+      spazHudIcon(this->graphicEngine.getSpazHudIcon()),
+      loriHudIcon(this->graphicEngine.getLoriHudIcon()) {}
 
-void Hud::render(int iterationNumber) {
-  this->sdlRenderer.SetDrawColor(WHITE_RGBA[0], WHITE_RGBA[1], WHITE_RGBA[2],
-                                 WHITE_RGBA[3]);
-  this->sdlRenderer.DrawRect(hudBaseRectangle);
-  this->sdlRenderer.FillRect(hudBaseRectangle);
-  this->sdlRenderer.SetDrawColor(BLACK_RGBA[0], BLACK_RGBA[1], BLACK_RGBA[2],
-                                 BLACK_RGBA[3]);
+void Hud::renderBackgroundFrame() {
+  int spriteWidth = this->frameSprite.width[0];
+  int spriteHeight = this->frameSprite.height[0];
+
+  this->sdlRenderer.Copy(
+      this->frameSprite.texture, SDL2pp::Rect(0, 0, spriteWidth, spriteHeight),
+      SDL2pp::Rect(this->hudLeftCorner.getX(), this->hudLeftCorner.getY(),
+                   spriteWidth, spriteHeight));
 }
+
+void Hud::render(int iterationNumber) { this->renderBackgroundFrame(); }
 
 void Hud::render(int iterationNumber, Coordinates &coords) {}
 

@@ -27,6 +27,11 @@ private:
   // cppcheck-suppress unusedStructMember
   CollectableDto entityInfo;
 
+  // cppcheck-suppress unusedStructMember
+  bool shouldBeDeleted;
+  // cppcheck-suppress unusedStructMember
+  bool isShowingExitAnimation;
+
   void updateAnimation(const SnapshotWrapper &snapshot,
                        const CollectableDto &newEntityInfo);
 
@@ -45,6 +50,8 @@ public:
   virtual void update(SnapshotWrapper &snapshot) override;
 
   virtual uint8_t getId() const override;
+
+  virtual bool shouldDelete() const override;
 
   ~AmmoGun1() override;
 };
