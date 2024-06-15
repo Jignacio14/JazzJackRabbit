@@ -84,7 +84,9 @@ void KeyboardHandler::processEvents(const Player &player) {
       case SDLK_RIGHT:
         this->client.stop_moving();
         break;
-
+      case SDLK_LEFT:
+        this->client.stop_moving();
+        break;
       case SDLK_LSHIFT:
         this->client.stop_running();
         break;
