@@ -26,6 +26,10 @@ private:
 
   // cppcheck-suppress unusedStructMember
   BulletDto entityInfo;
+  // cppcheck-suppress unusedStructMember
+  bool shouldBeDeleted;
+  // cppcheck-suppress unusedStructMember
+  bool isShowingExitAnimation;
 
   void updateAnimation(const SnapshotWrapper &snapshot,
                        const BulletDto &newEntityInfo);
@@ -45,6 +49,8 @@ public:
   virtual void update(SnapshotWrapper &snapshot) override;
 
   virtual uint8_t getId() const override;
+
+  virtual bool shouldDelete() const override;
 
   ~BulletGun2() override;
 };

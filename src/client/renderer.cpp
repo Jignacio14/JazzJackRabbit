@@ -78,11 +78,18 @@ void Renderer::updateLatestSnapshot() {
 }
 
 void Renderer::updateGame(int iterationNumber) {
+  renderables.remove_if([](const std::unique_ptr<Renderable> &renderable) {
+    return renderable->shouldDelete();
+  });
+
   this->updateLatestSnapshot();
 
   this->player.update(*this->latestSnapshot);
 
   for (auto &renderable : this->renderables) {
+    if (renderable->shouldDelete()) {
+    }
+
     renderable->update(*this->latestSnapshot);
   }
 

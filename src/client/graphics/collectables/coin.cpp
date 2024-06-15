@@ -6,12 +6,14 @@
 
 struct CoinAnimationSpeedCoefs {
   static constexpr double Idle = 25;
+  static constexpr double Shine = 25;
 };
 
 Coin::Coin(GraphicEngine &graphicEngine, Coordinates &currentCoords,
            const uint8_t &entityId, SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo() {
+      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
+      shouldBeDeleted(false), isShowingExitAnimation(false) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, CollectablesSpriteCodes::Coin,
@@ -56,10 +58,22 @@ void Coin::update(SnapshotWrapper &snapshot) {
   CollectableDto newEntityInfo;
   bool foundCollectable =
       snapshot.getCollectableById(this->entityId, &newEntityInfo);
+
+  if (this->isShowingExitAnimation &&
+      this->currentAnimation->canBreakAnimation()) {
+    this->shouldBeDeleted = true;
+    return;
+  } else if (this->isShowingExitAnimation) {
+    return;
+  }
+
   if (!foundCollectable) {
-    // I have to signal destroy here
-    std::cerr << "Coin with entity id " + std::to_string(this->entityId) +
-                     " was not found in snapshot at update time";
+    this->currentAnimation = std::make_unique<AnimationState>(
+        this->graphicEngine, SfxSpriteCodes::Shine,
+        &this->graphicEngine.getSfxSprite(SfxSpriteCodes::Shine),
+        AnimationState::NotCycle, CoinAnimationSpeedCoefs::Shine,
+        AnimationState::NotFlip);
+    this->isShowingExitAnimation = true;
     return;
   }
 
@@ -71,5 +85,7 @@ void Coin::update(SnapshotWrapper &snapshot) {
 }
 
 uint8_t Coin::getId() const { return this->entityId; }
+
+bool Coin::shouldDelete() const { return this->shouldBeDeleted; }
 
 Coin::~Coin() {}

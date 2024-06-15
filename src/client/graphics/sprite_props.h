@@ -87,6 +87,13 @@ struct EnemiesGenericSpriteCodes {
   static constexpr uint8_t Shooting = 93;
 };
 
+struct SfxSpriteCodes {
+  // cppcheck-suppress unusedStructMember
+  static constexpr uint8_t Impact = 100;
+  // cppcheck-suppress unusedStructMember
+  static constexpr uint8_t Shine = 101;
+};
+
 struct SpriteNamesMap {
   // cppcheck-suppress unusedStructMember
   const std::map<uint8_t, std::string> map;

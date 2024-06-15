@@ -1,0 +1,44 @@
+{"frames": [
+
+{
+	"filename": "frames/shine_0.png",
+	"frame": {"x":0,"y":0,"w":15,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":16},
+	"sourceSize": {"w":15,"h":16}
+},
+{
+	"filename": "frames/shine_1.png",
+	"frame": {"x":15,"y":0,"w":15,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":16},
+	"sourceSize": {"w":15,"h":16}
+},
+{
+	"filename": "frames/shine_2.png",
+	"frame": {"x":30,"y":0,"w":15,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":16},
+	"sourceSize": {"w":15,"h":16}
+},
+{
+	"filename": "frames/shine_3.png",
+	"frame": {"x":45,"y":0,"w":15,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":16},
+	"sourceSize": {"w":15,"h":16}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spritesheet.png",
+	"format": "RGB888",
+	"size": {"w":60,"h":16},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:a0ca191f2d715a41bd9d71aa23f7a823:9628831ea3b2ca6448237a0b3cd51d44:8ec62f1fee1d06840401aebe0be01f82$"
+}
+}

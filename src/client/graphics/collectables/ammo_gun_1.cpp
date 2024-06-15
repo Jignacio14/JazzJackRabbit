@@ -6,12 +6,14 @@
 
 struct AmmoGun1AnimationSpeedCoefs {
   static constexpr double Idle = 25;
+  static constexpr double Shine = 25;
 };
 
 AmmoGun1::AmmoGun1(GraphicEngine &graphicEngine, Coordinates &currentCoords,
                    const uint8_t &entityId, SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo() {
+      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
+      shouldBeDeleted(false), isShowingExitAnimation(false) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, GunSpriteCodes::CollectableAmmo,
@@ -56,10 +58,22 @@ void AmmoGun1::update(SnapshotWrapper &snapshot) {
   CollectableDto newEntityInfo;
   bool foundCollectable =
       snapshot.getCollectableById(this->entityId, &newEntityInfo);
+
+  if (this->isShowingExitAnimation &&
+      this->currentAnimation->canBreakAnimation()) {
+    this->shouldBeDeleted = true;
+    return;
+  } else if (this->isShowingExitAnimation) {
+    return;
+  }
+
   if (!foundCollectable) {
-    // I have to signal destroy here
-    std::cerr << "AmmoGun1 with entity id " + std::to_string(this->entityId) +
-                     " was not found in snapshot at update time";
+    this->currentAnimation = std::make_unique<AnimationState>(
+        this->graphicEngine, SfxSpriteCodes::Shine,
+        &this->graphicEngine.getSfxSprite(SfxSpriteCodes::Shine),
+        AnimationState::NotCycle, AmmoGun1AnimationSpeedCoefs::Shine,
+        AnimationState::NotFlip);
+    this->isShowingExitAnimation = true;
     return;
   }
 
@@ -71,5 +85,7 @@ void AmmoGun1::update(SnapshotWrapper &snapshot) {
 }
 
 uint8_t AmmoGun1::getId() const { return this->entityId; }
+
+bool AmmoGun1::shouldDelete() const { return this->shouldBeDeleted; }
 
 AmmoGun1::~AmmoGun1() {}

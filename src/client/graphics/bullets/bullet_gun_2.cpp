@@ -6,12 +6,14 @@
 
 struct BulletGun2AnimationSpeedCoefs {
   static constexpr double Flying = 25;
+  static constexpr double Impact = 25;
 };
 
 BulletGun2::BulletGun2(GraphicEngine &graphicEngine, Coordinates &currentCoords,
                        const uint8_t &entityId, SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo() {
+      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
+      shouldBeDeleted(false), isShowingExitAnimation(false) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, GunSpriteCodes::FlyingBullet,
@@ -53,12 +55,23 @@ void BulletGun2::updateAnimation(const SnapshotWrapper &snapshot,
 
 void BulletGun2::update(SnapshotWrapper &snapshot) {
   BulletDto newEntityInfo;
-  bool foundCollectable =
-      snapshot.getBulletById(this->entityId, &newEntityInfo);
-  if (!foundCollectable) {
-    // I have to signal destroy here
-    std::cerr << "BulletGun2 with entity id " + std::to_string(this->entityId) +
-                     " was not found in snapshot at update time";
+  bool foundBullet = snapshot.getBulletById(this->entityId, &newEntityInfo);
+
+  if (this->isShowingExitAnimation &&
+      this->currentAnimation->canBreakAnimation()) {
+    this->shouldBeDeleted = true;
+    return;
+  } else if (this->isShowingExitAnimation) {
+    return;
+  }
+
+  if (!foundBullet) {
+    this->currentAnimation = std::make_unique<AnimationState>(
+        this->graphicEngine, SfxSpriteCodes::Impact,
+        &this->graphicEngine.getSfxSprite(SfxSpriteCodes::Impact),
+        AnimationState::NotCycle, BulletGun2AnimationSpeedCoefs::Impact,
+        AnimationState::NotFlip);
+    this->isShowingExitAnimation = true;
     return;
   }
 
@@ -70,5 +83,7 @@ void BulletGun2::update(SnapshotWrapper &snapshot) {
 }
 
 uint8_t BulletGun2::getId() const { return this->entityId; }
+
+bool BulletGun2::shouldDelete() const { return this->shouldBeDeleted; }
 
 BulletGun2::~BulletGun2() {}

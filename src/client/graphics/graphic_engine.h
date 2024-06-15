@@ -45,6 +45,8 @@ public:
   Sprite &getBubbaSprite(const u_int8_t &spriteCode);
   Sprite &getTurtleGoonSprite(const u_int8_t &spriteCode);
   Sprite &getSchwarzenguardSprite(const u_int8_t &spriteCode);
+
+  Sprite &getSfxSprite(const u_int8_t &spriteCode);
 };
 
 #endif // GRAPHIC_ENGINE_H
