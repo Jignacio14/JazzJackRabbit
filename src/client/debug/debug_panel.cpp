@@ -1,4 +1,5 @@
 #include "./debug_panel.h"
+#include "../graphics/sprite_props.h"
 #include <SDL2/SDL_ttf.h>
 #include <chrono>
 #include <cmath>
@@ -6,13 +7,15 @@
 const static bool ACTIVE = true;
 const static bool NOT_ACTIVE = false;
 
-const static char FONT_PATH[] = "src/client/graphics/Roboto.ttf";
+const static char EMPTY_FPS_TEXT[] = "FPS: 0";
 const static int FONT_SIZE = 20;
-const static SDL_Color TEXT_COLOR = {255, 255, 255, 255};
+const static SDL2pp::Color TEXT_COLOR = SDL2pp::Color(255, 255, 255, 255);
 
 DebugPanel::DebugPanel(SDL2pp::Renderer &sdlRenderer)
     : isActive(NOT_ACTIVE), currentFps(0), auxFrameCount(0), lastTimestamp(0),
-      sdlRenderer(sdlRenderer), font(FONT_PATH, FONT_SIZE) {}
+      sdlRenderer(sdlRenderer),
+      fpsText(this->sdlRenderer, EMPTY_FPS_TEXT, TEXT_COLOR, FONT_SIZE,
+              TextFontsCodes::Roboto) {}
 
 double DebugPanel::now() {
   return std::chrono::duration_cast<std::chrono::duration<double>>(
@@ -22,12 +25,10 @@ double DebugPanel::now() {
 
 void DebugPanel::displayFps() {
   std::string text = "FPS: " + std::to_string(this->currentFps);
-  SDL2pp::Texture textSprite(this->sdlRenderer,
-                             this->font.RenderText_Blended(text, TEXT_COLOR));
+  this->fpsText.updateInnerText(text);
 
-  this->sdlRenderer.Copy(
-      textSprite, SDL2pp::NullOpt,
-      SDL2pp::Rect(0, 0, textSprite.GetWidth(), textSprite.GetHeight()));
+  Coordinates coords(0, 0);
+  this->fpsText.render(coords);
 }
 
 void DebugPanel::display() {

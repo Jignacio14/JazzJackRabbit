@@ -32,7 +32,7 @@ Renderer::Renderer(GraphicEngine &graphicEngine, int id, Socket socket,
     : client_id(id), keep_running(true), rate(RATE),
       graphicEngine(graphicEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
-      player(player), hud(this->graphicEngine),
+      player(player), hud(this->graphicEngine, this->player),
       map(this->graphicEngine, this->player), debugPanel(this->sdlRenderer),
       client(std::move(socket), id),
       latestSnapshot(std::make_unique<SnapshotWrapper>(

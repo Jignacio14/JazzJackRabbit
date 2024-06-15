@@ -2,15 +2,18 @@
 #define HUD_H
 
 #include "../../../common/coordinates.h"
+#include "../../player.h"
 #include "../../renderable.h"
 #include "../graphic_engine.h"
 #include "../sprite.h"
+#include "../text.h"
 #include <SDL2pp/SDL2pp.hh>
 
 class Hud : public Renderable {
 private:
   GraphicEngine &graphicEngine;
   SDL2pp::Renderer &sdlRenderer;
+  Player &player;
 
   // cppcheck-suppress unusedStructMember
   Coordinates hudLeftCorner;
@@ -25,10 +28,15 @@ private:
   Sprite &spazHudIcon;
   Sprite &loriHudIcon;
 
+  Text pointsText;
+
   void renderBackgroundFrame();
+  Sprite &getHudIcon(const PlayerDto &playerinfo);
+  void renderHudIcon(const PlayerDto &playerinfo);
+  void renderPoints(const PlayerDto &playerinfo);
 
 public:
-  explicit Hud(GraphicEngine &graphicEngine);
+  explicit Hud(GraphicEngine &graphicEngine, Player &player);
 
   virtual void render(int iterationNumber) override;
 

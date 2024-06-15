@@ -1,6 +1,7 @@
 #ifndef DEBUG_PANEL_H
 #define DEBUG_PANEL_H
 
+#include "../graphics/text.h"
 #include <SDL2pp/SDL2pp.hh>
 #include <string>
 
@@ -16,7 +17,7 @@ private:
   double lastTimestamp;
 
   SDL2pp::Renderer &sdlRenderer;
-  SDL2pp::Font font;
+  Text fpsText;
 
   double now();
   void updateFpsCount(double currentTimestamp);

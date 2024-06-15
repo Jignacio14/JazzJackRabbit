@@ -40,6 +40,9 @@ constexpr uint8_t SfxSpriteCodes::Shine;
 
 constexpr uint8_t HudSpriteCodes::Frame;
 
+constexpr uint8_t TextFontsCodes::Roboto;
+constexpr uint8_t TextFontsCodes::Joystix;
+
 SpriteNamesMap::SpriteNamesMap()
     : map({
           {GenericSpriteCodes::Death, "death"},
@@ -81,4 +84,7 @@ SpriteNamesMap::SpriteNamesMap()
           {SfxSpriteCodes::Shine, "shine"},
 
           {HudSpriteCodes::Frame, "frame"},
+
+          {TextFontsCodes::Roboto, "roboto"},
+          {TextFontsCodes::Joystix, "joystix"},
       }) {}

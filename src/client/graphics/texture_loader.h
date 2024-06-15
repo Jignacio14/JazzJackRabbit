@@ -2,6 +2,7 @@
 #define TEXTURE_LOADER_H
 
 #include "./sprite.h"
+#include <SDL2/SDL_ttf.h>
 #include <SDL2pp/SDL2pp.hh>
 #include <cstdint>
 #include <memory>
@@ -63,9 +64,13 @@ private:
   // cppcheck-suppress unusedStructMember
   std::unordered_map<std::string, Sprite> hudSprites;
 
+  // cppcheck-suppress unusedStructMember
+  std::unordered_map<std::string, SDL2pp::Font> fonts;
+
 public:
   explicit TextureLoader(SDL2pp::Renderer &sdlRenderer);
   void preloadTextures();
+  void preloadFonts();
 
   Sprite &getJazzGenericSprite(const u_int8_t &spriteCode);
   Sprite &getJazzSpecialSprite(const u_int8_t &spriteCode);
