@@ -4,6 +4,10 @@
 #include "../sprite_props.h"
 #include <unordered_map>
 
+struct DiamondAnimationSpeedCoefs {
+  static constexpr double Idle = 25;
+};
+
 Diamond::Diamond(GraphicEngine &graphicEngine, Coordinates &currentCoords,
                  const uint8_t &entityId, SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
@@ -13,7 +17,7 @@ Diamond::Diamond(GraphicEngine &graphicEngine, Coordinates &currentCoords,
       this->graphicEngine, CollectablesSpriteCodes::Diamond,
       &this->graphicEngine.getCollectableSprite(
           CollectablesSpriteCodes::Diamond),
-      AnimationState::Cycle, AnimationState::DefaultSlowdown,
+      AnimationState::Cycle, DiamondAnimationSpeedCoefs::Idle,
       AnimationState::NotFlip);
 
   bool foundEntity =

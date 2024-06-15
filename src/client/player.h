@@ -44,6 +44,8 @@ public:
 
   virtual uint8_t getId() const override;
 
+  const PlayerDto &getPlayerDtoReference() const;
+
   ~Player() override;
 };
 

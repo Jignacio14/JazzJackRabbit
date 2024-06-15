@@ -4,6 +4,10 @@
 #include "../sprite_props.h"
 #include <unordered_map>
 
+struct BulletGun2AnimationSpeedCoefs {
+  static constexpr double Flying = 25;
+};
+
 BulletGun2::BulletGun2(GraphicEngine &graphicEngine, Coordinates &currentCoords,
                        const uint8_t &entityId, SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
@@ -12,7 +16,7 @@ BulletGun2::BulletGun2(GraphicEngine &graphicEngine, Coordinates &currentCoords,
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, GunSpriteCodes::FlyingBullet,
       &this->graphicEngine.getGun1Sprite(GunSpriteCodes::FlyingBullet),
-      AnimationState::Cycle, AnimationState::DefaultSlowdown,
+      AnimationState::Cycle, BulletGun2AnimationSpeedCoefs::Flying,
       AnimationState::NotFlip);
 
   bool foundEntity = snapshot.getBulletById(this->entityId, &this->entityInfo);

@@ -4,8 +4,24 @@
 #include "../sprite_props.h"
 #include <unordered_map>
 
+#include "../../../common/global_configs.h"
+
 /*static const std::unordered_map<std::string, int> MOVING_DIRECTIONS = {
     {"left", 0}, {"right", 1}, {"up", 2}, {"down", 3}};*/
+
+struct JazzAnimationSpeedCoefs {
+  static constexpr double Death = 25;
+  static constexpr double Hurt = 25;
+  static constexpr double Idle = 25;
+  static constexpr double IntoxicatedIdle = 25;
+  static constexpr double IntoxicatedWalking = 25;
+  static constexpr double Jumping = 25;
+  static constexpr double Falling = 25;
+  static constexpr double Running = 25;
+  static constexpr double Shooting = 25;
+  static constexpr double Walking = 25;
+  static constexpr double Uppercut = 25;
+};
 
 Jazz::Jazz(GraphicEngine &graphicEngine, Coordinates &currentCoords,
            const uint8_t &entityId, SnapshotWrapper &snapshot)
@@ -17,7 +33,7 @@ Jazz::Jazz(GraphicEngine &graphicEngine, Coordinates &currentCoords,
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, GenericSpriteCodes::Idle,
       &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Idle),
-      AnimationState::Cycle, AnimationState::DefaultSlowdown,
+      AnimationState::Cycle, JazzAnimationSpeedCoefs::Idle,
       AnimationState::NotFlip);
 
   bool foundEntity = snapshot.getPlayerById(this->entityId, &this->entityInfo);
@@ -135,8 +151,7 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, GenericSpriteCodes::Death,
           &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Death),
-          AnimationState::NotCycle, AnimationState::DefaultSlowdown,
-          shouldFlip);
+          AnimationState::NotCycle, JazzAnimationSpeedCoefs::Death, shouldFlip);
     }
     return;
   }
@@ -146,8 +161,7 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, GenericSpriteCodes::Hurt,
           &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Hurt),
-          AnimationState::NotCycle, AnimationState::DefaultSlowdown,
-          shouldFlip);
+          AnimationState::NotCycle, JazzAnimationSpeedCoefs::Hurt, shouldFlip);
     }
     return;
   }
@@ -156,14 +170,16 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Shooting,
         &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Shooting),
-        AnimationState::NotCycle, AnimationState::DefaultSlowdown, shouldFlip);
+        AnimationState::NotCycle, JazzAnimationSpeedCoefs::Shooting,
+        shouldFlip);
     return;
 
   } else if (newEntityInfo.shot_special == NumericBool::True) {
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, JazzSpecialsCodes::Uppercut,
         &this->graphicEngine.getJazzSpecialSprite(JazzSpecialsCodes::Uppercut),
-        AnimationState::NotCycle, AnimationState::DefaultSlowdown, shouldFlip);
+        AnimationState::NotCycle, JazzAnimationSpeedCoefs::Uppercut,
+        shouldFlip);
     return;
   }
 
@@ -171,7 +187,7 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Running,
         &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Running),
-        AnimationState::Cycle, AnimationState::DefaultSlowdown, shouldFlip);
+        AnimationState::Cycle, JazzAnimationSpeedCoefs::Running, shouldFlip);
     return;
 
   } else if (newEntityInfo.is_walking == NumericBool::True) {
@@ -180,13 +196,14 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
           this->graphicEngine, GenericSpriteCodes::IntoxicatedWalking,
           &this->graphicEngine.getJazzGenericSprite(
               GenericSpriteCodes::IntoxicatedWalking),
-          AnimationState::Cycle, AnimationState::DefaultSlowdown, shouldFlip);
+          AnimationState::Cycle, JazzAnimationSpeedCoefs::IntoxicatedWalking,
+          shouldFlip);
     } else {
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, GenericSpriteCodes::Walking,
           &this->graphicEngine.getJazzGenericSprite(
               GenericSpriteCodes::Walking),
-          AnimationState::Cycle, AnimationState::DefaultSlowdown, shouldFlip);
+          AnimationState::Cycle, JazzAnimationSpeedCoefs::Walking, shouldFlip);
     }
     return;
 
@@ -194,14 +211,14 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Falling,
         &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Falling),
-        AnimationState::Cycle, AnimationState::DefaultSlowdown, shouldFlip);
+        AnimationState::Cycle, JazzAnimationSpeedCoefs::Falling, shouldFlip);
     return;
 
   } else if (newEntityInfo.is_jumping == NumericBool::True) {
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Jumping,
         &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Jumping),
-        AnimationState::NotCycle, AnimationState::DefaultSlowdown, shouldFlip);
+        AnimationState::NotCycle, JazzAnimationSpeedCoefs::Jumping, shouldFlip);
     return;
   }
 
@@ -212,14 +229,15 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
         this->graphicEngine, GenericSpriteCodes::IntoxicatedIdle,
         &this->graphicEngine.getJazzGenericSprite(
             GenericSpriteCodes::IntoxicatedIdle),
-        AnimationState::Cycle, AnimationState::DefaultSlowdown, shouldFlip);
+        AnimationState::Cycle, JazzAnimationSpeedCoefs::IntoxicatedIdle,
+        shouldFlip);
     return;
 
   } else if (canBreakAnimation) {
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Idle,
         &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Idle),
-        AnimationState::Cycle, AnimationState::DefaultSlowdown, shouldFlip);
+        AnimationState::Cycle, JazzAnimationSpeedCoefs::Idle, shouldFlip);
     return;
   }
 }

@@ -4,6 +4,13 @@
 #include "../sprite_props.h"
 #include <unordered_map>
 
+struct TurtleGoonAnimationSpeedCoefs {
+  static constexpr double Death = 25;
+  static constexpr double Hurt = 25;
+  static constexpr double Idle = 35;
+  static constexpr double Shooting = 25;
+};
+
 TurtleGoon::TurtleGoon(GraphicEngine &graphicEngine, Coordinates &currentCoords,
                        const uint8_t &entityId, SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
@@ -12,7 +19,7 @@ TurtleGoon::TurtleGoon(GraphicEngine &graphicEngine, Coordinates &currentCoords,
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, EnemiesGenericSpriteCodes::Idle,
       &this->graphicEngine.getTurtleGoonSprite(EnemiesGenericSpriteCodes::Idle),
-      AnimationState::Cycle, AnimationState::DefaultSlowdown,
+      AnimationState::Cycle, TurtleGoonAnimationSpeedCoefs::Idle,
       AnimationState::NotFlip);
 
   bool foundEntity = snapshot.getEnemyById(this->entityId, &this->entityInfo);
@@ -57,7 +64,7 @@ void TurtleGoon::updateAnimation(const SnapshotWrapper &snapshot,
           this->graphicEngine, EnemiesGenericSpriteCodes::Death,
           &this->graphicEngine.getTurtleGoonSprite(
               EnemiesGenericSpriteCodes::Death),
-          AnimationState::NotCycle, AnimationState::DefaultSlowdown,
+          AnimationState::NotCycle, TurtleGoonAnimationSpeedCoefs::Death,
           shouldFlip);
     }
     return;
@@ -69,7 +76,7 @@ void TurtleGoon::updateAnimation(const SnapshotWrapper &snapshot,
           this->graphicEngine, EnemiesGenericSpriteCodes::Hurt,
           &this->graphicEngine.getTurtleGoonSprite(
               EnemiesGenericSpriteCodes::Hurt),
-          AnimationState::NotCycle, AnimationState::DefaultSlowdown,
+          AnimationState::NotCycle, TurtleGoonAnimationSpeedCoefs::Hurt,
           shouldFlip);
     }
     return;
@@ -80,7 +87,8 @@ void TurtleGoon::updateAnimation(const SnapshotWrapper &snapshot,
         this->graphicEngine, EnemiesGenericSpriteCodes::Shooting,
         &this->graphicEngine.getTurtleGoonSprite(
             EnemiesGenericSpriteCodes::Shooting),
-        AnimationState::NotCycle, AnimationState::DefaultSlowdown, shouldFlip);
+        AnimationState::NotCycle, TurtleGoonAnimationSpeedCoefs::Shooting,
+        shouldFlip);
     return;
   }
 
@@ -91,7 +99,7 @@ void TurtleGoon::updateAnimation(const SnapshotWrapper &snapshot,
         this->graphicEngine, EnemiesGenericSpriteCodes::Idle,
         &this->graphicEngine.getTurtleGoonSprite(
             EnemiesGenericSpriteCodes::Idle),
-        AnimationState::Cycle, AnimationState::DefaultSlowdown, shouldFlip);
+        AnimationState::Cycle, TurtleGoonAnimationSpeedCoefs::Idle, shouldFlip);
     return;
   }
 }

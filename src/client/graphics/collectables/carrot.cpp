@@ -4,6 +4,10 @@
 #include "../sprite_props.h"
 #include <unordered_map>
 
+struct CarrotAnimationSpeedCoefs {
+  static constexpr double Idle = 25;
+};
+
 Carrot::Carrot(GraphicEngine &graphicEngine, Coordinates &currentCoords,
                const uint8_t &entityId, SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
@@ -13,7 +17,7 @@ Carrot::Carrot(GraphicEngine &graphicEngine, Coordinates &currentCoords,
       this->graphicEngine, CollectablesSpriteCodes::Carrot,
       &this->graphicEngine.getCollectableSprite(
           CollectablesSpriteCodes::Carrot),
-      AnimationState::Cycle, AnimationState::DefaultSlowdown,
+      AnimationState::Cycle, CarrotAnimationSpeedCoefs::Idle,
       AnimationState::NotFlip);
 
   bool foundEntity =

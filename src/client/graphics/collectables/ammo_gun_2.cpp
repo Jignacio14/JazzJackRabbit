@@ -4,6 +4,10 @@
 #include "../sprite_props.h"
 #include <unordered_map>
 
+struct AmmoGun2AnimationSpeedCoefs {
+  static constexpr double Idle = 25;
+};
+
 AmmoGun2::AmmoGun2(GraphicEngine &graphicEngine, Coordinates &currentCoords,
                    const uint8_t &entityId, SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
@@ -12,7 +16,7 @@ AmmoGun2::AmmoGun2(GraphicEngine &graphicEngine, Coordinates &currentCoords,
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, GunSpriteCodes::CollectableAmmo,
       &this->graphicEngine.getGun2Sprite(GunSpriteCodes::CollectableAmmo),
-      AnimationState::Cycle, AnimationState::DefaultSlowdown,
+      AnimationState::Cycle, AmmoGun2AnimationSpeedCoefs::Idle,
       AnimationState::NotFlip);
 
   bool foundEntity =

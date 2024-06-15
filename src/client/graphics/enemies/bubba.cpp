@@ -4,6 +4,13 @@
 #include "../sprite_props.h"
 #include <unordered_map>
 
+struct BubbaAnimationSpeedCoefs {
+  static constexpr double Death = 25;
+  static constexpr double Hurt = 25;
+  static constexpr double Idle = 35;
+  static constexpr double Shooting = 25;
+};
+
 Bubba::Bubba(GraphicEngine &graphicEngine, Coordinates &currentCoords,
              const uint8_t &entityId, SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
@@ -12,7 +19,7 @@ Bubba::Bubba(GraphicEngine &graphicEngine, Coordinates &currentCoords,
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, EnemiesGenericSpriteCodes::Idle,
       &this->graphicEngine.getBubbaSprite(EnemiesGenericSpriteCodes::Idle),
-      AnimationState::Cycle, AnimationState::DefaultSlowdown,
+      AnimationState::Cycle, BubbaAnimationSpeedCoefs::Idle,
       AnimationState::NotFlip);
 
   bool foundEntity = snapshot.getEnemyById(this->entityId, &this->entityInfo);
@@ -56,7 +63,7 @@ void Bubba::updateAnimation(const SnapshotWrapper &snapshot,
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, EnemiesGenericSpriteCodes::Death,
           &this->graphicEngine.getBubbaSprite(EnemiesGenericSpriteCodes::Death),
-          AnimationState::NotCycle, AnimationState::DefaultSlowdown,
+          AnimationState::NotCycle, BubbaAnimationSpeedCoefs::Death,
           shouldFlip);
     }
     return;
@@ -67,8 +74,7 @@ void Bubba::updateAnimation(const SnapshotWrapper &snapshot,
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, EnemiesGenericSpriteCodes::Hurt,
           &this->graphicEngine.getBubbaSprite(EnemiesGenericSpriteCodes::Hurt),
-          AnimationState::NotCycle, AnimationState::DefaultSlowdown,
-          shouldFlip);
+          AnimationState::NotCycle, BubbaAnimationSpeedCoefs::Hurt, shouldFlip);
     }
     return;
   }
@@ -78,7 +84,8 @@ void Bubba::updateAnimation(const SnapshotWrapper &snapshot,
         this->graphicEngine, EnemiesGenericSpriteCodes::Shooting,
         &this->graphicEngine.getBubbaSprite(
             EnemiesGenericSpriteCodes::Shooting),
-        AnimationState::NotCycle, AnimationState::DefaultSlowdown, shouldFlip);
+        AnimationState::NotCycle, BubbaAnimationSpeedCoefs::Shooting,
+        shouldFlip);
     return;
   }
 
@@ -88,7 +95,7 @@ void Bubba::updateAnimation(const SnapshotWrapper &snapshot,
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, EnemiesGenericSpriteCodes::Idle,
         &this->graphicEngine.getBubbaSprite(EnemiesGenericSpriteCodes::Idle),
-        AnimationState::Cycle, AnimationState::DefaultSlowdown, shouldFlip);
+        AnimationState::Cycle, BubbaAnimationSpeedCoefs::Idle, shouldFlip);
     return;
   }
 }

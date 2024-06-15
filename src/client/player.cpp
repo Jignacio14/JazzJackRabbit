@@ -72,4 +72,8 @@ void Player::update(SnapshotWrapper &snapshot) {
 
 uint8_t Player::getId() const { return this->character->getId(); }
 
+const PlayerDto &Player::getPlayerDtoReference() const {
+  return std::ref(this->playerInfo);
+}
+
 Player::~Player() {}
