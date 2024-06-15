@@ -36,13 +36,13 @@ void Rectangle::move_right() {
 }
 
 void Rectangle::move_down() {
-  this->topLeftCorner.setY(this->topLeftCorner.getY() - 3);
-  this->bottomRightCorner.setY(this->bottomRightCorner.getY() - 3);
+  this->topLeftCorner.setY(this->topLeftCorner.getY() + 1);
+  this->bottomRightCorner.setY(this->bottomRightCorner.getY() + 1);
 }
 
 void Rectangle::move_up() {
-  this->topLeftCorner.setY(this->topLeftCorner.getY() + 3);
-  this->bottomRightCorner.setY(this->bottomRightCorner.getY() + 3);
+  this->topLeftCorner.setY(this->topLeftCorner.getY() - 1);
+  this->bottomRightCorner.setY(this->bottomRightCorner.getY() - 1);
 }
 
 bool Rectangle::intersects(Rectangle other) const {

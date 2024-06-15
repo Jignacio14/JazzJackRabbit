@@ -92,16 +92,16 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
   case PlayerCommands::STOP_MOVING:
     this->players_data[player_id]->stop_moving();
     break;
+  case PlayerCommands::JUMP:
+    this->players_data[player_id]->jump();
+    break;
     /*
-    case PlayerCommands::JUMP:
-      this->players_data[player_id]->jump();
-      break;
-    case PlayerCommands::SHOOT:
-      this->players_data[player_id]->shoot();
-      break;
-    case PlayerCommands::SPECIAL_ATTACK:
-      this->players_data[player_id]->specialAttack();
-      break; */
+        case PlayerCommands::SHOOT:
+          this->players_data[player_id]->shoot();
+          break;
+        case PlayerCommands::SPECIAL_ATTACK:
+          this->players_data[player_id]->specialAttack();
+          break; */
   }
 }
 
