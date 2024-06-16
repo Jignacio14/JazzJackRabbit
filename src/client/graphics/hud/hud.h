@@ -8,6 +8,7 @@
 #include "../sprite.h"
 #include "../text.h"
 #include <SDL2pp/SDL2pp.hh>
+#include <vector>
 
 class Hud : public Renderable {
 private:
@@ -23,21 +24,35 @@ private:
   int hudHeight;
 
   Sprite &frameSprite;
+  Sprite &lifeHeartSprite;
 
   Sprite &jazzHudIcon;
   Sprite &spazHudIcon;
   Sprite &loriHudIcon;
 
+  Sprite &gun1HudIcon;
+  Sprite &gun2HudIcon;
+
   Text pointsText;
   Text characterSelectedText;
   Text usernameText;
+  Text lifeText;
+  Text gun1Text;
+  Text gun2Text;
+  Text leaderboardText;
 
   void renderBackgroundFrame();
+  void renderUsername();
   Sprite &getHudIcon(const PlayerDto &playerinfo);
   void renderHudIcon(const PlayerDto &playerinfo);
   void renderPoints(const PlayerDto &playerinfo);
   void renderCharacterSelected(const PlayerDto &playerinfo);
-  void renderUsername(const PlayerDto &playerinfo);
+  void renderLife(const PlayerDto &playerinfo);
+  void renderGun1(const PlayerDto &playerinfo);
+  void renderGun2(const PlayerDto &playerinfo);
+  void updatePlayersList(std::vector<std::string> &vector,
+                         SnapshotWrapper &snapshot);
+  void renderLeaderBoard(SnapshotWrapper &snapshot);
 
 public:
   explicit Hud(GraphicEngine &graphicEngine, Player &player);
@@ -45,6 +60,8 @@ public:
   virtual void render(int iterationNumber) override;
 
   virtual void render(int iterationNumber, Coordinates &coords) override;
+
+  void render(SnapshotWrapper &snapshot);
 
   virtual void renderFromLeftCorner(int iterationNumber,
                                     const Coordinates &leftCorner) override;

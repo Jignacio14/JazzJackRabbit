@@ -97,6 +97,8 @@ struct SfxSpriteCodes {
 struct HudSpriteCodes {
   // cppcheck-suppress unusedStructMember
   static constexpr uint8_t Frame = 110;
+  // cppcheck-suppress unusedStructMember
+  static constexpr uint8_t LifeHeart = 111;
 };
 
 struct TextFontsCodes {

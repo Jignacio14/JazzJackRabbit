@@ -39,6 +39,7 @@ constexpr uint8_t SfxSpriteCodes::Impact;
 constexpr uint8_t SfxSpriteCodes::Shine;
 
 constexpr uint8_t HudSpriteCodes::Frame;
+constexpr uint8_t HudSpriteCodes::LifeHeart;
 
 constexpr uint8_t TextFontsCodes::Roboto;
 constexpr uint8_t TextFontsCodes::Joystix;
@@ -84,6 +85,7 @@ SpriteNamesMap::SpriteNamesMap()
           {SfxSpriteCodes::Shine, "shine"},
 
           {HudSpriteCodes::Frame, "frame"},
+          {HudSpriteCodes::LifeHeart, "life_heart"},
 
           {TextFontsCodes::Roboto, "roboto"},
           {TextFontsCodes::Joystix, "joystix"},
