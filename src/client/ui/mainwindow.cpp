@@ -148,6 +148,18 @@ void MainWindow::on_connectButton_released() {
     this->enableButton(this->ui->createGameButton, "createGameButton");
     this->enableButton(this->ui->joinGameButton, "joinGameButton");
 
+    // Disable the whole connect panel
+
+    this->ui->connectButton->setEnabled(false);
+    std::string enabledStylesheet =
+        "QPushButton#connectButton {  background-color: rgb(180, 180, 180);  "
+        "color: rgb(0,0,0);  font-family: Joystix;  border-color: rgb(17, 0, "
+        "255);  margin-left: 140px;  margin-right: 140px; }";
+    this->ui->connectButton->setStyleSheet(QString(enabledStylesheet.c_str()));
+
+    this->disableLineEdit(this->ui->hostnameInput, "hostnameInput");
+    this->disableLineEdit(this->ui->portInput, "portInput");
+
   } catch (...) {
     tooltipMessage = "Connection failed";
     location = this->ui->connectButton->mapToGlobal(QPoint(180, -40));

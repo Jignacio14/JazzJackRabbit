@@ -457,6 +457,8 @@ int Socket::close() {
   return ::close(this->skt);
 }
 
+bool Socket::isClosed() const { return this->closed; }
+
 Socket::~Socket() {
   if (not this->closed) {
     ::shutdown(this->skt, SHUT_RDWR);

@@ -14,7 +14,6 @@ void ClientReceiver::run() {
       receiver_queue.push(snapshot);
     }
   } catch (const ClosedQueue &e) {
-    std::cout << "Receiver queue was closed." << std::endl;
   }
   keep_talking = false;
 }

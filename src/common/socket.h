@@ -176,6 +176,8 @@ public:
    * */
   int close();
 
+  bool isClosed() const;
+
   /*
    * Destruye el socket. Si aun esta conectado,
    * se llamara a `Socket::shutdown` y `Socket::close`

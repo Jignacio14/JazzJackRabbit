@@ -47,7 +47,7 @@ void Lobby::quit_game() {
 }
 
 Lobby::~Lobby() {
-  if (this->skt_ownership) {
+  if (this->skt_ownership && !this->skt.isClosed()) {
     skt.shutdown(SHUT_RDWR);
     skt.close();
   }

@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
     GraphicEngine graphicEngine;
     graphicEngine.preloadTextures();
 
-    debugPrint(hostname, port, username, userCharacter, gameConfig);
+    // debugPrint(hostname, port, username, userCharacter, gameConfig);
 
     SnapshotWrapper initialSnapshot(initialSnapshotDto);
 

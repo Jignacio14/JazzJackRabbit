@@ -68,5 +68,7 @@ const int StartupScreen::show() {
 }
 
 std::unique_ptr<Lobby> StartupScreen::getLobby() {
-  return std::move(this->lobby);
+  std::unique_ptr<Lobby> tempLobby = std::move(this->lobby);
+  this->lobby = nullptr;
+  return tempLobby;
 }

@@ -99,7 +99,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="initialScreen">
      <property name="styleSheet">
@@ -965,6 +965,12 @@ QPushButton#backInChooseCharacterButton:pressed {
            <pointsize>16</pointsize>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel#waitingOthersLabel {
+	color: rgb(255, 255, 255);
+	font-family: Joystix;
+}</string>
+         </property>
          <property name="text">
           <string>Waiting other players to join</string>
          </property>
@@ -980,6 +986,12 @@ QPushButton#backInChooseCharacterButton:pressed {
            <family>Joystix</family>
            <pointsize>18</pointsize>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel#waitingOthersCounterLabel {
+	color: rgb(255, 255, 255);
+	font-family: Joystix;
+}</string>
          </property>
          <property name="text">
           <string>1/1</string>

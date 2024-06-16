@@ -22,7 +22,6 @@ void ClientSender::run() {
       protocol.send_commands(was_closed, command_code_dto);
     }
   } catch (const ClosedQueue &e) {
-    std::cout << "Sender queue was closed." << std::endl;
   }
   keep_talking = false;
 }
