@@ -14,8 +14,6 @@
 #include <memory>
 #include <string>
 
-#define MAX_HEALTH 100
-
 class BasePlayer {
 private:
   // cppcheck-suppress unusedStructMember
@@ -43,7 +41,7 @@ private:
   bool is_moving;
 
   bool move_down();
-  void move_up();
+  bool move_up();
   int find_position();
   void change_state(std::unique_ptr<BaseState> new_state);
 

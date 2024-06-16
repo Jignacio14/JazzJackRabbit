@@ -29,7 +29,15 @@ GlobalConfigs::GlobalConfigs() {
 
   this->playerStartingPoints = gameConfigs["starting_points"].as<uint32_t>();
   this->playerMaxLife = gameConfigs["max_life"].as<uint32_t>();
-  this->playerStartingAmmo = gameConfigs["starting_ammo"].as<uint32_t>();
+  this->playerStartingAmmoGun1 =
+      gameConfigs["starting_ammo_gun_1"].as<uint32_t>();
+  this->playerStartingAmmoGun2 =
+      gameConfigs["starting_ammo_gun_2"].as<uint32_t>();
+
+  this->ticksPerSecondOfServer =
+      gameConfigs["target_ticks_per_second"].as<uint32_t>();
+  this->maxInstructionsPerTickOfServer =
+      gameConfigs["max_instructions_per_tick"].as<uint32_t>();
 }
 
 uint16_t GlobalConfigs::getMaxPlayersPerGame() const {
@@ -70,6 +78,18 @@ uint32_t GlobalConfigs::getPlayerStartingPoints() const {
 
 uint32_t GlobalConfigs::getPlayerMaxLife() const { return this->playerMaxLife; }
 
-uint32_t GlobalConfigs::getPlayerStartingAmmo() const {
-  return this->playerStartingAmmo;
+uint32_t GlobalConfigs::getPlayerStartingAmmoGun1() const {
+  return this->playerStartingAmmoGun1;
+}
+
+uint32_t GlobalConfigs::getPlayerStartingAmmoGun2() const {
+  return this->playerStartingAmmoGun2;
+}
+
+uint32_t GlobalConfigs::getTargetTicksPerSecondOfServer() const {
+  return this->ticksPerSecondOfServer;
+}
+
+uint32_t GlobalConfigs::getMaxInstructionsPerTickOfServer() const {
+  return this->maxInstructionsPerTickOfServer;
 }

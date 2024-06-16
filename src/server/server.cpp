@@ -4,7 +4,7 @@
 
 Server::Server(const std::string &port) : acceptator(port.c_str()) {}
 
-void Server::execute() {
+void Server::run() {
   acceptator.start();
   while (std::cin.get() != END_INPUT) {
   }

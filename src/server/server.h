@@ -11,7 +11,7 @@ private:
 public:
   explicit Server(const std::string &port);
   // Runs the server
-  void execute();
+  void run();
 
   ~Server();
 

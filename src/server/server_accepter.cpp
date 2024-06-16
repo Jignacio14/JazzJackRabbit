@@ -1,8 +1,6 @@
 #include "server_accepter.h"
 #include "server_sender.h"
 
-#define HOW 2
-
 Accepter::Accepter(const std::string &port)
     : skt_aceptator(port.c_str()), clients(), gamesMonitor() {}
 
@@ -37,7 +35,7 @@ void Accepter::accept() {
 
 void Accepter::kill() {
   this->_is_alive = false;
-  this->skt_aceptator.shutdown(HOW);
+  this->skt_aceptator.shutdown(SHUT_RDWR);
   this->skt_aceptator.close();
   this->killAll();
 }

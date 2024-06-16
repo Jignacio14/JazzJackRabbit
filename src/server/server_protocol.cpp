@@ -4,8 +4,6 @@
 #include <utility>
 #include <vector>
 
-#define HOW 2
-
 ServerProtocol::ServerProtocol(Socket skt)
     : skt(std::move(skt)), was_close(false), serializer() {}
 
@@ -138,7 +136,7 @@ void ServerProtocol::sendSnapshot(const Snapshot &snapshot) {
 }
 
 void ServerProtocol::shutdown() {
-  this->skt.shutdown(HOW);
+  this->skt.shutdown(SHUT_RDWR);
   this->skt.close();
 }
 

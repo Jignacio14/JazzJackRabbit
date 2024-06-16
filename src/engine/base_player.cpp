@@ -1,6 +1,12 @@
 #include "base_player.h"
 #include <iostream>
 
+#include "../common/global_configs.h"
+
+static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
+
+const static int MAX_HEALTH = globalConfigs.getPlayerMaxLife();
+
 const static int INITIAL_X = 60;
 const static int INITIAL_Y = 1050;
 
@@ -30,8 +36,14 @@ void BasePlayer::update() {
   position = find_position();
 
   if (positions_to_jump > 0) {
-    move_up();
-    positions_to_jump--;
+    bool is_jumping = move_up();
+    if (!is_jumping) {
+      positions_to_jump = 0;
+      snapshot.players[position].is_jumping = NumericBool::False;
+    } else {
+      positions_to_jump--;
+    }
+
   } else {
     bool is_falling = move_down();
     if (!is_falling)
@@ -66,7 +78,7 @@ bool BasePlayer::move_down() {
   return false;
 }
 
-void BasePlayer::move_up() {
+bool BasePlayer::move_up() {
   Rectangle new_rectangle = rectangle;
   new_rectangle.move_up();
   if (map.available_position(new_rectangle)) {
@@ -79,7 +91,9 @@ void BasePlayer::move_up() {
           rectangle.getTopLeftCorner().getY();
       snapshot.players[position].is_jumping = NumericBool::True;
     }
+    return true;
   }
+  return false;
 }
 
 void BasePlayer::receive_damage(uint8_t damage) {

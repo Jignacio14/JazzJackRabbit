@@ -33,7 +33,13 @@ private:
   // cppcheck-suppress unusedStructMember
   uint32_t playerMaxLife;
   // cppcheck-suppress unusedStructMember
-  uint32_t playerStartingAmmo;
+  uint32_t playerStartingAmmoGun1;
+  // cppcheck-suppress unusedStructMember
+  uint32_t playerStartingAmmoGun2;
+  // cppcheck-suppress unusedStructMember
+  uint32_t ticksPerSecondOfServer;
+  // cppcheck-suppress unusedStructMember
+  uint32_t maxInstructionsPerTickOfServer;
 
   GlobalConfigs();
 
@@ -69,7 +75,10 @@ public:
   uint32_t getDebugPort() const;
   uint32_t getPlayerStartingPoints() const;
   uint32_t getPlayerMaxLife() const;
-  uint32_t getPlayerStartingAmmo() const;
+  uint32_t getPlayerStartingAmmoGun1() const;
+  uint32_t getPlayerStartingAmmoGun2() const;
+  uint32_t getTargetTicksPerSecondOfServer() const;
+  uint32_t getMaxInstructionsPerTickOfServer() const;
 };
 
 #endif // GLOBAL_CONFIGS_H

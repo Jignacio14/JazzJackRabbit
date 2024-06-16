@@ -4,11 +4,20 @@
 #include <iostream>
 #include <thread>
 
-#define JAZZ_CODE "J"
-#define LORI_CODE "L"
-#define SPAZ_CODE "S"
+#include "../common/global_configs.h"
 
-const static double SERVER_RATE = ((double)1) / 200;
+static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
+
+const static double TICKS_PER_SECOND =
+    globalConfigs.getTargetTicksPerSecondOfServer();
+
+const static double SERVER_RATE = ((double)1) / TICKS_PER_SECOND;
+
+const static int MAX_INSTRUCTIONS_PER_TICK =
+    globalConfigs.getMaxInstructionsPerTickOfServer();
+
+const static int PLAYER_INITIAL_POSITION_X = 60;
+const static int PLAYER_INITIAL_POSITION_Y = 1050;
 
 Game::Game(GameMonitor &monitor, Queue<CommandCodeDto> &queue)
     : monitor(monitor), messages(queue), players(0), snapshot{},
@@ -23,28 +32,33 @@ double Game::now() {
 void Game::gameLoop() {
   try {
     this->addEnemies();
+
     while (this->_is_alive) {
       double start = this->now();
+
       for (auto &pair : players_data) {
         if (pair.second) {
           pair.second->update();
         }
       }
+
       CommandCodeDto command;
       int instructions_count = 0;
-      while (instructions_count < 200) {
+      while (instructions_count < MAX_INSTRUCTIONS_PER_TICK) {
         bool has_command = messages.try_pop(command);
+
         if (has_command) {
           uint8_t player_id = command.player_id;
           uint8_t action = command.code;
           uint8_t data = command.data;
           this->executeAction(player_id, action, data);
+
         } else {
           break;
         }
         instructions_count++;
       }
-      // cppcheck-suppress uninitvar
+
       this->monitor.broadcast(snapshot);
       double finish = this->now();
       this->rateController(start, finish);
@@ -58,6 +72,7 @@ void Game::gameLoop() {
 
 void Game::rateController(double start, double finish) {
   double timeToRest = rate - (finish - start);
+
   if (timeToRest < 0) {
     double behind = -timeToRest;
     timeToRest = rate - fmod(behind, rate);
@@ -156,13 +171,15 @@ void Game::addPlayer(const PlayerInfo &player_info, const uint8_t &player_id) {
 }
 
 void Game::addPlayerToSnapshot(const PlayerInfo &player_info) {
-  PlayerDto new_player_dto = {};
+  PlayerDto new_player_dto;
   new_player_dto.user_id = this->players;
-  new_player_dto.points = 0;
-  new_player_dto.life = MAX_HEALTH;
+  new_player_dto.points = (uint16_t)globalConfigs.getPlayerStartingPoints();
+  new_player_dto.life = (uint8_t)globalConfigs.getPlayerMaxLife();
   new_player_dto.current_gun = GunsIds::Gun1;
-  new_player_dto.ammo_gun_1 = 0;
-  new_player_dto.ammo_gun_2 = 0;
+  new_player_dto.ammo_gun_1 =
+      (uint8_t)globalConfigs.getPlayerStartingAmmoGun1();
+  new_player_dto.ammo_gun_2 =
+      (uint8_t)globalConfigs.getPlayerStartingAmmoGun2();
   new_player_dto.type = player_info.character_code;
   new_player_dto.is_falling = NumericBool::False;
   new_player_dto.is_jumping = NumericBool::False;
@@ -174,8 +191,8 @@ void Game::addPlayerToSnapshot(const PlayerInfo &player_info) {
   new_player_dto.shot_special = NumericBool::False;
   new_player_dto.is_dead = NumericBool::False;
   new_player_dto.was_hurt = NumericBool::False;
-  new_player_dto.position_x = 60;
-  new_player_dto.position_y = 1050;
+  new_player_dto.position_x = PLAYER_INITIAL_POSITION_X;
+  new_player_dto.position_y = PLAYER_INITIAL_POSITION_Y;
 
   this->snapshot.players[this->snapshot.sizePlayers] = new_player_dto;
   this->snapshot.sizePlayers++;
@@ -211,11 +228,10 @@ void Game::ereasePlayer(uint8_t player_id) {
 void Game::kill() { this->_is_alive = false; }
 
 Game::~Game() {
-  // cppcheck-suppress constVariableReference
-  for (auto &pair : players_data) {
+  for (const auto &pair : players_data) {
     delete pair.second;
   }
-  for (auto &enemy : enemies) {
+  for (const auto &enemy : enemies) {
     delete enemy;
   }
 }

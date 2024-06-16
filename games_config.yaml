@@ -14,8 +14,13 @@ target_fps: 60
 debug_hostname: "localhost"
 debug_port: 1002
 
+# Server exlusive
+target_ticks_per_second: 200
+max_instructions_per_tick: 100
+
 # Player Parameters
 starting_points: 0
 max_life: 100
-starting_ammo: 20
+starting_ammo_gun_1: 20
+starting_ammo_gun_2: 0
 
