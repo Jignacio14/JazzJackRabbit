@@ -73,6 +73,14 @@ void Renderer::updateLatestSnapshot() {
     this->latestSnapshot =
         std::make_unique<SnapshotWrapper>(std::move(snapshotDto));
 
+    this->player.update(*this->latestSnapshot);
+
+    for (auto &renderable : this->renderables) {
+      renderable->update(*this->latestSnapshot);
+    }
+
+    this->createNewRenderables();
+
     snapshotDto = this->client.get_current_snapshot();
   }
 }
@@ -83,17 +91,6 @@ void Renderer::updateGame(int iterationNumber) {
   });
 
   this->updateLatestSnapshot();
-
-  this->player.update(*this->latestSnapshot);
-
-  for (auto &renderable : this->renderables) {
-    if (renderable->shouldDelete()) {
-    }
-
-    renderable->update(*this->latestSnapshot);
-  }
-
-  this->createNewRenderables();
 }
 
 void Renderer::createNewPlayableCharacters(const Snapshot &snapshot) {

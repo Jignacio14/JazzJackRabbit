@@ -24,6 +24,7 @@ bool SnapshotWrapper::getPlayerById(uint8_t id, PlayerDto *player) {
     if (this->snapshot->players[i].user_id == id) {
       wasFound = true;
       *player = this->snapshot->players[i];
+      break;
     }
   }
 
@@ -39,6 +40,7 @@ bool SnapshotWrapper::getCollectableById(uint8_t id,
     if (this->snapshot->collectables[i].entity_id == id) {
       wasFound = true;
       *collectable = this->snapshot->collectables[i];
+      break;
     }
   }
 
@@ -53,6 +55,7 @@ bool SnapshotWrapper::getEnemyById(uint8_t id, EnemyDto *enemy) {
     if (this->snapshot->enemies[i].entity_id == id) {
       wasFound = true;
       *enemy = this->snapshot->enemies[i];
+      break;
     }
   }
 
@@ -67,6 +70,7 @@ bool SnapshotWrapper::getBulletById(uint8_t id, BulletDto *bullet) {
     if (this->snapshot->bullets[i].entity_id == id) {
       wasFound = true;
       *bullet = this->snapshot->bullets[i];
+      break;
     }
   }
 

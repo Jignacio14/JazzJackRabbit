@@ -1,12 +1,20 @@
 #include "base_player.h"
 #include <iostream>
 
+const static int INITIAL_X = 60;
+const static int INITIAL_Y = 1050;
+
+const static int HITBOX_WIDTH = 40;
+const static int HITBOX_HEIGHT = 50;
+
 BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
                        Snapshot &snapshot, int position)
     : player_id(player_id), player_name(player_name), health(MAX_HEALTH),
       weapon(std::make_unique<InitialWeapon>()),
       state(std::make_unique<Alive>()),
-      rectangle(Rectangle(Coordinates(60, 1050), Coordinates(100, 1100))),
+      rectangle(Rectangle(
+          Coordinates(INITIAL_X, INITIAL_Y),
+          Coordinates(INITIAL_X + HITBOX_WIDTH, INITIAL_Y + HITBOX_HEIGHT))),
       facing_direction(FacingDirectionsIds::Right), snapshot(snapshot),
       position(position), positions_to_jump(0), is_moving(false) {}
 
@@ -20,6 +28,7 @@ int BasePlayer::find_position() {
 
 void BasePlayer::update() {
   position = find_position();
+
   if (positions_to_jump > 0) {
     move_up();
     positions_to_jump--;
@@ -28,6 +37,7 @@ void BasePlayer::update() {
     if (!is_falling)
       snapshot.players[position].is_falling = NumericBool::False;
   }
+
   if (is_moving && facing_direction == FacingDirectionsIds::Right) {
     move_right();
   } else if (is_moving && facing_direction == FacingDirectionsIds::Left) {
@@ -36,8 +46,10 @@ void BasePlayer::update() {
 }
 
 bool BasePlayer::move_down() {
-  Rectangle new_rectangle = rectangle;
+
+  Rectangle new_rectangle(rectangle);
   new_rectangle.move_down();
+
   if (map.available_position(new_rectangle)) {
     rectangle = new_rectangle;
 

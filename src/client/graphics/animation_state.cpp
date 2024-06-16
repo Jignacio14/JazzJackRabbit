@@ -38,16 +38,14 @@ void AnimationState::renderFrame(int positionX, int positionY) {
     this->sdlRenderer.Copy(
         this->sprite->texture,
         SDL2pp::Rect(spriteX, spriteY, spriteWidth, spriteHeight),
-        SDL2pp::Rect(positionX, positionY - spriteHeight, spriteWidth,
-                     spriteHeight));
+        SDL2pp::Rect(positionX, positionY, spriteWidth, spriteHeight));
   } else {
     double rotationDegrees = 0.0;
     auto &rotationCenter = SDL2pp::NullOpt;
     this->sdlRenderer.Copy(
         this->sprite->texture,
         SDL2pp::Rect(spriteX, spriteY, spriteWidth, spriteHeight),
-        SDL2pp::Rect(positionX, positionY - spriteHeight, spriteWidth,
-                     spriteHeight),
+        SDL2pp::Rect(positionX, positionY, spriteWidth, spriteHeight),
         rotationDegrees, rotationCenter, SDL_FLIP_HORIZONTAL);
   }
 }
