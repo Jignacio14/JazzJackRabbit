@@ -21,7 +21,7 @@ private:
   // cppcheck-suppress unusedStructMember
   SDL2pp::Font font;
   // cppcheck-suppress unusedStructMember
-  SDL2pp::Texture textTexture;
+  std::vector<SDL2pp::Texture> textTexturesByLine;
 
 public:
   Text(GraphicEngine &graphicEngine, std::string &text,

@@ -67,8 +67,8 @@ void Hud::renderPoints(const PlayerDto &playerinfo) {
   std::string text = "POINTS:\n" + std::to_string(100);
   this->pointsText.updateInnerText(text);
 
-  int positionX = this->hudLeftCorner.getX() + 60;
-  int positionY = this->hudLeftCorner.getY() + 15;
+  int positionX = this->hudLeftCorner.getX() + 62;
+  int positionY = this->hudLeftCorner.getY() + 18;
   Coordinates coords(positionX, positionY);
   this->pointsText.render(coords);
 }
