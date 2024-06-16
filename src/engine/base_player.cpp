@@ -161,10 +161,10 @@ void BasePlayer::move_left(uint8_t speed) {
 }
 
 void BasePlayer::run() {
-  if (position != -1 &&
-          snapshot.players[position].is_jumping == NumericBool::True ||
-      position != -1 &&
-          snapshot.players[position].is_falling == NumericBool::True) {
+  if ((position != -1 &&
+       snapshot.players[position].is_jumping == NumericBool::True) ||
+      (position != -1 &&
+       snapshot.players[position].is_falling == NumericBool::True)) {
     return;
   }
 

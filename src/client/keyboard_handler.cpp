@@ -7,15 +7,23 @@ KeyboardHandler::KeyboardHandler(Client &client, DebugPanel &debugPanel)
     : client(client), debugPanel(debugPanel) {}
 
 void KeyboardHandler::processEvents(const Player &player) {
-  // const PlayerDto &playerInfo = player.getPlayerDtoReference();
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
 
     if (event.key.repeat != 0) {
       continue;
     }
+
+    /*
+      SDL_QUIT events
+    */
+
     if (event.type == SDL_QUIT) {
       throw StopIteration();
+
+      /*
+        SDL_KEYDOWN events
+      */
 
     } else if (event.type == SDL_KEYDOWN) {
       switch (event.key.keysym.sym) {
@@ -30,23 +38,14 @@ void KeyboardHandler::processEvents(const Player &player) {
         break;
 
       case SDLK_UP:
-        /*if (playerInfo.is_jumping || playerInfo.is_falling) {
-          break;
-        }*/
         this->client.jump();
         break;
 
       case SDLK_RIGHT:
-        /*if (playerInfo.is_walking || playerInfo.is_running) {
-          break;
-        }*/
         this->client.move_right();
         break;
 
       case SDLK_LEFT:
-        /*if (playerInfo.is_walking || playerInfo.is_running) {
-          break;
-        }*/
         this->client.move_left();
         break;
 
@@ -55,9 +54,6 @@ void KeyboardHandler::processEvents(const Player &player) {
         break;
 
       case SDLK_LSHIFT:
-        // if (playerInfo.is_running) {
-        //   break;
-        // }
         this->client.run();
         break;
 
@@ -73,18 +69,21 @@ void KeyboardHandler::processEvents(const Player &player) {
         this->client.change_weapon(GunsIds::Gun2);
         break;
       }
+
+      /*
+        SDL_KEYUP events
+      */
+
     } else if (event.type == SDL_KEYUP) {
       switch (event.key.keysym.sym) {
       case SDLK_LEFT:
-        /*if (playerInfo.is_walking || playerInfo.is_running) {
-          this->client.stop_moving();
-        }*/
         this->client.stop_moving();
         break;
 
       case SDLK_RIGHT:
         this->client.stop_moving();
         break;
+
       case SDLK_LSHIFT:
         this->client.stop_running();
         break;
