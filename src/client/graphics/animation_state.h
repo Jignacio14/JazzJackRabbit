@@ -1,6 +1,7 @@
 #ifndef ANIMATION_STATE_H
 #define ANIMATION_STATE_H
 
+#include "../../common/hitbox.h"
 #include "../renderable.h"
 #include "./graphic_engine.h"
 #include <SDL2pp/SDL2pp.hh>
@@ -25,6 +26,8 @@ private:
   uint8_t spriteCode;
   // cppcheck-suppress unusedStructMember
   Sprite *sprite;
+  // cppcheck-suppress unusedStructMember
+  Hitbox &hitbox;
 
   bool shouldRenderLastFrame() const;
 
@@ -41,7 +44,7 @@ public:
                           const uint8_t &spriteCode, Sprite *sprite,
                           const bool &shouldCycle,
                           const double &slowdownCoefficient,
-                          const bool &shouldFlip);
+                          const bool &shouldFlip, Hitbox &hitbox);
 
   // cppcheck-suppress unusedStructMember
   static constexpr bool Cycle = true;

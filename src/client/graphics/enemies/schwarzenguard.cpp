@@ -16,14 +16,15 @@ Schwarzenguard::Schwarzenguard(GraphicEngine &graphicEngine,
                                const uint8_t &entityId,
                                SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo() {
+      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
+      hitbox(HitboxSizes::EnemyWidth, HitboxSizes::EnemyHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, EnemiesGenericSpriteCodes::Idle,
       &this->graphicEngine.getSchwarzenguardSprite(
           EnemiesGenericSpriteCodes::Idle),
       AnimationState::Cycle, SchwarzenguardAnimationSpeedCoefs::Idle,
-      AnimationState::NotFlip);
+      AnimationState::NotFlip, this->hitbox);
 
   bool foundEntity = snapshot.getEnemyById(this->entityId, &this->entityInfo);
   if (!foundEntity) {
@@ -68,7 +69,7 @@ void Schwarzenguard::updateAnimation(const SnapshotWrapper &snapshot,
           &this->graphicEngine.getSchwarzenguardSprite(
               EnemiesGenericSpriteCodes::Death),
           AnimationState::NotCycle, SchwarzenguardAnimationSpeedCoefs::Death,
-          shouldFlip);
+          shouldFlip, this->hitbox);
     }
     return;
   }
@@ -80,7 +81,7 @@ void Schwarzenguard::updateAnimation(const SnapshotWrapper &snapshot,
           &this->graphicEngine.getSchwarzenguardSprite(
               EnemiesGenericSpriteCodes::Hurt),
           AnimationState::NotCycle, SchwarzenguardAnimationSpeedCoefs::Hurt,
-          shouldFlip);
+          shouldFlip, this->hitbox);
     }
     return;
   }
@@ -91,7 +92,7 @@ void Schwarzenguard::updateAnimation(const SnapshotWrapper &snapshot,
         &this->graphicEngine.getSchwarzenguardSprite(
             EnemiesGenericSpriteCodes::Shooting),
         AnimationState::NotCycle, SchwarzenguardAnimationSpeedCoefs::Shooting,
-        shouldFlip);
+        shouldFlip, this->hitbox);
     return;
   }
 
@@ -103,7 +104,7 @@ void Schwarzenguard::updateAnimation(const SnapshotWrapper &snapshot,
         &this->graphicEngine.getSchwarzenguardSprite(
             EnemiesGenericSpriteCodes::Idle),
         AnimationState::Cycle, SchwarzenguardAnimationSpeedCoefs::Idle,
-        shouldFlip);
+        shouldFlip, this->hitbox);
     return;
   }
 }

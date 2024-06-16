@@ -2,6 +2,7 @@
 #define LORI_H
 
 #include "../../../common/coordinates.h"
+#include "../../../common/hitbox.h"
 #include "../../renderable.h"
 #include "../graphic_engine.h"
 #include "../playable_character.h"
@@ -38,6 +39,7 @@ private:
 
   // cppcheck-suppress unusedStructMember
   PlayerDto entityInfo;
+  Hitbox hitbox;
 
   // void debugUpdateLocation(int iterationNumber);
 

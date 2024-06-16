@@ -13,13 +13,14 @@ BulletGun1::BulletGun1(GraphicEngine &graphicEngine, Coordinates &currentCoords,
                        const uint8_t &entityId, SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
       currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
-      shouldBeDeleted(false), isShowingExitAnimation(false) {
+      shouldBeDeleted(false), isShowingExitAnimation(false),
+      hitbox(HitboxSizes::BulletWidth, HitboxSizes::BulletHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, GunSpriteCodes::FlyingBullet,
       &this->graphicEngine.getGun1Sprite(GunSpriteCodes::FlyingBullet),
       AnimationState::Cycle, BulletGun1AnimationSpeedCoefs::Flying,
-      AnimationState::NotFlip);
+      AnimationState::NotFlip, this->hitbox);
 
   bool foundEntity = snapshot.getBulletById(this->entityId, &this->entityInfo);
   if (!foundEntity) {
@@ -70,7 +71,7 @@ void BulletGun1::update(SnapshotWrapper &snapshot) {
         this->graphicEngine, SfxSpriteCodes::Impact,
         &this->graphicEngine.getSfxSprite(SfxSpriteCodes::Impact),
         AnimationState::NotCycle, BulletGun1AnimationSpeedCoefs::Impact,
-        AnimationState::NotFlip);
+        AnimationState::NotFlip, this->hitbox);
     this->isShowingExitAnimation = true;
     return;
   }

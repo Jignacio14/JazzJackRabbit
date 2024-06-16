@@ -2,6 +2,7 @@
 #define AMMO_GUN_1_COLLECTABLE_H
 
 #include "../../../common/coordinates.h"
+#include "../../../common/hitbox.h"
 #include "../../renderable.h"
 #include "../graphic_engine.h"
 #include "../playable_character.h"
@@ -31,6 +32,7 @@ private:
   bool shouldBeDeleted;
   // cppcheck-suppress unusedStructMember
   bool isShowingExitAnimation;
+  Hitbox hitbox;
 
   void updateAnimation(const SnapshotWrapper &snapshot,
                        const CollectableDto &newEntityInfo);

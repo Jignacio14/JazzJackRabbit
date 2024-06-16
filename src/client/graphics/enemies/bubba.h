@@ -2,6 +2,7 @@
 #define BUBBA_H
 
 #include "../../../common/coordinates.h"
+#include "../../../common/hitbox.h"
 #include "../../renderable.h"
 #include "../graphic_engine.h"
 #include "../playable_character.h"
@@ -26,6 +27,7 @@ private:
 
   // cppcheck-suppress unusedStructMember
   EnemyDto entityInfo;
+  Hitbox hitbox;
 
   void updateAnimation(const SnapshotWrapper &snapshot,
                        const EnemyDto &newEntityInfo);

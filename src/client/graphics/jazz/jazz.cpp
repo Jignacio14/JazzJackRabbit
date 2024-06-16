@@ -25,13 +25,14 @@ Jazz::Jazz(GraphicEngine &graphicEngine, Coordinates &currentCoords,
     : entityId(entityId), graphicEngine(graphicEngine),
       currentAnimation(nullptr), currentCoords(currentCoords),
       isWalkingLeft(false), isWalkingRight(false), isWalkingUp(false),
-      isWalkingDown(false), isRunning(false), entityInfo() {
+      isWalkingDown(false), isRunning(false), entityInfo(),
+      hitbox(HitboxSizes::PlayerWidth, HitboxSizes::PlayerHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, GenericSpriteCodes::Idle,
       &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Idle),
       AnimationState::Cycle, JazzAnimationSpeedCoefs::Idle,
-      AnimationState::NotFlip);
+      AnimationState::NotFlip, this->hitbox);
 
   bool foundEntity = snapshot.getPlayerById(this->entityId, &this->entityInfo);
   if (!foundEntity) {
@@ -80,7 +81,8 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, GenericSpriteCodes::Death,
           &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Death),
-          AnimationState::NotCycle, JazzAnimationSpeedCoefs::Death, shouldFlip);
+          AnimationState::NotCycle, JazzAnimationSpeedCoefs::Death, shouldFlip,
+          this->hitbox);
     }
     return;
   }
@@ -90,7 +92,8 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, GenericSpriteCodes::Hurt,
           &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Hurt),
-          AnimationState::NotCycle, JazzAnimationSpeedCoefs::Hurt, shouldFlip);
+          AnimationState::NotCycle, JazzAnimationSpeedCoefs::Hurt, shouldFlip,
+          this->hitbox);
     }
     return;
   }
@@ -100,8 +103,8 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Shooting,
         &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Shooting),
-        AnimationState::NotCycle, JazzAnimationSpeedCoefs::Shooting,
-        shouldFlip);
+        AnimationState::NotCycle, JazzAnimationSpeedCoefs::Shooting, shouldFlip,
+        this->hitbox);
     return;
 
   } else if (newEntityInfo.shot_special == NumericBool::True) {
@@ -109,8 +112,8 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, JazzSpecialsCodes::Uppercut,
         &this->graphicEngine.getJazzSpecialSprite(JazzSpecialsCodes::Uppercut),
-        AnimationState::NotCycle, JazzAnimationSpeedCoefs::Uppercut,
-        shouldFlip);
+        AnimationState::NotCycle, JazzAnimationSpeedCoefs::Uppercut, shouldFlip,
+        this->hitbox);
     return;
   }
 
@@ -119,7 +122,8 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Falling,
         &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Falling),
-        AnimationState::Cycle, JazzAnimationSpeedCoefs::Falling, shouldFlip);
+        AnimationState::Cycle, JazzAnimationSpeedCoefs::Falling, shouldFlip,
+        this->hitbox);
     return;
 
   } else if (newEntityInfo.is_jumping == NumericBool::True) {
@@ -127,7 +131,8 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Jumping,
         &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Jumping),
-        AnimationState::NotCycle, JazzAnimationSpeedCoefs::Jumping, shouldFlip);
+        AnimationState::NotCycle, JazzAnimationSpeedCoefs::Jumping, shouldFlip,
+        this->hitbox);
     return;
   }
 
@@ -136,7 +141,8 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Running,
         &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Running),
-        AnimationState::Cycle, JazzAnimationSpeedCoefs::Running, shouldFlip);
+        AnimationState::Cycle, JazzAnimationSpeedCoefs::Running, shouldFlip,
+        this->hitbox);
     return;
 
   } else if (newEntityInfo.is_walking == NumericBool::True) {
@@ -147,14 +153,15 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
           &this->graphicEngine.getJazzGenericSprite(
               GenericSpriteCodes::IntoxicatedWalking),
           AnimationState::Cycle, JazzAnimationSpeedCoefs::IntoxicatedWalking,
-          shouldFlip);
+          shouldFlip, this->hitbox);
     } else {
 
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, GenericSpriteCodes::Walking,
           &this->graphicEngine.getJazzGenericSprite(
               GenericSpriteCodes::Walking),
-          AnimationState::Cycle, JazzAnimationSpeedCoefs::Walking, shouldFlip);
+          AnimationState::Cycle, JazzAnimationSpeedCoefs::Walking, shouldFlip,
+          this->hitbox);
     }
     return;
   }
@@ -168,7 +175,7 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
         &this->graphicEngine.getJazzGenericSprite(
             GenericSpriteCodes::IntoxicatedIdle),
         AnimationState::Cycle, JazzAnimationSpeedCoefs::IntoxicatedIdle,
-        shouldFlip);
+        shouldFlip, this->hitbox);
     return;
 
   } else if (canBreakAnimation) {
@@ -176,7 +183,8 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Idle,
         &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Idle),
-        AnimationState::Cycle, JazzAnimationSpeedCoefs::Idle, shouldFlip);
+        AnimationState::Cycle, JazzAnimationSpeedCoefs::Idle, shouldFlip,
+        this->hitbox);
     return;
   }
 }

@@ -13,13 +13,14 @@ AmmoGun2::AmmoGun2(GraphicEngine &graphicEngine, Coordinates &currentCoords,
                    const uint8_t &entityId, SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
       currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
-      shouldBeDeleted(false), isShowingExitAnimation(false) {
+      shouldBeDeleted(false), isShowingExitAnimation(false),
+      hitbox(HitboxSizes::CollectableWidth, HitboxSizes::CollectableHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, GunSpriteCodes::CollectableAmmo,
       &this->graphicEngine.getGun2Sprite(GunSpriteCodes::CollectableAmmo),
       AnimationState::Cycle, AmmoGun2AnimationSpeedCoefs::Idle,
-      AnimationState::NotFlip);
+      AnimationState::NotFlip, this->hitbox);
 
   bool foundEntity =
       snapshot.getCollectableById(this->entityId, &this->entityInfo);
@@ -72,7 +73,7 @@ void AmmoGun2::update(SnapshotWrapper &snapshot) {
         this->graphicEngine, SfxSpriteCodes::Shine,
         &this->graphicEngine.getSfxSprite(SfxSpriteCodes::Shine),
         AnimationState::NotCycle, AmmoGun2AnimationSpeedCoefs::Shine,
-        AnimationState::NotFlip);
+        AnimationState::NotFlip, this->hitbox);
     this->isShowingExitAnimation = true;
     return;
   }

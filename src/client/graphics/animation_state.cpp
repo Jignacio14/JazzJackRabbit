@@ -2,7 +2,6 @@
 #include <string>
 
 #include "../../common/global_configs.h"
-#include "../../data/hitbox_sizes.h"
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 const static double TARGET_FPS = globalConfigs.getTargetFps();
@@ -12,13 +11,13 @@ AnimationState::AnimationState(GraphicEngine &graphicEngine,
                                const uint8_t &spriteCode, Sprite *sprite,
                                const bool &shouldCycle,
                                const double &slowdownCoefficient,
-                               const bool &shouldFlip)
+                               const bool &shouldFlip, Hitbox &hitbox)
     : shouldCycle(shouldCycle), shouldFlip(shouldFlip),
       slowdownCoefficient(slowdownCoefficient * RATE),
       graphicEngine(graphicEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
       currentFrame(0), hasFinished(false), totalRenders(0),
-      spriteCode(spriteCode), sprite(sprite) {}
+      spriteCode(spriteCode), sprite(sprite), hitbox(hitbox) {}
 
 bool AnimationState::shouldRenderLastFrame() const {
   if (!this->shouldCycle &&
@@ -35,7 +34,7 @@ void AnimationState::renderFrame(int positionX, int positionY) {
   int spriteWidth = this->sprite->width[this->currentFrame];
   int spriteHeight = this->sprite->height[this->currentFrame];
 
-  int deltaY = HitboxSizes::PlayerHeight - spriteHeight;
+  int deltaY = this->hitbox.getHeight() - spriteHeight;
 
   if (!this->shouldFlip) {
     this->sdlRenderer.Copy(

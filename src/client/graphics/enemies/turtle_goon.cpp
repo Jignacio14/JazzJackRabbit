@@ -14,13 +14,14 @@ struct TurtleGoonAnimationSpeedCoefs {
 TurtleGoon::TurtleGoon(GraphicEngine &graphicEngine, Coordinates &currentCoords,
                        const uint8_t &entityId, SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo() {
+      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
+      hitbox(HitboxSizes::EnemyWidth, HitboxSizes::EnemyHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, EnemiesGenericSpriteCodes::Idle,
       &this->graphicEngine.getTurtleGoonSprite(EnemiesGenericSpriteCodes::Idle),
       AnimationState::Cycle, TurtleGoonAnimationSpeedCoefs::Idle,
-      AnimationState::NotFlip);
+      AnimationState::NotFlip, this->hitbox);
 
   bool foundEntity = snapshot.getEnemyById(this->entityId, &this->entityInfo);
   if (!foundEntity) {
@@ -65,7 +66,7 @@ void TurtleGoon::updateAnimation(const SnapshotWrapper &snapshot,
           &this->graphicEngine.getTurtleGoonSprite(
               EnemiesGenericSpriteCodes::Death),
           AnimationState::NotCycle, TurtleGoonAnimationSpeedCoefs::Death,
-          shouldFlip);
+          shouldFlip, this->hitbox);
     }
     return;
   }
@@ -77,7 +78,7 @@ void TurtleGoon::updateAnimation(const SnapshotWrapper &snapshot,
           &this->graphicEngine.getTurtleGoonSprite(
               EnemiesGenericSpriteCodes::Hurt),
           AnimationState::NotCycle, TurtleGoonAnimationSpeedCoefs::Hurt,
-          shouldFlip);
+          shouldFlip, this->hitbox);
     }
     return;
   }
@@ -88,7 +89,7 @@ void TurtleGoon::updateAnimation(const SnapshotWrapper &snapshot,
         &this->graphicEngine.getTurtleGoonSprite(
             EnemiesGenericSpriteCodes::Shooting),
         AnimationState::NotCycle, TurtleGoonAnimationSpeedCoefs::Shooting,
-        shouldFlip);
+        shouldFlip, this->hitbox);
     return;
   }
 
@@ -99,7 +100,8 @@ void TurtleGoon::updateAnimation(const SnapshotWrapper &snapshot,
         this->graphicEngine, EnemiesGenericSpriteCodes::Idle,
         &this->graphicEngine.getTurtleGoonSprite(
             EnemiesGenericSpriteCodes::Idle),
-        AnimationState::Cycle, TurtleGoonAnimationSpeedCoefs::Idle, shouldFlip);
+        AnimationState::Cycle, TurtleGoonAnimationSpeedCoefs::Idle, shouldFlip,
+        this->hitbox);
     return;
   }
 }

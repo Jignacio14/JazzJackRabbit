@@ -23,13 +23,14 @@ Spaz::Spaz(GraphicEngine &graphicEngine, Coordinates &currentCoords,
     : entityId(entityId), graphicEngine(graphicEngine),
       currentAnimation(nullptr), currentCoords(currentCoords),
       isWalkingLeft(false), isWalkingRight(false), isWalkingUp(false),
-      isWalkingDown(false), isRunning(false), entityInfo() {
+      isWalkingDown(false), isRunning(false), entityInfo(),
+      hitbox(HitboxSizes::PlayerWidth, HitboxSizes::PlayerHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, GenericSpriteCodes::Idle,
       &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Idle),
       AnimationState::Cycle, SpazAnimationSpeedCoefs::Idle,
-      AnimationState::NotFlip);
+      AnimationState::NotFlip, this->hitbox);
 
   bool foundEntity = snapshot.getPlayerById(this->entityId, &this->entityInfo);
   if (!foundEntity) {
@@ -78,7 +79,8 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, GenericSpriteCodes::Death,
           &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Death),
-          AnimationState::NotCycle, SpazAnimationSpeedCoefs::Death, shouldFlip);
+          AnimationState::NotCycle, SpazAnimationSpeedCoefs::Death, shouldFlip,
+          this->hitbox);
     }
     return;
   }
@@ -88,7 +90,8 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, GenericSpriteCodes::Hurt,
           &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Hurt),
-          AnimationState::NotCycle, SpazAnimationSpeedCoefs::Hurt, shouldFlip);
+          AnimationState::NotCycle, SpazAnimationSpeedCoefs::Hurt, shouldFlip,
+          this->hitbox);
     }
     return;
   }
@@ -97,16 +100,16 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Shooting,
         &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Shooting),
-        AnimationState::NotCycle, SpazAnimationSpeedCoefs::Shooting,
-        shouldFlip);
+        AnimationState::NotCycle, SpazAnimationSpeedCoefs::Shooting, shouldFlip,
+        this->hitbox);
     return;
 
   } else if (newEntityInfo.shot_special == NumericBool::True) {
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, SpazSpecialsCodes::SideKick,
         &this->graphicEngine.getSpazSpecialSprite(SpazSpecialsCodes::SideKick),
-        AnimationState::NotCycle, SpazAnimationSpeedCoefs::SideKick,
-        shouldFlip);
+        AnimationState::NotCycle, SpazAnimationSpeedCoefs::SideKick, shouldFlip,
+        this->hitbox);
     return;
   }
 
@@ -114,14 +117,16 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Falling,
         &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Falling),
-        AnimationState::Cycle, SpazAnimationSpeedCoefs::Falling, shouldFlip);
+        AnimationState::Cycle, SpazAnimationSpeedCoefs::Falling, shouldFlip,
+        this->hitbox);
     return;
 
   } else if (newEntityInfo.is_jumping == NumericBool::True) {
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Jumping,
         &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Jumping),
-        AnimationState::NotCycle, SpazAnimationSpeedCoefs::Jumping, shouldFlip);
+        AnimationState::NotCycle, SpazAnimationSpeedCoefs::Jumping, shouldFlip,
+        this->hitbox);
     return;
   }
 
@@ -129,7 +134,8 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Running,
         &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Running),
-        AnimationState::Cycle, SpazAnimationSpeedCoefs::Running, shouldFlip);
+        AnimationState::Cycle, SpazAnimationSpeedCoefs::Running, shouldFlip,
+        this->hitbox);
     return;
 
   } else if (newEntityInfo.is_walking == NumericBool::True) {
@@ -139,13 +145,14 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
           &this->graphicEngine.getSpazGenericSprite(
               GenericSpriteCodes::IntoxicatedWalking),
           AnimationState::Cycle, SpazAnimationSpeedCoefs::IntoxicatedWalking,
-          shouldFlip);
+          shouldFlip, this->hitbox);
     } else {
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, GenericSpriteCodes::Walking,
           &this->graphicEngine.getSpazGenericSprite(
               GenericSpriteCodes::Walking),
-          AnimationState::Cycle, SpazAnimationSpeedCoefs::Walking, shouldFlip);
+          AnimationState::Cycle, SpazAnimationSpeedCoefs::Walking, shouldFlip,
+          this->hitbox);
     }
     return;
   }
@@ -158,14 +165,15 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
         &this->graphicEngine.getSpazGenericSprite(
             GenericSpriteCodes::IntoxicatedIdle),
         AnimationState::Cycle, SpazAnimationSpeedCoefs::IntoxicatedIdle,
-        shouldFlip);
+        shouldFlip, this->hitbox);
     return;
 
   } else if (canBreakAnimation) {
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Idle,
         &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Idle),
-        AnimationState::Cycle, SpazAnimationSpeedCoefs::Idle, shouldFlip);
+        AnimationState::Cycle, SpazAnimationSpeedCoefs::Idle, shouldFlip,
+        this->hitbox);
     return;
   }
 }

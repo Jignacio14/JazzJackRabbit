@@ -2,7 +2,6 @@
 #include <iostream>
 
 #include "../common/global_configs.h"
-#include "../data/hitbox_sizes.h"
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 

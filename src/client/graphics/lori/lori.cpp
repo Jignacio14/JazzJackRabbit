@@ -23,13 +23,14 @@ Lori::Lori(GraphicEngine &graphicEngine, Coordinates &currentCoords,
     : entityId(entityId), graphicEngine(graphicEngine),
       currentAnimation(nullptr), currentCoords(currentCoords),
       isWalkingLeft(false), isWalkingRight(false), isWalkingUp(false),
-      isWalkingDown(false), isRunning(false), entityInfo() {
+      isWalkingDown(false), isRunning(false), entityInfo(),
+      hitbox(HitboxSizes::PlayerWidth, HitboxSizes::PlayerHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, GenericSpriteCodes::Idle,
       &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Idle),
       AnimationState::Cycle, LoriAnimationSpeedCoefs::Idle,
-      AnimationState::NotFlip);
+      AnimationState::NotFlip, this->hitbox);
 
   bool foundEntity = snapshot.getPlayerById(this->entityId, &this->entityInfo);
   if (!foundEntity) {
@@ -78,7 +79,8 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, GenericSpriteCodes::Death,
           &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Death),
-          AnimationState::NotCycle, LoriAnimationSpeedCoefs::Death, shouldFlip);
+          AnimationState::NotCycle, LoriAnimationSpeedCoefs::Death, shouldFlip,
+          this->hitbox);
     }
     return;
   }
@@ -88,7 +90,8 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, GenericSpriteCodes::Hurt,
           &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Hurt),
-          AnimationState::NotCycle, LoriAnimationSpeedCoefs::Hurt, shouldFlip);
+          AnimationState::NotCycle, LoriAnimationSpeedCoefs::Hurt, shouldFlip,
+          this->hitbox);
     }
     return;
   }
@@ -97,8 +100,8 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Shooting,
         &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Shooting),
-        AnimationState::NotCycle, LoriAnimationSpeedCoefs::Shooting,
-        shouldFlip);
+        AnimationState::NotCycle, LoriAnimationSpeedCoefs::Shooting, shouldFlip,
+        this->hitbox);
     return;
 
   } else if (newEntityInfo.shot_special == NumericBool::True) {
@@ -106,7 +109,7 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
         this->graphicEngine, LoriSpecialsCodes::ShortKick,
         &this->graphicEngine.getLoriSpecialSprite(LoriSpecialsCodes::ShortKick),
         AnimationState::NotCycle, LoriAnimationSpeedCoefs::ShortKick,
-        shouldFlip);
+        shouldFlip, this->hitbox);
     return;
   }
 
@@ -114,14 +117,16 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Falling,
         &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Falling),
-        AnimationState::Cycle, LoriAnimationSpeedCoefs::Falling, shouldFlip);
+        AnimationState::Cycle, LoriAnimationSpeedCoefs::Falling, shouldFlip,
+        this->hitbox);
     return;
 
   } else if (newEntityInfo.is_jumping == NumericBool::True) {
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Jumping,
         &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Jumping),
-        AnimationState::NotCycle, LoriAnimationSpeedCoefs::Jumping, shouldFlip);
+        AnimationState::NotCycle, LoriAnimationSpeedCoefs::Jumping, shouldFlip,
+        this->hitbox);
     return;
   }
 
@@ -129,7 +134,8 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Running,
         &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Running),
-        AnimationState::Cycle, LoriAnimationSpeedCoefs::Running, shouldFlip);
+        AnimationState::Cycle, LoriAnimationSpeedCoefs::Running, shouldFlip,
+        this->hitbox);
     return;
 
   } else if (newEntityInfo.is_walking == NumericBool::True) {
@@ -139,13 +145,14 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
           &this->graphicEngine.getLoriGenericSprite(
               GenericSpriteCodes::IntoxicatedWalking),
           AnimationState::Cycle, LoriAnimationSpeedCoefs::IntoxicatedWalking,
-          shouldFlip);
+          shouldFlip, this->hitbox);
     } else {
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, GenericSpriteCodes::Walking,
           &this->graphicEngine.getLoriGenericSprite(
               GenericSpriteCodes::Walking),
-          AnimationState::Cycle, LoriAnimationSpeedCoefs::Walking, shouldFlip);
+          AnimationState::Cycle, LoriAnimationSpeedCoefs::Walking, shouldFlip,
+          this->hitbox);
     }
     return;
   }
@@ -158,14 +165,15 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
         &this->graphicEngine.getLoriGenericSprite(
             GenericSpriteCodes::IntoxicatedIdle),
         AnimationState::Cycle, LoriAnimationSpeedCoefs::IntoxicatedIdle,
-        shouldFlip);
+        shouldFlip, this->hitbox);
     return;
 
   } else if (canBreakAnimation) {
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Idle,
         &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Idle),
-        AnimationState::Cycle, LoriAnimationSpeedCoefs::Idle, shouldFlip);
+        AnimationState::Cycle, LoriAnimationSpeedCoefs::Idle, shouldFlip,
+        this->hitbox);
     return;
   }
 }

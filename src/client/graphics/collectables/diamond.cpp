@@ -13,14 +13,15 @@ Diamond::Diamond(GraphicEngine &graphicEngine, Coordinates &currentCoords,
                  const uint8_t &entityId, SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
       currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
-      shouldBeDeleted(false), isShowingExitAnimation(false) {
+      shouldBeDeleted(false), isShowingExitAnimation(false),
+      hitbox(HitboxSizes::CollectableWidth, HitboxSizes::CollectableHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, CollectablesSpriteCodes::Diamond,
       &this->graphicEngine.getCollectableSprite(
           CollectablesSpriteCodes::Diamond),
       AnimationState::Cycle, DiamondAnimationSpeedCoefs::Idle,
-      AnimationState::NotFlip);
+      AnimationState::NotFlip, this->hitbox);
 
   bool foundEntity =
       snapshot.getCollectableById(this->entityId, &this->entityInfo);
@@ -73,7 +74,7 @@ void Diamond::update(SnapshotWrapper &snapshot) {
         this->graphicEngine, SfxSpriteCodes::Shine,
         &this->graphicEngine.getSfxSprite(SfxSpriteCodes::Shine),
         AnimationState::NotCycle, DiamondAnimationSpeedCoefs::Shine,
-        AnimationState::NotFlip);
+        AnimationState::NotFlip, this->hitbox);
     this->isShowingExitAnimation = true;
     return;
   }
