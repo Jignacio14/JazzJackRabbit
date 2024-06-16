@@ -60,7 +60,7 @@ void Renderer::renderGame(int iterationNumber) {
     renderable->renderFromLeftCorner(iterationNumber, leftCorner);
   }
 
-  this->hud.render(iterationNumber);
+  this->hud.render(*this->latestSnapshot);
 
   this->debugPanel.display();
   this->sdlRenderer.Present();

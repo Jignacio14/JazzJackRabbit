@@ -63,9 +63,11 @@ static const std::vector<uint8_t> sfxNamesVector = {
 
 static const std::vector<uint8_t> hudNamesVector = {
     HudSpriteCodes::Frame,
+    HudSpriteCodes::LifeHeart,
 };
 
 const static int CHARACTERS_COLOR_KEY_RGB[3] = {44, 102, 150};
+const static int COLLECTABLES_COLOR_KEY_RGB[3] = {0, 128, 255};
 const static int MAP_COLOR_KEY_RGB[3] = {87, 0, 203};
 const static int SHINE_COLOR_KEY_RGB[3] = {153, 217, 234};
 const static int WHITE_COLOR_KEY[3] = {255, 255, 255};
@@ -255,49 +257,49 @@ void TextureLoader::preloadTextures() {
   for (auto &spriteCode : gunsSpriteNamesVector) {
     loadSpriteLambda("src/client/sprites/gun_1/", spriteCode,
                      spriteNamesMap.map.at(spriteCode),
-                     CHARACTERS_COLOR_KEY_RGB, this->gun1Sprites);
+                     COLLECTABLES_COLOR_KEY_RGB, this->gun1Sprites);
 
     loadSpriteLambda("src/client/sprites/gun_2/", spriteCode,
                      spriteNamesMap.map.at(spriteCode),
-                     CHARACTERS_COLOR_KEY_RGB, this->gun2Sprites);
+                     COLLECTABLES_COLOR_KEY_RGB, this->gun2Sprites);
   }
 
   // GUN 1 HUD ICON INITIALIZATION
   loadSpriteHudIconLambda("src/client/sprites/gun_1/",
                           spriteNamesMap.map.at(GunSpriteCodes::HudIcon),
-                          CHARACTERS_COLOR_KEY_RGB, this->gun1hudIcon);
+                          COLLECTABLES_COLOR_KEY_RGB, this->gun1hudIcon);
 
   // GUN 2 HUD ICON INITIALIZATION
   loadSpriteHudIconLambda("src/client/sprites/gun_2/",
                           spriteNamesMap.map.at(GunSpriteCodes::HudIcon),
-                          CHARACTERS_COLOR_KEY_RGB, this->gun2hudIcon);
+                          COLLECTABLES_COLOR_KEY_RGB, this->gun2hudIcon);
 
   // COLLECTABLES SPRITES INITIALIZATION
   for (auto &spriteCode : collectablesSpriteNamesVector) {
     loadSpriteLambda("src/client/sprites/collectables/", spriteCode,
                      spriteNamesMap.map.at(spriteCode),
-                     CHARACTERS_COLOR_KEY_RGB, this->collectablesSprites);
+                     COLLECTABLES_COLOR_KEY_RGB, this->collectablesSprites);
   }
 
   // BUBBA SPRITES INITIALIZATION
   for (auto &spriteCode : enemiesSpriteNamesVector) {
     loadSpriteLambda("src/client/sprites/bubba/", spriteCode,
                      spriteNamesMap.map.at(spriteCode),
-                     CHARACTERS_COLOR_KEY_RGB, this->bubbaSprites);
+                     COLLECTABLES_COLOR_KEY_RGB, this->bubbaSprites);
   }
 
   // TURTLE GOON SPRITES INITIALIZATION
   for (auto &spriteCode : enemiesSpriteNamesVector) {
     loadSpriteLambda("src/client/sprites/turtle_goon/", spriteCode,
                      spriteNamesMap.map.at(spriteCode),
-                     CHARACTERS_COLOR_KEY_RGB, this->turtleGoonSprites);
+                     COLLECTABLES_COLOR_KEY_RGB, this->turtleGoonSprites);
   }
 
   // SCHWARZENGUARD SPRITES INITIALIZATION
   for (auto &spriteCode : enemiesSpriteNamesVector) {
     loadSpriteLambda("src/client/sprites/schwarzenguard/", spriteCode,
                      spriteNamesMap.map.at(spriteCode),
-                     CHARACTERS_COLOR_KEY_RGB, this->schwarzenguardSprites);
+                     COLLECTABLES_COLOR_KEY_RGB, this->schwarzenguardSprites);
   }
 
   // SFX SPRITES INITIALIZATION
@@ -317,6 +319,13 @@ void TextureLoader::preloadTextures() {
 
   // HUD SPRITES INITIALIZATION
   for (auto &spriteCode : hudNamesVector) {
+    if (spriteCode == HudSpriteCodes::LifeHeart) {
+      loadSpriteLambda("src/client/sprites/hud/", spriteCode,
+                       spriteNamesMap.map.at(spriteCode),
+                       COLLECTABLES_COLOR_KEY_RGB, this->hudSprites);
+      continue;
+    }
+
     loadSpriteLambda("src/client/sprites/hud/", spriteCode,
                      spriteNamesMap.map.at(spriteCode), nullptr,
                      this->hudSprites);
