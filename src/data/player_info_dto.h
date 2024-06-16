@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#define MAX_LEN 30
+#define MAX_LEN 12
 
 struct PlayerInfo {
   uint16_t str_len;

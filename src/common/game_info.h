@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <vector>
 
-#define MAX_LEN 30
+#define MAX_LEN 12
 
 struct GameInfoDto {
   // cppcheck-suppress unusedStructMember
