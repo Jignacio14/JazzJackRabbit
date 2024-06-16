@@ -6,20 +6,17 @@
 
 #include "../../../common/global_configs.h"
 
-/*static const std::unordered_map<std::string, int> MOVING_DIRECTIONS = {
-    {"left", 0}, {"right", 1}, {"up", 2}, {"down", 3}};*/
-
 struct JazzAnimationSpeedCoefs {
   static constexpr double Death = 25;
   static constexpr double Hurt = 25;
-  static constexpr double Idle = 25;
+  static constexpr double Idle = 15;
   static constexpr double IntoxicatedIdle = 25;
   static constexpr double IntoxicatedWalking = 25;
-  static constexpr double Jumping = 25;
-  static constexpr double Falling = 25;
+  static constexpr double Jumping = 15;
+  static constexpr double Falling = 20;
   static constexpr double Running = 25;
   static constexpr double Shooting = 25;
-  static constexpr double Walking = 25;
+  static constexpr double Walking = 17;
   static constexpr double Uppercut = 25;
 };
 
@@ -45,81 +42,13 @@ Jazz::Jazz(GraphicEngine &graphicEngine, Coordinates &currentCoords,
   }
 }
 
-/*void Jazz::debugUpdateLocation(int iterationNumber) {
-  int speed = 0;
-  bool isWalking = this->isWalkingLeft || this->isWalkingRight ||
-                   this->isWalkingUp || this->isWalkingDown;
-
-  if (isWalking) {
-    speed = 5;
-  } else if (this->isRunning) {
-    speed = 10;
-  }
-
-  if (this->isWalkingLeft)
-    this->currentCoords.setX(this->currentCoords.getX() - speed);
-  if (this->isWalkingRight)
-    this->currentCoords.setX(this->currentCoords.getX() + speed);
-  if (this->isWalkingUp)
-    this->currentCoords.setY(this->currentCoords.getY() - speed);
-  if (this->isWalkingDown)
-    this->currentCoords.setY(this->currentCoords.getY() + speed);
-}*/
-
-void Jazz::render(int iterationNumber) {
-  /*this->currentFrame = iterationNumber %
-  this->currentState->maxAnimationFrames;
-  this->debugUpdateLocation(iterationNumber);
-
-  // Pick sprite from running animantion sequence
-  int spriteX = this->currentState->spriteCoords[this->currentFrame].getX();
-  int spriteY = this->currentState->spriteCoords[this->currentFrame].getY();
-  int spriteWidth = this->currentState->width[this->currentFrame];
-  int spriteHeight = this->currentState->height[this->currentFrame];
-
-  int positionX = this->currentCoords.getX();
-  int positionY = this->currentCoords.getY();
-
-  // Draw player sprite
-  this->currentState->sdlRenderer.Copy(
-      this->currentState->texture,
-      SDL2pp::Rect(spriteX, spriteY, spriteWidth, spriteHeight),
-      SDL2pp::Rect(positionX, positionY - spriteHeight, spriteWidth,
-                   spriteHeight));*/
-}
+void Jazz::render(int iterationNumber) {}
 
 void Jazz::render(int iterationNumber, Coordinates &coords) {
   this->currentAnimation->render(iterationNumber, coords);
 }
 
 void Jazz::update(bool isWalking, bool isRunning, std::string movingDirection) {
-
-  /*bool wasWalking = this->isWalkingLeft || this->isWalkingRight ||
-                    this->isWalkingUp || this->isWalkingDown;
-
-  this->isRunning = isRunning;
-  this->movingDirection = movingDirection;
-
-  if (movingDirection == "left") {
-    this->isWalkingLeft = isWalking;
-  } else if (movingDirection == "right") {
-    this->isWalkingRight = isWalking;
-
-  } else if (movingDirection == "up") {
-    this->isWalkingUp = isWalking;
-
-  } else if (movingDirection == "down") {
-    this->isWalkingDown = isWalking;
-  }
-
-  bool isNowWalking = this->isWalkingLeft || this->isWalkingRight ||
-                      this->isWalkingUp || this->isWalkingDown;
-
-  if (wasWalking && !isNowWalking) {
-    this->currentState = &this->graphicEngine.getJazzGenericSprite("idle1");
-  } else if (!wasWalking && isNowWalking) {
-    this->currentState = &this->graphicEngine.getJazzGenericSprite("walking");
-  }*/
 }
 
 void Jazz::updateByCoordsDelta(int deltaX, int deltaY) {
@@ -152,8 +81,8 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
           this->graphicEngine, GenericSpriteCodes::Death,
           &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Death),
           AnimationState::NotCycle, JazzAnimationSpeedCoefs::Death, shouldFlip);
-      return;
     }
+    return;
   }
 
   if (newEntityInfo.was_hurt == NumericBool::True) {
@@ -162,8 +91,8 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
           this->graphicEngine, GenericSpriteCodes::Hurt,
           &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Hurt),
           AnimationState::NotCycle, JazzAnimationSpeedCoefs::Hurt, shouldFlip);
-      return;
     }
+    return;
   }
 
   if (newEntityInfo.shot == NumericBool::True) {

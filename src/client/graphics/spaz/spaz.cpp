@@ -7,14 +7,14 @@
 struct SpazAnimationSpeedCoefs {
   static constexpr double Death = 25;
   static constexpr double Hurt = 25;
-  static constexpr double Idle = 35;
+  static constexpr double Idle = 17;
   static constexpr double IntoxicatedIdle = 25;
   static constexpr double IntoxicatedWalking = 25;
-  static constexpr double Jumping = 25;
-  static constexpr double Falling = 25;
+  static constexpr double Jumping = 15;
+  static constexpr double Falling = 20;
   static constexpr double Running = 25;
   static constexpr double Shooting = 25;
-  static constexpr double Walking = 25;
+  static constexpr double Walking = 18;
   static constexpr double SideKick = 25;
 };
 
@@ -40,81 +40,13 @@ Spaz::Spaz(GraphicEngine &graphicEngine, Coordinates &currentCoords,
   }
 }
 
-/*void Spaz::debugUpdateLocation(int iterationNumber) {
-  int speed = 0;
-  bool isWalking = this->isWalkingLeft || this->isWalkingRight ||
-                   this->isWalkingUp || this->isWalkingDown;
-
-  if (isWalking) {
-    speed = 5;
-  } else if (this->isRunning) {
-    speed = 10;
-  }
-
-  if (this->isWalkingLeft)
-    this->currentCoords.setX(this->currentCoords.getX() - speed);
-  if (this->isWalkingRight)
-    this->currentCoords.setX(this->currentCoords.getX() + speed);
-  if (this->isWalkingUp)
-    this->currentCoords.setY(this->currentCoords.getY() - speed);
-  if (this->isWalkingDown)
-    this->currentCoords.setY(this->currentCoords.getY() + speed);
-}*/
-
-void Spaz::render(int iterationNumber) {
-  /*this->currentFrame = iterationNumber %
-  this->currentState->maxAnimationFrames;
-  this->debugUpdateLocation(iterationNumber);
-
-  // Pick sprite from running animantion sequence
-  int spriteX = this->currentState->spriteCoords[this->currentFrame].getX();
-  int spriteY = this->currentState->spriteCoords[this->currentFrame].getY();
-  int spriteWidth = this->currentState->width[this->currentFrame];
-  int spriteHeight = this->currentState->height[this->currentFrame];
-
-  int positionX = this->currentCoords.getX();
-  int positionY = this->currentCoords.getY();
-
-  // Draw player sprite
-  this->currentState->sdlRenderer.Copy(
-      this->currentState->texture,
-      SDL2pp::Rect(spriteX, spriteY, spriteWidth, spriteHeight),
-      SDL2pp::Rect(positionX, positionY - spriteHeight, spriteWidth,
-                   spriteHeight));*/
-}
+void Spaz::render(int iterationNumber) {}
 
 void Spaz::render(int iterationNumber, Coordinates &coords) {
   this->currentAnimation->render(iterationNumber, coords);
 }
 
 void Spaz::update(bool isWalking, bool isRunning, std::string movingDirection) {
-
-  /*bool wasWalking = this->isWalkingLeft || this->isWalkingRight ||
-                    this->isWalkingUp || this->isWalkingDown;
-
-  this->isRunning = isRunning;
-  this->movingDirection = movingDirection;
-
-  if (movingDirection == "left") {
-    this->isWalkingLeft = isWalking;
-  } else if (movingDirection == "right") {
-    this->isWalkingRight = isWalking;
-
-  } else if (movingDirection == "up") {
-    this->isWalkingUp = isWalking;
-
-  } else if (movingDirection == "down") {
-    this->isWalkingDown = isWalking;
-  }
-
-  bool isNowWalking = this->isWalkingLeft || this->isWalkingRight ||
-                      this->isWalkingUp || this->isWalkingDown;
-
-  if (wasWalking && !isNowWalking) {
-    this->currentState = &this->graphicEngine.getSpazGenericSprite("idle1");
-  } else if (!wasWalking && isNowWalking) {
-    this->currentState = &this->graphicEngine.getSpazGenericSprite("walking");
-  }*/
 }
 
 void Spaz::updateByCoordsDelta(int deltaX, int deltaY) {
@@ -178,6 +110,21 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
     return;
   }
 
+  if (newEntityInfo.is_falling == NumericBool::True) {
+    this->currentAnimation = std::make_unique<AnimationState>(
+        this->graphicEngine, GenericSpriteCodes::Falling,
+        &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Falling),
+        AnimationState::Cycle, SpazAnimationSpeedCoefs::Falling, shouldFlip);
+    return;
+
+  } else if (newEntityInfo.is_jumping == NumericBool::True) {
+    this->currentAnimation = std::make_unique<AnimationState>(
+        this->graphicEngine, GenericSpriteCodes::Jumping,
+        &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Jumping),
+        AnimationState::NotCycle, SpazAnimationSpeedCoefs::Jumping, shouldFlip);
+    return;
+  }
+
   if (newEntityInfo.is_running == NumericBool::True) {
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Running,
@@ -200,20 +147,6 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
               GenericSpriteCodes::Walking),
           AnimationState::Cycle, SpazAnimationSpeedCoefs::Walking, shouldFlip);
     }
-    return;
-
-  } else if (newEntityInfo.is_falling == NumericBool::True) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, GenericSpriteCodes::Falling,
-        &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Falling),
-        AnimationState::Cycle, SpazAnimationSpeedCoefs::Falling, shouldFlip);
-    return;
-
-  } else if (newEntityInfo.is_jumping == NumericBool::True) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, GenericSpriteCodes::Jumping,
-        &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Jumping),
-        AnimationState::NotCycle, SpazAnimationSpeedCoefs::Jumping, shouldFlip);
     return;
   }
 

@@ -7,14 +7,14 @@
 struct LoriAnimationSpeedCoefs {
   static constexpr double Death = 25;
   static constexpr double Hurt = 25;
-  static constexpr double Idle = 25;
+  static constexpr double Idle = 12;
   static constexpr double IntoxicatedIdle = 25;
   static constexpr double IntoxicatedWalking = 25;
-  static constexpr double Jumping = 25;
-  static constexpr double Falling = 25;
+  static constexpr double Jumping = 15;
+  static constexpr double Falling = 18;
   static constexpr double Running = 25;
   static constexpr double Shooting = 25;
-  static constexpr double Walking = 25;
+  static constexpr double Walking = 18;
   static constexpr double ShortKick = 25;
 };
 
@@ -40,81 +40,13 @@ Lori::Lori(GraphicEngine &graphicEngine, Coordinates &currentCoords,
   }
 }
 
-/*void Lori::debugUpdateLocation(int iterationNumber) {
-  int speed = 0;
-  bool isWalking = this->isWalkingLeft || this->isWalkingRight ||
-                   this->isWalkingUp || this->isWalkingDown;
-
-  if (isWalking) {
-    speed = 5;
-  } else if (this->isRunning) {
-    speed = 10;
-  }
-
-  if (this->isWalkingLeft)
-    this->currentCoords.setX(this->currentCoords.getX() - speed);
-  if (this->isWalkingRight)
-    this->currentCoords.setX(this->currentCoords.getX() + speed);
-  if (this->isWalkingUp)
-    this->currentCoords.setY(this->currentCoords.getY() - speed);
-  if (this->isWalkingDown)
-    this->currentCoords.setY(this->currentCoords.getY() + speed);
-}*/
-
-void Lori::render(int iterationNumber) {
-  /*this->currentFrame = iterationNumber %
-  this->currentState->maxAnimationFrames;
-  this->debugUpdateLocation(iterationNumber);
-
-  // Pick sprite from running animantion sequence
-  int spriteX = this->currentState->spriteCoords[this->currentFrame].getX();
-  int spriteY = this->currentState->spriteCoords[this->currentFrame].getY();
-  int spriteWidth = this->currentState->width[this->currentFrame];
-  int spriteHeight = this->currentState->height[this->currentFrame];
-
-  int positionX = this->currentCoords.getX();
-  int positionY = this->currentCoords.getY();
-
-  // Draw player sprite
-  this->currentState->sdlRenderer.Copy(
-      this->currentState->texture,
-      SDL2pp::Rect(spriteX, spriteY, spriteWidth, spriteHeight),
-      SDL2pp::Rect(positionX, positionY - spriteHeight, spriteWidth,
-                   spriteHeight));*/
-}
+void Lori::render(int iterationNumber) {}
 
 void Lori::render(int iterationNumber, Coordinates &coords) {
   this->currentAnimation->render(iterationNumber, coords);
 }
 
 void Lori::update(bool isWalking, bool isRunning, std::string movingDirection) {
-
-  /*bool wasWalking = this->isWalkingLeft || this->isWalkingRight ||
-                    this->isWalkingUp || this->isWalkingDown;
-
-  this->isRunning = isRunning;
-  this->movingDirection = movingDirection;
-
-  if (movingDirection == "left") {
-    this->isWalkingLeft = isWalking;
-  } else if (movingDirection == "right") {
-    this->isWalkingRight = isWalking;
-
-  } else if (movingDirection == "up") {
-    this->isWalkingUp = isWalking;
-
-  } else if (movingDirection == "down") {
-    this->isWalkingDown = isWalking;
-  }
-
-  bool isNowWalking = this->isWalkingLeft || this->isWalkingRight ||
-                      this->isWalkingUp || this->isWalkingDown;
-
-  if (wasWalking && !isNowWalking) {
-    this->currentState = &this->graphicEngine.getLoriGenericSprite("idle1");
-  } else if (!wasWalking && isNowWalking) {
-    this->currentState = &this->graphicEngine.getLoriGenericSprite("walking");
-  }*/
 }
 
 void Lori::updateByCoordsDelta(int deltaX, int deltaY) {
@@ -178,6 +110,21 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
     return;
   }
 
+  if (newEntityInfo.is_falling == NumericBool::True) {
+    this->currentAnimation = std::make_unique<AnimationState>(
+        this->graphicEngine, GenericSpriteCodes::Falling,
+        &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Falling),
+        AnimationState::Cycle, LoriAnimationSpeedCoefs::Falling, shouldFlip);
+    return;
+
+  } else if (newEntityInfo.is_jumping == NumericBool::True) {
+    this->currentAnimation = std::make_unique<AnimationState>(
+        this->graphicEngine, GenericSpriteCodes::Jumping,
+        &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Jumping),
+        AnimationState::NotCycle, LoriAnimationSpeedCoefs::Jumping, shouldFlip);
+    return;
+  }
+
   if (newEntityInfo.is_running == NumericBool::True) {
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, GenericSpriteCodes::Running,
@@ -200,20 +147,6 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
               GenericSpriteCodes::Walking),
           AnimationState::Cycle, LoriAnimationSpeedCoefs::Walking, shouldFlip);
     }
-    return;
-
-  } else if (newEntityInfo.is_falling == NumericBool::True) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, GenericSpriteCodes::Falling,
-        &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Falling),
-        AnimationState::Cycle, LoriAnimationSpeedCoefs::Falling, shouldFlip);
-    return;
-
-  } else if (newEntityInfo.is_jumping == NumericBool::True) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, GenericSpriteCodes::Jumping,
-        &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Jumping),
-        AnimationState::NotCycle, LoriAnimationSpeedCoefs::Jumping, shouldFlip);
     return;
   }
 
