@@ -2,6 +2,7 @@
 #define RECTANGLE_H
 
 #include "./coordinates.h"
+#include <cstdint>
 
 class Rectangle {
 private:
@@ -19,9 +20,9 @@ public:
 
   Coordinates getBottomRightCorner() const;
 
-  void move_left();
+  void move_left(uint8_t speed);
 
-  void move_right();
+  void move_right(uint8_t speed);
 
   void move_down();
 

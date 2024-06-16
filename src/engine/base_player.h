@@ -14,6 +14,10 @@
 #include <memory>
 #include <string>
 
+#define MAX_JUMP 200
+#define WALKING_SPEED 1
+#define RUNNING_SPEED 3
+
 class BasePlayer {
 private:
   // cppcheck-suppress unusedStructMember
@@ -39,6 +43,8 @@ private:
   int positions_to_jump;
   // cppcheck-suppress unusedStructMember
   bool is_moving;
+  // cppcheck-suppress unusedStructMember
+  bool is_running;
 
   bool move_down();
   bool move_up();
@@ -58,10 +64,12 @@ public:
   void get_intoxicated();
   void heal(uint8_t health_gain);
 
-  void move_right();
-  void move_left();
+  void move_right(uint8_t speed);
+  void move_left(uint8_t speed);
   void stop_moving();
   void jump();
+  void run();
+  void stop_running();
 
   ~BasePlayer();
 };

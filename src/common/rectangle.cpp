@@ -25,14 +25,14 @@ Coordinates Rectangle::getBottomRightCorner() const {
   return this->bottomRightCorner;
 }
 
-void Rectangle::move_left() {
-  this->topLeftCorner.setX(this->topLeftCorner.getX() - 1);
-  this->bottomRightCorner.setX(this->bottomRightCorner.getX() - 1);
+void Rectangle::move_left(uint8_t speed) {
+  this->topLeftCorner.setX(this->topLeftCorner.getX() - speed);
+  this->bottomRightCorner.setX(this->bottomRightCorner.getX() - speed);
 }
 
-void Rectangle::move_right() {
-  this->topLeftCorner.setX(this->topLeftCorner.getX() + 1);
-  this->bottomRightCorner.setX(this->bottomRightCorner.getX() + 1);
+void Rectangle::move_right(uint8_t speed) {
+  this->topLeftCorner.setX(this->topLeftCorner.getX() + speed);
+  this->bottomRightCorner.setX(this->bottomRightCorner.getX() + speed);
 }
 
 void Rectangle::move_down() {

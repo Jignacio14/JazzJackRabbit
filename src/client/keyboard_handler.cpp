@@ -7,7 +7,7 @@ KeyboardHandler::KeyboardHandler(Client &client, DebugPanel &debugPanel)
     : client(client), debugPanel(debugPanel) {}
 
 void KeyboardHandler::processEvents(const Player &player) {
-  const PlayerDto &playerInfo = player.getPlayerDtoReference();
+  // const PlayerDto &playerInfo = player.getPlayerDtoReference();
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
 
@@ -55,9 +55,9 @@ void KeyboardHandler::processEvents(const Player &player) {
         break;
 
       case SDLK_LSHIFT:
-        if (playerInfo.is_running) {
-          break;
-        }
+        // if (playerInfo.is_running) {
+        //   break;
+        // }
         this->client.run();
         break;
 
