@@ -30,6 +30,14 @@ Vagrant.configure('2') do |config|
       vb.customize ["modifyvm", :id, '--audio-driver', 'pulse']
       vb.customize ["modifyvm", :id, '--audiocontroller', 'ac97']
       vb.customize ["modifyvm", :id, '--audioout', 'on']
+
+      # Enable 3D acceleration
+      vb.customize ["modifyvm", :id, '--accelerate2dvideo', 'on']
+      vb.customize ["modifyvm", :id, '--accelerate3d', 'on']
+
+      # Enable host hardware virtualization
+      vb.customize ["modifyvm", :id, '--hwvirtex', 'on']
+
       # For help on this: https://docs.oracle.com/en/virtualization/virtualbox/7.0/user/vboxmanage.html#vboxmanage-cmd-overview
     end
 
