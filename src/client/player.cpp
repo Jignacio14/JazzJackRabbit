@@ -76,4 +76,6 @@ const PlayerDto &Player::getPlayerDtoReference() const {
   return std::ref(this->playerInfo);
 }
 
+const std::string &Player::getUsername() const { return this->username; }
+
 Player::~Player() {}

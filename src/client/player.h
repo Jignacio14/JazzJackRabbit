@@ -46,6 +46,8 @@ public:
 
   const PlayerDto &getPlayerDtoReference() const;
 
+  const std::string &getUsername() const;
+
   ~Player() override;
 };
 

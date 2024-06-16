@@ -13,7 +13,9 @@ static const int HUD_HORIZONTAL_SIZE = 150; // In px
 static const int WHITE_RGBA[4] = {255, 255, 255, 255};
 static const int BLACK_RGBA[4] = {0, 0, 0, 255};
 
-const static char EMPTY_POINTS_TEXT[] = "POINTS: 0";
+const static char EMPTY_POINTS_TEXT[] = "POINTS\n0";
+const static char EMPTY_TEXT[] = "";
+const static char EMPTY_TEXTAA[] = "GABRIEL";
 const static int FONT_SIZE = 12;
 const static SDL2pp::Color TEXT_COLOR = SDL2pp::Color(255, 255, 255, 255);
 
@@ -27,7 +29,11 @@ Hud::Hud(GraphicEngine &graphicEngine, Player &player)
       spazHudIcon(this->graphicEngine.getSpazHudIcon()),
       loriHudIcon(this->graphicEngine.getLoriHudIcon()),
       pointsText(this->sdlRenderer, EMPTY_POINTS_TEXT, TEXT_COLOR, FONT_SIZE,
-                 TextFontsCodes::Joystix) {}
+                 TextFontsCodes::Joystix),
+      characterSelectedText(this->sdlRenderer, EMPTY_TEXT, TEXT_COLOR,
+                            FONT_SIZE, TextFontsCodes::Joystix),
+      usernameText(this->sdlRenderer, this->player.getUsername(), TEXT_COLOR,
+                   FONT_SIZE, TextFontsCodes::Joystix) {}
 
 void Hud::renderBackgroundFrame() {
   int spriteWidth = this->frameSprite.width[0];
@@ -37,6 +43,13 @@ void Hud::renderBackgroundFrame() {
       this->frameSprite.texture, SDL2pp::Rect(0, 0, spriteWidth, spriteHeight),
       SDL2pp::Rect(this->hudLeftCorner.getX(), this->hudLeftCorner.getY(),
                    spriteWidth, spriteHeight));
+}
+
+void Hud::renderUsername(const PlayerDto &playerinfo) {
+  int positionX = this->hudLeftCorner.getX() + 20;
+  int positionY = this->hudLeftCorner.getY() + 15;
+  Coordinates coords(positionX, positionY);
+  this->usernameText.render(coords);
 }
 
 Sprite &Hud::getHudIcon(const PlayerDto &playerinfo) {
@@ -56,7 +69,7 @@ void Hud::renderHudIcon(const PlayerDto &playerinfo) {
   int spriteHeight = hudIconSprite.height[0];
 
   int positionX = this->hudLeftCorner.getX() + 20;
-  int positionY = this->hudLeftCorner.getY() + 15;
+  int positionY = this->hudLeftCorner.getY() + 35;
 
   this->sdlRenderer.Copy(
       hudIconSprite.texture, SDL2pp::Rect(0, 0, spriteWidth, spriteHeight),
@@ -64,21 +77,39 @@ void Hud::renderHudIcon(const PlayerDto &playerinfo) {
 }
 
 void Hud::renderPoints(const PlayerDto &playerinfo) {
-  std::string text = "POINTS:\n" + std::to_string(100);
+  std::string text = "POINTS\n" + std::to_string(playerinfo.points);
   this->pointsText.updateInnerText(text);
 
-  int positionX = this->hudLeftCorner.getX() + 62;
-  int positionY = this->hudLeftCorner.getY() + 18;
+  int positionX = this->hudLeftCorner.getX() + 64;
+  int positionY = this->hudLeftCorner.getY() + 38;
   Coordinates coords(positionX, positionY);
   this->pointsText.render(coords);
+}
+
+void Hud::renderCharacterSelected(const PlayerDto &playerinfo) {
+  std::string characterSelected = "-- JAZZ --";
+
+  if (playerinfo.type == PlayableCharactersIds::Spaz) {
+    characterSelected = "-- SPAZ --";
+  } else if (playerinfo.type == PlayableCharactersIds::Lori) {
+    characterSelected = "-- LORI --";
+  }
+  this->characterSelectedText.updateInnerText(characterSelected);
+
+  int positionX = this->hudLeftCorner.getX() + 25;
+  int positionY = this->hudLeftCorner.getY() + 100;
+  Coordinates coords(positionX, positionY);
+  this->characterSelectedText.render(coords);
 }
 
 void Hud::render(int iterationNumber) {
   const PlayerDto &playerinfo = this->player.getPlayerDtoReference();
 
   this->renderBackgroundFrame();
+  this->renderUsername(playerinfo);
   this->renderHudIcon(playerinfo);
   this->renderPoints(playerinfo);
+  this->renderCharacterSelected(playerinfo);
 }
 
 void Hud::render(int iterationNumber, Coordinates &coords) {}

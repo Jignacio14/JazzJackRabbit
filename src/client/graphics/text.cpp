@@ -27,7 +27,7 @@ Text::Text(GraphicEngine &graphicEngine, std::string &text,
   }
 }
 
-Text::Text(SDL2pp::Renderer &sdlRenderer, std::string &text,
+Text::Text(SDL2pp::Renderer &sdlRenderer, const std::string &text,
            const SDL2pp::Color &textColor, const int &fontSize,
            const uint8_t &fontCode)
     : sdlRenderer(sdlRenderer), innerText(text), textColor(textColor),

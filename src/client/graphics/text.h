@@ -28,7 +28,7 @@ public:
        const SDL2pp::Color &textColor, const int &fontSize,
        const uint8_t &fontCode);
 
-  Text(SDL2pp::Renderer &sdlRenderer, std::string &text,
+  Text(SDL2pp::Renderer &sdlRenderer, const std::string &text,
        const SDL2pp::Color &textColor, const int &fontSize,
        const uint8_t &fontCode);
 

@@ -29,11 +29,15 @@ private:
   Sprite &loriHudIcon;
 
   Text pointsText;
+  Text characterSelectedText;
+  Text usernameText;
 
   void renderBackgroundFrame();
   Sprite &getHudIcon(const PlayerDto &playerinfo);
   void renderHudIcon(const PlayerDto &playerinfo);
   void renderPoints(const PlayerDto &playerinfo);
+  void renderCharacterSelected(const PlayerDto &playerinfo);
+  void renderUsername(const PlayerDto &playerinfo);
 
 public:
   explicit Hud(GraphicEngine &graphicEngine, Player &player);
