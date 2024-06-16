@@ -1,5 +1,6 @@
 
 #include "./renderer.h"
+#include "../common/jjr2_error.h"
 #include "../common/snapshot_wrapper.h"
 #include "./stop_iteration_exception.h"
 #include <chrono>
@@ -266,6 +267,12 @@ void Renderer::run() {
       this->keyboardHandler.processEvents(this->player);
     } catch (const StopIteration &) {
       break;
+    }
+
+    if (!this->client.isAlive()) {
+      std::string errorMessage =
+          "Client stopped due to connection with server broken";
+      throw JJR2Error(errorMessage, __LINE__, __FILE__);
     }
 
     double timestampFinish = this->now();

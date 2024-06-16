@@ -46,6 +46,8 @@ public:
 
   void change_weapon(uint8_t weapon_number);
 
+  bool isAlive() const;
+
   /*
    * Kills the client´s back-end, joining receiver and sender thread, and closes
    * the socket.

@@ -93,6 +93,8 @@ void Client::kill() {
   receiver.join();
 }
 
+bool Client::isAlive() const { return this->keep_talking; }
+
 Client::~Client() {
   protocol.close_and_shutdown();
   this->sender_queue.close();
