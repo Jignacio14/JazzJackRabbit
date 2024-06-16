@@ -19,7 +19,8 @@ BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
                           Coordinates(INITIAL_X + HitboxSizes::PlayerWidth,
                                       INITIAL_Y + HitboxSizes::PlayerHeight))),
       facing_direction(FacingDirectionsIds::Right), snapshot(snapshot),
-      position(position), positions_to_jump(0), is_moving(false) {}
+      position(position), positions_to_jump(0), is_moving(false),
+      is_running(false) {}
 
 int BasePlayer::find_position() {
   for (int i = 0; i < snapshot.sizePlayers; ++i) {
@@ -48,9 +49,15 @@ void BasePlayer::update() {
   }
 
   if (is_moving && facing_direction == FacingDirectionsIds::Right) {
-    move_right();
+    if (is_running)
+      move_right(RUNNING_SPEED);
+    else
+      move_right(WALKING_SPEED);
   } else if (is_moving && facing_direction == FacingDirectionsIds::Left) {
-    move_left();
+    if (is_running)
+      move_left(RUNNING_SPEED);
+    else
+      move_left(WALKING_SPEED);
   }
 }
 
@@ -114,9 +121,9 @@ void BasePlayer::change_state(std::unique_ptr<BaseState> new_state) {
   state = std::move(new_state);
 }
 
-void BasePlayer::move_right() {
+void BasePlayer::move_right(uint8_t speed) {
   Rectangle new_rectangle = rectangle;
-  new_rectangle.move_right();
+  new_rectangle.move_right(speed);
   if (state->can_move() && map.available_position(new_rectangle)) {
     rectangle = new_rectangle;
     facing_direction = FacingDirectionsIds::Right;
@@ -132,9 +139,9 @@ void BasePlayer::move_right() {
   }
 }
 
-void BasePlayer::move_left() {
+void BasePlayer::move_left(uint8_t speed) {
   Rectangle new_rectangle = rectangle;
-  new_rectangle.move_left();
+  new_rectangle.move_left(speed);
   if (state->can_move() && map.available_position(new_rectangle)) {
     rectangle = new_rectangle;
     facing_direction = FacingDirectionsIds::Left;
@@ -150,6 +157,22 @@ void BasePlayer::move_left() {
   }
 }
 
+void BasePlayer::run() {
+  if (is_moving) {
+    is_running = true;
+    if (position != -1) {
+      snapshot.players[position].is_running = NumericBool::True;
+    }
+  }
+}
+
+void BasePlayer::stop_running() {
+  is_running = false;
+  if (position != -1) {
+    snapshot.players[position].is_running = NumericBool::False;
+  }
+}
+
 void BasePlayer::jump() {
   if (snapshot.players[position].is_jumping == NumericBool::True ||
       snapshot.players[position].is_falling == NumericBool::True) {
@@ -157,7 +180,7 @@ void BasePlayer::jump() {
   }
 
   if (positions_to_jump == 0) {
-    positions_to_jump = 200;
+    positions_to_jump = MAX_JUMP;
     snapshot.players[position].is_jumping = NumericBool::True;
   }
 }

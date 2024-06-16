@@ -105,16 +105,22 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
                          const uint8_t &data) {
   switch (action) {
   case PlayerCommands::MOVE_LEFT:
-    this->players_data[player_id]->move_left();
+    this->players_data[player_id]->move_left(WALKING_SPEED);
     break;
   case PlayerCommands::MOVE_RIGHT:
-    this->players_data[player_id]->move_right();
+    this->players_data[player_id]->move_right(WALKING_SPEED);
     break;
   case PlayerCommands::STOP_MOVING:
     this->players_data[player_id]->stop_moving();
     break;
   case PlayerCommands::JUMP:
     this->players_data[player_id]->jump();
+    break;
+  case PlayerCommands::RUN:
+    this->players_data[player_id]->run();
+    break;
+  case PlayerCommands::STOP_RUNNING:
+    this->players_data[player_id]->stop_running();
     break;
     /*
         case PlayerCommands::SHOOT:
