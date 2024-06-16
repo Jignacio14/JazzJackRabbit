@@ -58,6 +58,9 @@ void BasePlayer::update() {
       move_left(RUNNING_SPEED);
     else
       move_left(WALKING_SPEED);
+  } else if (!is_moving) {
+    is_running = false;
+    snapshot.players[position].is_running = NumericBool::False;
   }
 }
 
@@ -158,6 +161,13 @@ void BasePlayer::move_left(uint8_t speed) {
 }
 
 void BasePlayer::run() {
+  if (position != -1 &&
+          snapshot.players[position].is_jumping == NumericBool::True ||
+      position != -1 &&
+          snapshot.players[position].is_falling == NumericBool::True) {
+    return;
+  }
+
   if (is_moving) {
     is_running = true;
     if (position != -1) {
