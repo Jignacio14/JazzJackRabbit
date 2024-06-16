@@ -152,6 +152,11 @@ void BasePlayer::move_left() {
 }
 
 void BasePlayer::jump() {
+  if (snapshot.players[position].is_jumping == NumericBool::True ||
+      snapshot.players[position].is_falling == NumericBool::True) {
+    return;
+  }
+
   if (positions_to_jump == 0) {
     positions_to_jump = 200;
     snapshot.players[position].is_jumping = NumericBool::True;
