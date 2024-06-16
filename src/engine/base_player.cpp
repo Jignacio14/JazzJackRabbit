@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "../common/global_configs.h"
+#include "../data/hitbox_sizes.h"
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
@@ -10,17 +11,14 @@ const static int MAX_HEALTH = globalConfigs.getPlayerMaxLife();
 const static int INITIAL_X = 60;
 const static int INITIAL_Y = 1050;
 
-const static int HITBOX_WIDTH = 40;
-const static int HITBOX_HEIGHT = 50;
-
 BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
                        Snapshot &snapshot, int position)
     : player_id(player_id), player_name(player_name), health(MAX_HEALTH),
       weapon(std::make_unique<InitialWeapon>()),
       state(std::make_unique<Alive>()),
-      rectangle(Rectangle(
-          Coordinates(INITIAL_X, INITIAL_Y),
-          Coordinates(INITIAL_X + HITBOX_WIDTH, INITIAL_Y + HITBOX_HEIGHT))),
+      rectangle(Rectangle(Coordinates(INITIAL_X, INITIAL_Y),
+                          Coordinates(INITIAL_X + HitboxSizes::PlayerWidth,
+                                      INITIAL_Y + HitboxSizes::PlayerHeight))),
       facing_direction(FacingDirectionsIds::Right), snapshot(snapshot),
       position(position), positions_to_jump(0), is_moving(false) {}
 

@@ -2,6 +2,7 @@
 #include <string>
 
 #include "../../common/global_configs.h"
+#include "../../data/hitbox_sizes.h"
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 const static double TARGET_FPS = globalConfigs.getTargetFps();
@@ -34,18 +35,20 @@ void AnimationState::renderFrame(int positionX, int positionY) {
   int spriteWidth = this->sprite->width[this->currentFrame];
   int spriteHeight = this->sprite->height[this->currentFrame];
 
+  int deltaY = HitboxSizes::PlayerHeight - spriteHeight;
+
   if (!this->shouldFlip) {
     this->sdlRenderer.Copy(
         this->sprite->texture,
         SDL2pp::Rect(spriteX, spriteY, spriteWidth, spriteHeight),
-        SDL2pp::Rect(positionX, positionY, spriteWidth, spriteHeight));
+        SDL2pp::Rect(positionX, positionY + deltaY, spriteWidth, spriteHeight));
   } else {
     double rotationDegrees = 0.0;
     auto &rotationCenter = SDL2pp::NullOpt;
     this->sdlRenderer.Copy(
         this->sprite->texture,
         SDL2pp::Rect(spriteX, spriteY, spriteWidth, spriteHeight),
-        SDL2pp::Rect(positionX, positionY, spriteWidth, spriteHeight),
+        SDL2pp::Rect(positionX, positionY + deltaY, spriteWidth, spriteHeight),
         rotationDegrees, rotationCenter, SDL_FLIP_HORIZONTAL);
   }
 }
