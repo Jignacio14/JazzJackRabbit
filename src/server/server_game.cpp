@@ -118,11 +118,9 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
     break;
   case PlayerCommands::RUN:
     this->players_data[player_id]->run();
-    std::cout << "Running" << std::endl;
     break;
   case PlayerCommands::STOP_RUNNING:
     this->players_data[player_id]->stop_running();
-    std::cout << "Stop running" << std::endl;
     break;
     /*
         case PlayerCommands::SHOOT:
