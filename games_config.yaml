@@ -9,6 +9,7 @@ screen_size_x: 800
 screen_size_y: 600
 window_name: "JazzJackRabbit 2"
 target_fps: 60
+max_players_in_hud_leaderboard: 4
 
 # Client exclusive debug values
 debug_hostname: "localhost"
@@ -19,7 +20,7 @@ target_ticks_per_second: 200
 max_instructions_per_tick: 100
 
 # Player Parameters
-starting_points: 0
+starting_points: 1234
 max_life: 100
 starting_ammo_gun_1: 20
 starting_ammo_gun_2: 0

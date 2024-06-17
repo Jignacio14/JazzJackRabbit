@@ -19,6 +19,8 @@ const static int FONT_SIZE = 12;
 const static int FONT_SIZE_LEADERBOARD = 10;
 const static SDL2pp::Color TEXT_COLOR = SDL2pp::Color(255, 255, 255, 255);
 const static int MAX_LIFE = globalConfigs.getPlayerMaxLife();
+const static int MAX_PLAYERS_SHOWN_IN_LEADERBOARD =
+    globalConfigs.getMaxPlayersInHudLeaderboard();
 
 const static char GUN_1_NAME[] = "BLASTER";
 const static char GUN_2_NAME[] = "ORB";
@@ -207,7 +209,13 @@ void Hud::updatePlayersList(std::vector<std::string> &playersList,
   std::transform(players.begin(), players.end(),
                  std::back_inserter(playersList),
                  [](const PlayerDto &playerFromVector) {
-                   return std::to_string(playerFromVector.user_id);
+                   std::vector<char> name;
+
+                   for (int i = 0; i < playerFromVector.nameSize; i++) {
+                     name.push_back(playerFromVector.name[i]);
+                   }
+
+                   return std::string(name.begin(), name.end());
                  });
 }
 
@@ -217,9 +225,13 @@ void Hud::renderLeaderBoard(SnapshotWrapper &snapshot) {
 
   std::string text = "LEADERBOARD:\n";
 
-  int counter = 1;
+  int counter = 0;
   for (auto &playerFromList : playersList) {
-    text.append(std::to_string(counter) + ". ");
+    if (counter == MAX_PLAYERS_SHOWN_IN_LEADERBOARD) {
+      break;
+    }
+
+    text.append(std::to_string(counter + 1) + ". ");
     text.append(playerFromList);
     text.append("\n");
     counter++;

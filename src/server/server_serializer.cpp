@@ -22,3 +22,50 @@ GameInfoDto Serializer::serializeGameInfo(const std::string &name,
   game_info.player_count = htons(count);
   return game_info;
 }
+
+Snapshot Serializer::serializeSnapshot(const Snapshot &snapshot) {
+  Snapshot finalSnapshot(snapshot);
+
+  for (uint16_t i = 0; i < finalSnapshot.sizePlayers; i++) {
+    finalSnapshot.players[i].points = htonl(finalSnapshot.players[i].points);
+    finalSnapshot.players[i].life = htons(finalSnapshot.players[i].life);
+    finalSnapshot.players[i].position_x =
+        htons(finalSnapshot.players[i].position_x);
+    finalSnapshot.players[i].position_y =
+        htons(finalSnapshot.players[i].position_y);
+  }
+
+  for (uint16_t i = 0; i < finalSnapshot.sizeEnemies; i++) {
+    finalSnapshot.enemies[i].entity_id =
+        htonl(finalSnapshot.enemies[i].entity_id);
+    finalSnapshot.enemies[i].position_x =
+        htons(finalSnapshot.enemies[i].position_x);
+    finalSnapshot.enemies[i].position_y =
+        htons(finalSnapshot.enemies[i].position_y);
+  }
+
+  for (uint16_t i = 0; i < finalSnapshot.sizeBullets; i++) {
+    finalSnapshot.bullets[i].entity_id =
+        htonl(finalSnapshot.bullets[i].entity_id);
+    finalSnapshot.bullets[i].position_x =
+        htons(finalSnapshot.bullets[i].position_x);
+    finalSnapshot.bullets[i].position_y =
+        htons(finalSnapshot.bullets[i].position_y);
+  }
+
+  for (uint16_t i = 0; i < finalSnapshot.sizeCollectables; i++) {
+    finalSnapshot.collectables[i].entity_id =
+        htonl(finalSnapshot.collectables[i].entity_id);
+    finalSnapshot.collectables[i].position_x =
+        htons(finalSnapshot.collectables[i].position_x);
+    finalSnapshot.collectables[i].position_y =
+        htons(finalSnapshot.collectables[i].position_y);
+  }
+
+  finalSnapshot.sizePlayers = htons(finalSnapshot.sizePlayers);
+  finalSnapshot.sizeEnemies = htons(finalSnapshot.sizeEnemies);
+  finalSnapshot.sizeCollectables = htons(finalSnapshot.sizeCollectables);
+  finalSnapshot.sizeBullets = htons(finalSnapshot.sizeBullets);
+
+  return finalSnapshot;
+}

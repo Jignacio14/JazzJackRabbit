@@ -131,7 +131,11 @@ CommandCodeDto ServerProtocol::asyncGetEventCode() {
 
 void ServerProtocol::sendSnapshot(const Snapshot &snapshot) {
   bool wasClose = this->getTemporalWasClose();
-  this->skt.sendall_bytewise(&snapshot, sizeof(snapshot), &wasClose);
+
+  Snapshot snapshotSerialized = this->serializer.serializeSnapshot(snapshot);
+
+  this->skt.sendall_bytewise(&snapshotSerialized, sizeof(snapshotSerialized),
+                             &wasClose);
   this->throwIfClosed(wasClose);
 }
 

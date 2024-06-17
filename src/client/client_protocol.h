@@ -19,6 +19,8 @@ public:
 
   void send_commands(bool &was_closed, const CommandCodeDto command_code_dto);
 
+  Snapshot deserializeSnapshot(const Snapshot &snapshot);
+
   Snapshot receive_snapshot(bool &was_closed);
 
   void close_and_shutdown();

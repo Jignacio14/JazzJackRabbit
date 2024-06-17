@@ -179,6 +179,15 @@ void Game::addPlayer(const PlayerInfo &player_info, const uint8_t &player_id) {
 void Game::addPlayerToSnapshot(const PlayerInfo &player_info) {
   PlayerDto new_player_dto;
   new_player_dto.user_id = this->players;
+
+  new_player_dto.nameSize = player_info.str_len;
+
+  int i = 0;
+  for (i = 0; i < player_info.str_len; i++) {
+    new_player_dto.name[i] = player_info.player_name[i];
+  }
+  new_player_dto.name[i] = '\0';
+
   new_player_dto.points = (uint16_t)globalConfigs.getPlayerStartingPoints();
   new_player_dto.life = (uint8_t)globalConfigs.getPlayerMaxLife();
   new_player_dto.current_gun = GunsIds::Gun1;

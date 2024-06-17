@@ -38,6 +38,9 @@ GlobalConfigs::GlobalConfigs() {
       gameConfigs["target_ticks_per_second"].as<uint32_t>();
   this->maxInstructionsPerTickOfServer =
       gameConfigs["max_instructions_per_tick"].as<uint32_t>();
+
+  this->maxPlayersInHudLeaderboard =
+      gameConfigs["max_players_in_hud_leaderboard"].as<uint32_t>();
 }
 
 uint16_t GlobalConfigs::getMaxPlayersPerGame() const {
@@ -92,4 +95,8 @@ uint32_t GlobalConfigs::getTargetTicksPerSecondOfServer() const {
 
 uint32_t GlobalConfigs::getMaxInstructionsPerTickOfServer() const {
   return this->maxInstructionsPerTickOfServer;
+}
+
+uint32_t GlobalConfigs::getMaxPlayersInHudLeaderboard() const {
+  return this->maxPlayersInHudLeaderboard;
 }
