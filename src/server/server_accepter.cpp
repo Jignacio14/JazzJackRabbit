@@ -1,5 +1,4 @@
 #include "server_accepter.h"
-#include "server_sender.h"
 
 Accepter::Accepter(const std::string &port)
     : skt_aceptator(port.c_str()), clients(), gamesMonitor() {}
@@ -16,10 +15,10 @@ void Accepter::run() {
 
 void Accepter::checkForDisconnected() {
   for (auto client = clients.begin(); client != clients.end();) {
-    Sender *current = *client;
+    // Sender *current = *client;
+    std::unique_ptr<Sender> &current = *client;
     if (!current->is_alive()) {
       current->stop();
-      delete current;
       client = clients.erase(client);
     }
     client++;
@@ -28,7 +27,8 @@ void Accepter::checkForDisconnected() {
 
 void Accepter::accept() {
   Socket peer = this->skt_aceptator.accept();
-  Sender *sender = new Sender(std::move(peer), this->gamesMonitor);
+  std::unique_ptr<Sender> sender =
+      std::make_unique<Sender>(std::move(peer), this->gamesMonitor);
   clients.push_back(sender);
   sender->start();
 }
@@ -41,10 +41,10 @@ void Accepter::kill() {
 }
 
 void Accepter::killAll() {
-  for (auto client : clients) {
+  for (auto &client : clients) {
     client->kill();
-    delete client;
   }
+  clients.clear();
 }
 
 Accepter::~Accepter() {}
