@@ -16,6 +16,8 @@
 #include <cstdint>
 #include <list>
 #include <map>
+#include <memory>
+#include <sys/types.h>
 #include <unordered_map>
 #include <utility>
 
@@ -25,9 +27,9 @@ private:
   Queue<CommandCodeDto> &messages;
   std::atomic_int32_t players;
   // cppcheck-suppress unusedStructMember
-  std::unordered_map<uint8_t, BasePlayer *> players_data;
+  std::unordered_map<uint8_t, std::unique_ptr<BasePlayer>> players_data;
   // cppcheck-suppress unusedStructMember
-  std::vector<BaseEnemy *> enemies;
+  std::vector<std::unique_ptr<BaseEnemy>> enemies;
   // cppcheck-suppress unusedStructMember
   Snapshot snapshot;
   // cppcheck-suppress unusedStructMember
@@ -39,8 +41,9 @@ private:
   // cppcheck-suppress unusedPrivateFunction
   void executeAction(const uint8_t &player_id, const uint8_t &action,
                      const uint8_t &data);
-  BasePlayer *constructPlayer(uint8_t player_id, std::string &player_name,
-                              uint8_t player_type);
+  std::unique_ptr<BasePlayer> constructPlayer(uint8_t player_id,
+                                              std::string &player_name,
+                                              uint8_t player_type);
   double now();
   void rateController(double start, double finish);
   void addEnemies();
