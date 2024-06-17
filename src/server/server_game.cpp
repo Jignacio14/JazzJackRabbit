@@ -106,6 +106,32 @@ void Game::rateController(double start, double finish) {
   }
 }
 
+void Game::run() {
+  try {
+    this->gameLoop();
+  } catch (...) {
+    std::cout << "Error in game loop." << std::endl;
+  }
+}
+
+std::unique_ptr<BasePlayer> Game::constructPlayer(uint8_t player_id,
+                                                  std::string &player_name,
+                                                  uint8_t player_type) {
+  if (player_type == PlayableCharactersIds::Jazz) {
+    return std::make_unique<Jazz>(player_id, player_name, snapshot, 0);
+  }
+
+  if (player_type == PlayableCharactersIds::Lori) {
+    return std::make_unique<Lori>(player_id, player_name, snapshot, 0);
+  }
+
+  if (player_type == PlayableCharactersIds::Spaz) {
+    return std::make_unique<Spaz>(player_id, player_name, snapshot, 0);
+  }
+
+  return nullptr;
+}
+
 void Game::addEnemies() {
   std::unique_ptr<BaseEnemy> enemy =
       std::make_unique<BaseEnemy>(1, snapshot, 0);
