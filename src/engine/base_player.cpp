@@ -33,6 +33,12 @@ int BasePlayer::find_position() {
 void BasePlayer::update() {
   position = find_position();
 
+  this->update_jump();
+
+  this->update_movement() :
+}
+
+void BasePlayer::update_jump() {
   if (positions_to_jump > 0) {
     bool is_jumping = move_up();
     if (!is_jumping) {
@@ -47,7 +53,9 @@ void BasePlayer::update() {
     if (!is_falling)
       snapshot.players[position].is_falling = NumericBool::False;
   }
+}
 
+void BasePlayer::update_movement() {
   if (is_moving && facing_direction == FacingDirectionsIds::Right) {
     if (is_running)
       move_right(RUNNING_SPEED);
@@ -221,7 +229,19 @@ void BasePlayer::heal(uint8_t health_gain) {
   }
 }
 
-void BasePlayer::shoot() {}
+void BasePlayer::shoot() {
+  /// 1. Crear entidad de la bala, quizas cada jugador puede tener un vector de
+  /// sus disparos.
+  /// 2. Que se delegue al arma el comportamiento.
+  /// 3. La bala debe conocer a los demas jugadores y a los enemigos para
+  /// lastimarlos.
+  /// 4. Tambien debe conocer el mapa para chocar con las paredes.
+  /// 5. Una vez impacte con lo que sea, debe desaparecer.
+  weapon->shoot();
+  if (position != -1) {
+    snapshot.players[position].shot = NumericBool::True;
+  }
+}
 
 BasePlayer::~BasePlayer() {
   // delete weapon;

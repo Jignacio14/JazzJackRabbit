@@ -50,6 +50,8 @@ private:
   bool move_up();
   int find_position();
   void change_state(std::unique_ptr<BaseState> new_state);
+  void update_jump();
+  void update_movement();
 
 public:
   BasePlayer(uint8_t player_id, const std::string &player_name,
