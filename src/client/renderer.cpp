@@ -64,7 +64,6 @@ void Renderer::renderGame(int iterationNumber) {
   this->hud.render(*this->latestSnapshot);
 
   if (this->latestSnapshot->didGameEnd()) {
-    std::cout << "ENDDDD \n";
     this->leaderboard.display(*this->latestSnapshot);
   }
 
