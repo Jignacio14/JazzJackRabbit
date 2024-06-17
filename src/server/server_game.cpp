@@ -2,7 +2,9 @@
 #include <cstdint>
 #include <cstring>
 #include <iostream>
+#include <memory>
 #include <thread>
+#include <utility>
 
 #include "../common/global_configs.h"
 
@@ -159,21 +161,22 @@ void Game::run() {
   }
 }
 
-BasePlayer *Game::constructPlayer(uint8_t player_id, std::string &player_name,
-                                  uint8_t player_type) {
+std::unique_ptr<BasePlayer> Game::constructPlayer(uint8_t player_id,
+                                                  std::string &player_name,
+                                                  uint8_t player_type) {
   if (player_type == PlayableCharactersIds::Jazz) {
-    return new Jazz(player_id, player_name, snapshot,
-                    this->snapshot.sizePlayers);
+    return std::make_unique<Jazz>(player_id, player_name, snapshot,
+                                  this->snapshot.sizePlayers);
   }
 
   if (player_type == PlayableCharactersIds::Lori) {
-    return new Lori(player_id, player_name, snapshot,
-                    this->snapshot.sizePlayers);
+    return std::make_unique<Lori>(player_id, player_name, snapshot,
+                                  this->snapshot.sizePlayers);
   }
 
   if (player_type == PlayableCharactersIds::Spaz) {
-    return new Spaz(player_id, player_name, snapshot,
-                    this->snapshot.sizePlayers);
+    return std::make_unique<Spaz>(player_id, player_name, snapshot,
+                                  this->snapshot.sizePlayers);
   }
 
   return nullptr;
@@ -181,17 +184,16 @@ BasePlayer *Game::constructPlayer(uint8_t player_id, std::string &player_name,
 
 void Game::addPlayer(const PlayerInfo &player_info, const uint8_t &player_id) {
   if (this->snapshot.sizePlayers >= MAX_PLAYERS) {
-    // No se pueden agregar más jugadores
     return;
   }
   this->players++;
   std::string player_name(player_info.player_name);
-  BasePlayer *new_player =
+  std::unique_ptr<BasePlayer> new_player =
       this->constructPlayer(player_id, player_name, player_info.character_code);
   if (new_player == nullptr) {
     return;
   }
-  this->players_data[this->players] = new_player;
+  this->players_data[this->players] = std::move(new_player);
   this->addPlayerToSnapshot(player_info);
 }
 
@@ -236,7 +238,6 @@ void Game::ereasePlayer(uint8_t player_id) {
   // this->monitor.ereasePlayer(this->messages);
   auto it = players_data.find(player_id);
   if (it != players_data.end()) {
-    delete it->second;
     players_data.erase(it);
     this->players--;
   }
@@ -262,9 +263,6 @@ void Game::ereasePlayer(uint8_t player_id) {
 void Game::kill() { this->_is_alive = false; }
 
 Game::~Game() {
-  for (const auto &pair : players_data) {
-    delete pair.second;
-  }
   for (const auto &enemy : enemies) {
     delete enemy;
   }
