@@ -33,15 +33,20 @@ private:
   Sprite &gun1HudIcon;
   Sprite &gun2HudIcon;
 
+  Text timeLeftText;
   Text pointsText;
   Text characterSelectedText;
   Text usernameText;
   Text lifeText;
   Text gun1Text;
+  Text gun1TextShadow;
   Text gun2Text;
+  Text gun2TextShadow;
   Text leaderboardText;
 
   void renderBackgroundFrame();
+  std::string convertSecondsToMinutesSeconds(const int &totalSeconds);
+  void renderTimeLeft(const double &timeLeft);
   void renderUsername();
   Sprite &getHudIcon(const PlayerDto &playerinfo);
   void renderHudIcon(const PlayerDto &playerinfo);

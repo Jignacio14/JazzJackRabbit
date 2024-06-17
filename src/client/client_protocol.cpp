@@ -1,6 +1,7 @@
 
 #include "client_protocol.h"
 #include "../common/jjr2_error.h"
+#include <memory.h>
 #include <netinet/in.h>
 #include <string>
 #include <sys/socket.h>
@@ -20,6 +21,14 @@ void ClientProtocol::send_commands(bool &was_closed,
   }
 }
 
+double ClientProtocol::ntohd(double rawValue) {
+  uint64_t networkValue;
+  memcpy(&networkValue, &rawValue, sizeof(networkValue));
+  networkValue = be64toh(networkValue);
+  memcpy(&rawValue, &networkValue, sizeof(rawValue));
+  return rawValue;
+}
+
 Snapshot ClientProtocol::deserializeSnapshot(const Snapshot &snapshot) {
   Snapshot finalSnapshot(snapshot);
 
@@ -28,9 +37,15 @@ Snapshot ClientProtocol::deserializeSnapshot(const Snapshot &snapshot) {
   finalSnapshot.sizeCollectables = ntohs(finalSnapshot.sizeCollectables);
   finalSnapshot.sizeBullets = ntohs(finalSnapshot.sizeBullets);
 
+  finalSnapshot.timeLeft = this->ntohd(finalSnapshot.timeLeft);
+
   for (int i = 0; i < finalSnapshot.sizePlayers; i++) {
     finalSnapshot.players[i].points = ntohl(finalSnapshot.players[i].points);
     finalSnapshot.players[i].life = ntohs(finalSnapshot.players[i].life);
+    finalSnapshot.players[i].ammo_gun_1 =
+        ntohs(finalSnapshot.players[i].ammo_gun_1);
+    finalSnapshot.players[i].ammo_gun_2 =
+        ntohs(finalSnapshot.players[i].ammo_gun_2);
     finalSnapshot.players[i].position_x =
         ntohs(finalSnapshot.players[i].position_x);
     finalSnapshot.players[i].position_y =

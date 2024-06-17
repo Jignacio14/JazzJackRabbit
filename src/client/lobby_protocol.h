@@ -24,6 +24,9 @@ private:
   bool was_closed;
   Socket &skt;
 
+  double ntohd(double rawValue);
+  Snapshot deserializeSnapshot(const Snapshot &snapshot);
+
 public:
   explicit LobbyProtocol(Socket &a_skt);
 

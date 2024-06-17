@@ -14,6 +14,8 @@ class ClientProtocol {
 private:
   Socket skt;
 
+  double ntohd(double rawValue);
+
 public:
   explicit ClientProtocol(Socket &&socket);
 

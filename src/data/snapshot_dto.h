@@ -16,8 +16,8 @@ struct PlayerDto {
   uint32_t points;
   uint16_t life;
   uint8_t current_gun; // enum GunsIds
-  uint8_t ammo_gun_1;
-  uint8_t ammo_gun_2;
+  uint16_t ammo_gun_1;
+  uint16_t ammo_gun_2;
   uint8_t type;             // enum PlayableCharactersIds
   uint8_t is_falling;       // enum NumericBool
   uint8_t is_jumping;       // enum NumericBool
@@ -60,6 +60,9 @@ struct BulletDto {
 } __attribute__((packed));
 
 struct Snapshot {
+  double timeLeft;
+  uint8_t gameEnded; // enum NumericBool
+
   uint16_t sizePlayers;
   PlayerDto players[MAX_PLAYERS];
 

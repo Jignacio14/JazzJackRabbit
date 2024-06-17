@@ -16,6 +16,8 @@ const static double SERVER_RATE = ((double)1) / TICKS_PER_SECOND;
 const static int MAX_INSTRUCTIONS_PER_TICK =
     globalConfigs.getMaxInstructionsPerTickOfServer();
 
+const static double GAME_DURATION = globalConfigs.getMaxGameDuration();
+
 const static int PLAYER_INITIAL_POSITION_X = 60;
 const static int PLAYER_INITIAL_POSITION_Y = 1050;
 
@@ -31,10 +33,27 @@ double Game::now() {
 
 void Game::gameLoop() {
   try {
+    this->snapshot.sizePlayers = players;
+    this->snapshot.sizeEnemies = 0;
+    this->snapshot.sizeCollectables = 0;
+    this->snapshot.sizeBullets = 0;
+    this->snapshot.timeLeft = GAME_DURATION;
+    this->snapshot.gameEnded = NumericBool::False;
+
     this->addEnemies();
+
+    double initTimestamp = this->now();
 
     while (this->_is_alive) {
       double start = this->now();
+      this->snapshot.timeLeft =
+          GAME_DURATION - ((start - initTimestamp) / 1000);
+
+      if (this->snapshot.timeLeft < 0) {
+        this->snapshot.gameEnded = NumericBool::True;
+        this->snapshot.timeLeft = (double)0;
+        this->_is_alive = false;
+      }
 
       for (auto &pair : players_data) {
         if (pair.second) {
@@ -188,13 +207,13 @@ void Game::addPlayerToSnapshot(const PlayerInfo &player_info) {
   }
   new_player_dto.name[i] = '\0';
 
-  new_player_dto.points = (uint16_t)globalConfigs.getPlayerStartingPoints();
-  new_player_dto.life = (uint8_t)globalConfigs.getPlayerMaxLife();
+  new_player_dto.points = (uint32_t)globalConfigs.getPlayerStartingPoints();
+  new_player_dto.life = (uint16_t)globalConfigs.getPlayerMaxLife();
   new_player_dto.current_gun = GunsIds::Gun1;
   new_player_dto.ammo_gun_1 =
-      (uint8_t)globalConfigs.getPlayerStartingAmmoGun1();
+      (uint16_t)globalConfigs.getPlayerStartingAmmoGun1();
   new_player_dto.ammo_gun_2 =
-      (uint8_t)globalConfigs.getPlayerStartingAmmoGun2();
+      (uint16_t)globalConfigs.getPlayerStartingAmmoGun2();
   new_player_dto.type = player_info.character_code;
   new_player_dto.is_falling = NumericBool::False;
   new_player_dto.is_jumping = NumericBool::False;

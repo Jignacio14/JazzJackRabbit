@@ -1,6 +1,7 @@
 
 #include "lobby_protocol.h"
 #include "../common/jjr2_error.h"
+#include "memory.h"
 #include <cstdint>
 
 LobbyProtocol::LobbyProtocol(Socket &a_skt) : was_closed(false), skt(a_skt) {}
@@ -104,12 +105,73 @@ void LobbyProtocol::send_refresh() {
   }
 }
 
+double LobbyProtocol::ntohd(double rawValue) {
+  uint64_t networkValue;
+  memcpy(&networkValue, &rawValue, sizeof(networkValue));
+  networkValue = be64toh(networkValue);
+  memcpy(&rawValue, &networkValue, sizeof(rawValue));
+  return rawValue;
+}
+
+Snapshot LobbyProtocol::deserializeSnapshot(const Snapshot &snapshot) {
+  Snapshot finalSnapshot(snapshot);
+
+  finalSnapshot.sizePlayers = ntohs(finalSnapshot.sizePlayers);
+  finalSnapshot.sizeEnemies = ntohs(finalSnapshot.sizeEnemies);
+  finalSnapshot.sizeCollectables = ntohs(finalSnapshot.sizeCollectables);
+  finalSnapshot.sizeBullets = ntohs(finalSnapshot.sizeBullets);
+
+  finalSnapshot.timeLeft = this->ntohd(finalSnapshot.timeLeft);
+
+  for (int i = 0; i < finalSnapshot.sizePlayers; i++) {
+    finalSnapshot.players[i].points = ntohl(finalSnapshot.players[i].points);
+    finalSnapshot.players[i].life = ntohs(finalSnapshot.players[i].life);
+    finalSnapshot.players[i].ammo_gun_1 =
+        ntohs(finalSnapshot.players[i].ammo_gun_1);
+    finalSnapshot.players[i].ammo_gun_2 =
+        ntohs(finalSnapshot.players[i].ammo_gun_2);
+    finalSnapshot.players[i].position_x =
+        ntohs(finalSnapshot.players[i].position_x);
+    finalSnapshot.players[i].position_y =
+        ntohs(finalSnapshot.players[i].position_y);
+  }
+
+  for (int i = 0; i < finalSnapshot.sizeEnemies; i++) {
+    finalSnapshot.enemies[i].entity_id =
+        ntohl(finalSnapshot.enemies[i].entity_id);
+    finalSnapshot.enemies[i].position_x =
+        ntohs(finalSnapshot.enemies[i].position_x);
+    finalSnapshot.enemies[i].position_y =
+        ntohs(finalSnapshot.enemies[i].position_y);
+  }
+
+  for (int i = 0; i < finalSnapshot.sizeBullets; i++) {
+    finalSnapshot.bullets[i].entity_id =
+        ntohl(finalSnapshot.bullets[i].entity_id);
+    finalSnapshot.bullets[i].position_x =
+        ntohs(finalSnapshot.bullets[i].position_x);
+    finalSnapshot.bullets[i].position_y =
+        ntohs(finalSnapshot.bullets[i].position_y);
+  }
+
+  for (int i = 0; i < finalSnapshot.sizeCollectables; i++) {
+    finalSnapshot.collectables[i].entity_id =
+        ntohl(finalSnapshot.collectables[i].entity_id);
+    finalSnapshot.collectables[i].position_x =
+        ntohs(finalSnapshot.collectables[i].position_x);
+    finalSnapshot.collectables[i].position_y =
+        ntohs(finalSnapshot.collectables[i].position_y);
+  }
+
+  return finalSnapshot;
+}
+
 Snapshot LobbyProtocol::wait_game_start() {
   try {
     Snapshot first_snap;
     skt.recvall_bytewise(&first_snap, sizeof(Snapshot), &was_closed);
     this->skt_was_closed();
-    return first_snap;
+    return this->deserializeSnapshot(first_snap);
   } catch (const LibError &skt_err) {
     std::string errorMessage =
         "Some error ocurred while trying to receive a message from "

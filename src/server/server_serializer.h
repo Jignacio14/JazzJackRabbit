@@ -5,8 +5,11 @@
 #include "../data/snapshot_dto.h"
 #include <string>
 #include <sys/types.h>
+
 class Serializer {
 private:
+  double htond(double rawValue);
+
 public:
   explicit Serializer();
 

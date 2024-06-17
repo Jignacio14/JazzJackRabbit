@@ -95,6 +95,10 @@ void Text::updateInnerText(const std::string &newText) {
   std::string line;
 
   while (std::getline(ss, line, '\n')) {
+    if (line.empty() || line == " " || line == "\n" || line == "\0") {
+      continue;
+    }
+
     SDL2pp::Texture textLineTexture(
         this->sdlRenderer,
         this->font.RenderText_Blended(line, this->textColor));

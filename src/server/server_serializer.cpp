@@ -1,5 +1,6 @@
 #include "./server_serializer.h"
 #include "../common/game_info.h"
+#include <memory.h>
 #include <netinet/in.h>
 #include <string>
 #include <sys/types.h>
@@ -23,12 +24,24 @@ GameInfoDto Serializer::serializeGameInfo(const std::string &name,
   return game_info;
 }
 
+double Serializer::htond(double rawValue) {
+  uint64_t hostValue;
+  memcpy(&hostValue, &rawValue, sizeof(hostValue));
+  hostValue = htobe64(hostValue);
+  memcpy(&rawValue, &hostValue, sizeof(rawValue));
+  return rawValue;
+}
+
 Snapshot Serializer::serializeSnapshot(const Snapshot &snapshot) {
   Snapshot finalSnapshot(snapshot);
 
   for (uint16_t i = 0; i < finalSnapshot.sizePlayers; i++) {
     finalSnapshot.players[i].points = htonl(finalSnapshot.players[i].points);
     finalSnapshot.players[i].life = htons(finalSnapshot.players[i].life);
+    finalSnapshot.players[i].ammo_gun_1 =
+        htons(finalSnapshot.players[i].ammo_gun_1);
+    finalSnapshot.players[i].ammo_gun_2 =
+        htons(finalSnapshot.players[i].ammo_gun_2);
     finalSnapshot.players[i].position_x =
         htons(finalSnapshot.players[i].position_x);
     finalSnapshot.players[i].position_y =
@@ -66,6 +79,8 @@ Snapshot Serializer::serializeSnapshot(const Snapshot &snapshot) {
   finalSnapshot.sizeEnemies = htons(finalSnapshot.sizeEnemies);
   finalSnapshot.sizeCollectables = htons(finalSnapshot.sizeCollectables);
   finalSnapshot.sizeBullets = htons(finalSnapshot.sizeBullets);
+
+  finalSnapshot.timeLeft = this->htond(finalSnapshot.timeLeft);
 
   return finalSnapshot;
 }
