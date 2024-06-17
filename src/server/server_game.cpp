@@ -141,13 +141,13 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
   case PlayerCommands::STOP_RUNNING:
     this->players_data[player_id]->stop_running();
     break;
+  case PlayerCommands::SHOOT:
+    this->players_data[player_id]->shoot();
+    break;
     /*
-        case PlayerCommands::SHOOT:
-          this->players_data[player_id]->shoot();
-          break;
-        case PlayerCommands::SPECIAL_ATTACK:
-          this->players_data[player_id]->specialAttack();
-          break; */
+  case PlayerCommands::SPECIAL_ATTACK:
+    this->players_data[player_id]->specialAttack();
+    break; */
   }
 }
 

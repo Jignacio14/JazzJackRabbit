@@ -221,6 +221,8 @@ void BasePlayer::heal(uint8_t health_gain) {
   }
 }
 
+void BasePlayer::shoot() {}
+
 BasePlayer::~BasePlayer() {
   // delete weapon;
   // delete state;

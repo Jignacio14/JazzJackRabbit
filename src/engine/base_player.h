@@ -54,10 +54,6 @@ private:
 public:
   BasePlayer(uint8_t player_id, const std::string &player_name,
              Snapshot &snapshot, int position);
-  // void virtual shoot() = 0;
-  // void virtual run() = 0;
-  // void virtual runFast() = 0;
-  // void virtual specialAttack() = 0;
 
   void update();
   void receive_damage(uint8_t damage);
@@ -70,6 +66,8 @@ public:
   void jump();
   void run();
   void stop_running();
+
+  void shoot();
 
   ~BasePlayer();
 };
