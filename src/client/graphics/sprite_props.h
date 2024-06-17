@@ -108,6 +108,11 @@ struct TextFontsCodes {
   static constexpr uint8_t Joystix = 121;
 };
 
+struct LeaderboardCodes {
+  // cppcheck-suppress unusedStructMember
+  static constexpr uint8_t Background = 131;
+};
+
 struct SpriteNamesMap {
   // cppcheck-suppress unusedStructMember
   const std::map<uint8_t, std::string> map;

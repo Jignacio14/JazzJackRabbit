@@ -49,6 +49,8 @@ public:
   Sprite &getSfxSprite(const u_int8_t &spriteCode);
 
   Sprite &getHudSprite(const u_int8_t &spriteCode);
+
+  Sprite &getLeaderboardSprite();
 };
 
 #endif // GRAPHIC_ENGINE_H

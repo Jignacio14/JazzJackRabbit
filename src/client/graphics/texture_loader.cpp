@@ -72,6 +72,8 @@ const static int MAP_COLOR_KEY_RGB[3] = {87, 0, 203};
 const static int SHINE_COLOR_KEY_RGB[3] = {153, 217, 234};
 const static int WHITE_COLOR_KEY[3] = {255, 255, 255};
 
+const static int FULL_ALPHA = 255;
+
 TextureLoader::TextureLoader(SDL2pp::Renderer &sdlRenderer)
     : sdlRenderer(sdlRenderer), jazzHudIcon(nullptr), spazHudIcon(nullptr),
       loriHudIcon(nullptr) {}
@@ -144,7 +146,8 @@ void TextureLoader::preloadTextures() {
   auto loadSpriteHudIconLambda = [=](const std::string &basePath,
                                      const std::string &spriteName,
                                      const int *COLOR_KEY_RGB,
-                                     std::unique_ptr<Sprite> &hubIcon) {
+                                     std::unique_ptr<Sprite> &hubIcon,
+                                     int alpha) {
     std::string texturePath = basePath + spriteName + "/spritesheet.png";
     SDL2pp::Surface surface(texturePath);
 
@@ -155,7 +158,8 @@ void TextureLoader::preloadTextures() {
       SDL2pp::Texture texture(this->sdlRenderer,
                               surface.SetColorKey(true, colorKey));
 
-      texture.SetBlendMode(SDL_BLENDMODE_BLEND);
+      texture.SetBlendMode(SDL_BLENDMODE_BLEND).SetAlphaMod(alpha);
+      ;
       std::string animationBasePath = basePath + spriteName;
 
       hubIcon = std::make_unique<Sprite>(this->sdlRenderer, std::move(texture),
@@ -186,7 +190,8 @@ void TextureLoader::preloadTextures() {
   // JAZZ HUB ICON INITIALIZATION
   loadSpriteHudIconLambda("src/client/sprites/jazz/",
                           spriteNamesMap.map.at(GenericSpriteCodes::HudIcon),
-                          CHARACTERS_COLOR_KEY_RGB, this->jazzHudIcon);
+                          CHARACTERS_COLOR_KEY_RGB, this->jazzHudIcon,
+                          FULL_ALPHA);
 
   // SPAZ GENERICS SPRITES INITIALIZATION
   for (auto &spriteCode : genericSpriteNamesVector) {
@@ -205,7 +210,8 @@ void TextureLoader::preloadTextures() {
   // SPAZ HUB ICON INITIALIZATION
   loadSpriteHudIconLambda("src/client/sprites/spaz/",
                           spriteNamesMap.map.at(GenericSpriteCodes::HudIcon),
-                          CHARACTERS_COLOR_KEY_RGB, this->spazHudIcon);
+                          CHARACTERS_COLOR_KEY_RGB, this->spazHudIcon,
+                          FULL_ALPHA);
 
   // LORI GENERICS SPRITES INITIALIZATION
   for (auto &spriteCode : genericSpriteNamesVector) {
@@ -224,7 +230,8 @@ void TextureLoader::preloadTextures() {
   // LORI HUB ICON INITIALIZATION
   loadSpriteHudIconLambda("src/client/sprites/lori/",
                           spriteNamesMap.map.at(GenericSpriteCodes::HudIcon),
-                          CHARACTERS_COLOR_KEY_RGB, this->loriHudIcon);
+                          CHARACTERS_COLOR_KEY_RGB, this->loriHudIcon,
+                          FULL_ALPHA);
 
   // CARROTUS SCENARIO SPRITES INITIALIZATION
 
@@ -267,12 +274,14 @@ void TextureLoader::preloadTextures() {
   // GUN 1 HUD ICON INITIALIZATION
   loadSpriteHudIconLambda("src/client/sprites/gun_1/",
                           spriteNamesMap.map.at(GunSpriteCodes::HudIcon),
-                          COLLECTABLES_COLOR_KEY_RGB, this->gun1hudIcon);
+                          COLLECTABLES_COLOR_KEY_RGB, this->gun1hudIcon,
+                          FULL_ALPHA);
 
   // GUN 2 HUD ICON INITIALIZATION
   loadSpriteHudIconLambda("src/client/sprites/gun_2/",
                           spriteNamesMap.map.at(GunSpriteCodes::HudIcon),
-                          COLLECTABLES_COLOR_KEY_RGB, this->gun2hudIcon);
+                          COLLECTABLES_COLOR_KEY_RGB, this->gun2hudIcon,
+                          FULL_ALPHA);
 
   // COLLECTABLES SPRITES INITIALIZATION
   for (auto &spriteCode : collectablesSpriteNamesVector) {
@@ -330,6 +339,13 @@ void TextureLoader::preloadTextures() {
                      spriteNamesMap.map.at(spriteCode), nullptr,
                      this->hudSprites);
   }
+
+  // LEADERBOARD INITIALIZATION
+  int leaderboardBackgroundAlpha = 200;
+  loadSpriteHudIconLambda("src/client/sprites/leaderboard/",
+                          spriteNamesMap.map.at(LeaderboardCodes::Background),
+                          MAP_COLOR_KEY_RGB, this->leaderboardSprite,
+                          leaderboardBackgroundAlpha);
 }
 
 Sprite &TextureLoader::getJazzGenericSprite(const u_int8_t &spriteCode) {
@@ -512,4 +528,8 @@ Sprite &TextureLoader::getHudSprite(const u_int8_t &spriteCode) {
                                " from hud map.";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
   }
+}
+
+Sprite &TextureLoader::getLeaderboardSprite() {
+  return std::ref(*this->leaderboardSprite);
 }
