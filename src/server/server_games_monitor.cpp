@@ -45,14 +45,10 @@ GamesMonitor::registerToExistingGame(PlayerInfo &player_status,
 std::pair<Queue<CommandCodeDto> &, uint8_t>
 GamesMonitor::createNewGame(PlayerInfo &player_status,
                             Queue<Snapshot> &sender_queue) {
-  GameWrapper *game = new GameWrapper();
+  std::unique_ptr<GameWrapper> game = std::make_unique<GameWrapper>();
   std::string server_name = this->getGameName(player_status);
-  game_tracker[server_name] = game;
-  return game->addPlayer(sender_queue, player_status);
+  game_tracker[server_name] = std::move(game);
+  return game_tracker[server_name]->addPlayer(sender_queue, player_status);
 }
 
-GamesMonitor::~GamesMonitor() {
-  for (const auto &game : game_tracker) {
-    delete game.second;
-  }
-}
+GamesMonitor::~GamesMonitor() {}
