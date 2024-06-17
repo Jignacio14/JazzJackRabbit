@@ -1,4 +1,5 @@
-#include "snapshot_wrapper.h"
+#include "./snapshot_wrapper.h"
+#include "../data/convention.h"
 #include "./jjr2_error.h"
 #include <string>
 
@@ -84,4 +85,8 @@ std::unique_ptr<Snapshot> SnapshotWrapper::transferSnapshotDto() {
 
 Snapshot &SnapshotWrapper::getSnapshotReference() {
   return std::ref(*this->snapshot);
+}
+
+bool SnapshotWrapper::didGameEnd() const {
+  return this->snapshot->gameEnded == NumericBool::True;
 }

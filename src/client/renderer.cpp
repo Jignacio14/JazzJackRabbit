@@ -35,7 +35,7 @@ Renderer::Renderer(GraphicEngine &graphicEngine, int id, Socket socket,
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
       player(player), hud(this->graphicEngine, this->player),
       map(this->graphicEngine, this->player), debugPanel(this->sdlRenderer),
-      client(std::move(socket), id),
+      leaderboard(this->sdlRenderer), client(std::move(socket), id),
       latestSnapshot(std::make_unique<SnapshotWrapper>(
           initialSnapshot.transferSnapshotDto())),
       keyboardHandler(this->client, this->debugPanel) {}
@@ -63,6 +63,11 @@ void Renderer::renderGame(int iterationNumber) {
 
   this->hud.render(*this->latestSnapshot);
 
+  if (this->latestSnapshot->didGameEnd()) {
+    std::cout << "ENDDDD \n";
+    this->leaderboard.display(*this->latestSnapshot);
+  }
+
   this->debugPanel.display();
   this->sdlRenderer.Present();
 }
@@ -87,6 +92,10 @@ void Renderer::updateLatestSnapshot() {
 }
 
 void Renderer::updateGame(int iterationNumber) {
+  if (this->latestSnapshot->didGameEnd()) {
+    return;
+  }
+
   renderables.remove_if([](const std::unique_ptr<Renderable> &renderable) {
     return renderable->shouldDelete();
   });
@@ -269,7 +278,7 @@ void Renderer::run() {
       break;
     }
 
-    if (!this->client.isAlive()) {
+    if (!this->client.isAlive() && !this->latestSnapshot->didGameEnd()) {
       std::string errorMessage =
           "Client stopped due to connection with server broken";
       throw JJR2Error(errorMessage, __LINE__, __FILE__);

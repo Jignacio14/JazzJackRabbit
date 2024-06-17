@@ -6,6 +6,7 @@
 #include "./debug/debug_panel.h"
 #include "./graphics/graphic_engine.h"
 #include "./graphics/hud/hud.h"
+#include "./graphics/leaderboard/leaderboard.h"
 #include "./graphics/map/map.h"
 #include "./keyboard_handler.h"
 #include "./player.h"
@@ -35,6 +36,7 @@ private:
   Hud hud;
   Map map;
   DebugPanel debugPanel;
+  Leaderboard leaderboard;
 
   Client client;
   // cppcheck-suppress unusedStructMember

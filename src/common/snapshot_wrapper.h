@@ -45,6 +45,8 @@ public:
   std::unique_ptr<Snapshot> transferSnapshotDto();
 
   Snapshot &getSnapshotReference();
+
+  bool didGameEnd() const;
 };
 
 #endif // SNAPSHOT_WRAPPER_H
