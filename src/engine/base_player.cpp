@@ -13,7 +13,7 @@ const static int INITIAL_Y = 1050;
 BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
                        Snapshot &snapshot, int position)
     : player_id(player_id), player_name(player_name), health(MAX_HEALTH),
-      weapon(std::make_unique<InitialWeapon>()),
+      weapon(std::make_unique<InitialWeapon>(snapshot)),
       state(std::make_unique<Alive>()),
       rectangle(Rectangle(Coordinates(INITIAL_X, INITIAL_Y),
                           Coordinates(INITIAL_X + HitboxSizes::PlayerWidth,
@@ -35,7 +35,7 @@ void BasePlayer::update() {
 
   this->update_jump();
 
-  this->update_movement() :
+  this->update_movement();
 }
 
 void BasePlayer::update_jump() {
@@ -230,14 +230,34 @@ void BasePlayer::heal(uint8_t health_gain) {
 }
 
 void BasePlayer::shoot() {
-  /// 1. Crear entidad de la bala, quizas cada jugador puede tener un vector de
-  /// sus disparos.
-  /// 2. Que se delegue al arma el comportamiento.
+  /// 1. Crear entidad de la bala, cada arma tendra un vector de las balas que
+  /// disparó.
+  /// 2. Cada tipo de arma sabe el daño y speed de su bala.
   /// 3. La bala debe conocer a los demas jugadores y a los enemigos para
   /// lastimarlos.
   /// 4. Tambien debe conocer el mapa para chocar con las paredes.
   /// 5. Una vez impacte con lo que sea, debe desaparecer.
-  weapon->shoot();
+
+  Rectangle bullet_rectangle(Coordinates(0, 0), Coordinates(0, 0));
+  if (facing_direction == FacingDirectionsIds::Right) {
+    Coordinates top_left(rectangle.getBottomRightCorner().getX() + 1,
+                         rectangle.getTopLeftCorner().getY());
+    Coordinates bottom_right(
+        rectangle.getBottomRightCorner().getX() + HitboxSizes::BulletWidth + 1,
+        rectangle.getBottomRightCorner().getY() + HitboxSizes::BulletHeight);
+    Rectangle bullet_rectangle_aux(top_left, bottom_right);
+    bullet_rectangle = bullet_rectangle_aux;
+  } else if (facing_direction == FacingDirectionsIds::Left) {
+    Coordinates top_left(rectangle.getTopLeftCorner().getX() -
+                             HitboxSizes::BulletWidth - 1,
+                         rectangle.getTopLeftCorner().getY());
+    Coordinates bottom_right(rectangle.getTopLeftCorner().getX() - 1,
+                             rectangle.getBottomRightCorner().getY() +
+                                 HitboxSizes::BulletHeight);
+    Rectangle bullet_rectangle_aux(top_left, bottom_right);
+    bullet_rectangle = bullet_rectangle_aux;
+  }
+  weapon->shoot(bullet_rectangle, facing_direction, map);
   if (position != -1) {
     snapshot.players[position].shot = NumericBool::True;
   }

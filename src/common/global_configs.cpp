@@ -41,6 +41,16 @@ GlobalConfigs::GlobalConfigs() {
 
   this->maxPlayersInHudLeaderboard =
       gameConfigs["max_players_in_hud_leaderboard"].as<uint32_t>();
+
+  this->bullet1MaxAmmo = gameConfigs["bullet_1_max_ammo"].as<uint16_t>();
+  this->bullet1Speed = gameConfigs["bullet_1_speed"].as<uint8_t>();
+  this->bullet1Damage = gameConfigs["bullet_1_damage"].as<uint8_t>();
+  this->bullet1Cooldown = gameConfigs["bullet_1_cooldown"].as<float>();
+
+  this->bullet2MaxAmmo = gameConfigs["bullet_2_max_ammo"].as<uint16_t>();
+  this->bullet2Speed = gameConfigs["bullet_2_speed"].as<uint8_t>();
+  this->bullet2Damage = gameConfigs["bullet_2_damage"].as<uint8_t>();
+  this->bullet2Cooldown = gameConfigs["bullet_2_cooldown"].as<float>();
 }
 
 uint16_t GlobalConfigs::getMaxPlayersPerGame() const {
@@ -99,4 +109,28 @@ uint32_t GlobalConfigs::getMaxInstructionsPerTickOfServer() const {
 
 uint32_t GlobalConfigs::getMaxPlayersInHudLeaderboard() const {
   return this->maxPlayersInHudLeaderboard;
+}
+
+uint16_t GlobalConfigs::getBullet1MaxAmmo() const {
+  return this->bullet1MaxAmmo;
+}
+
+uint8_t GlobalConfigs::getBullet1Speed() const { return this->bullet1Speed; }
+
+uint8_t GlobalConfigs::getBullet1Damage() const { return this->bullet1Damage; }
+
+float GlobalConfigs::getBullet1Cooldown() const {
+  return this->bullet1Cooldown;
+}
+
+uint16_t GlobalConfigs::getBullet2MaxAmmo() const {
+  return this->bullet2MaxAmmo;
+}
+
+uint8_t GlobalConfigs::getBullet2Speed() const { return this->bullet2Speed; }
+
+uint8_t GlobalConfigs::getBullet2Damage() const { return this->bullet2Damage; }
+
+float GlobalConfigs::getBullet2Cooldown() const {
+  return this->bullet2Cooldown;
 }

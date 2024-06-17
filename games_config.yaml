@@ -24,3 +24,15 @@ starting_points: 1234
 max_life: 100
 starting_ammo_gun_1: 20
 starting_ammo_gun_2: 0
+
+# Bullet Parameters
+bullet_1_max_ammo: 999
+bullet_1_speed: 7
+bullet_1_damage: 5
+bullet_1_cooldown: 3
+
+bullet_2_max_ammo: 500
+bullet_2_speed: 10
+bullet_2_damage: 10
+bullet_2_cooldown: 2
+

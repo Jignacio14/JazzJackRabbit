@@ -4,6 +4,7 @@
 #include "../common/rectangle.h"
 #include "../data/convention.h"
 #include "../data/snapshot_dto.h"
+#include "bullets/bullet.h"
 #include "server_map.h"
 #include "states/alive.h"
 #include "states/dead.h"
@@ -13,6 +14,7 @@
 #include <cstdint>
 #include <memory>
 #include <string>
+#include <vector>
 
 #define MAX_JUMP 200
 #define WALKING_SPEED 1
