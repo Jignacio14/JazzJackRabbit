@@ -15,7 +15,6 @@ void Accepter::run() {
 
 void Accepter::checkForDisconnected() {
   for (auto client = clients.begin(); client != clients.end();) {
-    // Sender *current = *client;
     std::unique_ptr<Sender> &current = *client;
     if (!current->is_alive()) {
       current->stop();
@@ -29,8 +28,8 @@ void Accepter::accept() {
   Socket peer = this->skt_aceptator.accept();
   std::unique_ptr<Sender> sender =
       std::make_unique<Sender>(std::move(peer), this->gamesMonitor);
-  clients.push_back(sender);
   sender->start();
+  clients.push_back(std::move(sender));
 }
 
 void Accepter::kill() {
