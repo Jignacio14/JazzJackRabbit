@@ -107,8 +107,9 @@ void Game::rateController(double start, double finish) {
 }
 
 void Game::addEnemies() {
-  BaseEnemy *enemy = new BaseEnemy(1, snapshot, 0);
-  this->enemies.push_back(enemy);
+  std::unique_ptr<BaseEnemy> enemy =
+      std::make_unique<BaseEnemy>(1, snapshot, 0);
+  this->enemies.push_back(std::move(enemy));
   EnemyDto new_enemy = {};
   new_enemy.entity_id = 1;
   new_enemy.facing_direction = FacingDirectionsIds::Left;
@@ -151,35 +152,6 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
     this->players_data[player_id]->specialAttack();
     break; */
   }
-}
-
-void Game::run() {
-  try {
-    this->gameLoop();
-  } catch (...) {
-    std::cout << "Paso algo en el game loop";
-  }
-}
-
-std::unique_ptr<BasePlayer> Game::constructPlayer(uint8_t player_id,
-                                                  std::string &player_name,
-                                                  uint8_t player_type) {
-  if (player_type == PlayableCharactersIds::Jazz) {
-    return std::make_unique<Jazz>(player_id, player_name, snapshot,
-                                  this->snapshot.sizePlayers);
-  }
-
-  if (player_type == PlayableCharactersIds::Lori) {
-    return std::make_unique<Lori>(player_id, player_name, snapshot,
-                                  this->snapshot.sizePlayers);
-  }
-
-  if (player_type == PlayableCharactersIds::Spaz) {
-    return std::make_unique<Spaz>(player_id, player_name, snapshot,
-                                  this->snapshot.sizePlayers);
-  }
-
-  return nullptr;
 }
 
 void Game::addPlayer(const PlayerInfo &player_info, const uint8_t &player_id) {
@@ -262,8 +234,4 @@ void Game::ereasePlayer(uint8_t player_id) {
 
 void Game::kill() { this->_is_alive = false; }
 
-Game::~Game() {
-  for (const auto &enemy : enemies) {
-    delete enemy;
-  }
-}
+Game::~Game() {}

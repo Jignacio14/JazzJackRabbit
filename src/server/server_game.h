@@ -17,6 +17,7 @@
 #include <list>
 #include <map>
 #include <memory>
+#include <sys/types.h>
 #include <unordered_map>
 #include <utility>
 
@@ -28,7 +29,7 @@ private:
   // cppcheck-suppress unusedStructMember
   std::unordered_map<uint8_t, std::unique_ptr<BasePlayer>> players_data;
   // cppcheck-suppress unusedStructMember
-  std::vector<BaseEnemy *> enemies;
+  std::vector<std::unique_ptr<BaseEnemy>> enemies;
   // cppcheck-suppress unusedStructMember
   Snapshot snapshot;
   // cppcheck-suppress unusedStructMember
