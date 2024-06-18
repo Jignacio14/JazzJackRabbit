@@ -235,13 +235,6 @@ void BasePlayer::heal(uint8_t health_gain) {
 }
 
 void BasePlayer::shoot() {
-  /// 1. Crear entidad de la bala, cada arma tendra un vector de las balas que
-  /// disparó.
-  /// 2. Cada tipo de arma sabe el daño y speed de su bala.
-  /// 3. La bala debe conocer a los demas jugadores y a los enemigos para
-  /// lastimarlos.
-  /// 4. Tambien debe conocer el mapa para chocar con las paredes.
-  /// 5. Una vez impacte con lo que sea, debe desaparecer.
 
   Rectangle bullet_rectangle(Coordinates(0, 0), Coordinates(0, 0));
   if (facing_direction == FacingDirectionsIds::Right) {
@@ -249,7 +242,7 @@ void BasePlayer::shoot() {
                          rectangle.getTopLeftCorner().getY());
     Coordinates bottom_right(
         rectangle.getBottomRightCorner().getX() + HitboxSizes::BulletWidth + 1,
-        rectangle.getBottomRightCorner().getY() + HitboxSizes::BulletHeight);
+        rectangle.getTopLeftCorner().getY() + HitboxSizes::BulletHeight);
     Rectangle bullet_rectangle_aux(top_left, bottom_right);
     bullet_rectangle = bullet_rectangle_aux;
   } else if (facing_direction == FacingDirectionsIds::Left) {
@@ -257,7 +250,7 @@ void BasePlayer::shoot() {
                              HitboxSizes::BulletWidth - 1,
                          rectangle.getTopLeftCorner().getY());
     Coordinates bottom_right(rectangle.getTopLeftCorner().getX() - 1,
-                             rectangle.getBottomRightCorner().getY() +
+                             rectangle.getTopLeftCorner().getY() +
                                  HitboxSizes::BulletHeight);
     Rectangle bullet_rectangle_aux(top_left, bottom_right);
     bullet_rectangle = bullet_rectangle_aux;

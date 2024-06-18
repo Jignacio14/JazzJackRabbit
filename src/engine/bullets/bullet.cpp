@@ -25,13 +25,9 @@ void Bullet::move() {
     new_rectangle.move_right(speed);
   else if (facing_direction == FacingDirectionsIds::Left)
     new_rectangle.move_left(speed);
-  std::cout << "Bullet id: " << id
-            << ". Pos x = " << rectangle.getTopLeftCorner().getX()
-            << " Pos y = " << rectangle.getTopLeftCorner().getY() << std::endl;
   if (!map.available_position(new_rectangle)) {
     alive = false;
     delete_from_snapshot();
-    std::cout << "Bullet id: " << id << " died" << std::endl;
   }
   if (alive) {
     rectangle = new_rectangle;

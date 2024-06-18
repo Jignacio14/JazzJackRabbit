@@ -25,7 +25,7 @@ max_life: 100
 starting_ammo_gun_1: 20
 starting_ammo_gun_2: 0
 
-# Bullet Parameters
+# Bullets Parameters
 bullet_1_max_ammo: 999
 bullet_1_speed: 7
 bullet_1_damage: 5
