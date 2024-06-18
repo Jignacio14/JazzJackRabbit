@@ -6,12 +6,7 @@ Receiver::Receiver(ServerProtocol &servprot,
                    Queue<CommandCodeDto> &receiver_queue)
     : servprot(servprot), receiver_queue(receiver_queue) {}
 
-void Receiver::run() {
-  try {
-    this->recevierLoop();
-  } catch (...) {
-  }
-}
+void Receiver::run() { this->recevierLoop(); }
 
 void Receiver::recevierLoop() {
   while (this->is_alive()) {
