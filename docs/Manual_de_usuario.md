@@ -183,4 +183,8 @@ Los controles son los siguientes:
 - `ESCAPE`: cierra el juego
 - `F1`: muestra el panel de información debug, como los FPS
 
+<<<<<<< HEAD
 La cámara del juego sigue al personaje que el jugador está controlando.
+=======
+La cámara del juego sigue al personaje que el jugador está controlando.
+>>>>>>> 814baa40581fa4145a2f5a237db68806d5f36f31

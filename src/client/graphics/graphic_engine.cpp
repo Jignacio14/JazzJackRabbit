@@ -100,3 +100,7 @@ Sprite &GraphicEngine::getSfxSprite(const u_int8_t &spriteCode) {
 Sprite &GraphicEngine::getHudSprite(const u_int8_t &spriteCode) {
   return this->textureLoader.getHudSprite(spriteCode);
 }
+
+Sprite &GraphicEngine::getLeaderboardSprite() {
+  return this->textureLoader.getLeaderboardSprite();
+}

@@ -7,6 +7,7 @@
 #include "server_sender.h"
 #include <exception>
 #include <list>
+#include <memory>
 #include <string>
 
 class Accepter : public Thread {
@@ -14,7 +15,7 @@ private:
   Socket skt_aceptator;
   void accept();
   // cppcheck-suppress unusedStructMember
-  std::list<Sender *> clients;
+  std::list<std::unique_ptr<Sender>> clients;
   GamesMonitor gamesMonitor;
 
   void checkForDisconnected();

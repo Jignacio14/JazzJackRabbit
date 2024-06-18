@@ -44,6 +44,8 @@ constexpr uint8_t HudSpriteCodes::LifeHeart;
 constexpr uint8_t TextFontsCodes::Roboto;
 constexpr uint8_t TextFontsCodes::Joystix;
 
+constexpr uint8_t LeaderboardCodes::Background;
+
 SpriteNamesMap::SpriteNamesMap()
     : map({
           {GenericSpriteCodes::Death, "death"},
@@ -89,4 +91,6 @@ SpriteNamesMap::SpriteNamesMap()
 
           {TextFontsCodes::Roboto, "roboto"},
           {TextFontsCodes::Joystix, "joystix"},
+
+          {LeaderboardCodes::Background, "background"},
       }) {}

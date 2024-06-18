@@ -16,7 +16,7 @@ class GamesMonitor {
 private:
   std::mutex mtx;
   // cppcheck-suppress unusedStructMember
-  std::unordered_map<std::string, GameWrapper *> game_tracker;
+  std::unordered_map<std::string, std::unique_ptr<GameWrapper>> game_tracker;
 
   std::pair<Queue<CommandCodeDto> &, u_int8_t>
   registerToExistingGame(PlayerInfo &player_status,
@@ -33,6 +33,7 @@ public:
   std::unordered_map<std::string, uint16_t> getGamesStartInfo();
   std::pair<Queue<CommandCodeDto> &, u_int8_t>
   registerPlayer(PlayerInfo &player_status, Queue<Snapshot> &sender_queue);
+  void removeEndedGames();
 
   ~GamesMonitor();
 };

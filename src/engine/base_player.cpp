@@ -1,5 +1,4 @@
 #include "base_player.h"
-#include <iostream>
 
 #include "../common/global_configs.h"
 

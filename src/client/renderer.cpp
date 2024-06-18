@@ -35,7 +35,9 @@ Renderer::Renderer(GraphicEngine &graphicEngine, int id, Socket socket,
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
       player(player), hud(this->graphicEngine, this->player),
       map(this->graphicEngine, this->player), debugPanel(this->sdlRenderer),
-      leaderboard(this->sdlRenderer), client(std::move(socket), id),
+      leaderboard(this->sdlRenderer,
+                  this->graphicEngine.getLeaderboardSprite()),
+      client(std::move(socket), id),
       latestSnapshot(std::make_unique<SnapshotWrapper>(
           initialSnapshot.transferSnapshotDto())),
       keyboardHandler(this->client, this->debugPanel) {}
