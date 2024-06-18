@@ -9,10 +9,11 @@ const static int INITIAL_X_POSITION = 0;
 const static int INITIAL_Y_POSITION = 0;
 
 Player::Player(const std::string &username, const uint8_t &characterSelected,
-               GraphicEngine &graphicEngine, SnapshotWrapper &initialSnapshot,
-               const uint8_t &playerId)
+               GraphicEngine &graphicEngine, AudioEngine &audioEngine,
+               SnapshotWrapper &initialSnapshot, const uint8_t &playerId)
     : playerId(playerId), playerInfo(), username(username),
-      characterSelected(characterSelected), graphicEngine(graphicEngine) {
+      characterSelected(characterSelected), graphicEngine(graphicEngine),
+      audioEngine(audioEngine) {
 
   bool foundPlayer =
       initialSnapshot.getPlayerById(this->playerId, &this->playerInfo);
@@ -26,14 +27,17 @@ Player::Player(const std::string &username, const uint8_t &characterSelected,
   Coordinates coords(this->playerInfo.position_x, this->playerInfo.position_y);
 
   if (characterSelected == PlayableCharactersIds::Jazz) {
-    this->character = std::make_unique<Jazz>(this->graphicEngine, coords,
-                                             this->playerId, initialSnapshot);
+    this->character =
+        std::make_unique<Jazz>(this->graphicEngine, audioEngine, coords,
+                               this->playerId, initialSnapshot);
   } else if (characterSelected == PlayableCharactersIds::Spaz) {
-    this->character = std::make_unique<Spaz>(this->graphicEngine, coords,
-                                             this->playerId, initialSnapshot);
+    this->character =
+        std::make_unique<Spaz>(this->graphicEngine, audioEngine, coords,
+                               this->playerId, initialSnapshot);
   } else {
-    this->character = std::make_unique<Lori>(this->graphicEngine, coords,
-                                             this->playerId, initialSnapshot);
+    this->character =
+        std::make_unique<Lori>(this->graphicEngine, audioEngine, coords,
+                               this->playerId, initialSnapshot);
   }
 }
 

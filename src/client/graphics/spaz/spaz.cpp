@@ -18,12 +18,13 @@ struct SpazAnimationSpeedCoefs {
   static constexpr double SideKick = 25;
 };
 
-Spaz::Spaz(GraphicEngine &graphicEngine, Coordinates &currentCoords,
-           const uint8_t &entityId, SnapshotWrapper &snapshot)
+Spaz::Spaz(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
+           Coordinates &currentCoords, const uint8_t &entityId,
+           SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(nullptr), currentCoords(currentCoords),
-      isWalkingLeft(false), isWalkingRight(false), isWalkingUp(false),
-      isWalkingDown(false), isRunning(false), entityInfo(),
+      audioEngine(audioEngine), currentAnimation(nullptr),
+      currentCoords(currentCoords), isWalkingLeft(false), isWalkingRight(false),
+      isWalkingUp(false), isWalkingDown(false), isRunning(false), entityInfo(),
       hitbox(HitboxSizes::PlayerWidth, HitboxSizes::PlayerHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(

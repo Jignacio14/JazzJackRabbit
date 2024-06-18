@@ -9,11 +9,13 @@ struct CoinAnimationSpeedCoefs {
   static constexpr double Shine = 25;
 };
 
-Coin::Coin(GraphicEngine &graphicEngine, Coordinates &currentCoords,
-           const uint8_t &entityId, SnapshotWrapper &snapshot)
+Coin::Coin(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
+           Coordinates &currentCoords, const uint8_t &entityId,
+           SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
-      shouldBeDeleted(false), isShowingExitAnimation(false),
+      audioEngine(audioEngine), currentAnimation(nullptr),
+      currentCoords(currentCoords), entityInfo(), shouldBeDeleted(false),
+      isShowingExitAnimation(false),
       hitbox(HitboxSizes::CollectableWidth, HitboxSizes::CollectableHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(

@@ -9,11 +9,13 @@ struct BulletGun2AnimationSpeedCoefs {
   static constexpr double Impact = 25;
 };
 
-BulletGun2::BulletGun2(GraphicEngine &graphicEngine, Coordinates &currentCoords,
-                       const uint8_t &entityId, SnapshotWrapper &snapshot)
+BulletGun2::BulletGun2(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
+                       Coordinates &currentCoords, const uint8_t &entityId,
+                       SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
-      shouldBeDeleted(false), isShowingExitAnimation(false),
+      audioEngine(audioEngine), currentAnimation(nullptr),
+      currentCoords(currentCoords), entityInfo(), shouldBeDeleted(false),
+      isShowingExitAnimation(false),
       hitbox(HitboxSizes::BulletWidth, HitboxSizes::BulletHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(

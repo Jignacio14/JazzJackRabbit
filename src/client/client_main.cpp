@@ -3,6 +3,7 @@
 #include "./game_configs.h"
 #include "./graphics/graphic_engine.h"
 #include "./player.h"
+#include "./sound/audio_engine.h"
 #include "./ui/startup_screen.h"
 #include "lobby.h"
 #include "renderer.h"
@@ -83,16 +84,19 @@ int main(int argc, char *argv[]) {
     GraphicEngine graphicEngine;
     graphicEngine.preloadTextures();
 
+    AudioEngine audioEngine;
+    audioEngine.preloadAudios();
+
     // debugPrint(hostname, port, username, userCharacter, gameConfig);
 
     SnapshotWrapper initialSnapshot(initialSnapshotDto);
 
     uint8_t playerId = lobby->get_player_id();
-    Player player(username, userCharacter, graphicEngine, initialSnapshot,
-                  playerId);
+    Player player(username, userCharacter, graphicEngine, audioEngine,
+                  initialSnapshot, playerId);
     Socket skt = lobby->transfer_socket();
-    Renderer renderer(graphicEngine, playerId, std::move(skt), player,
-                      initialSnapshot);
+    Renderer renderer(graphicEngine, audioEngine, playerId, std::move(skt),
+                      player, initialSnapshot);
     renderer.run();
 
     return exitCode;

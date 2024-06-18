@@ -4,6 +4,7 @@
 #include "../common/coordinates.h"
 #include "./graphics/graphic_engine.h"
 #include "./graphics/playable_character.h"
+#include "./sound/audio_engine.h"
 #include <cstdint>
 #include <memory>
 #include <string>
@@ -19,12 +20,13 @@ private:
   // cppcheck-suppress unusedStructMember
   const uint8_t characterSelected;
   GraphicEngine &graphicEngine;
+  AudioEngine &audioEngine;
   std::unique_ptr<PlayableCharacter> character;
 
 public:
   Player(const std::string &username, const uint8_t &characterSelected,
-         GraphicEngine &graphicEngine, SnapshotWrapper &initialSnapshot,
-         const uint8_t &playerId);
+         GraphicEngine &graphicEngine, AudioEngine &audioEngine,
+         SnapshotWrapper &initialSnapshot, const uint8_t &playerId);
 
   virtual void render(int iterationNumber) override;
 

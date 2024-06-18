@@ -28,10 +28,11 @@ static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 const static double TARGET_FPS = globalConfigs.getTargetFps();
 const static double RATE = ((double)1) / TARGET_FPS;
 
-Renderer::Renderer(GraphicEngine &graphicEngine, int id, Socket socket,
-                   Player &player, SnapshotWrapper &initialSnapshot)
+Renderer::Renderer(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
+                   int id, Socket socket, Player &player,
+                   SnapshotWrapper &initialSnapshot)
     : client_id(id), keep_running(true), rate(RATE),
-      graphicEngine(graphicEngine),
+      graphicEngine(graphicEngine), audioEngine(audioEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
       player(player), hud(this->graphicEngine, this->player),
       map(this->graphicEngine, this->player), debugPanel(this->sdlRenderer),
@@ -122,19 +123,19 @@ void Renderer::createNewPlayableCharacters(const Snapshot &snapshot) {
 
     switch (snapshot.players[i].type) {
     case PlayableCharactersIds::Jazz:
-      this->addRenderable(std::make_unique<Jazz>(this->graphicEngine, coords,
-                                                 snapshot.players[i].user_id,
-                                                 storedSnapshotWrapper));
+      this->addRenderable(std::make_unique<Jazz>(
+          this->graphicEngine, this->audioEngine, coords,
+          snapshot.players[i].user_id, storedSnapshotWrapper));
       break;
     case PlayableCharactersIds::Spaz:
-      this->addRenderable(std::make_unique<Spaz>(this->graphicEngine, coords,
-                                                 snapshot.players[i].user_id,
-                                                 storedSnapshotWrapper));
+      this->addRenderable(std::make_unique<Spaz>(
+          this->graphicEngine, this->audioEngine, coords,
+          snapshot.players[i].user_id, storedSnapshotWrapper));
       break;
     case PlayableCharactersIds::Lori:
-      this->addRenderable(std::make_unique<Lori>(this->graphicEngine, coords,
-                                                 snapshot.players[i].user_id,
-                                                 storedSnapshotWrapper));
+      this->addRenderable(std::make_unique<Lori>(
+          this->graphicEngine, this->audioEngine, coords,
+          snapshot.players[i].user_id, storedSnapshotWrapper));
       break;
     }
   }
@@ -158,19 +159,19 @@ void Renderer::createNewEnemies(const Snapshot &snapshot) {
 
     switch (snapshot.enemies[i].type) {
     case EnemiesIds::Bubba:
-      this->addRenderable(std::make_unique<Bubba>(this->graphicEngine, coords,
-                                                  snapshot.enemies[i].entity_id,
-                                                  storedSnapshotWrapper));
+      this->addRenderable(std::make_unique<Bubba>(
+          this->graphicEngine, this->audioEngine, coords,
+          snapshot.enemies[i].entity_id, storedSnapshotWrapper));
       break;
     case EnemiesIds::TurtleGoon:
       this->addRenderable(std::make_unique<TurtleGoon>(
-          this->graphicEngine, coords, snapshot.enemies[i].entity_id,
-          storedSnapshotWrapper));
+          this->graphicEngine, this->audioEngine, coords,
+          snapshot.enemies[i].entity_id, storedSnapshotWrapper));
       break;
     case EnemiesIds::Schwarzenguard:
       this->addRenderable(std::make_unique<Schwarzenguard>(
-          this->graphicEngine, coords, snapshot.enemies[i].entity_id,
-          storedSnapshotWrapper));
+          this->graphicEngine, this->audioEngine, coords,
+          snapshot.enemies[i].entity_id, storedSnapshotWrapper));
       break;
     }
   }
@@ -195,28 +196,28 @@ void Renderer::createNewCollectables(const Snapshot &snapshot) {
     switch (snapshot.collectables[i].type) {
     case CollectableIds::Coin:
       this->addRenderable(std::make_unique<Coin>(
-          this->graphicEngine, coords, snapshot.collectables[i].entity_id,
-          storedSnapshotWrapper));
+          this->graphicEngine, this->audioEngine, coords,
+          snapshot.collectables[i].entity_id, storedSnapshotWrapper));
       break;
     case CollectableIds::Diamond:
       this->addRenderable(std::make_unique<Diamond>(
-          this->graphicEngine, coords, snapshot.collectables[i].entity_id,
-          storedSnapshotWrapper));
+          this->graphicEngine, this->audioEngine, coords,
+          snapshot.collectables[i].entity_id, storedSnapshotWrapper));
       break;
     case CollectableIds::Carrot:
       this->addRenderable(std::make_unique<Carrot>(
-          this->graphicEngine, coords, snapshot.collectables[i].entity_id,
-          storedSnapshotWrapper));
+          this->graphicEngine, this->audioEngine, coords,
+          snapshot.collectables[i].entity_id, storedSnapshotWrapper));
       break;
     case CollectableIds::AmmoGun1:
       this->addRenderable(std::make_unique<AmmoGun1>(
-          this->graphicEngine, coords, snapshot.collectables[i].entity_id,
-          storedSnapshotWrapper));
+          this->graphicEngine, this->audioEngine, coords,
+          snapshot.collectables[i].entity_id, storedSnapshotWrapper));
       break;
     case CollectableIds::AmmoGun2:
       this->addRenderable(std::make_unique<AmmoGun2>(
-          this->graphicEngine, coords, snapshot.collectables[i].entity_id,
-          storedSnapshotWrapper));
+          this->graphicEngine, this->audioEngine, coords,
+          snapshot.collectables[i].entity_id, storedSnapshotWrapper));
       break;
     }
   }
@@ -241,13 +242,13 @@ void Renderer::createNewBullets(const Snapshot &snapshot) {
     switch (snapshot.bullets[i].type) {
     case GunsIds::Gun1:
       this->addRenderable(std::make_unique<BulletGun1>(
-          this->graphicEngine, coords, snapshot.bullets[i].entity_id,
-          storedSnapshotWrapper));
+          this->graphicEngine, this->audioEngine, coords,
+          snapshot.bullets[i].entity_id, storedSnapshotWrapper));
       break;
     case GunsIds::Gun2:
       this->addRenderable(std::make_unique<BulletGun1>(
-          this->graphicEngine, coords, snapshot.bullets[i].entity_id,
-          storedSnapshotWrapper));
+          this->graphicEngine, this->audioEngine, coords,
+          snapshot.bullets[i].entity_id, storedSnapshotWrapper));
       break;
     }
   }
