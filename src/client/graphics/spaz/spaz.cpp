@@ -75,8 +75,12 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
                         ? AnimationState::NotFlip
                         : AnimationState::Flip;
 
+  bool canBreakAnimation = this->currentAnimation->canBreakAnimation();
+
   if (newEntityInfo.is_dead == NumericBool::True) {
-    if (this->entityInfo.is_dead == NumericBool::False) {
+
+    if (this->currentAnimation->getCode() != GenericSpriteCodes::Death) {
+
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, GenericSpriteCodes::Death,
           &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Death),
@@ -87,7 +91,9 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
   }
 
   if (newEntityInfo.was_hurt == NumericBool::True) {
-    if (this->entityInfo.was_hurt == NumericBool::False) {
+
+    if (this->currentAnimation->getCode() != GenericSpriteCodes::Hurt) {
+
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, GenericSpriteCodes::Hurt,
           &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Hurt),
@@ -98,84 +104,127 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
   }
 
   if (newEntityInfo.shot == NumericBool::True) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, GenericSpriteCodes::Shooting,
-        &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Shooting),
-        AnimationState::NotCycle, SpazAnimationSpeedCoefs::Shooting, shouldFlip,
-        this->hitbox);
+    this->audioEngine.playGun1ShotSound();
+
+    if (this->currentAnimation->getCode() != GenericSpriteCodes::Shooting) {
+
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::Shooting,
+          &this->graphicEngine.getSpazGenericSprite(
+              GenericSpriteCodes::Shooting),
+          AnimationState::NotCycle, SpazAnimationSpeedCoefs::Shooting,
+          shouldFlip, this->hitbox);
+    }
     return;
 
   } else if (newEntityInfo.shot_special == NumericBool::True) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, SpazSpecialsCodes::SideKick,
-        &this->graphicEngine.getSpazSpecialSprite(SpazSpecialsCodes::SideKick),
-        AnimationState::NotCycle, SpazAnimationSpeedCoefs::SideKick, shouldFlip,
-        this->hitbox);
-    return;
-  }
 
-  if (newEntityInfo.is_falling == NumericBool::True) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, GenericSpriteCodes::Falling,
-        &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Falling),
-        AnimationState::Cycle, SpazAnimationSpeedCoefs::Falling, shouldFlip,
-        this->hitbox);
-    return;
+    if (this->currentAnimation->getCode() !=
+        SpazAnimationSpeedCoefs::SideKick) {
 
-  } else if (newEntityInfo.is_jumping == NumericBool::True) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, GenericSpriteCodes::Jumping,
-        &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Jumping),
-        AnimationState::NotCycle, SpazAnimationSpeedCoefs::Jumping, shouldFlip,
-        this->hitbox);
-    return;
-  }
-
-  if (newEntityInfo.is_running == NumericBool::True) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, GenericSpriteCodes::Running,
-        &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Running),
-        AnimationState::Cycle, SpazAnimationSpeedCoefs::Running, shouldFlip,
-        this->hitbox);
-    return;
-
-  } else if (newEntityInfo.is_walking == NumericBool::True) {
-    if (newEntityInfo.is_intoxicated == NumericBool::True) {
       this->currentAnimation = std::make_unique<AnimationState>(
-          this->graphicEngine, GenericSpriteCodes::IntoxicatedWalking,
-          &this->graphicEngine.getSpazGenericSprite(
-              GenericSpriteCodes::IntoxicatedWalking),
-          AnimationState::Cycle, SpazAnimationSpeedCoefs::IntoxicatedWalking,
+          this->graphicEngine, SpazSpecialsCodes::SideKick,
+          &this->graphicEngine.getSpazSpecialSprite(
+              SpazSpecialsCodes::SideKick),
+          AnimationState::NotCycle, SpazAnimationSpeedCoefs::SideKick,
           shouldFlip, this->hitbox);
-    } else {
-      this->currentAnimation = std::make_unique<AnimationState>(
-          this->graphicEngine, GenericSpriteCodes::Walking,
-          &this->graphicEngine.getSpazGenericSprite(
-              GenericSpriteCodes::Walking),
-          AnimationState::Cycle, SpazAnimationSpeedCoefs::Walking, shouldFlip,
-          this->hitbox);
     }
     return;
   }
 
-  bool canBreakAnimation = this->currentAnimation->canBreakAnimation();
+  if (newEntityInfo.is_falling == NumericBool::True && canBreakAnimation) {
 
-  if (newEntityInfo.is_intoxicated == NumericBool::True && canBreakAnimation) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, GenericSpriteCodes::IntoxicatedIdle,
-        &this->graphicEngine.getSpazGenericSprite(
-            GenericSpriteCodes::IntoxicatedIdle),
-        AnimationState::Cycle, SpazAnimationSpeedCoefs::IntoxicatedIdle,
-        shouldFlip, this->hitbox);
+    if (this->currentAnimation->getCode() != GenericSpriteCodes::Falling) {
+
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::Falling,
+          &this->graphicEngine.getSpazGenericSprite(
+              GenericSpriteCodes::Falling),
+          AnimationState::Cycle, SpazAnimationSpeedCoefs::Falling, shouldFlip,
+          this->hitbox);
+    }
+
     return;
 
-  } else if (canBreakAnimation) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, GenericSpriteCodes::Idle,
-        &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Idle),
-        AnimationState::Cycle, SpazAnimationSpeedCoefs::Idle, shouldFlip,
-        this->hitbox);
+  } else if (newEntityInfo.is_jumping == NumericBool::True &&
+             canBreakAnimation) {
+
+    if (this->currentAnimation->getCode() != GenericSpriteCodes::Jumping) {
+
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::Jumping,
+          &this->graphicEngine.getSpazGenericSprite(
+              GenericSpriteCodes::Jumping),
+          AnimationState::NotCycle, SpazAnimationSpeedCoefs::Jumping,
+          shouldFlip, this->hitbox);
+
+      this->audioEngine.playJumpSound();
+    }
+
     return;
+  }
+
+  if (newEntityInfo.is_running == NumericBool::True) {
+
+    if (this->currentAnimation->getCode() != GenericSpriteCodes::Running) {
+
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::Running,
+          &this->graphicEngine.getSpazGenericSprite(
+              GenericSpriteCodes::Running),
+          AnimationState::Cycle, SpazAnimationSpeedCoefs::Running, shouldFlip,
+          this->hitbox);
+    }
+    return;
+
+  } else if (newEntityInfo.is_walking == NumericBool::True &&
+             canBreakAnimation) {
+
+    if (this->currentAnimation->getCode() != GenericSpriteCodes::Walking) {
+
+      if (newEntityInfo.is_intoxicated == NumericBool::True) {
+
+        this->currentAnimation = std::make_unique<AnimationState>(
+            this->graphicEngine, GenericSpriteCodes::IntoxicatedWalking,
+            &this->graphicEngine.getSpazGenericSprite(
+                GenericSpriteCodes::IntoxicatedWalking),
+            AnimationState::Cycle, SpazAnimationSpeedCoefs::IntoxicatedWalking,
+            shouldFlip, this->hitbox);
+      } else {
+
+        this->currentAnimation = std::make_unique<AnimationState>(
+            this->graphicEngine, GenericSpriteCodes::Walking,
+            &this->graphicEngine.getSpazGenericSprite(
+                GenericSpriteCodes::Walking),
+            AnimationState::Cycle, SpazAnimationSpeedCoefs::Walking, shouldFlip,
+            this->hitbox);
+      }
+    }
+    return;
+  }
+
+  if (this->currentAnimation->getCode() != GenericSpriteCodes::Idle) {
+
+    if (newEntityInfo.is_intoxicated == NumericBool::True &&
+        canBreakAnimation) {
+
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::IntoxicatedIdle,
+          &this->graphicEngine.getSpazGenericSprite(
+              GenericSpriteCodes::IntoxicatedIdle),
+          AnimationState::Cycle, SpazAnimationSpeedCoefs::IntoxicatedIdle,
+          shouldFlip, this->hitbox);
+      return;
+
+    } else if (canBreakAnimation) {
+
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::Idle,
+          &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Idle),
+          AnimationState::Cycle, SpazAnimationSpeedCoefs::Idle, shouldFlip,
+          this->hitbox);
+      return;
+    }
   }
 }
 
