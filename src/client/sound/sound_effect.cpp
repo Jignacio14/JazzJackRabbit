@@ -1,6 +1,6 @@
 #include "./sound_effect.h"
 
-const static int DELAY_FOR_SOUND_PLAY = 3000; // In ms
+const static int DELAY_FOR_SOUND_PLAY = 300; // In ms
 const static int FIRST_FREE_AVAILABLE_CHANNEL_ID = -1;
 
 SoundEffect::SoundEffect(SDL2pp::Mixer &sdlMixer, SDL2pp::Chunk &sound)
@@ -14,3 +14,5 @@ void SoundEffect::run() {
 void SoundEffect::play() { this->start(); }
 
 SoundEffect::~SoundEffect() { this->join(); }
+
+bool SoundEffect::isAlive() const { return this->is_alive(); }

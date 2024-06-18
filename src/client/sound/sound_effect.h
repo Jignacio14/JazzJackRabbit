@@ -16,6 +16,8 @@ public:
 
   void play();
 
+  bool isAlive() const;
+
   ~SoundEffect() override;
 };
 

@@ -25,8 +25,9 @@ Jazz::Jazz(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
            SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
       audioEngine(audioEngine), currentAnimation(nullptr),
-      currentCoords(currentCoords), isWalkingLeft(false), isWalkingRight(false),
-      isWalkingUp(false), isWalkingDown(false), isRunning(false), entityInfo(),
+      currentSound(nullptr), currentCoords(currentCoords), isWalkingLeft(false),
+      isWalkingRight(false), isWalkingUp(false), isWalkingDown(false),
+      isRunning(false), entityInfo(),
       hitbox(HitboxSizes::PlayerWidth, HitboxSizes::PlayerHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -134,6 +135,15 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
         &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Jumping),
         AnimationState::NotCycle, JazzAnimationSpeedCoefs::Jumping, shouldFlip,
         this->hitbox);
+
+    if (this->entityInfo.is_jumping == NumericBool::False) {
+      /* this->currentSound = std::make_unique<SoundEffect>(
+           this->audioEngine.getSdlMixerReference(),
+           this->audioEngine.getSound());
+       this->currentSound->play();*/
+      this->audioEngine.playSound();
+    }
+
     return;
   }
 

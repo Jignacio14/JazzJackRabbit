@@ -106,12 +106,14 @@ void Renderer::updateGame(int iterationNumber) {
 }
 
 void Renderer::createNewPlayableCharacters(const Snapshot &snapshot) {
+  uint8_t playerId = this->player.getId();
   for (int i = 0; i < snapshot.sizePlayers; i++) {
-    bool exists =
-        std::any_of(this->renderables.begin(), this->renderables.end(),
-                    [snapshot, i](const auto &renderable) {
-                      return snapshot.players[i].user_id == renderable->getId();
-                    });
+    bool exists = std::any_of(
+        this->renderables.begin(), this->renderables.end(),
+        [snapshot, i, playerId](const auto &renderable) {
+          return snapshot.players[i].user_id == renderable->getId() ||
+                 snapshot.players[i].user_id == playerId;
+        });
 
     if (exists) {
       continue;

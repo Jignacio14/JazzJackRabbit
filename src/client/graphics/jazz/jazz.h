@@ -5,6 +5,7 @@
 #include "../../../common/hitbox.h"
 #include "../../renderable.h"
 #include "../../sound/audio_engine.h"
+#include "../../sound/sound_effect.h"
 #include "../graphic_engine.h"
 #include "../playable_character.h"
 #include "../sprite.h"
@@ -24,6 +25,7 @@ private:
   AudioEngine &audioEngine;
 
   std::unique_ptr<AnimationState> currentAnimation;
+  std::unique_ptr<SoundEffect> currentSound;
 
   Coordinates currentCoords;
   // cppcheck-suppress unusedStructMember
