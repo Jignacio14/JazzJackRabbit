@@ -17,6 +17,8 @@ private:
   SDL2pp::Chunk carrotCollectedSound;
   SDL2pp::Chunk ammoCollectedSound;
 
+  SDL2pp::Chunk gameOverSound;
+
 public:
   explicit AudioLoader(SDL2pp::Mixer &sdlMixer);
 
@@ -31,6 +33,8 @@ public:
   SDL2pp::Chunk &getDiamondCollectedSound();
   SDL2pp::Chunk &getCarrotCollectedSound();
   SDL2pp::Chunk &getAmmoCollectedSound();
+
+  SDL2pp::Chunk &getGameOverSound();
 };
 
 #endif // AUDIO_LOADER_H

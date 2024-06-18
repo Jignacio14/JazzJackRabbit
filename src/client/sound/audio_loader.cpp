@@ -9,7 +9,8 @@ AudioLoader::AudioLoader(SDL2pp::Mixer &sdlMixer)
       coinCollectedSound("src/client/sound/files/coin_collected.mp3"),
       diamondCollectedSound("src/client/sound/files/diamond_collected.mp3"),
       carrotCollectedSound("src/client/sound/files/carrot_collected.mp3"),
-      ammoCollectedSound("src/client/sound/files/ammo_collected.mp3") {}
+      ammoCollectedSound("src/client/sound/files/ammo_collected.mp3"),
+      gameOverSound("src/client/sound/files/game_over.mp3") {}
 
 void AudioLoader::preloadAudios() {}
 
@@ -40,3 +41,5 @@ SDL2pp::Chunk &AudioLoader::getCarrotCollectedSound() {
 SDL2pp::Chunk &AudioLoader::getAmmoCollectedSound() {
   return this->ammoCollectedSound;
 }
+
+SDL2pp::Chunk &AudioLoader::getGameOverSound() { return this->gameOverSound; }

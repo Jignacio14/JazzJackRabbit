@@ -23,8 +23,9 @@ const static int FONT_SIZE_SMALL = 14;
 const static int FONT_SIZE_LEADERBOARD = 10;
 
 Leaderboard::Leaderboard(SDL2pp::Renderer &sdlRenderer,
-                         Sprite &backgroundSprite)
-    : sdlRenderer(sdlRenderer), backgroundSprite(backgroundSprite),
+                         AudioEngine &audioEngine, Sprite &backgroundSprite)
+    : sdlRenderer(sdlRenderer), audioEngine(audioEngine),
+      backgroundSprite(backgroundSprite), didRenderOnce(false),
       gameOverText(this->sdlRenderer, EMPTY_TEXT, TEXT_COLOR, FONT_SIZE_BIG,
                    TextFontsCodes::Joystix),
       leaderboardTitleText(this->sdlRenderer, EMPTY_TEXT, TEXT_COLOR,
@@ -122,6 +123,11 @@ void Leaderboard::renderPlayersList(SnapshotWrapper &snapshot) {
 }
 
 void Leaderboard::display(SnapshotWrapper &snapshot) {
+  if (!this->didRenderOnce) {
+    this->audioEngine.playGameOverSound();
+  }
+
+  this->didRenderOnce = true;
   this->renderBackground();
   this->renderHeader();
   this->renderPlayersList(snapshot);

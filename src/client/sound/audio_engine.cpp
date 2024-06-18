@@ -73,3 +73,7 @@ void AudioEngine::playCarrotCollectedSound() {
 void AudioEngine::playAmmoCollectedSound() {
   this->playSound(this->audioLoader.getAmmoCollectedSound());
 }
+
+void AudioEngine::playGameOverSound() {
+  this->playSound(this->audioLoader.getGameOverSound());
+}

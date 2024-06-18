@@ -34,6 +34,8 @@ public:
   void playDiamondCollectedSound();
   void playCarrotCollectedSound();
   void playAmmoCollectedSound();
+
+  void playGameOverSound();
 };
 
 #endif // AUDIO_ENGINE_H

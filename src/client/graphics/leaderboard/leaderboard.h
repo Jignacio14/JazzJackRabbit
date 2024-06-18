@@ -2,6 +2,7 @@
 #define LEADERBOARD_H
 
 #include "../../renderable.h"
+#include "../../sound/audio_engine.h"
 #include "../graphic_engine.h"
 #include "../sprite.h"
 #include "../text.h"
@@ -11,7 +12,11 @@
 class Leaderboard {
 private:
   SDL2pp::Renderer &sdlRenderer;
+  AudioEngine &audioEngine;
   Sprite &backgroundSprite;
+
+  // cppcheck-suppress unusedStructMember
+  bool didRenderOnce;
 
   Text gameOverText;
   Text leaderboardTitleText;
@@ -24,7 +29,8 @@ private:
   void renderPlayersList(SnapshotWrapper &snapshot);
 
 public:
-  Leaderboard(SDL2pp::Renderer &sdlRenderer, Sprite &backgroundSprite);
+  Leaderboard(SDL2pp::Renderer &sdlRenderer, AudioEngine &audioEngine,
+              Sprite &backgroundSprite);
 
   void display(SnapshotWrapper &snapshot);
 };
