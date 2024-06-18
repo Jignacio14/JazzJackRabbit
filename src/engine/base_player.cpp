@@ -12,7 +12,7 @@ const static int INITIAL_Y = 1050;
 BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
                        Snapshot &snapshot, int position)
     : player_id(player_id), player_name(player_name), health(MAX_HEALTH),
-      weapon(std::make_unique<InitialWeapon>()),
+      weapon(std::make_unique<InitialWeapon>(snapshot)),
       state(std::make_unique<Alive>()),
       rectangle(Rectangle(Coordinates(INITIAL_X, INITIAL_Y),
                           Coordinates(INITIAL_X + HitboxSizes::PlayerWidth,
@@ -32,6 +32,17 @@ int BasePlayer::find_position() {
 void BasePlayer::update() {
   position = find_position();
 
+  this->update_jump();
+
+  this->update_movement();
+
+  weapon->update();
+
+  if (position != -1)
+    snapshot.players[position].shot = NumericBool::False;
+}
+
+void BasePlayer::update_jump() {
   if (positions_to_jump > 0) {
     bool is_jumping = move_up();
     if (!is_jumping) {
@@ -46,7 +57,9 @@ void BasePlayer::update() {
     if (!is_falling)
       snapshot.players[position].is_falling = NumericBool::False;
   }
+}
 
+void BasePlayer::update_movement() {
   if (is_moving && facing_direction == FacingDirectionsIds::Right) {
     if (is_running)
       move_right(RUNNING_SPEED);
@@ -220,7 +233,32 @@ void BasePlayer::heal(uint8_t health_gain) {
   }
 }
 
-void BasePlayer::shoot() {}
+void BasePlayer::shoot() {
+
+  Rectangle bullet_rectangle(Coordinates(0, 0), Coordinates(0, 0));
+  if (facing_direction == FacingDirectionsIds::Right) {
+    Coordinates top_left(rectangle.getBottomRightCorner().getX() + 1,
+                         rectangle.getTopLeftCorner().getY());
+    Coordinates bottom_right(
+        rectangle.getBottomRightCorner().getX() + HitboxSizes::BulletWidth + 1,
+        rectangle.getTopLeftCorner().getY() + HitboxSizes::BulletHeight);
+    Rectangle bullet_rectangle_aux(top_left, bottom_right);
+    bullet_rectangle = bullet_rectangle_aux;
+  } else if (facing_direction == FacingDirectionsIds::Left) {
+    Coordinates top_left(rectangle.getTopLeftCorner().getX() -
+                             HitboxSizes::BulletWidth - 1,
+                         rectangle.getTopLeftCorner().getY());
+    Coordinates bottom_right(rectangle.getTopLeftCorner().getX() - 1,
+                             rectangle.getTopLeftCorner().getY() +
+                                 HitboxSizes::BulletHeight);
+    Rectangle bullet_rectangle_aux(top_left, bottom_right);
+    bullet_rectangle = bullet_rectangle_aux;
+  }
+  weapon->shoot(bullet_rectangle, facing_direction, map);
+  if (position != -1) {
+    snapshot.players[position].shot = NumericBool::True;
+  }
+}
 
 BasePlayer::~BasePlayer() {
   // delete weapon;

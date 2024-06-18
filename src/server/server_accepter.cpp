@@ -14,6 +14,7 @@ void Accepter::run() {
 }
 
 void Accepter::checkForDisconnected() {
+  this->gamesMonitor.removeEndedGames();
   for (auto client = clients.begin(); client != clients.end();) {
     std::unique_ptr<Sender> &current = *client;
     if (!current->is_alive()) {

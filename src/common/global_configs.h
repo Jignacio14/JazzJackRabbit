@@ -43,6 +43,24 @@ private:
   // cppcheck-suppress unusedStructMember
   uint32_t maxPlayersInHudLeaderboard;
 
+  // cppcheck-suppress unusedStructMember
+  uint16_t bullet1MaxAmmo;
+  // cppcheck-suppress unusedStructMember
+  uint8_t bullet1Speed;
+  // cppcheck-suppress unusedStructMember
+  uint8_t bullet1Damage;
+  // cppcheck-suppress unusedStructMember
+  float bullet1Cooldown;
+
+  // cppcheck-suppress unusedStructMember
+  uint16_t bullet2MaxAmmo;
+  // cppcheck-suppress unusedStructMember
+  uint8_t bullet2Speed;
+  // cppcheck-suppress unusedStructMember
+  uint8_t bullet2Damage;
+  // cppcheck-suppress unusedStructMember
+  float bullet2Cooldown;
+
   GlobalConfigs();
 
   /*
@@ -82,6 +100,14 @@ public:
   uint32_t getTargetTicksPerSecondOfServer() const;
   uint32_t getMaxInstructionsPerTickOfServer() const;
   uint32_t getMaxPlayersInHudLeaderboard() const;
+  uint16_t getBullet1MaxAmmo() const;
+  uint8_t getBullet1Speed() const;
+  uint8_t getBullet1Damage() const;
+  float getBullet1Cooldown() const;
+  uint16_t getBullet2MaxAmmo() const;
+  uint8_t getBullet2Speed() const;
+  uint8_t getBullet2Damage() const;
+  float getBullet2Cooldown() const;
 };
 
 #endif // GLOBAL_CONFIGS_H

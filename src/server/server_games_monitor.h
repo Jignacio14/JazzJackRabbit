@@ -33,6 +33,7 @@ public:
   std::unordered_map<std::string, uint16_t> getGamesStartInfo();
   std::pair<Queue<CommandCodeDto> &, u_int8_t>
   registerPlayer(PlayerInfo &player_status, Queue<Snapshot> &sender_queue);
+  void removeEndedGames();
 
   ~GamesMonitor();
 };

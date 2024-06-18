@@ -260,4 +260,7 @@ void Game::ereasePlayer(uint8_t player_id) {
 
 void Game::kill() { this->_is_alive = false; }
 
-Game::~Game() {}
+Game::~Game() {
+  this->kill();
+  this->join();
+}

@@ -51,4 +51,15 @@ GamesMonitor::createNewGame(PlayerInfo &player_status,
   return game_tracker[server_name]->addPlayer(sender_queue, player_status);
 }
 
+void GamesMonitor::removeEndedGames() {
+  std::lock_guard<std::mutex> lck(this->mtx);
+  for (auto it = game_tracker.begin(); it != game_tracker.end();) {
+    if (!it->second->isGameRunning()) {
+      it = game_tracker.erase(it);
+    } else {
+      ++it;
+    }
+  }
+}
+
 GamesMonitor::~GamesMonitor() {}

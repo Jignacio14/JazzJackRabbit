@@ -1,5 +1,5 @@
-max_players_per_game: 2 # CANNOT EXEED 10
-max_game_duration: 100
+max_players_per_game: 1 # CANNOT EXEED 10
+max_game_duration: 30
 max_username_length: 11
 min_number_of_players: 1
 max_port_number: 65535
@@ -24,3 +24,15 @@ starting_points: 0
 max_life: 100
 starting_ammo_gun_1: 20
 starting_ammo_gun_2: 0
+
+# Bullets Parameters
+bullet_1_max_ammo: 999
+bullet_1_speed: 7
+bullet_1_damage: 5
+bullet_1_cooldown: 3
+
+bullet_2_max_ammo: 500
+bullet_2_speed: 10
+bullet_2_damage: 10
+bullet_2_cooldown: 2
+

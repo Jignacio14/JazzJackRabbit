@@ -1,4 +1,5 @@
 #include "./server_map.h"
+#include <iostream>
 #include <yaml-cpp/yaml.h>
 
 ServerMap::ServerMap() {
