@@ -107,7 +107,6 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
   }
 
   if (newEntityInfo.shot == NumericBool::True) {
-    this->audioEngine.playGun1ShotSound();
 
     if (this->currentAnimation->getCode() != GenericSpriteCodes::Shooting) {
 

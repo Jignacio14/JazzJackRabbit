@@ -78,6 +78,7 @@ void Carrot::update(SnapshotWrapper &snapshot) {
         AnimationState::NotCycle, CarrotAnimationSpeedCoefs::Shine,
         AnimationState::NotFlip, this->hitbox);
     this->isShowingExitAnimation = true;
+    this->audioEngine.playCarrotCollectedSound();
     return;
   }
 

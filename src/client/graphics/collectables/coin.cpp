@@ -77,6 +77,7 @@ void Coin::update(SnapshotWrapper &snapshot) {
         AnimationState::NotCycle, CoinAnimationSpeedCoefs::Shine,
         AnimationState::NotFlip, this->hitbox);
     this->isShowingExitAnimation = true;
+    this->audioEngine.playCoinCollectedSound();
     return;
   }
 

@@ -78,6 +78,7 @@ void Diamond::update(SnapshotWrapper &snapshot) {
         AnimationState::NotCycle, DiamondAnimationSpeedCoefs::Shine,
         AnimationState::NotFlip, this->hitbox);
     this->isShowingExitAnimation = true;
+    this->audioEngine.playDiamondCollectedSound();
     return;
   }
 

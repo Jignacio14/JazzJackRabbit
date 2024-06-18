@@ -31,6 +31,7 @@ BulletGun2::BulletGun2(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
                                " was not found in the initialization snapshot";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
   }
+  this->audioEngine.playGun2ShotSound();
 }
 
 void BulletGun2::render(int iterationNumber) {}
@@ -75,6 +76,7 @@ void BulletGun2::update(SnapshotWrapper &snapshot) {
         AnimationState::NotCycle, BulletGun2AnimationSpeedCoefs::Impact,
         AnimationState::NotFlip, this->hitbox);
     this->isShowingExitAnimation = true;
+    this->audioEngine.playBulletImpactSound();
     return;
   }
 

@@ -42,6 +42,34 @@ void AudioEngine::playJumpSound() {
   this->playSound(this->audioLoader.getJumpSound());
 }
 
+void AudioEngine::playGroundHitSound() {
+  this->playSound(this->audioLoader.getGroundHitSound());
+}
+
 void AudioEngine::playGun1ShotSound() {
   this->playSound(this->audioLoader.getGun1ShotSound());
+}
+
+void AudioEngine::playGun2ShotSound() {
+  this->playSound(this->audioLoader.getGun2ShotSound());
+}
+
+void AudioEngine::playBulletImpactSound() {
+  this->playSound(this->audioLoader.getBulletImpactSound());
+}
+
+void AudioEngine::playCoinCollectedSound() {
+  this->playSound(this->audioLoader.getCoinCollectedSound());
+}
+
+void AudioEngine::playDiamondCollectedSound() {
+  this->playSound(this->audioLoader.getDiamondCollectedSound());
+}
+
+void AudioEngine::playCarrotCollectedSound() {
+  this->playSound(this->audioLoader.getCarrotCollectedSound());
+}
+
+void AudioEngine::playAmmoCollectedSound() {
+  this->playSound(this->audioLoader.getAmmoCollectedSound());
 }

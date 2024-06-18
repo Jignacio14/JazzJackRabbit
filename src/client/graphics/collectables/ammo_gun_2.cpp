@@ -77,6 +77,7 @@ void AmmoGun2::update(SnapshotWrapper &snapshot) {
         AnimationState::NotCycle, AmmoGun2AnimationSpeedCoefs::Shine,
         AnimationState::NotFlip, this->hitbox);
     this->isShowingExitAnimation = true;
+    this->audioEngine.playAmmoCollectedSound();
     return;
   }
 

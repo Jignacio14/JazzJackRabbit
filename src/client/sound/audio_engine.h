@@ -25,12 +25,15 @@ public:
 
   void preloadAudios();
 
-  // SDL2pp::Mixer &getSdlMixerReference();
-
-  // SDL2pp::Chunk &getSound();
-
   void playJumpSound();
+  void playGroundHitSound();
   void playGun1ShotSound();
+  void playGun2ShotSound();
+  void playBulletImpactSound();
+  void playCoinCollectedSound();
+  void playDiamondCollectedSound();
+  void playCarrotCollectedSound();
+  void playAmmoCollectedSound();
 };
 
 #endif // AUDIO_ENGINE_H
