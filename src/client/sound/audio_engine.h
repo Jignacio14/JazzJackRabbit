@@ -18,16 +18,19 @@ private:
 
   void removeFinishedAudios();
 
+  void playSound(SDL2pp::Chunk &sound);
+
 public:
   AudioEngine();
 
   void preloadAudios();
 
-  SDL2pp::Mixer &getSdlMixerReference();
+  // SDL2pp::Mixer &getSdlMixerReference();
 
-  SDL2pp::Chunk &getSound();
+  // SDL2pp::Chunk &getSound();
 
-  void playSound();
+  void playJumpSound();
+  void playGun1ShotSound();
 };
 
 #endif // AUDIO_ENGINE_H

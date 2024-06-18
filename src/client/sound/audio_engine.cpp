@@ -12,11 +12,12 @@ AudioEngine::AudioEngine()
 
 void AudioEngine::preloadAudios() { this->audioLoader.preloadAudios(); }
 
-SDL2pp::Chunk &AudioEngine::getSound() { return this->audioLoader.getSound(); }
+/*SDL2pp::Chunk &AudioEngine::getSound() { return this->audioLoader.getSound();
+}
 
 SDL2pp::Mixer &AudioEngine::getSdlMixerReference() {
   return std::ref(this->sdlMixer);
-}
+}*/
 
 void AudioEngine::removeFinishedAudios() {
   this->sounds.remove_if([](const std::unique_ptr<SoundEffect> &soundEffect) {
@@ -24,9 +25,9 @@ void AudioEngine::removeFinishedAudios() {
   });
 }
 
-void AudioEngine::playSound() {
-  std::unique_ptr<SoundEffect> sound = std::make_unique<SoundEffect>(
-      this->sdlMixer, this->audioLoader.getSound());
+void AudioEngine::playSound(SDL2pp::Chunk &soundChunk) {
+  std::unique_ptr<SoundEffect> sound =
+      std::make_unique<SoundEffect>(this->sdlMixer, soundChunk);
 
   this->sounds.push_back(std::move(sound));
 
@@ -35,4 +36,12 @@ void AudioEngine::playSound() {
   if (this->sounds.size() % SOUNDS_COUNT_TRIGGER_FOR_CLEANUP == 0) {
     this->removeFinishedAudios();
   }
+}
+
+void AudioEngine::playJumpSound() {
+  this->playSound(this->audioLoader.getJumpSound());
+}
+
+void AudioEngine::playGun1ShotSound() {
+  this->playSound(this->audioLoader.getGun1ShotSound());
 }
