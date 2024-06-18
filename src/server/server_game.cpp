@@ -25,7 +25,7 @@ const static int PLAYER_INITIAL_POSITION_Y = 1050;
 
 Game::Game(GameMonitor &monitor, Queue<CommandCodeDto> &queue)
     : monitor(monitor), messages(queue), players(0), snapshot{},
-      iterationNumber(0), rate(SERVER_RATE) {}
+      gameEnded(false), iterationNumber(0), rate(SERVER_RATE) {}
 
 double Game::now() {
   return std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -53,6 +53,7 @@ void Game::gameLoop() {
 
       if (this->snapshot.timeLeft < 0) {
         this->snapshot.gameEnded = NumericBool::True;
+        this->gameEnded = true;
         this->snapshot.timeLeft = (double)0;
         this->_is_alive = false;
       }
@@ -259,6 +260,8 @@ void Game::ereasePlayer(uint8_t player_id) {
 }
 
 void Game::kill() { this->_is_alive = false; }
+
+bool Game::didGameEnd() { return this->gameEnded; };
 
 Game::~Game() {
   this->kill();

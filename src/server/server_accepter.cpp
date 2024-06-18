@@ -15,22 +15,23 @@ void Accepter::run() {
 
 void Accepter::checkForDisconnected() {
   this->gamesMonitor.removeEndedGames();
-  for (auto client = clients.begin(); client != clients.end();) {
-    std::unique_ptr<Sender> &current = *client;
-    if (!current->is_alive()) {
-      current->stop();
-      client = clients.erase(client);
+
+  this->clients.remove_if([](const std::unique_ptr<Sender> &client) {
+    if (!client->is_alive()) {
+      client->stop();
+      return true;
     }
-    client++;
-  }
+    return false;
+  });
 }
 
 void Accepter::accept() {
   Socket peer = this->skt_aceptator.accept();
   std::unique_ptr<Sender> sender =
-      std::make_unique<Sender>(std::move(peer), this->gamesMonitor);
-  sender->start();
-  clients.push_back(std::move(sender));
+      std::make_unique<Sender>(std::move(peer), std::ref(this->gamesMonitor));
+
+  this->clients.push_back(std::move(sender));
+  this->clients.back()->start();
 }
 
 void Accepter::kill() {
@@ -41,10 +42,10 @@ void Accepter::kill() {
 }
 
 void Accepter::killAll() {
-  for (auto &client : clients) {
+  for (auto &client : this->clients) {
     client->kill();
   }
-  clients.clear();
+  this->clients.clear();
 }
 
 Accepter::~Accepter() {}
