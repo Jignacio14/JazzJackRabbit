@@ -30,6 +30,7 @@ public:
   void ereasedPlayer(uint8_t player_id);
   std::pair<Queue<CommandCodeDto> &, uint8_t>
   addPlayer(Queue<Snapshot> &queue, const PlayerInfo &player_info);
+  bool isGameRunning();
 };
 
 #endif

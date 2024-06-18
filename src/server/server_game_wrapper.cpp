@@ -27,6 +27,8 @@ GameWrapper::addPlayer(Queue<Snapshot> &queue, const PlayerInfo &player_info) {
                                                      player_id);
 }
 
+bool GameWrapper::isGameRunning() { return this->game.is_alive(); }
+
 void GameWrapper::ereasedPlayer(uint8_t player_id) {
   // this->monitor.ereasePlayer();
   this->players--;
