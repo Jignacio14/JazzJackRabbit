@@ -36,6 +36,11 @@ void BasePlayer::update() {
   this->update_jump();
 
   this->update_movement();
+
+  weapon->update();
+
+  if (position != -1)
+    snapshot.players[position].shot = NumericBool::False;
 }
 
 void BasePlayer::update_jump() {

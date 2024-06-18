@@ -1,6 +1,7 @@
 
 #include "initial_weapon.h"
 #include "../../common/global_configs.h"
+#include <algorithm>
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
@@ -23,4 +24,15 @@ void InitialWeapon::shoot(Rectangle rectangle, uint8_t facing_direction,
     // La inicial tiene balas infinitas.
     // ammo--;
   }
+}
+
+void InitialWeapon::update() {
+  for (auto &bullet : bullets_shot) {
+    bullet->move();
+  }
+  bullets_shot.erase(std::remove_if(bullets_shot.begin(), bullets_shot.end(),
+                                    [](const std::unique_ptr<Bullet> &bullet) {
+                                      return !bullet->is_alive();
+                                    }),
+                     bullets_shot.end());
 }

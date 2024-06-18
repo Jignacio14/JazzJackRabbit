@@ -12,6 +12,7 @@ public:
   explicit InitialWeapon(Snapshot &snap);
   void shoot(Rectangle rectangle, uint8_t facing_direction,
              ServerMap map) override;
+  void update() override;
 };
 
 #endif // JAZZJACKRABBIT_INITIAL_WEAPON_H

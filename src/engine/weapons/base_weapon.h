@@ -32,6 +32,7 @@ public:
              uint8_t ammo_speed);
   virtual void shoot(Rectangle rectangle, uint8_t facing_direction,
                      ServerMap map) = 0;
+  virtual void update() = 0;
 };
 
 #endif // JAZZJACKRABBIT_BASE_WEAPON_H
