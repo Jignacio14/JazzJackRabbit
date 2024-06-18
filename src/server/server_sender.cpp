@@ -15,6 +15,7 @@ Sender::Sender(Socket peer, GamesMonitor &games_monitor_ref)
 }
 
 void Sender::sendGamesOptions() {
+  this->gamesMonitor.removeEndedGames();
   std::unordered_map<std::string, uint16_t> games =
       this->gamesMonitor.getGamesStartInfo();
   if (!this->servprot.sendGameInfo(games)) {
