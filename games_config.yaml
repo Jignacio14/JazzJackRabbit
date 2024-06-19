@@ -1,9 +1,9 @@
-max_players_per_game: 1 # CANNOT EXEED 10
+max_players_per_game: 2 # CANNOT EXEED 10
 max_game_duration: 30
 max_username_length: 11
 min_number_of_players: 1
 max_port_number: 65535
-play_background_music: true
+play_background_music: false
 background_music_volume_lobby: 20 # Out of 100
 background_music_volume_game: 20 # Out of 128
 
