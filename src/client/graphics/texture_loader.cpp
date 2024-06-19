@@ -243,11 +243,11 @@ void TextureLoader::preloadTextures() {
                    nullptr, this->carrotusScenarioSprites);
 
   // Load decoration
-  int decorationAlpha = 160;
+  int decorationAlphaCarrotus = 160;
   loadSpriteWithAlphaModLambda(
       "src/client/sprites/carrotus_scenario/", ScenarioSpriteCodes::Decoration,
       spriteNamesMap.map.at(ScenarioSpriteCodes::Decoration), WHITE_COLOR_KEY,
-      this->carrotusScenarioSprites, decorationAlpha);
+      this->carrotusScenarioSprites, decorationAlphaCarrotus);
 
   // Load top_grass
   loadSpriteLambda("src/client/sprites/carrotus_scenario/",
@@ -270,12 +270,12 @@ void TextureLoader::preloadTextures() {
                    nullptr, this->beachWorldScenarioSprites);
 
   // Load decoration
-  int decorationAlpha = 220;
+  int decorationAlphaBeachWorld = 220;
   loadSpriteWithAlphaModLambda(
       "src/client/sprites/beach_world_scenario/",
       ScenarioSpriteCodes::Decoration,
       spriteNamesMap.map.at(ScenarioSpriteCodes::Decoration), BLACK_COLOR_KEY,
-      this->beachWorldScenarioSprites, decorationAlpha);
+      this->beachWorldScenarioSprites, decorationAlphaBeachWorld);
 
   // Load top_grass
   loadSpriteLambda("src/client/sprites/beach_world_scenario/",
