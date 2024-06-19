@@ -45,11 +45,12 @@ const static int BACKGROUND_MUSIC_VOLUME =
 MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
                        std::string &username, GameConfigs *game,
                        Snapshot *initialSnapshot, uint8_t &userCharacter,
-                       std::unique_ptr<Lobby> lobby)
+                       uint8_t &scenarioSelected, std::unique_ptr<Lobby> lobby)
     : QMainWindow(parent), ui(new Ui::MainWindow), hostname(hostname),
       port(port), username(username), finalGameConfigs(game),
       initialSnapshot(initialSnapshot), gameOwnerName(""), gameDuration(0),
       maxPlayers(0), currentPlayers(1), characterSelected(userCharacter),
+      scenarioSelected(scenarioSelected),
       buttonClickSound(BUTTON_CLICK_RESOURCE_SOUND_PATH),
       jazzAnimation(JAZZ_MENU_ANIMATION_RESOURCE_PATH),
       spazAnimation(SPAZ_MENU_ANIMATION_RESOURCE_PATH),

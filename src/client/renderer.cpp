@@ -30,18 +30,20 @@ const static double RATE = ((double)1) / TARGET_FPS;
 
 Renderer::Renderer(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
                    int id, Socket socket, Player &player,
-                   SnapshotWrapper &initialSnapshot)
+                   SnapshotWrapper &initialSnapshot, uint8_t &scenarioSelected)
     : client_id(id), keep_running(true), rate(RATE),
       graphicEngine(graphicEngine), audioEngine(audioEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
       player(player), hud(this->graphicEngine, this->player),
-      map(this->graphicEngine, this->player), debugPanel(this->sdlRenderer),
+      map(this->graphicEngine, this->player, scenarioSelected),
+      debugPanel(this->sdlRenderer),
       leaderboard(this->sdlRenderer, this->audioEngine,
                   this->graphicEngine.getLeaderboardSprite()),
       client(std::move(socket), id),
       latestSnapshot(std::make_unique<SnapshotWrapper>(
           initialSnapshot.transferSnapshotDto())),
-      keyboardHandler(this->client, this->debugPanel) {}
+      keyboardHandler(this->client, this->debugPanel),
+      scenarioSelected(scenarioSelected) {}
 
 void Renderer::addRenderable(std::unique_ptr<Renderable> renderable) {
   this->renderables.push_back(std::move(renderable));
@@ -269,7 +271,11 @@ void Renderer::sleep(double timeToSleep) {
 }
 
 void Renderer::run() {
-  this->audioEngine.playCarrotusBackgroundMusic();
+  if (this->scenarioSelected == ScenariosIds::BeachWorld) {
+    this->audioEngine.playBeachWorldBackgroundMusic();
+  } else {
+    this->audioEngine.playCarrotusBackgroundMusic();
+  }
 
   int iterationNumber = 0;
 

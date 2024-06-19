@@ -47,6 +47,7 @@ int main(int argc, char *argv[]) {
   uint32_t port(0);
   std::string username("");
   uint8_t userCharacter = PlayableCharactersIds::NoneSelected;
+  uint8_t scenarioSelected = ScenariosIds::BeachWorld;
 
   Snapshot initialSnapshotDto;
   Snapshot *initialSnapshotDtoPtr = &initialSnapshotDto;
@@ -61,7 +62,8 @@ int main(int argc, char *argv[]) {
   try {
 
     StartupScreen startupScreen(argc, argv, hostname, port, username, gamePtr,
-                                initialSnapshotDtoPtr, userCharacter);
+                                initialSnapshotDtoPtr, userCharacter,
+                                scenarioSelected);
 
     exitCode = startupScreen.show();
     lobby = startupScreen.getLobby();
@@ -83,7 +85,7 @@ int main(int argc, char *argv[]) {
                   initialSnapshot, playerId);
     Socket skt = lobby->transfer_socket();
     Renderer renderer(graphicEngine, audioEngine, playerId, std::move(skt),
-                      player, initialSnapshot);
+                      player, initialSnapshot, scenarioSelected);
     renderer.run();
 
     graphicEngine.closeWindow();

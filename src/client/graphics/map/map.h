@@ -15,6 +15,8 @@ private:
   GraphicEngine &graphicEngine;
   SDL2pp::Renderer &sdlRenderer;
   // cppcheck-suppress unusedStructMember
+  uint8_t &scenarioSelected;
+  // cppcheck-suppress unusedStructMember
   std::vector<uint8_t> randomSource;
 
   Sprite &backgroundSprite;
@@ -87,7 +89,7 @@ private:
                       Sprite &sprite);
 
 public:
-  explicit Map(GraphicEngine &graphicEngine, Player &player);
+  Map(GraphicEngine &graphicEngine, Player &player, uint8_t &scenarioSelected);
 
   virtual void render(int iterationNumber) override;
 

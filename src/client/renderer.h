@@ -46,6 +46,9 @@ private:
 
   KeyboardHandler keyboardHandler;
 
+  // cppcheck-suppress unusedStructMember
+  uint8_t &scenarioSelected;
+
   /*
    * Returns current time in seconds since epoch.
    */
@@ -68,7 +71,8 @@ private:
 
 public:
   Renderer(GraphicEngine &graphicEngine, AudioEngine &audioEngine, int id,
-           Socket socket, Player &player, SnapshotWrapper &initialSnapshot);
+           Socket socket, Player &player, SnapshotWrapper &initialSnapshot,
+           uint8_t &scenarioSelected);
 
   /*
    * It executes the game logic repeatedly, keeping a constant time rate between

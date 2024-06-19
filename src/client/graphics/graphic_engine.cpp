@@ -1,5 +1,6 @@
 #include "./graphic_engine.h"
 #include "../../common/global_configs.h"
+#include "../../data/convention.h"
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
@@ -63,6 +64,16 @@ Sprite &GraphicEngine::getCarrotusScenarioSprite(const uint8_t &spriteCode) {
 
 Sprite &GraphicEngine::getBeachWorldScenarioSprite(const uint8_t &spriteCode) {
   return this->textureLoader.getBeachWorldScenarioSprite(spriteCode);
+}
+
+Sprite &GraphicEngine::getScenarioSprite(const uint8_t &spriteCode,
+                                         const uint8_t &scenarioId) {
+
+  if (scenarioId == ScenariosIds::BeachWorld) {
+    return this->textureLoader.getBeachWorldScenarioSprite(spriteCode);
+  } else /* if ( scenarioId == ScenariosIds::Carrotus ) */ {
+    return this->textureLoader.getCarrotusScenarioSprite(spriteCode);
+  }
 }
 
 Sprite &GraphicEngine::getGun1Sprite(const uint8_t &spriteCode) {

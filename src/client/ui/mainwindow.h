@@ -72,6 +72,7 @@ private:
   uint32_t maxPlayers;
   uint32_t currentPlayers;
   uint8_t &characterSelected;
+  uint8_t &scenarioSelected;
 
   QSound buttonClickSound;
   QMovie jazzAnimation;
@@ -126,7 +127,7 @@ public:
   MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
              std::string &username, GameConfigs *game,
              Snapshot *initialSnapshot, uint8_t &userCharacter,
-             std::unique_ptr<Lobby> lobby);
+             uint8_t &scenarioSelected, std::unique_ptr<Lobby> lobby);
 
   std::unique_ptr<Lobby> getLobby();
 
