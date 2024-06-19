@@ -42,24 +42,18 @@ Lori::Lori(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
   }
 }
 
-void Lori::render(int iterationNumber) {}
-
 void Lori::render(int iterationNumber, Coordinates &coords) {
   this->currentAnimation->render(iterationNumber, coords);
 }
 
-void Lori::update(bool isWalking, bool isRunning, std::string movingDirection) {
-}
-
-void Lori::updateByCoordsDelta(int deltaX, int deltaY) {
-  this->currentCoords.setX(this->currentCoords.getX() + deltaX);
-  this->currentCoords.setY(this->currentCoords.getY() + deltaY);
-}
-
 void Lori::renderFromLeftCorner(int iterationNumber,
                                 const Coordinates &leftCorner) {
-  this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
-                                               this->currentCoords);
+  bool isInCameraFocus =
+      this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+  if (isInCameraFocus) {
+    this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
+                                                 this->currentCoords);
+  }
 }
 
 Coordinates Lori::getCoords() { return this->currentCoords; }
@@ -69,13 +63,16 @@ void Lori::setX(int x) { this->currentCoords.setX(x); }
 void Lori::setY(int y) { this->currentCoords.setX(y); }
 
 void Lori::updateAnimation(const SnapshotWrapper &snapshot,
-                           const PlayerDto &newEntityInfo) {
+                           const PlayerDto &newEntityInfo,
+                           const Coordinates &leftCorner) {
 
   bool shouldFlip = newEntityInfo.facing_direction == FacingDirectionsIds::Right
                         ? AnimationState::NotFlip
                         : AnimationState::Flip;
 
   bool canBreakAnimation = this->currentAnimation->canBreakAnimation();
+  bool isInCameraFocus =
+      this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
 
   if (newEntityInfo.is_dead == NumericBool::True) {
 
@@ -87,7 +84,9 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
           AnimationState::NotCycle, LoriAnimationSpeedCoefs::Death, shouldFlip,
           this->hitbox);
 
-      this->audioEngine.playLoriDeathSound();
+      if (isInCameraFocus) {
+        this->audioEngine.playLoriDeathSound();
+      }
     }
     return;
   }
@@ -101,13 +100,15 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
           &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Hurt),
           AnimationState::NotCycle, LoriAnimationSpeedCoefs::Hurt, shouldFlip,
           this->hitbox);
-      this->audioEngine.playLorihurtSound();
+
+      if (isInCameraFocus) {
+        this->audioEngine.playLorihurtSound();
+      }
     }
     return;
   }
 
   if (newEntityInfo.shot == NumericBool::True) {
-    this->audioEngine.playGun1ShotSound();
 
     if (this->currentAnimation->getCode() != GenericSpriteCodes::Shooting) {
 
@@ -133,6 +134,13 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
           shouldFlip, this->hitbox);
     }
     return;
+  }
+
+  if (this->currentAnimation->getCode() == GenericSpriteCodes::Falling &&
+      newEntityInfo.is_falling == NumericBool::False) {
+    if (isInCameraFocus) {
+      this->audioEngine.playGroundHitSound();
+    }
   }
 
   if (newEntityInfo.is_falling == NumericBool::True && canBreakAnimation) {
@@ -161,7 +169,9 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
           AnimationState::NotCycle, LoriAnimationSpeedCoefs::Jumping,
           shouldFlip, this->hitbox);
 
-      this->audioEngine.playJumpSound();
+      if (isInCameraFocus) {
+        this->audioEngine.playJumpSound();
+      }
     }
 
     return;
@@ -231,7 +241,7 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
   }
 }
 
-void Lori::update(SnapshotWrapper &snapshot) {
+void Lori::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
   PlayerDto newEntityInfo;
   bool foundPlayableCharacter =
       snapshot.getPlayerById(this->entityId, &newEntityInfo);
@@ -244,7 +254,7 @@ void Lori::update(SnapshotWrapper &snapshot) {
   this->currentCoords.setX(newEntityInfo.position_x);
   this->currentCoords.setY(newEntityInfo.position_y);
 
-  this->updateAnimation(snapshot, newEntityInfo);
+  this->updateAnimation(snapshot, newEntityInfo, leftCorner);
   this->entityInfo = newEntityInfo;
 }
 

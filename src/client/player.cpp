@@ -34,32 +34,16 @@ Player::Player(const std::string &username, const uint8_t &characterSelected,
     this->character =
         std::make_unique<Spaz>(this->graphicEngine, audioEngine, coords,
                                this->playerId, initialSnapshot);
-  } else {
+  } else /* if (characterSelected == PlayableCharactersIds::Lori) */ {
     this->character =
         std::make_unique<Lori>(this->graphicEngine, audioEngine, coords,
                                this->playerId, initialSnapshot);
   }
 }
 
-void Player::render(int iterationNumber) {
-  this->character->render(iterationNumber);
-}
-
 void Player::render(int iterationNumber, Coordinates &coords) {
   this->character->render(iterationNumber, coords);
 }
-
-void Player::renderFromLeftCorner(int iterationNumber,
-                                  const Coordinates &leftCorner) {}
-
-void Player::updateByCoordsDelta(int deltaX, int deltaY) {
-  this->character->updateByCoordsDelta(deltaX, deltaY);
-};
-
-void Player::update(bool isWalking, bool isRunning,
-                    std::string movingDirection) {
-  this->character->update(isWalking, isRunning, movingDirection);
-};
 
 Coordinates Player::getCoords() const { return this->character->getCoords(); }
 
@@ -69,7 +53,7 @@ void Player::playGunChangeAudio(const PlayerDto &oldPlayerInfo) {
   }
 }
 
-void Player::update(SnapshotWrapper &snapshot) {
+void Player::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
   PlayerDto oldPlayerInfo = this->playerInfo;
   bool foundPlayer = snapshot.getPlayerById(this->playerId, &this->playerInfo);
   if (!foundPlayer) {
@@ -78,7 +62,7 @@ void Player::update(SnapshotWrapper &snapshot) {
     return;
   }
 
-  this->character->update(snapshot);
+  this->character->update(snapshot, leftCorner);
   this->playGunChangeAudio(oldPlayerInfo);
 }
 

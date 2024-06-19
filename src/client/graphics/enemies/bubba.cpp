@@ -34,24 +34,14 @@ Bubba::Bubba(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
   }
 }
 
-void Bubba::render(int iterationNumber) {}
-
-void Bubba::render(int iterationNumber, Coordinates &coords) {
-  this->currentAnimation->render(iterationNumber, coords);
-}
-
-void Bubba::update(bool isWalking, bool isRunning,
-                   std::string movingDirection) {}
-
-void Bubba::updateByCoordsDelta(int deltaX, int deltaY) {
-  this->currentCoords.setX(this->currentCoords.getX() + deltaX);
-  this->currentCoords.setY(this->currentCoords.getY() + deltaY);
-}
-
 void Bubba::renderFromLeftCorner(int iterationNumber,
                                  const Coordinates &leftCorner) {
-  this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
-                                               this->currentCoords);
+  bool isInCameraFocus =
+      this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+  if (isInCameraFocus) {
+    this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
+                                                 this->currentCoords);
+  }
 }
 
 void Bubba::updateAnimation(const SnapshotWrapper &snapshot,
@@ -105,7 +95,7 @@ void Bubba::updateAnimation(const SnapshotWrapper &snapshot,
   }
 }
 
-void Bubba::update(SnapshotWrapper &snapshot) {
+void Bubba::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
   EnemyDto newEntityInfo;
   bool foundPlayableCharacter =
       snapshot.getEnemyById(this->entityId, &newEntityInfo);

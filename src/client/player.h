@@ -9,7 +9,7 @@
 #include <memory>
 #include <string>
 
-class Player : public Renderable {
+class Player {
 private:
   // cppcheck-suppress unusedStructMember
   const uint8_t playerId;
@@ -30,29 +30,19 @@ public:
          GraphicEngine &graphicEngine, AudioEngine &audioEngine,
          SnapshotWrapper &initialSnapshot, const uint8_t &playerId);
 
-  virtual void render(int iterationNumber) override;
+  void render(int iterationNumber, Coordinates &coords);
 
-  virtual void render(int iterationNumber, Coordinates &coords) override;
-
-  virtual void renderFromLeftCorner(int iterationNumber,
-                                    const Coordinates &leftCorner) override;
-
-  virtual void updateByCoordsDelta(int deltaX, int deltaY) override;
-
-  virtual void update(bool isWalking, bool isRunning,
-                      std::string movingDirection) override;
-
-  virtual void update(SnapshotWrapper &snapshot) override;
+  void update(SnapshotWrapper &snapshot, const Coordinates &leftCorner);
 
   Coordinates getCoords() const;
 
-  virtual uint8_t getId() const override;
+  uint8_t getId() const;
 
   const PlayerDto &getPlayerDtoReference() const;
 
   const std::string &getUsername() const;
 
-  ~Player() override;
+  ~Player();
 };
 
 #endif // PLAYER_H
