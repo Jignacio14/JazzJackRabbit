@@ -51,6 +51,8 @@ public:
   Sprite &getHudSprite(const u_int8_t &spriteCode);
 
   Sprite &getLeaderboardSprite();
+
+  void closeWindow();
 };
 
 #endif // GRAPHIC_ENGINE_H

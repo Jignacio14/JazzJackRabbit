@@ -104,3 +104,9 @@ Sprite &GraphicEngine::getHudSprite(const u_int8_t &spriteCode) {
 Sprite &GraphicEngine::getLeaderboardSprite() {
   return this->textureLoader.getLeaderboardSprite();
 }
+
+void GraphicEngine::closeWindow() {
+  this->window.~Window();
+  this->sdlRenderer.~Renderer();
+  this->sdl.~SDL();
+}

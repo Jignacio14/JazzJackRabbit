@@ -99,6 +99,8 @@ int main(int argc, char *argv[]) {
                       player, initialSnapshot);
     renderer.run();
 
+    graphicEngine.closeWindow();
+
     return exitCode;
 
   } catch (const std::exception &error) {

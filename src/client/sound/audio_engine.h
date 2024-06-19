@@ -16,9 +16,44 @@ private:
   // cppcheck-suppress unusedStructMember
   std::list<std::unique_ptr<SoundEffect>> sounds;
 
+  // cppcheck-suppress unusedStructMember
+  uint32_t jumpSoundDuration;
+  // cppcheck-suppress unusedStructMember
+  uint32_t groundHitSoundDuration;
+  // cppcheck-suppress unusedStructMember
+  uint32_t gun1ShotSoundDuration;
+  // cppcheck-suppress unusedStructMember
+  uint32_t gun2ShotSoundDuration;
+  // cppcheck-suppress unusedStructMember
+  uint32_t bulletImpactSoundDuration;
+  // cppcheck-suppress unusedStructMember
+  uint32_t coinCollectedSoundDuration;
+  // cppcheck-suppress unusedStructMember
+  uint32_t diamondCollectedSoundDuration;
+  // cppcheck-suppress unusedStructMember
+  uint32_t carrotCollectedSoundDuration;
+  // cppcheck-suppress unusedStructMember
+  uint32_t ammoCollectedSoundDuration;
+
+  // cppcheck-suppress unusedStructMember
+  uint32_t gameOverSoundDuration;
+
+  // cppcheck-suppress unusedStructMember
+  uint32_t jazzDeathSoundDuration;
+  // cppcheck-suppress unusedStructMember
+  uint32_t jazzHurtSoundDuration;
+  // cppcheck-suppress unusedStructMember
+  uint32_t spazDeathSoundDuration;
+  // cppcheck-suppress unusedStructMember
+  uint32_t spazHurtSoundDuration;
+  // cppcheck-suppress unusedStructMember
+  uint32_t loriDeathSoundDuration;
+  // cppcheck-suppress unusedStructMember
+  uint32_t loriHurtSoundDuration;
+
   void removeFinishedAudios();
 
-  void playSound(SDL2pp::Chunk &sound);
+  void playSound(SDL2pp::Chunk &sound, uint32_t &duration);
 
 public:
   AudioEngine();
@@ -43,6 +78,8 @@ public:
   void playSpazHurtSound();
   void playLoriDeathSound();
   void playLorihurtSound();
+
+  ~AudioEngine();
 };
 
 #endif // AUDIO_ENGINE_H
