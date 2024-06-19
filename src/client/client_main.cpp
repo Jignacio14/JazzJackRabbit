@@ -22,8 +22,6 @@ static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 const static int EXIT_SUCCESS_CODE = 0;
 const static int EXIT_ERROR_CODE = -1;
 
-const static bool TEST_ONLY_SDL_MODE = false;
-
 void debugPrint(std::string &hostname, uint32_t &port, std::string &username,
                 uint8_t &userCharacter, GameConfigs &gameConfig) {
   std::cout << "username: " << username << "\n";
@@ -62,23 +60,14 @@ int main(int argc, char *argv[]) {
 
   try {
 
-    if (TEST_ONLY_SDL_MODE == false) {
-      StartupScreen startupScreen(argc, argv, hostname, port, username, gamePtr,
-                                  initialSnapshotDtoPtr, userCharacter);
+    StartupScreen startupScreen(argc, argv, hostname, port, username, gamePtr,
+                                initialSnapshotDtoPtr, userCharacter);
 
-      exitCode = startupScreen.show();
-      lobby = startupScreen.getLobby();
+    exitCode = startupScreen.show();
+    lobby = startupScreen.getLobby();
 
-      if (exitCode != EXIT_SUCCESS_CODE) {
-        return EXIT_ERROR_CODE;
-      }
-    } else /* DEBUG MODE ON */ {
-      hostname = globalConfigs.getDebugHostname();
-      port = globalConfigs.getDebugPort();
-      username = "testUsername";
-      userCharacter = PlayableCharactersIds::Jazz;
-      lobby = std::make_unique<Lobby>(hostname.c_str(),
-                                      std::to_string(port).c_str());
+    if (exitCode != EXIT_SUCCESS_CODE) {
+      return EXIT_ERROR_CODE;
     }
 
     GraphicEngine graphicEngine;
@@ -86,8 +75,6 @@ int main(int argc, char *argv[]) {
 
     AudioEngine audioEngine;
     audioEngine.preloadAudios();
-
-    // debugPrint(hostname, port, username, userCharacter, gameConfig);
 
     SnapshotWrapper initialSnapshot(initialSnapshotDto);
 
