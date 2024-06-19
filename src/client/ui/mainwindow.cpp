@@ -41,6 +41,8 @@ const static uint32_t MAX_GAME_DURATION = globalConfigs.getMaxGameDuration();
 
 const static int BACKGROUND_MUSIC_VOLUME =
     globalConfigs.getBackgroundMusicVolumeLobby();
+const static bool IS_BACKGROUND_MUSIC_ACTIVATED =
+    globalConfigs.getShouldPlayBackgroundMusic();
 
 MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
                        std::string &username, GameConfigs *game,
@@ -82,15 +84,27 @@ MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
   this->loriAnimation.start();
   this->loriAnimation.stop();
 
-  this->mediaPlaylist.addMedia(QUrl(BACKGROUND_MUSIC_RESOURCE_SOUND_PATH));
-  this->mediaPlaylist.setPlaybackMode(QMediaPlaylist::Loop);
-  this->mediaPlayer.setPlaylist(&this->mediaPlaylist);
-  this->mediaPlayer.setVolume(BACKGROUND_MUSIC_VOLUME);
+  if (IS_BACKGROUND_MUSIC_ACTIVATED) {
+    this->mediaPlaylist.addMedia(QUrl(BACKGROUND_MUSIC_RESOURCE_SOUND_PATH));
+    this->mediaPlaylist.setPlaybackMode(QMediaPlaylist::Loop);
+    this->mediaPlayer.setPlaylist(&this->mediaPlaylist);
+    this->mediaPlayer.setVolume(BACKGROUND_MUSIC_VOLUME);
+  }
 }
 
-void MainWindow::playMusic() { this->mediaPlayer.play(); }
+void MainWindow::playMusic() {
+  if (!IS_BACKGROUND_MUSIC_ACTIVATED) {
+    return;
+  }
+  this->mediaPlayer.play();
+}
 
-void MainWindow::stopMusic() { this->mediaPlayer.stop(); }
+void MainWindow::stopMusic() {
+  if (!IS_BACKGROUND_MUSIC_ACTIVATED) {
+    return;
+  }
+  this->mediaPlayer.stop();
+}
 
 void MainWindow::on_hostnameInput_textChanged(const QString &newString) {
   this->hostname = newString.toStdString();

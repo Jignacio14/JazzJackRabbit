@@ -7,10 +7,6 @@
 class GlobalConfigs {
 private:
   // cppcheck-suppress unusedStructMember
-  uint32_t backgroundMusicVolumeLobby;
-  // cppcheck-suppress unusedStructMember
-  uint32_t backgroundMusicVolumeGame;
-  // cppcheck-suppress unusedStructMember
   uint16_t maxPlayersPerGame;
   // cppcheck-suppress unusedStructMember
   uint32_t maxGameDuration;
@@ -20,6 +16,12 @@ private:
   uint32_t minNumberOfPlayers;
   // cppcheck-suppress unusedStructMember
   uint32_t maxPortNumber;
+  // cppcheck-suppress unusedStructMember
+  uint32_t backgroundMusicVolumeLobby;
+  // cppcheck-suppress unusedStructMember
+  uint32_t backgroundMusicVolumeGame;
+  // cppcheck-suppress unusedStructMember
+  bool shouldPlayBackgroundMusic;
   // cppcheck-suppress unusedStructMember
   int screenSizeX;
   // cppcheck-suppress unusedStructMember
@@ -82,13 +84,14 @@ public:
    */
   static GlobalConfigs &getInstance();
 
-  uint32_t getBackgroundMusicVolumeLobby() const;
-  uint32_t getBackgroundMusicVolumeGame() const;
   uint16_t getMaxPlayersPerGame() const;
   uint32_t getMaxGameDuration() const;
   uint32_t getMaxUsernameLength() const;
   uint32_t getMinNumberOfPlayers() const;
   uint32_t getMaxPortNumber() const;
+  uint32_t getBackgroundMusicVolumeLobby() const;
+  uint32_t getBackgroundMusicVolumeGame() const;
+  bool getShouldPlayBackgroundMusic() const;
   int getScreenSizeX() const;
   int getScreenSizeY() const;
   std::string getWindowName() const;

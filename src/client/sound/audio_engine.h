@@ -13,6 +13,8 @@ private:
   SDL2pp::SDL sdl;
   SDL2pp::Mixer sdlMixer;
   AudioLoader audioLoader;
+  // cppcheck-suppress unusedStructMember
+  bool isBackgroundMusicActivated;
 
   // cppcheck-suppress unusedStructMember
   std::list<std::unique_ptr<SoundEffect>> sounds;

@@ -8,11 +8,15 @@ const static int CHUNK_SIZE = 4096;
 const static int SOUNDS_COUNT_TRIGGER_FOR_CLEANUP = 50;
 const static int BACKGROUND_MUSIC_VOLUME =
     globalConfigs.getBackgroundMusicVolumeGame();
+const static bool IS_BACKGROUND_MUSIC_ACTIVATED =
+    globalConfigs.getShouldPlayBackgroundMusic();
 
 AudioEngine::AudioEngine()
     : sdl(SDL_INIT_AUDIO), sdlMixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT,
                                     MIX_CHANNELS, CHUNK_SIZE),
-      audioLoader(this->sdlMixer), music(nullptr) {
+      audioLoader(this->sdlMixer),
+      isBackgroundMusicActivated(IS_BACKGROUND_MUSIC_ACTIVATED),
+      music(nullptr) {
   this->sdlMixer.SetMusicVolume(BACKGROUND_MUSIC_VOLUME);
 }
 
@@ -25,6 +29,10 @@ void AudioEngine::removeFinishedAudios() {
 }
 
 void AudioEngine::playMusic(SDL2pp::Music &musicTrack) {
+  if (!this->isBackgroundMusicActivated) {
+    return;
+  }
+
   if (this->music != nullptr) {
     this->stopPlayingBackgroundMusic();
   }
@@ -123,7 +131,7 @@ void AudioEngine::playBeachWorldBackgroundMusic() {
 }
 
 void AudioEngine::stopPlayingBackgroundMusic() {
-  if (this->music == nullptr) {
+  if (this->music == nullptr || !this->isBackgroundMusicActivated) {
     return;
   }
 

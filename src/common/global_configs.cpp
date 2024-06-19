@@ -12,16 +12,19 @@ GlobalConfigs &GlobalConfigs::getInstance() {
 GlobalConfigs::GlobalConfigs() {
   YAML::Node gameConfigs = YAML::LoadFile(GAME_CONFIGURATION_FILE_PATH);
 
-  this->backgroundMusicVolumeLobby =
-      gameConfigs["background_music_volume_lobby"].as<uint32_t>();
-  this->backgroundMusicVolumeGame =
-      gameConfigs["background_music_volume_game"].as<uint32_t>();
   this->maxPlayersPerGame = gameConfigs["max_players_per_game"].as<uint16_t>();
   this->maxGameDuration = gameConfigs["max_game_duration"].as<uint32_t>();
   this->maxUsernameLength = gameConfigs["max_username_length"].as<uint32_t>();
   this->minNumberOfPlayers =
       gameConfigs["min_number_of_players"].as<uint32_t>();
   this->maxPortNumber = gameConfigs["max_port_number"].as<uint32_t>();
+
+  this->backgroundMusicVolumeLobby =
+      gameConfigs["background_music_volume_lobby"].as<uint32_t>();
+  this->backgroundMusicVolumeGame =
+      gameConfigs["background_music_volume_game"].as<uint32_t>();
+  this->shouldPlayBackgroundMusic =
+      gameConfigs["play_background_music"].as<bool>();
 
   this->screenSizeX = gameConfigs["screen_size_x"].as<int>();
   this->screenSizeY = gameConfigs["screen_size_y"].as<int>();
@@ -54,14 +57,6 @@ GlobalConfigs::GlobalConfigs() {
   this->bullet2Cooldown = gameConfigs["bullet_2_cooldown"].as<float>();
 }
 
-uint32_t GlobalConfigs::getBackgroundMusicVolumeLobby() const {
-  return this->backgroundMusicVolumeLobby;
-}
-
-uint32_t GlobalConfigs::getBackgroundMusicVolumeGame() const {
-  return this->backgroundMusicVolumeGame;
-}
-
 uint16_t GlobalConfigs::getMaxPlayersPerGame() const {
   return this->maxPlayersPerGame;
 }
@@ -79,6 +74,18 @@ uint32_t GlobalConfigs::getMinNumberOfPlayers() const {
 }
 
 uint32_t GlobalConfigs::getMaxPortNumber() const { return this->maxPortNumber; }
+
+uint32_t GlobalConfigs::getBackgroundMusicVolumeLobby() const {
+  return this->backgroundMusicVolumeLobby;
+}
+
+uint32_t GlobalConfigs::getBackgroundMusicVolumeGame() const {
+  return this->backgroundMusicVolumeGame;
+}
+
+bool GlobalConfigs::getShouldPlayBackgroundMusic() const {
+  return this->shouldPlayBackgroundMusic;
+}
 
 int GlobalConfigs::getScreenSizeX() const { return this->screenSizeX; }
 
