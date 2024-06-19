@@ -261,6 +261,14 @@ void Game::ereasePlayer(uint8_t player_id) {
 void Game::updateBullets() {
   for (auto &bullet : bullets) {
     bullet.move(snapshot);
+    for (auto &pair : players_data) {
+      auto &player = pair.second;
+      if (player->intersects(bullet.get_rectangle())) {
+        player->receive_damage(bullet.get_damage());
+        bullet.kill(snapshot);
+        break;
+      }
+    }
   }
   bullets.erase(
       std::remove_if(bullets.begin(), bullets.end(),

@@ -27,8 +27,7 @@ void Bullet::move(Snapshot &snapshot) {
   else if (facing_direction == FacingDirectionsIds::Left)
     new_rectangle.move_left(speed);
   if (!map.available_position(new_rectangle)) {
-    alive = false;
-    delete_from_snapshot(snapshot);
+    kill(snapshot);
   }
   if (alive) {
     rectangle = new_rectangle;
@@ -39,11 +38,16 @@ void Bullet::move(Snapshot &snapshot) {
   // Verificar si choca con un jugador o un enemigo e inflingirle daño
 }
 
-void Bullet::delete_from_snapshot(Snapshot &snapshot) {
+void Bullet::kill(Snapshot &snapshot) {
+  alive = false;
   for (uint16_t i = id; i < snapshot.sizeBullets - 1; i++) {
     snapshot.bullets[i] = snapshot.bullets[i + 1];
   }
   snapshot.sizeBullets--;
 }
+
+Rectangle Bullet::get_rectangle() { return rectangle; }
+
+uint8_t Bullet::get_damage() { return damage; }
 
 bool Bullet::is_alive() { return alive; }
