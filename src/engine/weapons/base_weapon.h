@@ -24,15 +24,12 @@ protected:
   const float cooldown;
   // cppcheck-suppress unusedStructMember
   const uint8_t ammo_speed;
-  // cppcheck-suppress unusedStructMember
-  std::vector<std::unique_ptr<Bullet>> bullets_shot;
 
 public:
   BaseWeapon(Snapshot &snap, uint16_t ammo, uint8_t damage, float cooldown,
              uint8_t ammo_speed);
-  virtual void shoot(Rectangle rectangle, uint8_t facing_direction,
-                     ServerMap map) = 0;
-  virtual void update() = 0;
+  virtual Bullet shoot(Rectangle rectangle, uint8_t facing_direction,
+                       ServerMap map) = 0;
 };
 
 #endif // JAZZJACKRABBIT_BASE_WEAPON_H

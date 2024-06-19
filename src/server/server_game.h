@@ -5,11 +5,13 @@
 #include "../data/command_code_dto.h"
 #include "../data/snapshot_dto.h"
 #include "../engine/base_player.h"
+#include "../engine/bullets/bullet.h"
 #include "../engine/enemies/base_enemy.h"
 #include "../engine/jazz.h"
 #include "../engine/lori.h"
 #include "../engine/spaz.h"
 #include "server_game_monitor.h"
+#include <algorithm>
 #include <atomic>
 #include <chrono>
 #include <cmath>
@@ -31,6 +33,10 @@ private:
   // cppcheck-suppress unusedStructMember
   std::vector<std::unique_ptr<BaseEnemy>> enemies;
   // cppcheck-suppress unusedStructMember
+  std::vector<Bullet> bullets;
+
+  ServerMap map;
+  // cppcheck-suppress unusedStructMember
   Snapshot snapshot;
   // cppcheck-suppress unusedStructMember
   std::atomic_bool gameEnded;
@@ -49,6 +55,7 @@ private:
   double now();
   void rateController(double start, double finish);
   void addEnemies();
+  void updateBullets();
 
 public:
   explicit Game(GameMonitor &monitor, Queue<CommandCodeDto> &messages);

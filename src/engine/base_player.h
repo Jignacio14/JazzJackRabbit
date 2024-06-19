@@ -71,7 +71,9 @@ public:
   void run();
   void stop_running();
 
-  void shoot();
+  bool intersects(Rectangle rectangle);
+
+  Bullet shoot();
 
   ~BasePlayer();
 };

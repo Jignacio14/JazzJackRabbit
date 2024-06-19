@@ -36,10 +36,10 @@ void BasePlayer::update() {
 
   this->update_movement();
 
-  weapon->update();
-
-  if (position != -1)
+  if (position != -1) {
     snapshot.players[position].shot = NumericBool::False;
+    snapshot.players[position].was_hurt = NumericBool::False;
+  }
 }
 
 void BasePlayer::update_jump() {
@@ -233,7 +233,7 @@ void BasePlayer::heal(uint8_t health_gain) {
   }
 }
 
-void BasePlayer::shoot() {
+Bullet BasePlayer::shoot() {
 
   Rectangle bullet_rectangle(Coordinates(0, 0), Coordinates(0, 0));
   if (facing_direction == FacingDirectionsIds::Right) {
@@ -254,10 +254,14 @@ void BasePlayer::shoot() {
     Rectangle bullet_rectangle_aux(top_left, bottom_right);
     bullet_rectangle = bullet_rectangle_aux;
   }
-  weapon->shoot(bullet_rectangle, facing_direction, map);
   if (position != -1) {
     snapshot.players[position].shot = NumericBool::True;
   }
+  return weapon->shoot(bullet_rectangle, facing_direction, map);
+}
+
+bool BasePlayer::intersects(Rectangle rectangle) {
+  return this->rectangle.intersects(rectangle);
 }
 
 BasePlayer::~BasePlayer() {
