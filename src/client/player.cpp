@@ -63,7 +63,14 @@ void Player::update(bool isWalking, bool isRunning,
 
 Coordinates Player::getCoords() const { return this->character->getCoords(); }
 
+void Player::playGunChangeAudio(const PlayerDto &oldPlayerInfo) {
+  if (oldPlayerInfo.current_gun != this->playerInfo.current_gun) {
+    this->audioEngine.playGunChangeSound();
+  }
+}
+
 void Player::update(SnapshotWrapper &snapshot) {
+  PlayerDto oldPlayerInfo = this->playerInfo;
   bool foundPlayer = snapshot.getPlayerById(this->playerId, &this->playerInfo);
   if (!foundPlayer) {
     std::cerr << "Player with id " + std::to_string(this->playerId) +
@@ -72,6 +79,7 @@ void Player::update(SnapshotWrapper &snapshot) {
   }
 
   this->character->update(snapshot);
+  this->playGunChangeAudio(oldPlayerInfo);
 }
 
 uint8_t Player::getId() const { return this->character->getId(); }

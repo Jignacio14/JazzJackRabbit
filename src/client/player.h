@@ -23,6 +23,8 @@ private:
   AudioEngine &audioEngine;
   std::unique_ptr<PlayableCharacter> character;
 
+  void playGunChangeAudio(const PlayerDto &oldPlayerInfo);
+
 public:
   Player(const std::string &username, const uint8_t &characterSelected,
          GraphicEngine &graphicEngine, AudioEngine &audioEngine,

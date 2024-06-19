@@ -11,6 +11,7 @@ private:
   SDL2pp::Chunk groundHitSound;
   SDL2pp::Chunk gun1ShotSound;
   SDL2pp::Chunk gun2ShotSound;
+  SDL2pp::Chunk gunChangeSound;
   SDL2pp::Chunk bulletImpactSound;
   SDL2pp::Chunk coinCollectedSound;
   SDL2pp::Chunk diamondCollectedSound;
@@ -38,6 +39,7 @@ public:
   SDL2pp::Chunk &getGroundHitSound();
   SDL2pp::Chunk &getGun1ShotSound();
   SDL2pp::Chunk &getGun2ShotSound();
+  SDL2pp::Chunk &getGunChangeSound();
   SDL2pp::Chunk &getBulletImpactSound();
   SDL2pp::Chunk &getCoinCollectedSound();
   SDL2pp::Chunk &getDiamondCollectedSound();

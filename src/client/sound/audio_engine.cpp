@@ -62,6 +62,10 @@ void AudioEngine::playGun2ShotSound() {
   this->playSound(this->audioLoader.getGun2ShotSound());
 }
 
+void AudioEngine::playGunChangeSound() {
+  this->playSound(this->audioLoader.getGunChangeSound());
+}
+
 void AudioEngine::playBulletImpactSound() {
   this->playSound(this->audioLoader.getBulletImpactSound());
 }

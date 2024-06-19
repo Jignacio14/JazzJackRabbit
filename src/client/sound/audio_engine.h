@@ -34,6 +34,7 @@ public:
   void playGroundHitSound();
   void playGun1ShotSound();
   void playGun2ShotSound();
+  void playGunChangeSound();
   void playBulletImpactSound();
   void playCoinCollectedSound();
   void playDiamondCollectedSound();
