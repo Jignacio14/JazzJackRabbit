@@ -12,6 +12,8 @@ GlobalConfigs &GlobalConfigs::getInstance() {
 GlobalConfigs::GlobalConfigs() {
   YAML::Node gameConfigs = YAML::LoadFile(GAME_CONFIGURATION_FILE_PATH);
 
+  this->backgroundMusicVolumeLobby =
+      gameConfigs["background_music_volume_lobby"].as<uint32_t>();
   this->maxPlayersPerGame = gameConfigs["max_players_per_game"].as<uint16_t>();
   this->maxGameDuration = gameConfigs["max_game_duration"].as<uint32_t>();
   this->maxUsernameLength = gameConfigs["max_username_length"].as<uint32_t>();
@@ -23,9 +25,6 @@ GlobalConfigs::GlobalConfigs() {
   this->screenSizeY = gameConfigs["screen_size_y"].as<int>();
   this->windowName = gameConfigs["window_name"].as<std::string>();
   this->targetFps = gameConfigs["target_fps"].as<double>();
-
-  this->debugHostname = gameConfigs["debug_hostname"].as<std::string>();
-  this->debugPort = gameConfigs["debug_port"].as<uint32_t>();
 
   this->playerStartingPoints = gameConfigs["starting_points"].as<uint32_t>();
   this->playerMaxLife = gameConfigs["max_life"].as<uint32_t>();
@@ -53,6 +52,10 @@ GlobalConfigs::GlobalConfigs() {
   this->bullet2Cooldown = gameConfigs["bullet_2_cooldown"].as<float>();
 }
 
+uint32_t GlobalConfigs::getBackgroundMusicVolumeLobby() const {
+  return this->backgroundMusicVolumeLobby;
+}
+
 uint16_t GlobalConfigs::getMaxPlayersPerGame() const {
   return this->maxPlayersPerGame;
 }
@@ -78,12 +81,6 @@ int GlobalConfigs::getScreenSizeY() const { return this->screenSizeY; }
 std::string GlobalConfigs::getWindowName() const { return this->windowName; }
 
 double GlobalConfigs::getTargetFps() const { return this->targetFps; }
-
-std::string GlobalConfigs::getDebugHostname() const {
-  return this->debugHostname;
-}
-
-uint32_t GlobalConfigs::getDebugPort() const { return this->debugPort; }
 
 uint32_t GlobalConfigs::getPlayerStartingPoints() const {
   return this->playerStartingPoints;

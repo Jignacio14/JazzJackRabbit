@@ -5,6 +5,8 @@
 #include <cstdint>
 #include <memory>
 #include <qlineedit.h>
+#include <qmediaplayer.h>
+#include <qmediaplaylist.h>
 #include <qmovie.h>
 #include <qpushbutton.h>
 #include <qsound.h>
@@ -83,6 +85,9 @@ private:
 
   std::unique_ptr<std::thread> waitingPlayersAndStartTask;
 
+  QMediaPlayer mediaPlayer;
+  QMediaPlaylist mediaPlaylist;
+
   void enableButton(QPushButton *button, const std::string &id);
 
   void changeLineEditStyleBasedOnItsText(const QString &string,
@@ -124,6 +129,10 @@ public:
              std::unique_ptr<Lobby> lobby);
 
   std::unique_ptr<Lobby> getLobby();
+
+  void playMusic();
+
+  void stopMusic();
 
   ~MainWindow();
 };

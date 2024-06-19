@@ -19,6 +19,8 @@ const static int SCREEN_SIZE_X = globalConfigs.getScreenSizeX();
 const static int SCREEN_SIZE_Y = globalConfigs.getScreenSizeY();
 
 const static char JOYSTIX_RESOURCE_FONT_PATH[] = ":/fonts/assets/Joystix.otf";
+const static char BACKGROUND_MUSIC_RESOURCE_SOUND_PATH[] =
+    "qrc:/sounds/assets/menu_background_music.mp3";
 const static char BUTTON_CLICK_RESOURCE_SOUND_PATH[] =
     ":/sounds/assets/button_click.wav";
 const static char JAZZ_MENU_ANIMATION_RESOURCE_PATH[] =
@@ -37,6 +39,9 @@ const static uint32_t MAX_NUMBER_OF_PLAYERS =
     globalConfigs.getMaxPlayersPerGame();
 const static uint32_t MAX_GAME_DURATION = globalConfigs.getMaxGameDuration();
 
+const static int BACKGROUND_MUSIC_VOLUME =
+    globalConfigs.getBackgroundMusicVolumeLobby();
+
 MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
                        std::string &username, GameConfigs *game,
                        Snapshot *initialSnapshot, uint8_t &userCharacter,
@@ -50,7 +55,7 @@ MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
       spazAnimation(SPAZ_MENU_ANIMATION_RESOURCE_PATH),
       loriAnimation(LORI_MENU_ANIMATION_RESOURCE_PATH), debug_counter(0),
       lobbyMoved(false), lobby(std::move(lobby)),
-      waitingPlayersAndStartTask(nullptr) {
+      waitingPlayersAndStartTask(nullptr), mediaPlayer(this), mediaPlaylist() {
 
   // Qt setup and set screen size
   this->ui->setupUi(this);
@@ -75,7 +80,16 @@ MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
   this->ui->selectLoriLabel->setMovie(&this->loriAnimation);
   this->loriAnimation.start();
   this->loriAnimation.stop();
+
+  this->mediaPlaylist.addMedia(QUrl(BACKGROUND_MUSIC_RESOURCE_SOUND_PATH));
+  this->mediaPlaylist.setPlaybackMode(QMediaPlaylist::Loop);
+  this->mediaPlayer.setPlaylist(&this->mediaPlaylist);
+  this->mediaPlayer.setVolume(BACKGROUND_MUSIC_VOLUME);
 }
+
+void MainWindow::playMusic() { this->mediaPlayer.play(); }
+
+void MainWindow::stopMusic() { this->mediaPlayer.stop(); }
 
 void MainWindow::on_hostnameInput_textChanged(const QString &newString) {
   this->hostname = newString.toStdString();

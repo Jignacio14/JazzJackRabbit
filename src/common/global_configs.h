@@ -7,6 +7,8 @@
 class GlobalConfigs {
 private:
   // cppcheck-suppress unusedStructMember
+  uint32_t backgroundMusicVolumeLobby;
+  // cppcheck-suppress unusedStructMember
   uint16_t maxPlayersPerGame;
   // cppcheck-suppress unusedStructMember
   uint32_t maxGameDuration;
@@ -24,10 +26,6 @@ private:
   std::string windowName;
   // cppcheck-suppress unusedStructMember
   double targetFps;
-  // cppcheck-suppress unusedStructMember
-  std::string debugHostname;
-  // cppcheck-suppress unusedStructMember
-  uint32_t debugPort;
   // cppcheck-suppress unusedStructMember
   uint32_t playerStartingPoints;
   // cppcheck-suppress unusedStructMember
@@ -82,6 +80,7 @@ public:
    */
   static GlobalConfigs &getInstance();
 
+  uint32_t getBackgroundMusicVolumeLobby() const;
   uint16_t getMaxPlayersPerGame() const;
   uint32_t getMaxGameDuration() const;
   uint32_t getMaxUsernameLength() const;
@@ -91,8 +90,6 @@ public:
   int getScreenSizeY() const;
   std::string getWindowName() const;
   double getTargetFps() const;
-  std::string getDebugHostname() const;
-  uint32_t getDebugPort() const;
   uint32_t getPlayerStartingPoints() const;
   uint32_t getPlayerMaxLife() const;
   uint32_t getPlayerStartingAmmoGun1() const;

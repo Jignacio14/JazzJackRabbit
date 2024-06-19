@@ -11,6 +11,7 @@
     </qresource>
     <qresource prefix="/sounds">
         <file>assets/button_click.wav</file>
+        <file>assets/menu_background_music.mp3</file>
     </qresource>
     <qresource prefix="/animations">
         <file>assets/spaz_menu_animation.gif</file>

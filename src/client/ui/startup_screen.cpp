@@ -18,7 +18,9 @@ StartupScreen::StartupScreen(int &argc, char **argv, std::string &hostname,
 
 const int StartupScreen::show() {
   this->mainWindow.show();
+  this->mainWindow.playMusic();
   const int mainWindowExitCode = this->app.exec();
+  this->mainWindow.stopMusic();
   this->lobby = this->mainWindow.getLobby();
 
   if (mainWindowExitCode != EXIT_SUCCESS_CODE) {
