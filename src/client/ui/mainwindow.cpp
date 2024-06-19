@@ -298,6 +298,16 @@ void MainWindow::on_backInChooseCharacterButton_released() {
   this->ui->stackedWidget->setCurrentWidget(this->ui->createGameScreen);
 }
 
+void MainWindow::on_carrotusScenarioRadioButton_released() {
+  this->buttonClickSound.play();
+  this->scenarioSelected = ScenariosIds::Carrotus;
+}
+
+void MainWindow::on_beachWorldScenarioRadioButton_released() {
+  this->buttonClickSound.play();
+  this->scenarioSelected = ScenariosIds::BeachWorld;
+}
+
 void MainWindow::startGame() {
   this->ui->stackedWidget->setCurrentWidget(this->ui->waitingToJoinScreen);
 

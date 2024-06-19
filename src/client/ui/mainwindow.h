@@ -55,6 +55,9 @@ private slots:
   void on_backInJoinGameButton_released();
   void on_backInChooseCharacterButton_released();
 
+  void on_carrotusScenarioRadioButton_released();
+  void on_beachWorldScenarioRadioButton_released();
+
   void startGame();
   void joinGame(const GameConfigs &game);
 

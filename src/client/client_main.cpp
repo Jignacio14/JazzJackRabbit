@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
   uint32_t port(0);
   std::string username("");
   uint8_t userCharacter = PlayableCharactersIds::NoneSelected;
-  uint8_t scenarioSelected = ScenariosIds::BeachWorld;
+  uint8_t scenarioSelected = ScenariosIds::Carrotus;
 
   Snapshot initialSnapshotDto;
   Snapshot *initialSnapshotDtoPtr = &initialSnapshotDto;
