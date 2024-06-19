@@ -11,7 +11,7 @@ const static int BACKGROUND_MUSIC_VOLUME =
 
 AudioEngine::AudioEngine()
     : sdl(SDL_INIT_AUDIO), sdlMixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT,
-                                    MIX_DEFAULT_CHANNELS, CHUNK_SIZE),
+                                    MIX_CHANNELS, CHUNK_SIZE),
       audioLoader(this->sdlMixer), music(nullptr) {
   this->sdlMixer.SetMusicVolume(BACKGROUND_MUSIC_VOLUME);
 }
