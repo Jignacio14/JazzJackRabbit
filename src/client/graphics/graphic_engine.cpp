@@ -61,6 +61,10 @@ Sprite &GraphicEngine::getCarrotusScenarioSprite(const uint8_t &spriteCode) {
   return this->textureLoader.getCarrotusScenarioSprite(spriteCode);
 }
 
+Sprite &GraphicEngine::getBeachWorldScenarioSprite(const uint8_t &spriteCode) {
+  return this->textureLoader.getBeachWorldScenarioSprite(spriteCode);
+}
+
 Sprite &GraphicEngine::getGun1Sprite(const uint8_t &spriteCode) {
   return this->textureLoader.getGun1Sprite(spriteCode);
 }

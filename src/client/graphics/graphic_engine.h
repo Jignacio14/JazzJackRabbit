@@ -33,6 +33,7 @@ public:
   Sprite &getLoriHudIcon();
 
   Sprite &getCarrotusScenarioSprite(const u_int8_t &spriteCode);
+  Sprite &getBeachWorldScenarioSprite(const u_int8_t &spriteCode);
 
   Sprite &getGun1Sprite(const u_int8_t &spriteCode);
   Sprite &getGun1HudIcon();
