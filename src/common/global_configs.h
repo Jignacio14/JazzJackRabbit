@@ -17,6 +17,12 @@ private:
   // cppcheck-suppress unusedStructMember
   uint32_t maxPortNumber;
   // cppcheck-suppress unusedStructMember
+  uint32_t backgroundMusicVolumeLobby;
+  // cppcheck-suppress unusedStructMember
+  uint32_t backgroundMusicVolumeGame;
+  // cppcheck-suppress unusedStructMember
+  bool shouldPlayBackgroundMusic;
+  // cppcheck-suppress unusedStructMember
   int screenSizeX;
   // cppcheck-suppress unusedStructMember
   int screenSizeY;
@@ -24,10 +30,6 @@ private:
   std::string windowName;
   // cppcheck-suppress unusedStructMember
   double targetFps;
-  // cppcheck-suppress unusedStructMember
-  std::string debugHostname;
-  // cppcheck-suppress unusedStructMember
-  uint32_t debugPort;
   // cppcheck-suppress unusedStructMember
   uint32_t playerStartingPoints;
   // cppcheck-suppress unusedStructMember
@@ -87,12 +89,13 @@ public:
   uint32_t getMaxUsernameLength() const;
   uint32_t getMinNumberOfPlayers() const;
   uint32_t getMaxPortNumber() const;
+  uint32_t getBackgroundMusicVolumeLobby() const;
+  uint32_t getBackgroundMusicVolumeGame() const;
+  bool getShouldPlayBackgroundMusic() const;
   int getScreenSizeX() const;
   int getScreenSizeY() const;
   std::string getWindowName() const;
   double getTargetFps() const;
-  std::string getDebugHostname() const;
-  uint32_t getDebugPort() const;
   uint32_t getPlayerStartingPoints() const;
   uint32_t getPlayerMaxLife() const;
   uint32_t getPlayerStartingAmmoGun1() const;

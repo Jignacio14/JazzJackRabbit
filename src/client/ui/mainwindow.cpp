@@ -19,6 +19,8 @@ const static int SCREEN_SIZE_X = globalConfigs.getScreenSizeX();
 const static int SCREEN_SIZE_Y = globalConfigs.getScreenSizeY();
 
 const static char JOYSTIX_RESOURCE_FONT_PATH[] = ":/fonts/assets/Joystix.otf";
+const static char BACKGROUND_MUSIC_RESOURCE_SOUND_PATH[] =
+    "qrc:/sounds/assets/menu_background_music.mp3";
 const static char BUTTON_CLICK_RESOURCE_SOUND_PATH[] =
     ":/sounds/assets/button_click.wav";
 const static char JAZZ_MENU_ANIMATION_RESOURCE_PATH[] =
@@ -37,20 +39,26 @@ const static uint32_t MAX_NUMBER_OF_PLAYERS =
     globalConfigs.getMaxPlayersPerGame();
 const static uint32_t MAX_GAME_DURATION = globalConfigs.getMaxGameDuration();
 
+const static int BACKGROUND_MUSIC_VOLUME =
+    globalConfigs.getBackgroundMusicVolumeLobby();
+const static bool IS_BACKGROUND_MUSIC_ACTIVATED =
+    globalConfigs.getShouldPlayBackgroundMusic();
+
 MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
                        std::string &username, GameConfigs *game,
                        Snapshot *initialSnapshot, uint8_t &userCharacter,
-                       std::unique_ptr<Lobby> lobby)
+                       uint8_t &scenarioSelected, std::unique_ptr<Lobby> lobby)
     : QMainWindow(parent), ui(new Ui::MainWindow), hostname(hostname),
       port(port), username(username), finalGameConfigs(game),
       initialSnapshot(initialSnapshot), gameOwnerName(""), gameDuration(0),
       maxPlayers(0), currentPlayers(1), characterSelected(userCharacter),
+      scenarioSelected(scenarioSelected),
       buttonClickSound(BUTTON_CLICK_RESOURCE_SOUND_PATH),
       jazzAnimation(JAZZ_MENU_ANIMATION_RESOURCE_PATH),
       spazAnimation(SPAZ_MENU_ANIMATION_RESOURCE_PATH),
       loriAnimation(LORI_MENU_ANIMATION_RESOURCE_PATH), debug_counter(0),
       lobbyMoved(false), lobby(std::move(lobby)),
-      waitingPlayersAndStartTask(nullptr) {
+      waitingPlayersAndStartTask(nullptr), mediaPlayer(this), mediaPlaylist() {
 
   // Qt setup and set screen size
   this->ui->setupUi(this);
@@ -75,6 +83,27 @@ MainWindow::MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
   this->ui->selectLoriLabel->setMovie(&this->loriAnimation);
   this->loriAnimation.start();
   this->loriAnimation.stop();
+
+  if (IS_BACKGROUND_MUSIC_ACTIVATED) {
+    this->mediaPlaylist.addMedia(QUrl(BACKGROUND_MUSIC_RESOURCE_SOUND_PATH));
+    this->mediaPlaylist.setPlaybackMode(QMediaPlaylist::Loop);
+    this->mediaPlayer.setPlaylist(&this->mediaPlaylist);
+    this->mediaPlayer.setVolume(BACKGROUND_MUSIC_VOLUME);
+  }
+}
+
+void MainWindow::playMusic() {
+  if (!IS_BACKGROUND_MUSIC_ACTIVATED) {
+    return;
+  }
+  this->mediaPlayer.play();
+}
+
+void MainWindow::stopMusic() {
+  if (!IS_BACKGROUND_MUSIC_ACTIVATED) {
+    return;
+  }
+  this->mediaPlayer.stop();
 }
 
 void MainWindow::on_hostnameInput_textChanged(const QString &newString) {
@@ -281,6 +310,16 @@ void MainWindow::on_backInJoinGameButton_released() {
 void MainWindow::on_backInChooseCharacterButton_released() {
   this->buttonClickSound.play();
   this->ui->stackedWidget->setCurrentWidget(this->ui->createGameScreen);
+}
+
+void MainWindow::on_carrotusScenarioRadioButton_released() {
+  this->buttonClickSound.play();
+  this->scenarioSelected = ScenariosIds::Carrotus;
+}
+
+void MainWindow::on_beachWorldScenarioRadioButton_released() {
+  this->buttonClickSound.play();
+  this->scenarioSelected = ScenariosIds::BeachWorld;
 }
 
 void MainWindow::startGame() {

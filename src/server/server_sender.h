@@ -23,9 +23,9 @@ private:
   void ValidatePlayerInfo(const PlayerInfo &player_info);
 
 public:
-  explicit Sender(Socket peer, GamesMonitor &games_monitor_ref);
+  Sender(Socket peer, GamesMonitor &games_monitor_ref);
 
-  void run() override;
+  virtual void run() override;
 
   void kill();
 

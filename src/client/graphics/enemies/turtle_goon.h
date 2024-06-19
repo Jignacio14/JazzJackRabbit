@@ -4,6 +4,7 @@
 #include "../../../common/coordinates.h"
 #include "../../../common/hitbox.h"
 #include "../../renderable.h"
+#include "../../sound/audio_engine.h"
 #include "../graphic_engine.h"
 #include "../playable_character.h"
 #include "../sprite.h"
@@ -20,6 +21,7 @@ private:
   // cppcheck-suppress unusedStructMember
   const uint8_t entityId;
   GraphicEngine &graphicEngine;
+  AudioEngine &audioEngine;
 
   std::unique_ptr<AnimationState> currentAnimation;
 
@@ -33,8 +35,9 @@ private:
                        const EnemyDto &newEntityInfo);
 
 public:
-  TurtleGoon(GraphicEngine &graphicEngine, Coordinates &currentCoords,
-             const uint8_t &entityId, SnapshotWrapper &snapshot);
+  TurtleGoon(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
+             Coordinates &currentCoords, const uint8_t &entityId,
+             SnapshotWrapper &snapshot);
 
   virtual void render(int iterationNumber) override;
   virtual void render(int iterationNumber, Coordinates &coords) override;

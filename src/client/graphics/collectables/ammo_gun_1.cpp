@@ -9,11 +9,13 @@ struct AmmoGun1AnimationSpeedCoefs {
   static constexpr double Shine = 25;
 };
 
-AmmoGun1::AmmoGun1(GraphicEngine &graphicEngine, Coordinates &currentCoords,
-                   const uint8_t &entityId, SnapshotWrapper &snapshot)
+AmmoGun1::AmmoGun1(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
+                   Coordinates &currentCoords, const uint8_t &entityId,
+                   SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
-      shouldBeDeleted(false), isShowingExitAnimation(false),
+      audioEngine(audioEngine), currentAnimation(nullptr),
+      currentCoords(currentCoords), entityInfo(), shouldBeDeleted(false),
+      isShowingExitAnimation(false),
       hitbox(HitboxSizes::CollectableWidth, HitboxSizes::CollectableHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -75,6 +77,7 @@ void AmmoGun1::update(SnapshotWrapper &snapshot) {
         AnimationState::NotCycle, AmmoGun1AnimationSpeedCoefs::Shine,
         AnimationState::NotFlip, this->hitbox);
     this->isShowingExitAnimation = true;
+    this->audioEngine.playAmmoCollectedSound();
     return;
   }
 

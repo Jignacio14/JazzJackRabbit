@@ -37,6 +37,9 @@ private:
   std::unordered_map<std::string, Sprite> carrotusScenarioSprites;
 
   // cppcheck-suppress unusedStructMember
+  std::unordered_map<std::string, Sprite> beachWorldScenarioSprites;
+
+  // cppcheck-suppress unusedStructMember
   std::unordered_map<std::string, Sprite> gun1Sprites;
   // cppcheck-suppress unusedStructMember
   std::unique_ptr<Sprite> gun1hudIcon;
@@ -88,6 +91,7 @@ public:
   Sprite &getLoriHudIcon();
 
   Sprite &getCarrotusScenarioSprite(const u_int8_t &spriteName);
+  Sprite &getBeachWorldScenarioSprite(const u_int8_t &spriteName);
 
   Sprite &getGun1Sprite(const u_int8_t &spriteCode);
   Sprite &getGun1HudIcon();

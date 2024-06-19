@@ -17,17 +17,19 @@ const static Coordinates MAP_SCREEN_MIDDLE_POINT(MAP_SCREEN_SIZE_X / 2,
 const static int TILE_SIZE = 32; // In px
 const static int MAX_RANDOM_SOURCE = 30;
 
-Map::Map(GraphicEngine &graphicEngine, Player &player)
+Map::Map(GraphicEngine &graphicEngine, Player &player,
+         uint8_t &scenarioSelected)
     : graphicEngine(graphicEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
-      backgroundSprite(this->graphicEngine.getCarrotusScenarioSprite(
-          ScenarioSpriteCodes::Background)),
-      decorationSprite(this->graphicEngine.getCarrotusScenarioSprite(
-          ScenarioSpriteCodes::Decoration)),
-      topGrassSprite(this->graphicEngine.getCarrotusScenarioSprite(
-          ScenarioSpriteCodes::TopGrass)),
-      fullDirtSprite(this->graphicEngine.getCarrotusScenarioSprite(
-          ScenarioSpriteCodes::FullDirt)),
+      scenarioSelected(scenarioSelected),
+      backgroundSprite(this->graphicEngine.getScenarioSprite(
+          ScenarioSpriteCodes::Background, this->scenarioSelected)),
+      decorationSprite(this->graphicEngine.getScenarioSprite(
+          ScenarioSpriteCodes::Decoration, this->scenarioSelected)),
+      topGrassSprite(this->graphicEngine.getScenarioSprite(
+          ScenarioSpriteCodes::TopGrass, this->scenarioSelected)),
+      fullDirtSprite(this->graphicEngine.getScenarioSprite(
+          ScenarioSpriteCodes::FullDirt, this->scenarioSelected)),
       leftCorner(0, 0), player(player) {
 
   for (int i = 0; i < MAX_RANDOM_SOURCE; i++) {

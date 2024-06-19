@@ -53,6 +53,7 @@ GamesMonitor::createNewGame(PlayerInfo &player_status,
 
 void GamesMonitor::removeEndedGames() {
   std::lock_guard<std::mutex> lck(this->mtx);
+
   for (auto it = game_tracker.begin(); it != game_tracker.end();) {
     if (!it->second->isGameRunning()) {
       it = game_tracker.erase(it);

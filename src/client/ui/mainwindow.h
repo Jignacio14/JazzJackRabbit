@@ -5,6 +5,8 @@
 #include <cstdint>
 #include <memory>
 #include <qlineedit.h>
+#include <qmediaplayer.h>
+#include <qmediaplaylist.h>
 #include <qmovie.h>
 #include <qpushbutton.h>
 #include <qsound.h>
@@ -53,6 +55,9 @@ private slots:
   void on_backInJoinGameButton_released();
   void on_backInChooseCharacterButton_released();
 
+  void on_carrotusScenarioRadioButton_released();
+  void on_beachWorldScenarioRadioButton_released();
+
   void startGame();
   void joinGame(const GameConfigs &game);
 
@@ -70,6 +75,7 @@ private:
   uint32_t maxPlayers;
   uint32_t currentPlayers;
   uint8_t &characterSelected;
+  uint8_t &scenarioSelected;
 
   QSound buttonClickSound;
   QMovie jazzAnimation;
@@ -82,6 +88,9 @@ private:
   std::unique_ptr<Lobby> lobby;
 
   std::unique_ptr<std::thread> waitingPlayersAndStartTask;
+
+  QMediaPlayer mediaPlayer;
+  QMediaPlaylist mediaPlaylist;
 
   void enableButton(QPushButton *button, const std::string &id);
 
@@ -121,9 +130,13 @@ public:
   MainWindow(QWidget *parent, std::string &hostname, uint32_t &port,
              std::string &username, GameConfigs *game,
              Snapshot *initialSnapshot, uint8_t &userCharacter,
-             std::unique_ptr<Lobby> lobby);
+             uint8_t &scenarioSelected, std::unique_ptr<Lobby> lobby);
 
   std::unique_ptr<Lobby> getLobby();
+
+  void playMusic();
+
+  void stopMusic();
 
   ~MainWindow();
 };

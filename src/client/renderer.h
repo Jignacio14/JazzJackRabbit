@@ -11,6 +11,7 @@
 #include "./keyboard_handler.h"
 #include "./player.h"
 #include "./renderable.h"
+#include "./sound/audio_engine.h"
 #include "client.h"
 #include <SDL2pp/SDL2pp.hh>
 #include <functional>
@@ -28,6 +29,7 @@ private:
   double rate;
 
   GraphicEngine &graphicEngine;
+  AudioEngine &audioEngine;
   SDL2pp::Renderer &sdlRenderer;
 
   // cppcheck-suppress unusedStructMember
@@ -43,6 +45,9 @@ private:
   std::unique_ptr<SnapshotWrapper> latestSnapshot;
 
   KeyboardHandler keyboardHandler;
+
+  // cppcheck-suppress unusedStructMember
+  uint8_t &scenarioSelected;
 
   /*
    * Returns current time in seconds since epoch.
@@ -65,8 +70,9 @@ private:
   void createNewBullets(const Snapshot &snapshot);
 
 public:
-  Renderer(GraphicEngine &graphicEngine, int id, Socket socket, Player &player,
-           SnapshotWrapper &initialSnapshot);
+  Renderer(GraphicEngine &graphicEngine, AudioEngine &audioEngine, int id,
+           Socket socket, Player &player, SnapshotWrapper &initialSnapshot,
+           uint8_t &scenarioSelected);
 
   /*
    * It executes the game logic repeatedly, keeping a constant time rate between

@@ -19,13 +19,17 @@ GlobalConfigs::GlobalConfigs() {
       gameConfigs["min_number_of_players"].as<uint32_t>();
   this->maxPortNumber = gameConfigs["max_port_number"].as<uint32_t>();
 
+  this->backgroundMusicVolumeLobby =
+      gameConfigs["background_music_volume_lobby"].as<uint32_t>();
+  this->backgroundMusicVolumeGame =
+      gameConfigs["background_music_volume_game"].as<uint32_t>();
+  this->shouldPlayBackgroundMusic =
+      gameConfigs["play_background_music"].as<bool>();
+
   this->screenSizeX = gameConfigs["screen_size_x"].as<int>();
   this->screenSizeY = gameConfigs["screen_size_y"].as<int>();
   this->windowName = gameConfigs["window_name"].as<std::string>();
   this->targetFps = gameConfigs["target_fps"].as<double>();
-
-  this->debugHostname = gameConfigs["debug_hostname"].as<std::string>();
-  this->debugPort = gameConfigs["debug_port"].as<uint32_t>();
 
   this->playerStartingPoints = gameConfigs["starting_points"].as<uint32_t>();
   this->playerMaxLife = gameConfigs["max_life"].as<uint32_t>();
@@ -71,6 +75,18 @@ uint32_t GlobalConfigs::getMinNumberOfPlayers() const {
 
 uint32_t GlobalConfigs::getMaxPortNumber() const { return this->maxPortNumber; }
 
+uint32_t GlobalConfigs::getBackgroundMusicVolumeLobby() const {
+  return this->backgroundMusicVolumeLobby;
+}
+
+uint32_t GlobalConfigs::getBackgroundMusicVolumeGame() const {
+  return this->backgroundMusicVolumeGame;
+}
+
+bool GlobalConfigs::getShouldPlayBackgroundMusic() const {
+  return this->shouldPlayBackgroundMusic;
+}
+
 int GlobalConfigs::getScreenSizeX() const { return this->screenSizeX; }
 
 int GlobalConfigs::getScreenSizeY() const { return this->screenSizeY; }
@@ -78,12 +94,6 @@ int GlobalConfigs::getScreenSizeY() const { return this->screenSizeY; }
 std::string GlobalConfigs::getWindowName() const { return this->windowName; }
 
 double GlobalConfigs::getTargetFps() const { return this->targetFps; }
-
-std::string GlobalConfigs::getDebugHostname() const {
-  return this->debugHostname;
-}
-
-uint32_t GlobalConfigs::getDebugPort() const { return this->debugPort; }
 
 uint32_t GlobalConfigs::getPlayerStartingPoints() const {
   return this->playerStartingPoints;

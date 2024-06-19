@@ -84,6 +84,13 @@ struct EnemiesIds {
   static const uint8_t Schwarzenguard = 2;
 };
 
+struct ScenariosIds {
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t Carrotus = 0;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t BeachWorld = 1;
+};
+
 struct HitboxSizes {
   // cppcheck-suppress unusedStructMember
   static const uint8_t PlayerWidth = 40;
@@ -102,4 +109,5 @@ struct HitboxSizes {
   // cppcheck-suppress unusedStructMember
   static const uint8_t BulletHeight = 10;
 };
+
 #endif // JAZZJACKRABBIT_CONVENTION_H

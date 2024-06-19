@@ -15,6 +15,9 @@ private:
   SDL2pp::Renderer sdlRenderer;
   TextureLoader textureLoader;
 
+  Sprite &getCarrotusScenarioSprite(const u_int8_t &spriteCode);
+  Sprite &getBeachWorldScenarioSprite(const u_int8_t &spriteCode);
+
 public:
   GraphicEngine();
   void preloadTextures();
@@ -32,7 +35,8 @@ public:
   Sprite &getLoriSpecialSprite(const u_int8_t &spriteCode);
   Sprite &getLoriHudIcon();
 
-  Sprite &getCarrotusScenarioSprite(const u_int8_t &spriteCode);
+  Sprite &getScenarioSprite(const uint8_t &spriteCode,
+                            const uint8_t &scenarioId);
 
   Sprite &getGun1Sprite(const u_int8_t &spriteCode);
   Sprite &getGun1HudIcon();
@@ -51,6 +55,8 @@ public:
   Sprite &getHudSprite(const u_int8_t &spriteCode);
 
   Sprite &getLeaderboardSprite();
+
+  void closeWindow();
 };
 
 #endif // GRAPHIC_ENGINE_H

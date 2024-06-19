@@ -9,11 +9,13 @@ struct CarrotAnimationSpeedCoefs {
   static constexpr double Shine = 25;
 };
 
-Carrot::Carrot(GraphicEngine &graphicEngine, Coordinates &currentCoords,
-               const uint8_t &entityId, SnapshotWrapper &snapshot)
+Carrot::Carrot(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
+               Coordinates &currentCoords, const uint8_t &entityId,
+               SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
-      shouldBeDeleted(false), isShowingExitAnimation(false),
+      audioEngine(audioEngine), currentAnimation(nullptr),
+      currentCoords(currentCoords), entityInfo(), shouldBeDeleted(false),
+      isShowingExitAnimation(false),
       hitbox(HitboxSizes::CollectableWidth, HitboxSizes::CollectableHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -76,6 +78,7 @@ void Carrot::update(SnapshotWrapper &snapshot) {
         AnimationState::NotCycle, CarrotAnimationSpeedCoefs::Shine,
         AnimationState::NotFlip, this->hitbox);
     this->isShowingExitAnimation = true;
+    this->audioEngine.playCarrotCollectedSound();
     return;
   }
 

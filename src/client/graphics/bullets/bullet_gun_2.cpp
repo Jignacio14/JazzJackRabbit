@@ -9,11 +9,13 @@ struct BulletGun2AnimationSpeedCoefs {
   static constexpr double Impact = 25;
 };
 
-BulletGun2::BulletGun2(GraphicEngine &graphicEngine, Coordinates &currentCoords,
-                       const uint8_t &entityId, SnapshotWrapper &snapshot)
+BulletGun2::BulletGun2(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
+                       Coordinates &currentCoords, const uint8_t &entityId,
+                       SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
-      shouldBeDeleted(false), isShowingExitAnimation(false),
+      audioEngine(audioEngine), currentAnimation(nullptr),
+      currentCoords(currentCoords), entityInfo(), shouldBeDeleted(false),
+      isShowingExitAnimation(false),
       hitbox(HitboxSizes::BulletWidth, HitboxSizes::BulletHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -29,6 +31,7 @@ BulletGun2::BulletGun2(GraphicEngine &graphicEngine, Coordinates &currentCoords,
                                " was not found in the initialization snapshot";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
   }
+  this->audioEngine.playGun2ShotSound();
 }
 
 void BulletGun2::render(int iterationNumber) {}
@@ -73,6 +76,7 @@ void BulletGun2::update(SnapshotWrapper &snapshot) {
         AnimationState::NotCycle, BulletGun2AnimationSpeedCoefs::Impact,
         AnimationState::NotFlip, this->hitbox);
     this->isShowingExitAnimation = true;
+    this->audioEngine.playBulletImpactSound();
     return;
   }
 

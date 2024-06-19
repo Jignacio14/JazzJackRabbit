@@ -63,6 +63,8 @@ public:
                             const Coordinates &currentCoords);
 
   bool canBreakAnimation() const;
+
+  uint8_t getCode() const;
 };
 
 #endif // ANIMATION_STATE_H

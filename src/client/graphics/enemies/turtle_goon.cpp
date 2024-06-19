@@ -11,10 +11,12 @@ struct TurtleGoonAnimationSpeedCoefs {
   static constexpr double Shooting = 25;
 };
 
-TurtleGoon::TurtleGoon(GraphicEngine &graphicEngine, Coordinates &currentCoords,
-                       const uint8_t &entityId, SnapshotWrapper &snapshot)
+TurtleGoon::TurtleGoon(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
+                       Coordinates &currentCoords, const uint8_t &entityId,
+                       SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
+      audioEngine(audioEngine), currentAnimation(nullptr),
+      currentCoords(currentCoords), entityInfo(),
       hitbox(HitboxSizes::EnemyWidth, HitboxSizes::EnemyHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
