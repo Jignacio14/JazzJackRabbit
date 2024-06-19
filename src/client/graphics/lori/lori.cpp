@@ -86,6 +86,8 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
           &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Death),
           AnimationState::NotCycle, LoriAnimationSpeedCoefs::Death, shouldFlip,
           this->hitbox);
+
+      this->audioEngine.playLoriDeathSound();
     }
     return;
   }
@@ -99,6 +101,7 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
           &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Hurt),
           AnimationState::NotCycle, LoriAnimationSpeedCoefs::Hurt, shouldFlip,
           this->hitbox);
+      this->audioEngine.playLorihurtSound();
     }
     return;
   }

@@ -86,6 +86,8 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
           &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Death),
           AnimationState::NotCycle, SpazAnimationSpeedCoefs::Death, shouldFlip,
           this->hitbox);
+
+      this->audioEngine.playSpazDeathSound();
     }
     return;
   }
@@ -99,6 +101,8 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
           &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Hurt),
           AnimationState::NotCycle, SpazAnimationSpeedCoefs::Hurt, shouldFlip,
           this->hitbox);
+
+      this->audioEngine.playSpazHurtSound();
     }
     return;
   }

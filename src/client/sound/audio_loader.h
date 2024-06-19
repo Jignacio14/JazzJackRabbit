@@ -19,6 +19,13 @@ private:
 
   SDL2pp::Chunk gameOverSound;
 
+  SDL2pp::Chunk jazzDeathSound;
+  SDL2pp::Chunk jazzHurtSound;
+  SDL2pp::Chunk spazDeathSound;
+  SDL2pp::Chunk spazHurtSound;
+  SDL2pp::Chunk loriDeathSound;
+  SDL2pp::Chunk loriHurtSound;
+
 public:
   explicit AudioLoader(SDL2pp::Mixer &sdlMixer);
 
@@ -35,6 +42,13 @@ public:
   SDL2pp::Chunk &getAmmoCollectedSound();
 
   SDL2pp::Chunk &getGameOverSound();
+
+  SDL2pp::Chunk &getJazzDeathSound();
+  SDL2pp::Chunk &getJazzHurtSound();
+  SDL2pp::Chunk &getSpazDeathSound();
+  SDL2pp::Chunk &getSpazHurtSound();
+  SDL2pp::Chunk &getLoriDeathSound();
+  SDL2pp::Chunk &getLoriHurtSound();
 };
 
 #endif // AUDIO_LOADER_H

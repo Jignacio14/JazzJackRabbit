@@ -36,6 +36,13 @@ public:
   void playAmmoCollectedSound();
 
   void playGameOverSound();
+
+  void playJazzDeathSound();
+  void playJazzhurtSound();
+  void playSpazDeathSound();
+  void playSpazHurtSound();
+  void playLoriDeathSound();
+  void playLorihurtSound();
 };
 
 #endif // AUDIO_ENGINE_H

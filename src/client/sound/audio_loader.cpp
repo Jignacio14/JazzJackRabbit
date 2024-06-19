@@ -10,7 +10,13 @@ AudioLoader::AudioLoader(SDL2pp::Mixer &sdlMixer)
       diamondCollectedSound("src/client/sound/files/diamond_collected.mp3"),
       carrotCollectedSound("src/client/sound/files/carrot_collected.mp3"),
       ammoCollectedSound("src/client/sound/files/ammo_collected.mp3"),
-      gameOverSound("src/client/sound/files/game_over.mp3") {}
+      gameOverSound("src/client/sound/files/game_over.mp3"),
+      jazzDeathSound("src/client/sound/files/jazz_death.mp3"),
+      jazzHurtSound("src/client/sound/files/jazz_hurt.mp3"),
+      spazDeathSound("src/client/sound/files/spaz_death.mp3"),
+      spazHurtSound("src/client/sound/files/spaz_hurt.mp3"),
+      loriDeathSound("src/client/sound/files/lori_death.mp3"),
+      loriHurtSound("src/client/sound/files/lori_hurt.mp3") {}
 
 void AudioLoader::preloadAudios() {}
 
@@ -43,3 +49,15 @@ SDL2pp::Chunk &AudioLoader::getAmmoCollectedSound() {
 }
 
 SDL2pp::Chunk &AudioLoader::getGameOverSound() { return this->gameOverSound; }
+
+SDL2pp::Chunk &AudioLoader::getJazzDeathSound() { return this->jazzDeathSound; }
+
+SDL2pp::Chunk &AudioLoader::getJazzHurtSound() { return this->jazzHurtSound; }
+
+SDL2pp::Chunk &AudioLoader::getSpazDeathSound() { return this->spazDeathSound; }
+
+SDL2pp::Chunk &AudioLoader::getSpazHurtSound() { return this->spazHurtSound; }
+
+SDL2pp::Chunk &AudioLoader::getLoriDeathSound() { return this->loriDeathSound; }
+
+SDL2pp::Chunk &AudioLoader::getLoriHurtSound() { return this->loriHurtSound; }

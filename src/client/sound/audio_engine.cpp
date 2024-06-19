@@ -77,3 +77,27 @@ void AudioEngine::playAmmoCollectedSound() {
 void AudioEngine::playGameOverSound() {
   this->playSound(this->audioLoader.getGameOverSound());
 }
+
+void AudioEngine::playJazzDeathSound() {
+  this->playSound(this->audioLoader.getJazzDeathSound());
+}
+
+void AudioEngine::playJazzhurtSound() {
+  this->playSound(this->audioLoader.getJazzHurtSound());
+}
+
+void AudioEngine::playSpazDeathSound() {
+  this->playSound(this->audioLoader.getSpazDeathSound());
+}
+
+void AudioEngine::playSpazHurtSound() {
+  this->playSound(this->audioLoader.getSpazHurtSound());
+}
+
+void AudioEngine::playLoriDeathSound() {
+  this->playSound(this->audioLoader.getLoriDeathSound());
+}
+
+void AudioEngine::playLorihurtSound() {
+  this->playSound(this->audioLoader.getLoriHurtSound());
+}

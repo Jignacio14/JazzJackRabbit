@@ -89,6 +89,8 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
           &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Death),
           AnimationState::NotCycle, JazzAnimationSpeedCoefs::Death, shouldFlip,
           this->hitbox);
+
+      this->audioEngine.playJazzDeathSound();
     }
     return;
   }
@@ -102,6 +104,8 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
           &this->graphicEngine.getJazzGenericSprite(GenericSpriteCodes::Hurt),
           AnimationState::NotCycle, JazzAnimationSpeedCoefs::Hurt, shouldFlip,
           this->hitbox);
+
+      this->audioEngine.playJazzhurtSound();
     }
     return;
   }
@@ -132,6 +136,11 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
           shouldFlip, this->hitbox);
     }
     return;
+  }
+
+  if (this->currentAnimation->getCode() == GenericSpriteCodes::Falling &&
+      newEntityInfo.is_falling == NumericBool::False) {
+    this->audioEngine.playGroundHitSound();
   }
 
   if (newEntityInfo.is_falling == NumericBool::True && canBreakAnimation) {
