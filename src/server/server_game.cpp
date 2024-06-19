@@ -1,10 +1,7 @@
 #include "server_game.h"
-#include <cstdint>
 #include <cstring>
 #include <iostream>
-#include <memory>
 #include <thread>
-#include <utility>
 
 #include "../common/global_configs.h"
 
@@ -62,6 +59,8 @@ void Game::gameLoop() {
           pair.second->update();
         }
       }
+
+      this->updateBullets();
 
       CommandCodeDto command;
       int instructions_count = 0;
@@ -171,7 +170,8 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
     this->players_data[player_id]->stop_running();
     break;
   case PlayerCommands::SHOOT:
-    this->players_data[player_id]->shoot();
+    Bullet newBullet = this->players_data[player_id]->shoot();
+    bullets.push_back(newBullet);
     break;
     /*
   case PlayerCommands::SPECIAL_ATTACK:
@@ -256,6 +256,16 @@ void Game::ereasePlayer(uint8_t player_id) {
     memset(&this->snapshot.players[this->snapshot.sizePlayers], 0,
            sizeof(PlayerDto));
   }
+}
+
+void Game::updateBullets() {
+  for (auto &bullet : bullets) {
+    bullet.move(snapshot);
+  }
+  bullets.erase(
+      std::remove_if(bullets.begin(), bullets.end(),
+                     [](Bullet &bullet) { return !bullet.is_alive(); }),
+      bullets.end());
 }
 
 void Game::kill() { this->_is_alive = false; }

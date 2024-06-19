@@ -71,7 +71,7 @@ public:
   void run();
   void stop_running();
 
-  void shoot();
+  Bullet shoot();
 
   ~BasePlayer();
 };

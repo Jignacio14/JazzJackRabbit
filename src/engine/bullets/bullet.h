@@ -11,8 +11,6 @@
 class Bullet {
 private:
   // cppcheck-suppress unusedStructMember
-  Snapshot &snapshot;
-  // cppcheck-suppress unusedStructMember
   uint8_t type;
   // cppcheck-suppress unusedStructMember
   uint8_t damage;
@@ -29,12 +27,13 @@ private:
   // cppcheck-suppress unusedStructMember
   bool alive;
 
-  void delete_from_snapshot();
+  void delete_from_snapshot(Snapshot &snapshot);
 
 public:
-  Bullet(Snapshot &snap, uint8_t type, uint8_t damage, uint8_t speed,
-         Rectangle rectangle, uint8_t facing_direction, ServerMap map);
-  void move();
+  Bullet(uint8_t type, uint8_t damage, uint8_t speed, Rectangle rectangle,
+         uint8_t facing_direction, ServerMap map);
+  void add_to_snapshot(Snapshot &snapshot);
+  void move(Snapshot &snapshot);
   bool is_alive();
 };
 

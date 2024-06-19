@@ -13,20 +13,25 @@ const static float COOLDOWN = globalConfigs.getBullet1Cooldown();
 InitialWeapon::InitialWeapon(Snapshot &snap)
     : BaseWeapon(snap, MAX_AMMO, AMMO_DAMAGE, COOLDOWN, AMMO_SPEED) {}
 
-void InitialWeapon::shoot(Rectangle rectangle, uint8_t facing_direction,
-                          ServerMap map) {
+Bullet InitialWeapon::shoot(Rectangle rectangle, uint8_t facing_direction,
+                            ServerMap map) {
   // tamb verificar cooldown
-  if (ammo > 0) {
-    std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>(
-        snapshot, (uint8_t)1 /*GunsIds::Gun1*/, ammo_speed, damage, rectangle,
-        facing_direction, map);
-    bullets_shot.push_back(std::move(bullet));
-    // La inicial tiene balas infinitas.
-    // ammo--;
-  }
+  // if (ammo > 0) {
+  /*
+std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>(
+    snapshot, (uint8_t)1 GunsIds::Gun1, ammo_speed, damage, rectangle,
+    facing_direction, map); */
+  Bullet new_bullet((uint8_t)1 /*GunsIds::Gun1*/, AMMO_DAMAGE, AMMO_SPEED,
+                    rectangle, facing_direction, map);
+  new_bullet.add_to_snapshot(snapshot);
+  return new_bullet;
+  // La inicial tiene balas infinitas.
+  // ammo--;
+  //}
 }
-
+/*
 void InitialWeapon::update() {
+
   for (auto &bullet : bullets_shot) {
     bullet->move();
   }
@@ -36,3 +41,4 @@ void InitialWeapon::update() {
                                     }),
                      bullets_shot.end());
 }
+*/
