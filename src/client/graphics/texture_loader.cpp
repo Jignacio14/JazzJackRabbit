@@ -71,6 +71,7 @@ const static int COLLECTABLES_COLOR_KEY_RGB[3] = {0, 128, 255};
 const static int MAP_COLOR_KEY_RGB[3] = {87, 0, 203};
 const static int SHINE_COLOR_KEY_RGB[3] = {153, 217, 234};
 const static int WHITE_COLOR_KEY[3] = {255, 255, 255};
+const static int BLACK_COLOR_KEY[3] = {0, 0, 0};
 
 const static int FULL_ALPHA = 255;
 
@@ -260,6 +261,34 @@ void TextureLoader::preloadTextures() {
                    spriteNamesMap.map.at(ScenarioSpriteCodes::FullDirt),
                    nullptr, this->carrotusScenarioSprites);
 
+  // BEACH WORLD SCENARIO SPRITES INITIALIZATION
+
+  // Load background
+  loadSpriteLambda("src/client/sprites/beach_world_scenario/",
+                   ScenarioSpriteCodes::Background,
+                   spriteNamesMap.map.at(ScenarioSpriteCodes::Background),
+                   nullptr, this->beachWorldScenarioSprites);
+
+  // Load decoration
+  int decorationAlpha = 220;
+  loadSpriteWithAlphaModLambda(
+      "src/client/sprites/beach_world_scenario/",
+      ScenarioSpriteCodes::Decoration,
+      spriteNamesMap.map.at(ScenarioSpriteCodes::Decoration), BLACK_COLOR_KEY,
+      this->beachWorldScenarioSprites, decorationAlpha);
+
+  // Load top_grass
+  loadSpriteLambda("src/client/sprites/beach_world_scenario/",
+                   ScenarioSpriteCodes::TopGrass,
+                   spriteNamesMap.map.at(ScenarioSpriteCodes::TopGrass),
+                   MAP_COLOR_KEY_RGB, this->beachWorldScenarioSprites);
+
+  // Load full_dirt
+  loadSpriteLambda("src/client/sprites/beach_world_scenario/",
+                   ScenarioSpriteCodes::FullDirt,
+                   spriteNamesMap.map.at(ScenarioSpriteCodes::FullDirt),
+                   nullptr, this->beachWorldScenarioSprites);
+
   // GUNS SPRITES INITIALIZATION
   for (auto &spriteCode : gunsSpriteNamesVector) {
     loadSpriteLambda("src/client/sprites/gun_1/", spriteCode,
@@ -431,6 +460,18 @@ Sprite &TextureLoader::getCarrotusScenarioSprite(const u_int8_t &spriteCode) {
     std::string errorMessage = "Failed retrieving " +
                                spriteNamesMap.map.at(spriteCode) +
                                " from carrotusScenarioSprites map.";
+    throw JJR2Error(errorMessage, __LINE__, __FILE__);
+  }
+}
+
+Sprite &TextureLoader::getBeachWorldScenarioSprite(const u_int8_t &spriteCode) {
+  try {
+    return std::ref(
+        this->beachWorldScenarioSprites.at(spriteNamesMap.map.at(spriteCode)));
+  } catch (...) {
+    std::string errorMessage = "Failed retrieving " +
+                               spriteNamesMap.map.at(spriteCode) +
+                               " from beachWorldScenarioSprites map.";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
   }
 }
