@@ -9,6 +9,8 @@ private:
   // cppcheck-suppress unusedStructMember
   uint32_t backgroundMusicVolumeLobby;
   // cppcheck-suppress unusedStructMember
+  uint32_t backgroundMusicVolumeGame;
+  // cppcheck-suppress unusedStructMember
   uint16_t maxPlayersPerGame;
   // cppcheck-suppress unusedStructMember
   uint32_t maxGameDuration;
@@ -81,6 +83,7 @@ public:
   static GlobalConfigs &getInstance();
 
   uint32_t getBackgroundMusicVolumeLobby() const;
+  uint32_t getBackgroundMusicVolumeGame() const;
   uint16_t getMaxPlayersPerGame() const;
   uint32_t getMaxGameDuration() const;
   uint32_t getMaxUsernameLength() const;

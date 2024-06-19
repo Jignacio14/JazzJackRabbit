@@ -1,22 +1,20 @@
 #include "./audio_engine.h"
 
-const static int CHANNELS = 2;
-const static int CHUNK_SIZE = 4096;
+#include "../../common/global_configs.h"
 
+static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
+
+const static int CHUNK_SIZE = 4096;
 const static int SOUNDS_COUNT_TRIGGER_FOR_CLEANUP = 50;
+const static int BACKGROUND_MUSIC_VOLUME =
+    globalConfigs.getBackgroundMusicVolumeGame();
 
 AudioEngine::AudioEngine()
     : sdl(SDL_INIT_AUDIO), sdlMixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT,
                                     MIX_DEFAULT_CHANNELS, CHUNK_SIZE),
-      audioLoader(this->sdlMixer), jumpSoundDuration(300),
-      groundHitSoundDuration(250), gun1ShotSoundDuration(200),
-      gun2ShotSoundDuration(400), bulletImpactSoundDuration(350),
-      coinCollectedSoundDuration(475), diamondCollectedSoundDuration(460),
-      carrotCollectedSoundDuration(300), ammoCollectedSoundDuration(300),
-      gameOverSoundDuration(2100), jazzDeathSoundDuration(1600),
-      jazzHurtSoundDuration(450), spazDeathSoundDuration(2500),
-      spazHurtSoundDuration(450), loriDeathSoundDuration(900),
-      loriHurtSoundDuration(600) {}
+      audioLoader(this->sdlMixer), music(nullptr) {
+  this->sdlMixer.SetMusicVolume(BACKGROUND_MUSIC_VOLUME);
+}
 
 void AudioEngine::preloadAudios() { this->audioLoader.preloadAudios(); }
 
@@ -26,9 +24,18 @@ void AudioEngine::removeFinishedAudios() {
   });
 }
 
-void AudioEngine::playSound(SDL2pp::Chunk &soundChunk, uint32_t &duration) {
+void AudioEngine::playMusic(SDL2pp::Music &musicTrack) {
+  if (this->music != nullptr) {
+    this->stopPlayingBackgroundMusic();
+  }
+
+  this->music = std::make_unique<Music>(this->sdlMixer, musicTrack);
+  this->music->startPlayback();
+}
+
+void AudioEngine::playSound(SDL2pp::Chunk &soundChunk) {
   std::unique_ptr<SoundEffect> sound =
-      std::make_unique<SoundEffect>(this->sdlMixer, soundChunk, duration);
+      std::make_unique<SoundEffect>(this->sdlMixer, soundChunk);
 
   this->sounds.push_back(std::move(sound));
 
@@ -40,82 +47,83 @@ void AudioEngine::playSound(SDL2pp::Chunk &soundChunk, uint32_t &duration) {
 }
 
 void AudioEngine::playJumpSound() {
-  this->playSound(this->audioLoader.getJumpSound(), this->jumpSoundDuration);
+  this->playSound(this->audioLoader.getJumpSound());
 }
 
 void AudioEngine::playGroundHitSound() {
-  this->playSound(this->audioLoader.getGroundHitSound(),
-                  this->groundHitSoundDuration);
+  this->playSound(this->audioLoader.getGroundHitSound());
 }
 
 void AudioEngine::playGun1ShotSound() {
-  this->playSound(this->audioLoader.getGun1ShotSound(),
-                  this->gun1ShotSoundDuration);
+  this->playSound(this->audioLoader.getGun1ShotSound());
 }
 
 void AudioEngine::playGun2ShotSound() {
-  this->playSound(this->audioLoader.getGun2ShotSound(),
-                  this->gun2ShotSoundDuration);
+  this->playSound(this->audioLoader.getGun2ShotSound());
 }
 
 void AudioEngine::playBulletImpactSound() {
-  this->playSound(this->audioLoader.getBulletImpactSound(),
-                  this->bulletImpactSoundDuration);
+  this->playSound(this->audioLoader.getBulletImpactSound());
 }
 
 void AudioEngine::playCoinCollectedSound() {
-  this->playSound(this->audioLoader.getCoinCollectedSound(),
-                  this->coinCollectedSoundDuration);
+  this->playSound(this->audioLoader.getCoinCollectedSound());
 }
 
 void AudioEngine::playDiamondCollectedSound() {
-  this->playSound(this->audioLoader.getDiamondCollectedSound(),
-                  this->diamondCollectedSoundDuration);
+  this->playSound(this->audioLoader.getDiamondCollectedSound());
 }
 
 void AudioEngine::playCarrotCollectedSound() {
-  this->playSound(this->audioLoader.getCarrotCollectedSound(),
-                  this->carrotCollectedSoundDuration);
+  this->playSound(this->audioLoader.getCarrotCollectedSound());
 }
 
 void AudioEngine::playAmmoCollectedSound() {
-  this->playSound(this->audioLoader.getAmmoCollectedSound(),
-                  this->ammoCollectedSoundDuration);
+  this->playSound(this->audioLoader.getAmmoCollectedSound());
 }
 
 void AudioEngine::playGameOverSound() {
-  this->playSound(this->audioLoader.getGameOverSound(),
-                  this->gameOverSoundDuration);
+  this->playSound(this->audioLoader.getGameOverSound());
 }
 
 void AudioEngine::playJazzDeathSound() {
-  this->playSound(this->audioLoader.getJazzDeathSound(),
-                  this->jazzDeathSoundDuration);
+  this->playSound(this->audioLoader.getJazzDeathSound());
 }
 
 void AudioEngine::playJazzhurtSound() {
-  this->playSound(this->audioLoader.getJazzHurtSound(),
-                  this->jazzHurtSoundDuration);
+  this->playSound(this->audioLoader.getJazzHurtSound());
 }
 
 void AudioEngine::playSpazDeathSound() {
-  this->playSound(this->audioLoader.getSpazDeathSound(),
-                  this->spazDeathSoundDuration);
+  this->playSound(this->audioLoader.getSpazDeathSound());
 }
 
 void AudioEngine::playSpazHurtSound() {
-  this->playSound(this->audioLoader.getSpazHurtSound(),
-                  this->spazHurtSoundDuration);
+  this->playSound(this->audioLoader.getSpazHurtSound());
 }
 
 void AudioEngine::playLoriDeathSound() {
-  this->playSound(this->audioLoader.getLoriDeathSound(),
-                  this->loriDeathSoundDuration);
+  this->playSound(this->audioLoader.getLoriDeathSound());
 }
 
 void AudioEngine::playLorihurtSound() {
-  this->playSound(this->audioLoader.getLoriHurtSound(),
-                  this->loriHurtSoundDuration);
+  this->playSound(this->audioLoader.getLoriHurtSound());
+}
+
+void AudioEngine::playCarrotusBackgroundMusic() {
+  this->playMusic(this->audioLoader.getCarrotusBackgroundMusic());
+}
+
+void AudioEngine::playBeachWorldBackgroundMusic() {
+  this->playMusic(this->audioLoader.getBeachWorldBackgroundMusic());
+}
+
+void AudioEngine::stopPlayingBackgroundMusic() {
+  if (this->music == nullptr) {
+    return;
+  }
+
+  this->music->stopPlayback();
 }
 
 AudioEngine::~AudioEngine() {}

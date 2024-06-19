@@ -14,6 +14,8 @@ GlobalConfigs::GlobalConfigs() {
 
   this->backgroundMusicVolumeLobby =
       gameConfigs["background_music_volume_lobby"].as<uint32_t>();
+  this->backgroundMusicVolumeGame =
+      gameConfigs["background_music_volume_game"].as<uint32_t>();
   this->maxPlayersPerGame = gameConfigs["max_players_per_game"].as<uint16_t>();
   this->maxGameDuration = gameConfigs["max_game_duration"].as<uint32_t>();
   this->maxUsernameLength = gameConfigs["max_username_length"].as<uint32_t>();
@@ -54,6 +56,10 @@ GlobalConfigs::GlobalConfigs() {
 
 uint32_t GlobalConfigs::getBackgroundMusicVolumeLobby() const {
   return this->backgroundMusicVolumeLobby;
+}
+
+uint32_t GlobalConfigs::getBackgroundMusicVolumeGame() const {
+  return this->backgroundMusicVolumeGame;
 }
 
 uint16_t GlobalConfigs::getMaxPlayersPerGame() const {

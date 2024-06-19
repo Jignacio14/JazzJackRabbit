@@ -26,6 +26,9 @@ private:
   SDL2pp::Chunk loriDeathSound;
   SDL2pp::Chunk loriHurtSound;
 
+  SDL2pp::Music carrotusBackgroundMusic;
+  SDL2pp::Music beachWorldBackgroundMusic;
+
 public:
   explicit AudioLoader(SDL2pp::Mixer &sdlMixer);
 
@@ -49,6 +52,9 @@ public:
   SDL2pp::Chunk &getSpazHurtSound();
   SDL2pp::Chunk &getLoriDeathSound();
   SDL2pp::Chunk &getLoriHurtSound();
+
+  SDL2pp::Music &getCarrotusBackgroundMusic();
+  SDL2pp::Music &getBeachWorldBackgroundMusic();
 };
 
 #endif // AUDIO_LOADER_H

@@ -269,6 +269,8 @@ void Renderer::sleep(double timeToSleep) {
 }
 
 void Renderer::run() {
+  this->audioEngine.playCarrotusBackgroundMusic();
+
   int iterationNumber = 0;
 
   while (keep_running) {
@@ -304,6 +306,8 @@ void Renderer::run() {
 
     this->debugPanel.update(this->now());
   }
+
+  this->audioEngine.stopPlayingBackgroundMusic();
 }
 
 Renderer::~Renderer() {}

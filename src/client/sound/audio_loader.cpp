@@ -16,7 +16,11 @@ AudioLoader::AudioLoader(SDL2pp::Mixer &sdlMixer)
       spazDeathSound("src/client/sound/files/spaz_death.mp3"),
       spazHurtSound("src/client/sound/files/spaz_hurt.mp3"),
       loriDeathSound("src/client/sound/files/lori_death.mp3"),
-      loriHurtSound("src/client/sound/files/lori_hurt.mp3") {}
+      loriHurtSound("src/client/sound/files/lori_hurt.mp3"),
+      carrotusBackgroundMusic(
+          "src/client/sound/files/carrotus_background_music.mp3"),
+      beachWorldBackgroundMusic(
+          "src/client/sound/files/beach_world_background_music.mp3") {}
 
 void AudioLoader::preloadAudios() {}
 
@@ -61,3 +65,11 @@ SDL2pp::Chunk &AudioLoader::getSpazHurtSound() { return this->spazHurtSound; }
 SDL2pp::Chunk &AudioLoader::getLoriDeathSound() { return this->loriDeathSound; }
 
 SDL2pp::Chunk &AudioLoader::getLoriHurtSound() { return this->loriHurtSound; }
+
+SDL2pp::Music &AudioLoader::getCarrotusBackgroundMusic() {
+  return this->carrotusBackgroundMusic;
+}
+
+SDL2pp::Music &AudioLoader::getBeachWorldBackgroundMusic() {
+  return this->beachWorldBackgroundMusic;
+}

@@ -105,8 +105,4 @@ Sprite &GraphicEngine::getLeaderboardSprite() {
   return this->textureLoader.getLeaderboardSprite();
 }
 
-void GraphicEngine::closeWindow() {
-  this->window.~Window();
-  this->sdlRenderer.~Renderer();
-  this->sdl.~SDL();
-}
+void GraphicEngine::closeWindow() { this->window.~Window(); }

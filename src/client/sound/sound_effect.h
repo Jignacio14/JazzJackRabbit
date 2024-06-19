@@ -8,12 +8,9 @@ class SoundEffect : private Thread {
 private:
   SDL2pp::Mixer &sdlMixer;
   SDL2pp::Chunk &sound;
-  // cppcheck-suppress unusedStructMember
-  uint32_t duration;
 
 public:
-  SoundEffect(SDL2pp::Mixer &sdlMixer, SDL2pp::Chunk &sound,
-              const uint32_t &duration);
+  SoundEffect(SDL2pp::Mixer &sdlMixer, SDL2pp::Chunk &sound);
 
   virtual void run() override;
 
