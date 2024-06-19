@@ -1,7 +1,7 @@
 #include "./music.h"
 
 const static int FIRST_FREE_AVAILABLE_CHANNEL_ID = -1;
-const static int FADE_IN_DELAY = 2000; // In ms
+const static int FADE_IN_DELAY = 500; // In ms
 
 Music::Music(SDL2pp::Mixer &sdlMixer, SDL2pp::Music &music)
     : sdlMixer(sdlMixer), music(music) {}
