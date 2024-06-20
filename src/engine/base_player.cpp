@@ -266,6 +266,8 @@ bool BasePlayer::intersects(Rectangle rectangle) {
 
 bool BasePlayer::can_shoot() { return state->can_shoot(); }
 
+bool BasePlayer::is_alive() { return health > 0; }
+
 BasePlayer::~BasePlayer() {
   // delete weapon;
   // delete state;

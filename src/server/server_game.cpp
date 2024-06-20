@@ -266,7 +266,7 @@ void Game::updateBullets() {
     bullet.move(snapshot);
     for (auto &pair : players_data) {
       auto &player = pair.second;
-      if (player->intersects(bullet.get_rectangle())) {
+      if (player->intersects(bullet.get_rectangle()) && player->is_alive()) {
         player->receive_damage(bullet.get_damage());
         bullet.kill(snapshot);
         break;

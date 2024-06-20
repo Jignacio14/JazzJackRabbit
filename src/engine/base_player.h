@@ -73,6 +73,7 @@ public:
 
   bool intersects(Rectangle rectangle);
   bool can_shoot();
+  bool is_alive();
 
   Bullet shoot();
 
