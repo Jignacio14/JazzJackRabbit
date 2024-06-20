@@ -171,8 +171,10 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
     this->players_data[player_id]->stop_running();
     break;
   case PlayerCommands::SHOOT:
-    Bullet newBullet = this->players_data[player_id]->shoot();
-    bullets.push_back(newBullet);
+    if (this->players_data[player_id]->can_shoot()) {
+      Bullet newBullet = this->players_data[player_id]->shoot();
+      bullets.push_back(newBullet);
+    }
     break;
     /*
   case PlayerCommands::SPECIAL_ATTACK:

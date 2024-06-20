@@ -264,6 +264,8 @@ bool BasePlayer::intersects(Rectangle rectangle) {
   return this->rectangle.intersects(rectangle);
 }
 
+bool BasePlayer::can_shoot() { return state->can_shoot(); }
+
 BasePlayer::~BasePlayer() {
   // delete weapon;
   // delete state;

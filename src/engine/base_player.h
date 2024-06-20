@@ -72,6 +72,7 @@ public:
   void stop_running();
 
   bool intersects(Rectangle rectangle);
+  bool can_shoot();
 
   Bullet shoot();
 
