@@ -50,9 +50,17 @@ void BasePlayer::try_respawn() {
   if (time_passed >= globalConfigs.getRespawnTime()) {
     health = MAX_HEALTH;
     change_state(std::make_unique<Alive>());
+    rectangle = Rectangle(Coordinates(INITIAL_X, INITIAL_Y),
+                          Coordinates(INITIAL_X + HitboxSizes::PlayerWidth,
+                                      INITIAL_Y + HitboxSizes::PlayerHeight));
+
     if (position != -1) {
       snapshot.players[position].is_dead = NumericBool::False;
       snapshot.players[position].life = health;
+      snapshot.players[position].position_x =
+          rectangle.getTopLeftCorner().getX();
+      snapshot.players[position].position_y =
+          rectangle.getTopLeftCorner().getY();
     }
   }
 }
