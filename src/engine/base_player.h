@@ -47,6 +47,8 @@ private:
   bool is_moving;
   // cppcheck-suppress unusedStructMember
   bool is_running;
+  // cppcheck-suppress unusedStructMember
+  double moment_of_death;
 
   bool move_down();
   bool move_up();
@@ -54,6 +56,7 @@ private:
   void change_state(std::unique_ptr<BaseState> new_state);
   void update_jump();
   void update_movement();
+  void try_respawn();
 
 public:
   BasePlayer(uint8_t player_id, const std::string &player_name,

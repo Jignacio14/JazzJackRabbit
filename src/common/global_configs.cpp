@@ -55,6 +55,8 @@ GlobalConfigs::GlobalConfigs() {
   this->bullet2Speed = gameConfigs["bullet_2_speed"].as<uint8_t>();
   this->bullet2Damage = gameConfigs["bullet_2_damage"].as<uint8_t>();
   this->bullet2Cooldown = gameConfigs["bullet_2_cooldown"].as<float>();
+
+  this->respawnTime = gameConfigs["respawn_time"].as<double>();
 }
 
 uint16_t GlobalConfigs::getMaxPlayersPerGame() const {
@@ -144,3 +146,5 @@ uint8_t GlobalConfigs::getBullet2Damage() const { return this->bullet2Damage; }
 float GlobalConfigs::getBullet2Cooldown() const {
   return this->bullet2Cooldown;
 }
+
+double GlobalConfigs::getRespawnTime() const { return this->respawnTime; }

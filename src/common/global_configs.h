@@ -62,6 +62,8 @@ private:
   uint8_t bullet2Damage;
   // cppcheck-suppress unusedStructMember
   float bullet2Cooldown;
+  // cppcheck-suppress unusedStructMember
+  double respawnTime;
 
   GlobalConfigs();
 
@@ -111,6 +113,7 @@ public:
   uint8_t getBullet2Speed() const;
   uint8_t getBullet2Damage() const;
   float getBullet2Cooldown() const;
+  double getRespawnTime() const;
 };
 
 #endif // GLOBAL_CONFIGS_H

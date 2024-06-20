@@ -19,7 +19,7 @@ BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
                                       INITIAL_Y + HitboxSizes::PlayerHeight))),
       facing_direction(FacingDirectionsIds::Right), snapshot(snapshot),
       position(position), positions_to_jump(0), is_moving(false),
-      is_running(false) {}
+      is_running(false), moment_of_death(0) {}
 
 int BasePlayer::find_position() {
   for (int i = 0; i < snapshot.sizePlayers; ++i) {
@@ -36,9 +36,24 @@ void BasePlayer::update() {
 
   this->update_movement();
 
+  if (health == 0)
+    this->try_respawn();
+
   if (position != -1) {
     snapshot.players[position].shot = NumericBool::False;
     snapshot.players[position].was_hurt = NumericBool::False;
+  }
+}
+
+void BasePlayer::try_respawn() {
+  double time_passed = (moment_of_death - snapshot.timeLeft);
+  if (time_passed >= globalConfigs.getRespawnTime()) {
+    health = MAX_HEALTH;
+    change_state(std::make_unique<Alive>());
+    if (position != -1) {
+      snapshot.players[position].is_dead = NumericBool::False;
+      snapshot.players[position].life = health;
+    }
   }
 }
 
@@ -119,6 +134,7 @@ void BasePlayer::receive_damage(uint8_t damage) {
   if (damage >= health) {
     health = 0;
     change_state(std::make_unique<Dead>());
+    moment_of_death = snapshot.timeLeft;
     if (position != -1) {
       snapshot.players[position].is_dead = NumericBool::True;
       snapshot.players[position].life = health;
