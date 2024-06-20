@@ -176,6 +176,9 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
       bullets.push_back(newBullet);
     }
     break;
+  case PlayerCommands::CHANGE_WEAPON:
+    this->players_data[player_id]->change_weapon(data);
+    break;
     /*
   case PlayerCommands::SPECIAL_ATTACK:
     this->players_data[player_id]->specialAttack();

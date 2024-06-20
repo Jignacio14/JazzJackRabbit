@@ -24,10 +24,12 @@ protected:
   const float cooldown;
   // cppcheck-suppress unusedStructMember
   const uint8_t ammo_speed;
+  // cppcheck-suppress unusedStructMember
+  int player_pos;
 
 public:
   BaseWeapon(Snapshot &snap, uint16_t ammo, uint8_t damage, float cooldown,
-             uint8_t ammo_speed);
+             uint8_t ammo_speed, int position);
   virtual Bullet shoot(Rectangle rectangle, uint8_t facing_direction,
                        ServerMap map) = 0;
 };

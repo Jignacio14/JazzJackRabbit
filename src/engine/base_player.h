@@ -11,6 +11,7 @@
 #include "states/intoxicated.h"
 #include "weapons/base_weapon.h"
 #include "weapons/initial_weapon.h"
+#include "weapons/orb.h"
 #include <cstdint>
 #include <memory>
 #include <string>
@@ -28,8 +29,6 @@ private:
   std::string player_name;
   // cppcheck-suppress unusedStructMember
   uint8_t health;
-  // cppcheck-suppress unusedStructMember
-  std::unique_ptr<BaseWeapon> weapon;
   // cppcheck-suppress unusedStructMember
   std::unique_ptr<BaseState> state;
   // cppcheck-suppress unusedStructMember
@@ -49,6 +48,10 @@ private:
   bool is_running;
   // cppcheck-suppress unusedStructMember
   double moment_of_death;
+  // cppcheck-suppress unusedStructMember
+  std::unique_ptr<BaseWeapon> weapon;
+  // cppcheck-suppress unusedStructMember
+  uint16_t orb_ammo;
 
   bool move_down();
   bool move_up();
@@ -77,6 +80,8 @@ public:
   bool intersects(Rectangle rectangle);
   bool can_shoot();
   bool is_alive();
+
+  void change_weapon(uint8_t weapon_id);
 
   Bullet shoot();
 

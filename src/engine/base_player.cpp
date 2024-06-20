@@ -12,14 +12,15 @@ const static int INITIAL_Y = 1050;
 BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
                        Snapshot &snapshot, int position)
     : player_id(player_id), player_name(player_name), health(MAX_HEALTH),
-      weapon(std::make_unique<InitialWeapon>(snapshot)),
       state(std::make_unique<Alive>()),
       rectangle(Rectangle(Coordinates(INITIAL_X, INITIAL_Y),
                           Coordinates(INITIAL_X + HitboxSizes::PlayerWidth,
                                       INITIAL_Y + HitboxSizes::PlayerHeight))),
       facing_direction(FacingDirectionsIds::Right), snapshot(snapshot),
       position(position), positions_to_jump(0), is_moving(false),
-      is_running(false), moment_of_death(0) {}
+      is_running(false), moment_of_death(0),
+      weapon(std::make_unique<InitialWeapon>(snapshot, position)),
+      orb_ammo(globalConfigs.getBullet2MaxAmmo()) {}
 
 int BasePlayer::find_position() {
   for (int i = 0; i < snapshot.sizePlayers; ++i) {
@@ -42,6 +43,7 @@ void BasePlayer::update() {
   if (position != -1) {
     snapshot.players[position].shot = NumericBool::False;
     snapshot.players[position].was_hurt = NumericBool::False;
+    orb_ammo = snapshot.players[position].ammo_gun_2;
   }
 }
 
@@ -291,6 +293,17 @@ bool BasePlayer::intersects(Rectangle rectangle) {
 bool BasePlayer::can_shoot() { return state->can_shoot(); }
 
 bool BasePlayer::is_alive() { return health > 0; }
+
+void BasePlayer::change_weapon(uint8_t weapon_id) {
+  switch (weapon_id) {
+  case GunsIds::Gun1:
+    weapon = std::make_unique<InitialWeapon>(snapshot, position);
+    break;
+  case GunsIds::Gun2:
+    weapon = std::make_unique<Orb>(snapshot, orb_ammo, position);
+    break;
+  }
+}
 
 BasePlayer::~BasePlayer() {
   // delete weapon;
