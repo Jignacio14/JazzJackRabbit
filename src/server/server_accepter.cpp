@@ -4,12 +4,9 @@ Accepter::Accepter(const std::string &port)
     : skt_aceptator(port.c_str()), clients(), gamesMonitor() {}
 
 void Accepter::run() {
-  try {
-    while (this->is_alive()) {
-      this->accept();
-      this->checkForDisconnected();
-    }
-  } catch (const std::exception &err) {
+  while (this->is_alive()) {
+    this->accept();
+    this->checkForDisconnected();
   }
 }
 
@@ -26,18 +23,22 @@ void Accepter::checkForDisconnected() {
 }
 
 void Accepter::accept() {
-  Socket peer = this->skt_aceptator.accept();
-  std::unique_ptr<Sender> sender =
-      std::make_unique<Sender>(std::move(peer), std::ref(this->gamesMonitor));
-
-  this->clients.push_back(std::move(sender));
-  this->clients.back()->start();
+  try {
+    Socket peer = this->skt_aceptator.accept();
+    std::unique_ptr<Sender> sender =
+        std::make_unique<Sender>(std::move(peer), std::ref(this->gamesMonitor));
+    this->clients.push_back(std::move(sender));
+    this->clients.back()->start();
+  } catch (const LibError &e) {
+    this->_is_alive = false;
+    return;
+  }
 }
 
 void Accepter::kill() {
   this->_is_alive = false;
-  this->skt_aceptator.shutdown(SHUT_RDWR);
-  this->skt_aceptator.close();
+  skt_aceptator.shutdown(2);
+  skt_aceptator.close();
   this->killAll();
 }
 
