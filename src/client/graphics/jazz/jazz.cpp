@@ -45,24 +45,18 @@ Jazz::Jazz(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
   }
 }
 
-void Jazz::render(int iterationNumber) {}
-
 void Jazz::render(int iterationNumber, Coordinates &coords) {
   this->currentAnimation->render(iterationNumber, coords);
 }
 
-void Jazz::update(bool isWalking, bool isRunning, std::string movingDirection) {
-}
-
-void Jazz::updateByCoordsDelta(int deltaX, int deltaY) {
-  this->currentCoords.setX(this->currentCoords.getX() + deltaX);
-  this->currentCoords.setY(this->currentCoords.getY() + deltaY);
-}
-
 void Jazz::renderFromLeftCorner(int iterationNumber,
                                 const Coordinates &leftCorner) {
-  this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
-                                               this->currentCoords);
+  bool isInCameraFocus =
+      this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+  if (isInCameraFocus) {
+    this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
+                                                 this->currentCoords);
+  }
 }
 
 Coordinates Jazz::getCoords() { return this->currentCoords; }
@@ -72,13 +66,16 @@ void Jazz::setX(int x) { this->currentCoords.setX(x); }
 void Jazz::setY(int y) { this->currentCoords.setX(y); }
 
 void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
-                           const PlayerDto &newEntityInfo) {
+                           const PlayerDto &newEntityInfo,
+                           const Coordinates &leftCorner) {
 
   bool shouldFlip = newEntityInfo.facing_direction == FacingDirectionsIds::Right
                         ? AnimationState::NotFlip
                         : AnimationState::Flip;
 
   bool canBreakAnimation = this->currentAnimation->canBreakAnimation();
+  bool isInCameraFocus =
+      this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
 
   if (newEntityInfo.is_dead == NumericBool::True) {
 
@@ -90,9 +87,11 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
           AnimationState::NotCycle, JazzAnimationSpeedCoefs::Death, shouldFlip,
           this->hitbox);
 
-      this->audioEngine.playJazzDeathSound();
+      if (isInCameraFocus) {
+        this->audioEngine.playJazzDeathSound();
+      }
+      return;
     }
-    return;
   }
 
   if (newEntityInfo.was_hurt == NumericBool::True) {
@@ -105,9 +104,12 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
           AnimationState::NotCycle, JazzAnimationSpeedCoefs::Hurt, shouldFlip,
           this->hitbox);
 
-      this->audioEngine.playJazzhurtSound();
+      if (isInCameraFocus) {
+        this->audioEngine.playJazzhurtSound();
+      }
+
+      return;
     }
-    return;
   }
 
   if (newEntityInfo.shot == NumericBool::True) {
@@ -140,7 +142,9 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
 
   if (this->currentAnimation->getCode() == GenericSpriteCodes::Falling &&
       newEntityInfo.is_falling == NumericBool::False) {
-    this->audioEngine.playGroundHitSound();
+    if (isInCameraFocus) {
+      this->audioEngine.playGroundHitSound();
+    }
   }
 
   if (newEntityInfo.is_falling == NumericBool::True && canBreakAnimation) {
@@ -169,9 +173,10 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
           AnimationState::NotCycle, JazzAnimationSpeedCoefs::Jumping,
           shouldFlip, this->hitbox);
 
-      this->audioEngine.playJumpSound();
+      if (isInCameraFocus) {
+        this->audioEngine.playJumpSound();
+      }
     }
-
     return;
   }
 
@@ -239,7 +244,7 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
   }
 }
 
-void Jazz::update(SnapshotWrapper &snapshot) {
+void Jazz::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
   PlayerDto newEntityInfo;
   bool foundPlayableCharacter =
       snapshot.getPlayerById(this->entityId, &newEntityInfo);
@@ -252,7 +257,7 @@ void Jazz::update(SnapshotWrapper &snapshot) {
   this->currentCoords.setX(newEntityInfo.position_x);
   this->currentCoords.setY(newEntityInfo.position_y);
 
-  this->updateAnimation(snapshot, newEntityInfo);
+  this->updateAnimation(snapshot, newEntityInfo, leftCorner);
   this->entityInfo = newEntityInfo;
 }
 

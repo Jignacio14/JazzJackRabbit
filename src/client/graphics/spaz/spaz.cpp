@@ -42,24 +42,18 @@ Spaz::Spaz(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
   }
 }
 
-void Spaz::render(int iterationNumber) {}
-
 void Spaz::render(int iterationNumber, Coordinates &coords) {
   this->currentAnimation->render(iterationNumber, coords);
 }
 
-void Spaz::update(bool isWalking, bool isRunning, std::string movingDirection) {
-}
-
-void Spaz::updateByCoordsDelta(int deltaX, int deltaY) {
-  this->currentCoords.setX(this->currentCoords.getX() + deltaX);
-  this->currentCoords.setY(this->currentCoords.getY() + deltaY);
-}
-
 void Spaz::renderFromLeftCorner(int iterationNumber,
                                 const Coordinates &leftCorner) {
-  this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
-                                               this->currentCoords);
+  bool isInCameraFocus =
+      this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+  if (isInCameraFocus) {
+    this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
+                                                 this->currentCoords);
+  }
 }
 
 Coordinates Spaz::getCoords() { return this->currentCoords; }
@@ -69,13 +63,17 @@ void Spaz::setX(int x) { this->currentCoords.setX(x); }
 void Spaz::setY(int y) { this->currentCoords.setX(y); }
 
 void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
-                           const PlayerDto &newEntityInfo) {
+                           const PlayerDto &newEntityInfo,
+                           const Coordinates &leftCorner) {
 
   bool shouldFlip = newEntityInfo.facing_direction == FacingDirectionsIds::Right
                         ? AnimationState::NotFlip
                         : AnimationState::Flip;
 
   bool canBreakAnimation = this->currentAnimation->canBreakAnimation();
+  bool isInCameraFocus = this->graphicEngine.isInCameraFocus(
+      leftCorner,
+      Coordinates(this->entityInfo.position_x, this->entityInfo.position_y));
 
   if (newEntityInfo.is_dead == NumericBool::True) {
 
@@ -87,7 +85,9 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
           AnimationState::NotCycle, SpazAnimationSpeedCoefs::Death, shouldFlip,
           this->hitbox);
 
-      this->audioEngine.playSpazDeathSound();
+      if (isInCameraFocus) {
+        this->audioEngine.playSpazDeathSound();
+      }
     }
     return;
   }
@@ -102,13 +102,14 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
           AnimationState::NotCycle, SpazAnimationSpeedCoefs::Hurt, shouldFlip,
           this->hitbox);
 
-      this->audioEngine.playSpazHurtSound();
+      if (isInCameraFocus) {
+        this->audioEngine.playSpazHurtSound();
+      }
     }
     return;
   }
 
   if (newEntityInfo.shot == NumericBool::True) {
-    this->audioEngine.playGun1ShotSound();
 
     if (this->currentAnimation->getCode() != GenericSpriteCodes::Shooting) {
 
@@ -134,6 +135,13 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
           shouldFlip, this->hitbox);
     }
     return;
+  }
+
+  if (this->currentAnimation->getCode() == GenericSpriteCodes::Falling &&
+      newEntityInfo.is_falling == NumericBool::False) {
+    if (isInCameraFocus) {
+      this->audioEngine.playGroundHitSound();
+    }
   }
 
   if (newEntityInfo.is_falling == NumericBool::True && canBreakAnimation) {
@@ -162,7 +170,9 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
           AnimationState::NotCycle, SpazAnimationSpeedCoefs::Jumping,
           shouldFlip, this->hitbox);
 
-      this->audioEngine.playJumpSound();
+      if (isInCameraFocus) {
+        this->audioEngine.playJumpSound();
+      }
     }
 
     return;
@@ -232,7 +242,7 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
   }
 }
 
-void Spaz::update(SnapshotWrapper &snapshot) {
+void Spaz::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
   PlayerDto newEntityInfo;
   bool foundPlayableCharacter =
       snapshot.getPlayerById(this->entityId, &newEntityInfo);
@@ -245,7 +255,7 @@ void Spaz::update(SnapshotWrapper &snapshot) {
   this->currentCoords.setX(newEntityInfo.position_x);
   this->currentCoords.setY(newEntityInfo.position_y);
 
-  this->updateAnimation(snapshot, newEntityInfo);
+  this->updateAnimation(snapshot, newEntityInfo, leftCorner);
   this->entityInfo = newEntityInfo;
 }
 

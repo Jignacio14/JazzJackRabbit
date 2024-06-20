@@ -34,30 +34,21 @@ BulletGun1::BulletGun1(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
   this->audioEngine.playGun1ShotSound();
 }
 
-void BulletGun1::render(int iterationNumber) {}
-
-void BulletGun1::render(int iterationNumber, Coordinates &coords) {
-  this->currentAnimation->render(iterationNumber, coords);
-}
-
-void BulletGun1::update(bool isWalking, bool isRunning,
-                        std::string movingDirection) {}
-
-void BulletGun1::updateByCoordsDelta(int deltaX, int deltaY) {
-  this->currentCoords.setX(this->currentCoords.getX() + deltaX);
-  this->currentCoords.setY(this->currentCoords.getY() + deltaY);
-}
-
 void BulletGun1::renderFromLeftCorner(int iterationNumber,
                                       const Coordinates &leftCorner) {
-  this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
-                                               this->currentCoords);
+  bool isInCameraFocus =
+      this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+  if (isInCameraFocus) {
+    this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
+                                                 this->currentCoords);
+  }
 }
 
 void BulletGun1::updateAnimation(const SnapshotWrapper &snapshot,
                                  const BulletDto &newEntityInfo) {}
 
-void BulletGun1::update(SnapshotWrapper &snapshot) {
+void BulletGun1::update(SnapshotWrapper &snapshot,
+                        const Coordinates &leftCorner) {
   BulletDto newEntityInfo;
   bool foundBullet = snapshot.getBulletById(this->entityId, &newEntityInfo);
 
@@ -76,7 +67,13 @@ void BulletGun1::update(SnapshotWrapper &snapshot) {
         AnimationState::NotCycle, BulletGun1AnimationSpeedCoefs::Impact,
         AnimationState::NotFlip, this->hitbox);
     this->isShowingExitAnimation = true;
-    this->audioEngine.playBulletImpactSound();
+
+    bool isInCameraFocus =
+        this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+
+    if (isInCameraFocus) {
+      this->audioEngine.playBulletImpactSound();
+    }
     return;
   }
 

@@ -20,10 +20,27 @@ set(CXXSTD c++17)
 # C standard will be C17
 set(CSTD c17)
 
-# Establish compiler flags using the pre-defined CMake flags
-# This is done by "concatenating" the already present CMAKE_C_FLAGS with the desired ones
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -pedantic -pedantic-errors -O0 -ggdb -DDEBUG -fno-inline -std=${CSTD} -D _POSIX_C_SOURCE=200809L")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -pedantic-errors -O0 -ggdb -DDEBUG -fno-inline -std=${CXXSTD} -D _POSIX_C_SOURCE=200809L")
+# Set the BUILD_MODE custom variable that I created
+set(BUILD_MODE "development" CACHE STRING "Defines if the build should be optimized or set to debug mode")
+
+# Set compiler flags conditionally
+if(BUILD_MODE STREQUAL "development")
+    # Establish compiler flags using the pre-defined CMake flags
+    # This is done by "concatenating" the already present CMAKE_C_FLAGS with the desired ones
+    # Flags specialized for debug without optimization
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -pedantic -pedantic-errors -O0 -ggdb -DDEBUG -fno-inline -std=${CSTD} -D _POSIX_C_SOURCE=200809L")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -pedantic-errors -O0 -ggdb -DDEBUG -fno-inline -std=${CXXSTD} -D _POSIX_C_SOURCE=200809L")
+    message("-- Compiling with focus on debugging")
+else()
+    # Establish compiler flags using the pre-defined CMake flags
+    # This is done by "concatenating" the already present CMAKE_C_FLAGS with the desired ones
+    # Flags specialized for release
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -pedantic -pedantic-errors -O3 -fno-inline -std=${CSTD} -D _POSIX_C_SOURCE=200809L")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -pedantic-errors -O3 -fno-inline -std=${CXXSTD} -D _POSIX_C_SOURCE=200809L")
+    message("-- Compiling with focus on release")
+endif()
+
+
 
 # Find Qt neccesary packages
 find_package(QT NAMES Qt5 REQUIRED COMPONENTS Widgets Gui Multimedia)

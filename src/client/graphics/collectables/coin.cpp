@@ -34,30 +34,20 @@ Coin::Coin(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
   }
 }
 
-void Coin::render(int iterationNumber) {}
-
-void Coin::render(int iterationNumber, Coordinates &coords) {
-  this->currentAnimation->render(iterationNumber, coords);
-}
-
-void Coin::update(bool isWalking, bool isRunning, std::string movingDirection) {
-}
-
-void Coin::updateByCoordsDelta(int deltaX, int deltaY) {
-  this->currentCoords.setX(this->currentCoords.getX() + deltaX);
-  this->currentCoords.setY(this->currentCoords.getY() + deltaY);
-}
-
 void Coin::renderFromLeftCorner(int iterationNumber,
                                 const Coordinates &leftCorner) {
-  this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
-                                               this->currentCoords);
+  bool isInCameraFocus =
+      this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+  if (isInCameraFocus) {
+    this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
+                                                 this->currentCoords);
+  }
 }
 
 void Coin::updateAnimation(const SnapshotWrapper &snapshot,
                            const CollectableDto &newEntityInfo) {}
 
-void Coin::update(SnapshotWrapper &snapshot) {
+void Coin::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
   CollectableDto newEntityInfo;
   bool foundCollectable =
       snapshot.getCollectableById(this->entityId, &newEntityInfo);
@@ -77,7 +67,13 @@ void Coin::update(SnapshotWrapper &snapshot) {
         AnimationState::NotCycle, CoinAnimationSpeedCoefs::Shine,
         AnimationState::NotFlip, this->hitbox);
     this->isShowingExitAnimation = true;
-    this->audioEngine.playCoinCollectedSound();
+
+    bool isInCameraFocus =
+        this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+
+    if (isInCameraFocus) {
+      this->audioEngine.playCoinCollectedSound();
+    }
     return;
   }
 

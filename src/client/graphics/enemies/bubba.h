@@ -39,15 +39,11 @@ public:
         Coordinates &currentCoords, const uint8_t &entityId,
         SnapshotWrapper &snapshot);
 
-  virtual void render(int iterationNumber) override;
-  virtual void render(int iterationNumber, Coordinates &coords) override;
-  virtual void updateByCoordsDelta(int deltaX, int deltaY) override;
   virtual void renderFromLeftCorner(int iterationNumber,
                                     const Coordinates &leftCorner) override;
-  virtual void update(bool isWalking, bool isRunning,
-                      std::string movingDirection) override;
 
-  virtual void update(SnapshotWrapper &snapshot) override;
+  virtual void update(SnapshotWrapper &snapshot,
+                      const Coordinates &leftCorner) override;
 
   virtual uint8_t getId() const override;
 

@@ -35,30 +35,20 @@ Diamond::Diamond(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
   }
 }
 
-void Diamond::render(int iterationNumber) {}
-
-void Diamond::render(int iterationNumber, Coordinates &coords) {
-  this->currentAnimation->render(iterationNumber, coords);
-}
-
-void Diamond::update(bool isWalking, bool isRunning,
-                     std::string movingDirection) {}
-
-void Diamond::updateByCoordsDelta(int deltaX, int deltaY) {
-  this->currentCoords.setX(this->currentCoords.getX() + deltaX);
-  this->currentCoords.setY(this->currentCoords.getY() + deltaY);
-}
-
 void Diamond::renderFromLeftCorner(int iterationNumber,
                                    const Coordinates &leftCorner) {
-  this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
-                                               this->currentCoords);
+  bool isInCameraFocus =
+      this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+  if (isInCameraFocus) {
+    this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
+                                                 this->currentCoords);
+  }
 }
 
 void Diamond::updateAnimation(const SnapshotWrapper &snapshot,
                               const CollectableDto &newEntityInfo) {}
 
-void Diamond::update(SnapshotWrapper &snapshot) {
+void Diamond::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
   CollectableDto newEntityInfo;
   bool foundCollectable =
       snapshot.getCollectableById(this->entityId, &newEntityInfo);
@@ -78,7 +68,13 @@ void Diamond::update(SnapshotWrapper &snapshot) {
         AnimationState::NotCycle, DiamondAnimationSpeedCoefs::Shine,
         AnimationState::NotFlip, this->hitbox);
     this->isShowingExitAnimation = true;
-    this->audioEngine.playDiamondCollectedSound();
+
+    bool isInCameraFocus =
+        this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+
+    if (isInCameraFocus) {
+      this->audioEngine.playDiamondCollectedSound();
+    }
     return;
   }
 

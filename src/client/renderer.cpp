@@ -83,10 +83,10 @@ void Renderer::updateLatestSnapshot() {
     this->latestSnapshot =
         std::make_unique<SnapshotWrapper>(std::move(snapshotDto));
 
-    this->player.update(*this->latestSnapshot);
+    this->player.update(*this->latestSnapshot, this->map.getLeftCorner());
 
     for (auto &renderable : this->renderables) {
-      renderable->update(*this->latestSnapshot);
+      renderable->update(*this->latestSnapshot, this->map.getLeftCorner());
     }
 
     this->createNewRenderables();

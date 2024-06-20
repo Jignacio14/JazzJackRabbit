@@ -23,6 +23,9 @@ public:
   void preloadTextures();
   SDL2pp::Renderer &getSdlRendererReference();
 
+  bool isInCameraFocus(const Coordinates &leftCorner,
+                       const Coordinates &coordsToCheck) const;
+
   Sprite &getJazzGenericSprite(const u_int8_t &spriteCode);
   Sprite &getJazzSpecialSprite(const u_int8_t &spriteCode);
   Sprite &getJazzHudIcon();

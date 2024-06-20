@@ -10,7 +10,7 @@
 #include <SDL2pp/SDL2pp.hh>
 #include <vector>
 
-class Hud : public Renderable {
+class Hud {
 private:
   GraphicEngine &graphicEngine;
   SDL2pp::Renderer &sdlRenderer;
@@ -62,20 +62,15 @@ private:
 public:
   explicit Hud(GraphicEngine &graphicEngine, Player &player);
 
-  virtual void render(int iterationNumber) override;
+  void render(int iterationNumber);
 
-  virtual void render(int iterationNumber, Coordinates &coords) override;
+  void render(int iterationNumber, Coordinates &coords);
 
   void render(SnapshotWrapper &snapshot);
 
-  virtual void renderFromLeftCorner(int iterationNumber,
-                                    const Coordinates &leftCorner) override;
-
   static int getHorizontalSize();
 
-  virtual uint8_t getId() const override;
-
-  ~Hud() override;
+  ~Hud();
 };
 
 #endif // HUD_H
