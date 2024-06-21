@@ -35,7 +35,7 @@ private:
   Rectangle rectangle;
   // cppcheck-suppress unusedStructMember
   uint8_t facing_direction;
-  ServerMap map;
+  ServerMap &map;
   // cppcheck-suppress unusedStructMember
   Snapshot &snapshot;
   // cppcheck-suppress unusedStructMember
@@ -63,7 +63,7 @@ private:
 
 public:
   BasePlayer(uint8_t player_id, const std::string &player_name,
-             Snapshot &snapshot, int position);
+             Snapshot &snapshot, int position, ServerMap &map);
 
   void update();
   void receive_damage(uint8_t damage);

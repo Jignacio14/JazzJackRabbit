@@ -57,6 +57,11 @@ GlobalConfigs::GlobalConfigs() {
   this->bullet2Cooldown = gameConfigs["bullet_2_cooldown"].as<double>();
 
   this->respawnTime = gameConfigs["respawn_time"].as<double>();
+
+  this->carrotHeal = gameConfigs["carrot_heal"].as<uint16_t>();
+  this->intoxicatedTime = gameConfigs["intoxicated_time"].as<double>();
+  this->pointsPerCoin = gameConfigs["points_per_coin"].as<uint32_t>();
+  this->pointsPerGem = gameConfigs["points_per_gem"].as<uint32_t>();
 }
 
 uint16_t GlobalConfigs::getMaxPlayersPerGame() const {
@@ -148,3 +153,13 @@ double GlobalConfigs::getBullet2Cooldown() const {
 }
 
 double GlobalConfigs::getRespawnTime() const { return this->respawnTime; }
+
+uint16_t GlobalConfigs::getCarrotHeal() const { return this->carrotHeal; }
+
+double GlobalConfigs::getIntoxicatedTime() const {
+  return this->intoxicatedTime;
+}
+
+uint32_t GlobalConfigs::getPointsPerCoin() const { return this->pointsPerCoin; }
+
+uint32_t GlobalConfigs::getPointsPerGem() const { return this->pointsPerGem; }

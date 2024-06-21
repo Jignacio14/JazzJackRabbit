@@ -6,7 +6,7 @@ class Lori : public BasePlayer {
 private:
 public:
   explicit Lori(uint8_t player_id, std::string &player_name, Snapshot &snapshot,
-                int position);
+                int position, ServerMap &map);
 
   ~Lori();
 };

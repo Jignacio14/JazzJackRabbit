@@ -1,5 +1,4 @@
 #include "base_player.h"
-
 #include "../common/global_configs.h"
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
@@ -10,15 +9,15 @@ const static int INITIAL_X = 60;
 const static int INITIAL_Y = 1050;
 
 BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
-                       Snapshot &snapshot, int position)
+                       Snapshot &snapshot, int position, ServerMap &map)
     : player_id(player_id), player_name(player_name), health(MAX_HEALTH),
       state(std::make_unique<Alive>()),
       rectangle(Rectangle(Coordinates(INITIAL_X, INITIAL_Y),
                           Coordinates(INITIAL_X + HitboxSizes::PlayerWidth,
                                       INITIAL_Y + HitboxSizes::PlayerHeight))),
-      facing_direction(FacingDirectionsIds::Right), snapshot(snapshot),
-      position(position), positions_to_jump(0), is_moving(false),
-      is_running(false), moment_of_death(0),
+      facing_direction(FacingDirectionsIds::Right), map(map),
+      snapshot(snapshot), position(position), positions_to_jump(0),
+      is_moving(false), is_running(false), moment_of_death(0),
       weapon(std::make_unique<InitialWeapon>(snapshot, position)),
       orb_ammo(globalConfigs.getBullet2MaxAmmo()) {}
 

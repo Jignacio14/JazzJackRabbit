@@ -22,7 +22,8 @@ const static int PLAYER_INITIAL_POSITION_Y = 1050;
 
 Game::Game(GameMonitor &monitor, Queue<CommandCodeDto> &queue)
     : monitor(monitor), messages(queue), players(0), snapshot{},
-      gameEnded(false), iterationNumber(0), rate(SERVER_RATE) {}
+      gameEnded(false), iterationNumber(0), rate(SERVER_RATE),
+      collectablesHandler(collectables, snapshot) {}
 
 double Game::now() {
   return std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -38,6 +39,8 @@ void Game::gameLoop() {
     this->snapshot.sizeBullets = 0;
     this->snapshot.timeLeft = GAME_DURATION;
     this->snapshot.gameEnded = NumericBool::False;
+
+    collectablesHandler.initialize();
 
     this->addEnemies();
 
@@ -118,15 +121,15 @@ std::unique_ptr<BasePlayer> Game::constructPlayer(uint8_t player_id,
                                                   std::string &player_name,
                                                   uint8_t player_type) {
   if (player_type == PlayableCharactersIds::Jazz) {
-    return std::make_unique<Jazz>(player_id, player_name, snapshot, 0);
+    return std::make_unique<Jazz>(player_id, player_name, snapshot, 0, map);
   }
 
   if (player_type == PlayableCharactersIds::Lori) {
-    return std::make_unique<Lori>(player_id, player_name, snapshot, 0);
+    return std::make_unique<Lori>(player_id, player_name, snapshot, 0, map);
   }
 
   if (player_type == PlayableCharactersIds::Spaz) {
-    return std::make_unique<Spaz>(player_id, player_name, snapshot, 0);
+    return std::make_unique<Spaz>(player_id, player_name, snapshot, 0, map);
   }
 
   return nullptr;

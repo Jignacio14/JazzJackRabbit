@@ -65,6 +65,15 @@ private:
   // cppcheck-suppress unusedStructMember
   double respawnTime;
 
+  // cppcheck-suppress unusedStructMember
+  uint16_t carrotHeal;
+  // cppcheck-suppress unusedStructMember
+  double intoxicatedTime;
+  // cppcheck-suppress unusedStructMember
+  uint32_t pointsPerCoin;
+  // cppcheck-suppress unusedStructMember
+  uint32_t pointsPerGem;
+
   GlobalConfigs();
 
   /*
@@ -114,6 +123,10 @@ public:
   uint8_t getBullet2Damage() const;
   double getBullet2Cooldown() const;
   double getRespawnTime() const;
+  uint16_t getCarrotHeal() const;
+  double getIntoxicatedTime() const;
+  uint32_t getPointsPerCoin() const;
+  uint32_t getPointsPerGem() const;
 };
 
 #endif // GLOBAL_CONFIGS_H

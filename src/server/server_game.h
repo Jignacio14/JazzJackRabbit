@@ -6,6 +6,8 @@
 #include "../data/snapshot_dto.h"
 #include "../engine/base_player.h"
 #include "../engine/bullets/bullet.h"
+#include "../engine/collectables/base_collectable.h"
+#include "../engine/collectables/collectables_handler.h"
 #include "../engine/enemies/base_enemy.h"
 #include "../engine/jazz.h"
 #include "../engine/lori.h"
@@ -34,7 +36,8 @@ private:
   std::vector<std::unique_ptr<BaseEnemy>> enemies;
   // cppcheck-suppress unusedStructMember
   std::vector<Bullet> bullets;
-
+  // cppcheck-suppress unusedStructMember
+  std::vector<std::unique_ptr<BaseCollectable>> collectables;
   ServerMap map;
   // cppcheck-suppress unusedStructMember
   Snapshot snapshot;
@@ -44,6 +47,8 @@ private:
   int iterationNumber;
   // cppcheck-suppress unusedStructMember
   double rate;
+  // cppcheck-suppress unusedStructMember
+  CollectablesHandler collectablesHandler;
 
   void gameLoop();
   // cppcheck-suppress unusedPrivateFunction
