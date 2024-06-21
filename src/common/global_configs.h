@@ -52,7 +52,7 @@ private:
   // cppcheck-suppress unusedStructMember
   uint8_t bullet1Damage;
   // cppcheck-suppress unusedStructMember
-  float bullet1Cooldown;
+  double bullet1Cooldown;
 
   // cppcheck-suppress unusedStructMember
   uint16_t bullet2MaxAmmo;
@@ -61,7 +61,7 @@ private:
   // cppcheck-suppress unusedStructMember
   uint8_t bullet2Damage;
   // cppcheck-suppress unusedStructMember
-  float bullet2Cooldown;
+  double bullet2Cooldown;
   // cppcheck-suppress unusedStructMember
   double respawnTime;
 
@@ -108,11 +108,11 @@ public:
   uint16_t getBullet1MaxAmmo() const;
   uint8_t getBullet1Speed() const;
   uint8_t getBullet1Damage() const;
-  float getBullet1Cooldown() const;
+  double getBullet1Cooldown() const;
   uint16_t getBullet2MaxAmmo() const;
   uint8_t getBullet2Speed() const;
   uint8_t getBullet2Damage() const;
-  float getBullet2Cooldown() const;
+  double getBullet2Cooldown() const;
   double getRespawnTime() const;
 };
 

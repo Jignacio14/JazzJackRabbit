@@ -8,7 +8,7 @@ static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 const static uint16_t MAX_AMMO = globalConfigs.getBullet1MaxAmmo();
 const static uint8_t AMMO_DAMAGE = globalConfigs.getBullet1Damage();
 const static uint8_t AMMO_SPEED = globalConfigs.getBullet1Speed();
-const static float COOLDOWN = globalConfigs.getBullet1Cooldown();
+const static double COOLDOWN = globalConfigs.getBullet1Cooldown();
 
 InitialWeapon::InitialWeapon(Snapshot &snap, int pos)
     : BaseWeapon(snap, MAX_AMMO, AMMO_DAMAGE, COOLDOWN, AMMO_SPEED, pos) {}

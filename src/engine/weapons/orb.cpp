@@ -8,7 +8,7 @@ static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 // const static uint16_t MAX_AMMO = globalConfigs.getBullet2MaxAmmo();
 const static uint8_t AMMO_DAMAGE = globalConfigs.getBullet2Damage();
 const static uint8_t AMMO_SPEED = globalConfigs.getBullet2Speed();
-const static float COOLDOWN = globalConfigs.getBullet2Cooldown();
+const static double COOLDOWN = globalConfigs.getBullet2Cooldown();
 
 Orb::Orb(Snapshot &snap, uint16_t ammo, int pos)
     : BaseWeapon(snap, ammo, AMMO_DAMAGE, COOLDOWN, AMMO_SPEED, pos) {}
