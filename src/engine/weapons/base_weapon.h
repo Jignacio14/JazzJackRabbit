@@ -37,6 +37,8 @@ public:
   virtual Bullet shoot(Rectangle rectangle, uint8_t facing_direction,
                        ServerMap map) = 0;
   virtual bool can_shoot() = 0;
+
+  void update();
 };
 
 #endif // JAZZJACKRABBIT_BASE_WEAPON_H

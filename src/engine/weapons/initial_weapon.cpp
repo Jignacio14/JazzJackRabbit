@@ -16,13 +16,16 @@ InitialWeapon::InitialWeapon(Snapshot &snap, int pos)
 Bullet InitialWeapon::shoot(Rectangle rectangle, uint8_t facing_direction,
                             ServerMap map) {
 
-  time_passed = (last_time_shot - snapshot.timeLeft);
   Bullet new_bullet(GunsIds::Gun1, AMMO_DAMAGE, AMMO_SPEED, rectangle,
                     facing_direction, map);
   new_bullet.add_to_snapshot(snapshot);
   last_time_shot = snapshot.timeLeft;
   return new_bullet;
-  // La inicial tiene balas infinitas.
 }
 
-bool InitialWeapon::can_shoot() { return time_passed > COOLDOWN; }
+bool InitialWeapon::can_shoot() {
+  if (last_time_shot == -1)
+    return true;
+  else
+    return (time_passed > COOLDOWN);
+}

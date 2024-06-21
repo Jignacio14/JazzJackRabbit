@@ -16,7 +16,6 @@ Orb::Orb(Snapshot &snap, uint16_t ammo, int pos)
 Bullet Orb::shoot(Rectangle rectangle, uint8_t facing_direction,
                   ServerMap map) {
 
-  time_passed = (last_time_shot - snapshot.timeLeft);
   if (ammo > 0) {
 
     Bullet new_bullet(GunsIds::Gun2, AMMO_DAMAGE, AMMO_SPEED, rectangle,
@@ -31,4 +30,9 @@ Bullet Orb::shoot(Rectangle rectangle, uint8_t facing_direction,
   }
 }
 
-bool Orb::can_shoot() { return (time_passed > COOLDOWN && ammo > 0); }
+bool Orb::can_shoot() {
+  if (last_time_shot == -1)
+    return (ammo > 0);
+  else
+    return (time_passed > COOLDOWN && ammo > 0);
+}

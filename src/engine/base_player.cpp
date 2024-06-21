@@ -37,6 +37,8 @@ void BasePlayer::update() {
 
   this->update_movement();
 
+  weapon->update();
+
   if (health == 0)
     this->try_respawn();
 
