@@ -280,17 +280,21 @@ Bullet BasePlayer::shoot() {
     Rectangle bullet_rectangle_aux(top_left, bottom_right);
     bullet_rectangle = bullet_rectangle_aux;
   }
-  if (position != -1) {
+  if (this->can_shoot()) {
     snapshot.players[position].shot = NumericBool::True;
+    return weapon->shoot(bullet_rectangle, facing_direction, map);
+  } else {
+    return Bullet(GunsIds::Gun1, 0, 0, bullet_rectangle, facing_direction, map);
   }
-  return weapon->shoot(bullet_rectangle, facing_direction, map);
 }
 
 bool BasePlayer::intersects(Rectangle rectangle) {
   return this->rectangle.intersects(rectangle);
 }
 
-bool BasePlayer::can_shoot() { return state->can_shoot(); }
+bool BasePlayer::can_shoot() {
+  return (state->can_shoot() && weapon->can_shoot());
+}
 
 bool BasePlayer::is_alive() { return health > 0; }
 
@@ -298,9 +302,11 @@ void BasePlayer::change_weapon(uint8_t weapon_id) {
   switch (weapon_id) {
   case GunsIds::Gun1:
     weapon = std::make_unique<InitialWeapon>(snapshot, position);
+    snapshot.players[position].current_gun = GunsIds::Gun1;
     break;
   case GunsIds::Gun2:
     weapon = std::make_unique<Orb>(snapshot, orb_ammo, position);
+    snapshot.players[position].current_gun = GunsIds::Gun2;
     break;
   }
 }

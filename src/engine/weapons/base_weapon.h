@@ -32,6 +32,7 @@ public:
              uint8_t ammo_speed, int position);
   virtual Bullet shoot(Rectangle rectangle, uint8_t facing_direction,
                        ServerMap map) = 0;
+  virtual bool can_shoot() = 0;
 };
 
 #endif // JAZZJACKRABBIT_BASE_WEAPON_H
