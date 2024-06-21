@@ -302,9 +302,11 @@ void BasePlayer::change_weapon(uint8_t weapon_id) {
   switch (weapon_id) {
   case GunsIds::Gun1:
     weapon = std::make_unique<InitialWeapon>(snapshot, position);
+    snapshot.players[position].current_gun = GunsIds::Gun1;
     break;
   case GunsIds::Gun2:
     weapon = std::make_unique<Orb>(snapshot, orb_ammo, position);
+    snapshot.players[position].current_gun = GunsIds::Gun2;
     break;
   }
 }
