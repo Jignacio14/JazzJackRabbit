@@ -16,13 +16,14 @@ Orb::Orb(Snapshot &snap, uint16_t ammo, int pos)
 Bullet Orb::shoot(Rectangle rectangle, uint8_t facing_direction,
                   ServerMap map) {
 
-  // tamb verificar cooldown
+  time_passed = (last_time_shot - snapshot.timeLeft);
   if (ammo > 0) {
 
     Bullet new_bullet(GunsIds::Gun2, AMMO_DAMAGE, AMMO_SPEED, rectangle,
                       facing_direction, map);
     new_bullet.add_to_snapshot(snapshot);
     ammo--;
+    last_time_shot = snapshot.timeLeft;
     snapshot.players[player_pos].ammo_gun_2 = ammo;
     return new_bullet;
   } else {
@@ -30,4 +31,4 @@ Bullet Orb::shoot(Rectangle rectangle, uint8_t facing_direction,
   }
 }
 
-bool Orb::can_shoot() { return ammo > 0; }
+bool Orb::can_shoot() { return (time_passed > COOLDOWN && ammo > 0); }

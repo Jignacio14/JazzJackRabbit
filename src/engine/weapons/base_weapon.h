@@ -26,6 +26,10 @@ protected:
   const uint8_t ammo_speed;
   // cppcheck-suppress unusedStructMember
   int player_pos;
+  // cppcheck-suppress unusedStructMember
+  double last_time_shot;
+  // cppcheck-suppress unusedStructMember
+  double time_passed;
 
 public:
   BaseWeapon(Snapshot &snap, uint16_t ammo, uint8_t damage, double cooldown,
