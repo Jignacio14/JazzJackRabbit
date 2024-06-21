@@ -1,6 +1,7 @@
 
 #include "orb.h"
 #include "../../common/global_configs.h"
+#include "base_weapon.h"
 #include <cstdint>
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
@@ -31,7 +32,7 @@ Bullet Orb::shoot(Rectangle rectangle, uint8_t facing_direction,
 }
 
 bool Orb::can_shoot() {
-  if (last_time_shot == -1)
+  if (last_time_shot == NEVER_SHOT)
     return (ammo > 0);
   else
     return (time_passed > COOLDOWN && ammo > 0);

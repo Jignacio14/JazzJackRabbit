@@ -11,6 +11,8 @@
 #include <utility>
 #include <vector>
 
+#define NEVER_SHOT (double)-1
+
 class BaseWeapon {
 
 protected:

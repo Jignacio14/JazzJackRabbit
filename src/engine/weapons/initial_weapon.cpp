@@ -1,6 +1,7 @@
 
 #include "initial_weapon.h"
 #include "../../common/global_configs.h"
+#include "base_weapon.h"
 #include <algorithm>
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
@@ -24,7 +25,7 @@ Bullet InitialWeapon::shoot(Rectangle rectangle, uint8_t facing_direction,
 }
 
 bool InitialWeapon::can_shoot() {
-  if (last_time_shot == -1)
+  if (last_time_shot == NEVER_SHOT)
     return true;
   else
     return (time_passed > COOLDOWN);
