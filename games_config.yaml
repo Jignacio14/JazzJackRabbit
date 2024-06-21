@@ -22,7 +22,7 @@ max_instructions_per_tick: 100
 starting_points: 0
 max_life: 10
 starting_ammo_gun_1: 999
-starting_ammo_gun_2: 0
+starting_ammo_gun_2: 3
 respawn_time: 5
 
 # Bullets Parameters

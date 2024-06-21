@@ -17,9 +17,11 @@ Bullet InitialWeapon::shoot(Rectangle rectangle, uint8_t facing_direction,
                             ServerMap map) {
 
   // tamb verificar cooldown
-  Bullet new_bullet(/*(uint8_t)1 */ GunsIds::Gun1, AMMO_DAMAGE, AMMO_SPEED,
-                    rectangle, facing_direction, map);
+  Bullet new_bullet(GunsIds::Gun1, AMMO_DAMAGE, AMMO_SPEED, rectangle,
+                    facing_direction, map);
   new_bullet.add_to_snapshot(snapshot);
   return new_bullet;
   // La inicial tiene balas infinitas.
 }
+
+bool InitialWeapon::can_shoot() { return true; }

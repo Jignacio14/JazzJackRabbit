@@ -19,15 +19,15 @@ Bullet Orb::shoot(Rectangle rectangle, uint8_t facing_direction,
   // tamb verificar cooldown
   if (ammo > 0) {
 
-    Bullet new_bullet(/*(uint8_t)2 */ GunsIds::Gun2, AMMO_DAMAGE, AMMO_SPEED,
-                      rectangle, facing_direction, map);
+    Bullet new_bullet(GunsIds::Gun2, AMMO_DAMAGE, AMMO_SPEED, rectangle,
+                      facing_direction, map);
     new_bullet.add_to_snapshot(snapshot);
     ammo--;
     snapshot.players[player_pos].ammo_gun_2 = ammo;
     return new_bullet;
   } else {
-    return Bullet(/*(uint8_t)2 */ GunsIds::Gun2, 0, 0, rectangle,
-                  facing_direction, map);
+    return Bullet(GunsIds::Gun2, 0, 0, rectangle, facing_direction, map);
   }
-  // que sea con optional o tirar una excepción que maneje el ame
 }
+
+bool Orb::can_shoot() { return ammo > 0; }

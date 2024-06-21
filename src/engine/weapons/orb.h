@@ -13,6 +13,7 @@ public:
   explicit Orb(Snapshot &snap, uint16_t ammo, int pos);
   Bullet shoot(Rectangle rectangle, uint8_t facing_direction,
                ServerMap map) override;
+  bool can_shoot() override;
 };
 
 #endif // JAZZJACKRABBIT_ORB_H
