@@ -10,9 +10,9 @@
 #include <string>
 
 class BaseEnemy {
-private:
+protected:
   // cppcheck-suppress unusedStructMember
-  uint16_t id;
+  uint32_t id;
   // cppcheck-suppress unusedStructMember
   uint8_t health;
   // cppcheck-suppress unusedStructMember
@@ -23,11 +23,9 @@ private:
   uint8_t is_dead;
   // cppcheck-suppress unusedStructMember
   Snapshot &snapshot;
-  // cppcheck-suppress unusedStructMember
-  int position;
 
 public:
-  BaseEnemy(uint8_t id, Snapshot &snapshot, int pos);
+  BaseEnemy(uint32_t id, Snapshot &snapshot, int pos);
   void receive_damage(uint8_t damage);
 };
 
