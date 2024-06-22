@@ -67,19 +67,13 @@ void Sender::run() {
     receiver.kill();
     receiver.join();
   } catch (const JJR2Error &jjr2Err) {
-    this->gamesMonitor.removePlayer(this->game_name, this->player_id,
-                                    this->sender_queue);
-    this->_is_alive = false;
+    this->logOutPlayer();
     std::cerr << jjr2Err.what() << std::endl;
   } catch (const ClosedQueue &quErr) {
-    this->_is_alive = false;
-    this->gamesMonitor.removePlayer(this->game_name, this->player_id,
-                                    this->sender_queue);
+    this->logOutPlayer();
     std::cerr << quErr.what() << std::endl;
   } catch (const std::exception &error) {
-    this->_is_alive = false;
-    this->gamesMonitor.removePlayer(this->game_name, this->player_id,
-                                    this->sender_queue);
+    this->logOutPlayer();
     std::cerr << error.what() << std::endl;
   }
 }
@@ -88,15 +82,16 @@ void Sender::runSenderLoop() {
   while (this->is_alive()) {
     Snapshot snapshot = this->sender_queue.pop();
     if (servprot.isShutedDown()) {
-      this->_is_alive = false;
-      this->sender_queue.close();
+      this->logOutPlayer();
     }
     this->servprot.sendSnapshot(snapshot);
   }
 }
 
 void Sender::logOutPlayer() {
-  // this->gamesMonitor.erasePlayer(this->sender_queue);
+  this->gamesMonitor.removePlayer(this->game_name, this->player_id,
+                                  this->sender_queue);
+  this->_is_alive = false;
 }
 
 void Sender::kill() {
@@ -104,4 +99,9 @@ void Sender::kill() {
   this->servprot.shutdown();
 }
 
-Sender::~Sender() {}
+Sender::~Sender() {
+  try {
+    this->join();
+  } catch (...) {
+  }
+}

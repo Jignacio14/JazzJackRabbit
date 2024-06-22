@@ -22,4 +22,9 @@ void Receiver::recevierLoop() {
 
 void Receiver::kill() { this->_is_alive = false; }
 
-Receiver::~Receiver() {}
+Receiver::~Receiver() {
+  try {
+    this->join();
+  } catch (...) {
+  }
+}
