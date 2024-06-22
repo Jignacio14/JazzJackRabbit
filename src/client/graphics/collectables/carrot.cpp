@@ -5,8 +5,8 @@
 #include <unordered_map>
 
 struct CarrotAnimationSpeedCoefs {
-  static constexpr double Idle = 25;
-  static constexpr double Shine = 25;
+  static constexpr double Idle = 12;
+  static constexpr double Shine = 2;
 };
 
 Carrot::Carrot(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
