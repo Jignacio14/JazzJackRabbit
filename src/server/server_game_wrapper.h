@@ -27,7 +27,8 @@ public:
   void start();
   const u_int16_t getGamePlayers();
   void killGame();
-  void ereasedPlayer(uint8_t player_id);
+  void ereasedPlayer(const uint8_t &player_id,
+                     const Queue<Snapshot> &sender_queue);
   std::pair<Queue<CommandCodeDto> &, uint8_t>
   addPlayer(Queue<Snapshot> &queue, const PlayerInfo &player_info);
   bool isGameRunning();

@@ -2,6 +2,7 @@
 #define SERVER_PROTOCOL
 
 #include "../common/game_info.h"
+#include "../common/jjr2_error.h"
 #include "../common/liberror.h"
 #include "../common/player_status_DTO.h"
 #include "../common/socket.h"
@@ -26,6 +27,7 @@ private:
   // cppcheck-suppress unusedStructMember
   std::atomic<bool> was_close;
   Serializer serializer;
+  std::atomic<bool> shuted_down;
 
   void sendGamesCount(const uint16_t &games_count);
   void sendSerializedGameData(const std::string &name, const uint16_t &count);
@@ -54,6 +56,8 @@ public:
   void sendSnapshot(const Snapshot &snapshot);
 
   void shutdown();
+
+  bool const isShutedDown();
 
   ~ServerProtocol();
 };

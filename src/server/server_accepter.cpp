@@ -1,4 +1,5 @@
 #include "server_accepter.h"
+#include <iostream>
 
 Accepter::Accepter(const std::string &port)
     : skt_aceptator(port.c_str()), clients(), gamesMonitor() {}
@@ -11,15 +12,19 @@ void Accepter::run() {
 }
 
 void Accepter::checkForDisconnected() {
-  this->gamesMonitor.removeEndedGames();
-
-  this->clients.remove_if([](const std::unique_ptr<Sender> &client) {
-    if (!client->is_alive()) {
-      client->stop();
-      return true;
-    }
-    return false;
-  });
+  try {
+    this->gamesMonitor.removeEndedGames();
+    this->clients.remove_if([](const std::unique_ptr<Sender> &client) {
+      if (!client->is_alive()) {
+        client->join();
+        return true;
+      }
+      return false;
+    });
+  } catch (...) {
+    std::cout << "Error al remover clientes desconectados" << std::endl;
+    std::cout << "Lo mantengo con vida" << std::endl;
+  }
 }
 
 void Accepter::accept() {

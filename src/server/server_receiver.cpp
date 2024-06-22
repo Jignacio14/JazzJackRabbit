@@ -9,7 +9,7 @@ Receiver::Receiver(ServerProtocol &servprot,
 void Receiver::run() {
   try {
     this->recevierLoop();
-  } catch (const LibError &err) {
+  } catch (const LibError &sktErr) {
     this->_is_alive = false;
   }
 }
