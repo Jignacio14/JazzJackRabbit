@@ -54,6 +54,8 @@ private:
   uint16_t orb_ammo;
   // cppcheck-suppress unusedStructMember
   uint32_t points;
+  // cppcheck-suppress unusedStructMember
+  double intoxicated_start;
 
   bool move_down();
   bool move_up();
@@ -61,6 +63,7 @@ private:
   void change_state(std::unique_ptr<BaseState> new_state);
   void update_jump();
   void update_movement();
+  void update_intoxication();
   void try_respawn();
 
 public:

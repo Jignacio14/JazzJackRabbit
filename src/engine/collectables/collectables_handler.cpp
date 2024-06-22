@@ -12,6 +12,7 @@ void CollectablesHandler::initialize() {
   this->initialize_carrots();
   this->initialize_gems();
   this->initialize_coins();
+  this->initialize_poisoned();
 }
 
 void CollectablesHandler::initialize_carrots() {
@@ -124,5 +125,21 @@ void CollectablesHandler::initialize_coins() {
   coin3_dto.position_y = coin3.getTopLeftCorner().getY();
   coin3_dto.was_collected = NumericBool::False;
   snapshot.collectables[snapshot.sizeCollectables] = coin3_dto;
+  snapshot.sizeCollectables++;
+}
+
+void CollectablesHandler::initialize_poisoned() {
+
+  Rectangle poisoned1(Coordinates(750, 1168 - HitboxSizes::CollectableHeight),
+                      Coordinates(750 + HitboxSizes::CollectableWidth, 1168));
+  collectables.push_back(std::make_unique<Poisoned>(
+      poisoned1, snapshot, (uint32_t)snapshot.sizeCollectables));
+  CollectableDto poisoned1_dto;
+  poisoned1_dto.type = CollectableIds::Carrot;
+  poisoned1_dto.entity_id = snapshot.sizeCollectables;
+  poisoned1_dto.position_x = poisoned1.getTopLeftCorner().getX();
+  poisoned1_dto.position_y = poisoned1.getTopLeftCorner().getY();
+  poisoned1_dto.was_collected = NumericBool::False;
+  snapshot.collectables[snapshot.sizeCollectables] = poisoned1_dto;
   snapshot.sizeCollectables++;
 }

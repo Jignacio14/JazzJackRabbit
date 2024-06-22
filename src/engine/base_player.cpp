@@ -1,10 +1,13 @@
 #include "base_player.h"
 #include "../common/global_configs.h"
+#include "states/intoxicated.h"
 #include <iostream>
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
 const static int MAX_HEALTH = globalConfigs.getPlayerMaxLife();
+
+const static double INTOXICATED_TIME = globalConfigs.getIntoxicatedTime();
 
 const static int INITIAL_X = 60;
 const static int INITIAL_Y = 1050;
@@ -20,7 +23,8 @@ BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
       snapshot(snapshot), position(position), positions_to_jump(0),
       is_moving(false), is_running(false), moment_of_death(0),
       weapon(std::make_unique<InitialWeapon>(snapshot, position)),
-      orb_ammo(globalConfigs.getBullet2MaxAmmo()), points(0) {}
+      orb_ammo(globalConfigs.getBullet2MaxAmmo()), points(0),
+      intoxicated_start(0) {}
 
 int BasePlayer::find_position() {
   for (int i = 0; i < snapshot.sizePlayers; ++i) {
@@ -37,6 +41,8 @@ void BasePlayer::update() {
 
   this->update_movement();
 
+  this->update_intoxication();
+
   weapon->update();
 
   if (health == 0)
@@ -46,6 +52,16 @@ void BasePlayer::update() {
     snapshot.players[position].shot = NumericBool::False;
     snapshot.players[position].was_hurt = NumericBool::False;
     orb_ammo = snapshot.players[position].ammo_gun_2;
+  }
+}
+
+void BasePlayer::update_intoxication() {
+  double time_passed = (intoxicated_start - snapshot.timeLeft);
+  if (time_passed >= INTOXICATED_TIME) {
+    change_state(std::make_unique<Alive>());
+    if (position != -1) {
+      snapshot.players[position].is_intoxicated = NumericBool::False;
+    }
   }
 }
 
@@ -247,6 +263,7 @@ void BasePlayer::get_intoxicated() {
   if (position != -1) {
     snapshot.players[position].is_intoxicated = NumericBool::True;
   }
+  intoxicated_start = snapshot.timeLeft;
 }
 
 void BasePlayer::heal(uint8_t health_gain) {

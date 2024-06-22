@@ -6,6 +6,7 @@
 #include "carrot.h"
 #include "coin.h"
 #include "gem.h"
+#include "poisoned.h"
 #include <memory>
 #include <vector>
 
@@ -20,6 +21,7 @@ private:
   void initialize_carrots();
   void initialize_gems();
   void initialize_coins();
+  void initialize_poisoned();
 
 public:
   CollectablesHandler(
