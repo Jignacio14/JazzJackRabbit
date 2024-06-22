@@ -5,6 +5,7 @@
 #include "../common/queue.h"
 #include "../data/player_info_dto.h"
 #include "../data/snapshot_dto.h"
+#include <atomic>
 #include <cstdint>
 #include <functional>
 #include <list>
@@ -12,7 +13,7 @@
 class GameMonitor {
 private:
   // cppcheck-suppress unusedStructMember
-  uint8_t players_count;
+  std::atomic_uint8_t players_count;
   // cppcheck-suppress unusedStructMember
   std::list<std::reference_wrapper<Queue<Snapshot>>> queues;
   std::mutex mtx;

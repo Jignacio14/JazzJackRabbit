@@ -11,6 +11,7 @@
 #include "server_game_monitor.h"
 #include <atomic>
 #include <cstdint>
+#include <mutex>
 #include <string>
 #include <sys/types.h>
 #include <utility>
@@ -20,7 +21,8 @@ private:
   GameMonitor monitor;
   Queue<CommandCodeDto> receiver_queue;
   Game game;
-  u_int8_t players;
+  std::atomic_uint8_t players;
+  std::mutex mtx;
 
 public:
   explicit GameWrapper();
