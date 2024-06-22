@@ -5,8 +5,8 @@
 #include <unordered_map>
 
 struct CoinAnimationSpeedCoefs {
-  static constexpr double Idle = 25;
-  static constexpr double Shine = 25;
+  static constexpr double Idle = 12;
+  static constexpr double Shine = 2;
 };
 
 Coin::Coin(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
