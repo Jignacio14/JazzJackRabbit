@@ -61,6 +61,7 @@ private:
   void rateController(double start, double finish);
   void addEnemies();
   void updateBullets();
+  void updateCollectables();
 
 public:
   explicit Game(GameMonitor &monitor, Queue<CommandCodeDto> &messages);

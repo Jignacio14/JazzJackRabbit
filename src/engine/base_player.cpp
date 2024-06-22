@@ -1,5 +1,6 @@
 #include "base_player.h"
 #include "../common/global_configs.h"
+#include <iostream>
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
@@ -252,11 +253,15 @@ void BasePlayer::heal(uint8_t health_gain) {
   uint8_t new_health = health + health_gain;
   if (new_health > MAX_HEALTH) {
     health = MAX_HEALTH;
+    std::cout << "Player healed to max health" << std::endl;
   } else {
     health = new_health;
+    std::cout << "Player healed: " << health << std::endl;
   }
   if (position != -1) {
-    snapshot.players[position].life = health;
+    snapshot.players[position].life = (uint16_t)health;
+    std::cout << "Snapshot life updated: " << snapshot.players[position].life
+              << std::endl;
   }
 }
 

@@ -8,7 +8,10 @@ CollectablesHandler::CollectablesHandler(
     Snapshot &snapshot)
     : collectables(collectables), snapshot(snapshot) {}
 
-void CollectablesHandler::initialize() { this->initialize_carrots(); }
+void CollectablesHandler::initialize() {
+  this->initialize_carrots();
+  this->initializeGems();
+}
 
 void CollectablesHandler::initialize_carrots() {
   Rectangle carrot1(Coordinates(482, 1168 - HitboxSizes::CollectableHeight),
@@ -36,4 +39,28 @@ void CollectablesHandler::initialize_carrots() {
   carrot2_dto.was_collected = NumericBool::False;
   snapshot.collectables[snapshot.sizeCollectables] = carrot2_dto;
   snapshot.sizeCollectables++;
+
+  Rectangle carrot3(Coordinates(900, 292 - HitboxSizes::CollectableHeight),
+                    Coordinates(900 + HitboxSizes::CollectableWidth, 292));
+  collectables.push_back(std::make_unique<Carrot>(
+      carrot3, snapshot, (uint32_t)snapshot.sizeCollectables));
+  CollectableDto carrot3_dto;
+  carrot3_dto.type = CollectableIds::Carrot;
+  carrot3_dto.entity_id = snapshot.sizeCollectables;
+  carrot3_dto.position_x = carrot3.getTopLeftCorner().getX();
+  carrot3_dto.position_y = carrot3.getTopLeftCorner().getY();
+  carrot3_dto.was_collected = NumericBool::False;
+  snapshot.collectables[snapshot.sizeCollectables] = carrot3_dto;
+  snapshot.sizeCollectables++;
 }
+
+/*
+void CollectablesHandler::initializeGems() {
+  Rectangle gem1(Coordinates(1000, 1168 - HitboxSizes::CollectableHeight),
+                 Coordinates(1000 + HitboxSizes::CollectableWidth, 1168));
+  collectables.push_back(std::make_unique<Gem>(
+      gem1, snapshot, (uint32_t)snapshot.sizeCollectables));
+  CollectableDto gem1_dto;
+  gem1_dto.type = CollectableIds::Gem;
+  gem1_dto.entity_id = snapshot
+}*/

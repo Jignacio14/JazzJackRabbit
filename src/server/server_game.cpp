@@ -66,6 +66,8 @@ void Game::gameLoop() {
 
       this->updateBullets();
 
+      this->updateCollectables();
+
       CommandCodeDto command;
       int instructions_count = 0;
       while (instructions_count < MAX_INSTRUCTIONS_PER_TICK) {
@@ -284,6 +286,25 @@ void Game::updateBullets() {
       std::remove_if(bullets.begin(), bullets.end(),
                      [](Bullet &bullet) { return !bullet.is_alive(); }),
       bullets.end());
+}
+
+void Game::updateCollectables() {
+  for (auto &collectable : collectables) {
+    for (auto &pair : players_data) {
+      auto &player = pair.second;
+      if (player->intersects(collectable->get_rectangle())) {
+        collectable->collect(*player);
+        break;
+      }
+    }
+  }
+
+  collectables.erase(
+      std::remove_if(collectables.begin(), collectables.end(),
+                     [](const std::unique_ptr<BaseCollectable> &collectable) {
+                       return collectable->get_collected();
+                     }),
+      collectables.end());
 }
 
 void Game::kill() { this->_is_alive = false; }
