@@ -28,6 +28,7 @@ public:
       std::vector<std::unique_ptr<BaseCollectable>> &collectables,
       Snapshot &snapshot);
   void initialize();
+  void reset_collectables();
 };
 
 #endif // COLLECTABLES_HANDLER_H
