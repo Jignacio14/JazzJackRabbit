@@ -213,11 +213,54 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
             AnimationState::Cycle, SpazAnimationSpeedCoefs::Walking, shouldFlip,
             this->hitbox);
       }
+    } else if (newEntityInfo.is_intoxicated !=
+               this->entityInfo.is_intoxicated) {
+
+      if (newEntityInfo.is_intoxicated == NumericBool::True) {
+
+        this->currentAnimation = std::make_unique<AnimationState>(
+            this->graphicEngine, GenericSpriteCodes::IntoxicatedWalking,
+            &this->graphicEngine.getSpazGenericSprite(
+                GenericSpriteCodes::IntoxicatedWalking),
+            AnimationState::Cycle, SpazAnimationSpeedCoefs::IntoxicatedWalking,
+            shouldFlip, this->hitbox);
+      } else {
+
+        this->currentAnimation = std::make_unique<AnimationState>(
+            this->graphicEngine, GenericSpriteCodes::Walking,
+            &this->graphicEngine.getSpazGenericSprite(
+                GenericSpriteCodes::Walking),
+            AnimationState::Cycle, SpazAnimationSpeedCoefs::Walking, shouldFlip,
+            this->hitbox);
+      }
     }
     return;
   }
 
   if (this->currentAnimation->getCode() != GenericSpriteCodes::Idle) {
+
+    if (newEntityInfo.is_intoxicated == NumericBool::True &&
+        canBreakAnimation) {
+
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::IntoxicatedIdle,
+          &this->graphicEngine.getSpazGenericSprite(
+              GenericSpriteCodes::IntoxicatedIdle),
+          AnimationState::Cycle, SpazAnimationSpeedCoefs::IntoxicatedIdle,
+          shouldFlip, this->hitbox);
+      return;
+
+    } else if (canBreakAnimation) {
+
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::Idle,
+          &this->graphicEngine.getSpazGenericSprite(GenericSpriteCodes::Idle),
+          AnimationState::Cycle, SpazAnimationSpeedCoefs::Idle, shouldFlip,
+          this->hitbox);
+      return;
+    }
+
+  } else if (newEntityInfo.is_intoxicated != this->entityInfo.is_intoxicated) {
 
     if (newEntityInfo.is_intoxicated == NumericBool::True &&
         canBreakAnimation) {
