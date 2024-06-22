@@ -49,8 +49,6 @@ void BulletGun1::updateAnimation(const SnapshotWrapper &snapshot,
 
 void BulletGun1::update(SnapshotWrapper &snapshot,
                         const Coordinates &leftCorner) {
-  BulletDto newEntityInfo;
-  bool foundBullet = snapshot.getBulletById(this->entityId, &newEntityInfo);
 
   if (this->isShowingExitAnimation &&
       this->currentAnimation->canBreakAnimation()) {
@@ -59,6 +57,9 @@ void BulletGun1::update(SnapshotWrapper &snapshot,
   } else if (this->isShowingExitAnimation) {
     return;
   }
+
+  BulletDto newEntityInfo;
+  bool foundBullet = snapshot.getBulletById(this->entityId, &newEntityInfo);
 
   if (!foundBullet) {
     this->currentAnimation = std::make_unique<AnimationState>(

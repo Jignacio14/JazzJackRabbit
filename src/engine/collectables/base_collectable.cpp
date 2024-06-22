@@ -11,9 +11,18 @@ Rectangle BaseCollectable::get_rectangle() const { return rectangle; }
 bool BaseCollectable::get_collected() const { return collected; }
 
 void BaseCollectable::remove_from_snapshot() {
-  for (uint32_t i = entity_id;
-       i < static_cast<uint32_t>(snapshot.sizeCollectables) - 1; i++) {
-    snapshot.collectables[i] = snapshot.collectables[i + 1];
+  bool found = false;
+  for (uint32_t i = 0; i < static_cast<uint32_t>(snapshot.sizeCollectables);
+       i++) {
+    if (snapshot.collectables[i].entity_id == this->entity_id) {
+      found = true;
+    }
+    if (found && i < static_cast<uint32_t>(snapshot.sizeCollectables) - 1) {
+      snapshot.collectables[i] = snapshot.collectables[i + 1];
+    }
   }
-  snapshot.sizeCollectables--;
+
+  if (found) {
+    snapshot.sizeCollectables--;
+  }
 }

@@ -5,8 +5,8 @@
 #include <unordered_map>
 
 struct AmmoGun1AnimationSpeedCoefs {
-  static constexpr double Idle = 25;
-  static constexpr double Shine = 25;
+  static constexpr double Idle = 15;
+  static constexpr double Shine = 2;
 };
 
 AmmoGun1::AmmoGun1(GraphicEngine &graphicEngine, AudioEngine &audioEngine,

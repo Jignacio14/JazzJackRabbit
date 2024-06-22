@@ -20,7 +20,7 @@ AnimationState::AnimationState(GraphicEngine &graphicEngine,
       spriteCode(spriteCode), sprite(sprite), hitbox(hitbox) {}
 
 bool AnimationState::shouldRenderLastFrame() const {
-  if (!this->shouldCycle &&
+  if (this->shouldCycle == AnimationState::NotCycle &&
       this->totalRenders >= this->sprite->maxAnimationFrames) {
     return true;
   }
@@ -116,7 +116,8 @@ void AnimationState::renderFromLeftCorner(int iterationNumber,
 }
 
 bool AnimationState::canBreakAnimation() const {
-  if (this->shouldCycle || this->shouldRenderLastFrame()) {
+  if (this->shouldCycle == AnimationState::Cycle ||
+      this->shouldRenderLastFrame()) {
     return true;
   }
   return false;
