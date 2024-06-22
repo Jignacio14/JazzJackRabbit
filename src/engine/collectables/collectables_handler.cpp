@@ -100,32 +100,33 @@ void CollectablesHandler::initialize_coins() {
   coin1_dto.was_collected = NumericBool::False;
   snapshot.collectables[snapshot.sizeCollectables] = coin1_dto;
   snapshot.sizeCollectables++;
+  /*
+    Rectangle coin2(Coordinates(630, 1168 - HitboxSizes::CollectableHeight),
+                    Coordinates(630 + HitboxSizes::CollectableWidth, 1168));
+    collectables.push_back(std::make_unique<Coin>(
+        coin2, snapshot, (uint32_t)snapshot.sizeCollectables));
+    CollectableDto coin2_dto;
+    coin2_dto.type = CollectableIds::Coin;
+    coin2_dto.entity_id = snapshot.sizeCollectables;
+    coin2_dto.position_x = coin2.getTopLeftCorner().getX();
+    coin2_dto.position_y = coin2.getTopLeftCorner().getY();
+    coin2_dto.was_collected = NumericBool::False;
+    snapshot.collectables[snapshot.sizeCollectables] = coin2_dto;
+    snapshot.sizeCollectables++;
 
-  Rectangle coin2(Coordinates(630, 1168 - HitboxSizes::CollectableHeight),
-                  Coordinates(630 + HitboxSizes::CollectableWidth, 1168));
-  collectables.push_back(std::make_unique<Coin>(
-      coin2, snapshot, (uint32_t)snapshot.sizeCollectables));
-  CollectableDto coin2_dto;
-  coin2_dto.type = CollectableIds::Coin;
-  coin2_dto.entity_id = snapshot.sizeCollectables;
-  coin2_dto.position_x = coin2.getTopLeftCorner().getX();
-  coin2_dto.position_y = coin2.getTopLeftCorner().getY();
-  coin2_dto.was_collected = NumericBool::False;
-  snapshot.collectables[snapshot.sizeCollectables] = coin2_dto;
-  snapshot.sizeCollectables++;
-
-  Rectangle coin3(Coordinates(660, 1168 - HitboxSizes::CollectableHeight),
-                  Coordinates(660 + HitboxSizes::CollectableWidth, 1168));
-  collectables.push_back(std::make_unique<Coin>(
-      coin3, snapshot, (uint32_t)snapshot.sizeCollectables));
-  CollectableDto coin3_dto;
-  coin3_dto.type = CollectableIds::Coin;
-  coin3_dto.entity_id = snapshot.sizeCollectables;
-  coin3_dto.position_x = coin3.getTopLeftCorner().getX();
-  coin3_dto.position_y = coin3.getTopLeftCorner().getY();
-  coin3_dto.was_collected = NumericBool::False;
-  snapshot.collectables[snapshot.sizeCollectables] = coin3_dto;
-  snapshot.sizeCollectables++;
+    Rectangle coin3(Coordinates(660, 1168 - HitboxSizes::CollectableHeight),
+                    Coordinates(660 + HitboxSizes::CollectableWidth, 1168));
+    collectables.push_back(std::make_unique<Coin>(
+        coin3, snapshot, (uint32_t)snapshot.sizeCollectables));
+    CollectableDto coin3_dto;
+    coin3_dto.type = CollectableIds::Coin;
+    coin3_dto.entity_id = snapshot.sizeCollectables;
+    coin3_dto.position_x = coin3.getTopLeftCorner().getX();
+    coin3_dto.position_y = coin3.getTopLeftCorner().getY();
+    coin3_dto.was_collected = NumericBool::False;
+    snapshot.collectables[snapshot.sizeCollectables] = coin3_dto;
+    snapshot.sizeCollectables++;
+    */
 }
 
 void CollectablesHandler::initialize_poisoned() {
