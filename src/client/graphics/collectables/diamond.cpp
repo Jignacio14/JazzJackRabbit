@@ -5,8 +5,8 @@
 #include <unordered_map>
 
 struct DiamondAnimationSpeedCoefs {
-  static constexpr double Idle = 25;
-  static constexpr double Shine = 25;
+  static constexpr double Idle = 10;
+  static constexpr double Shine = 2;
 };
 
 Diamond::Diamond(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
