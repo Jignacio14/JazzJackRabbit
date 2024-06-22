@@ -54,4 +54,9 @@ void Accepter::killAll() {
   this->clients.clear();
 }
 
-Accepter::~Accepter() {}
+Accepter::~Accepter() {
+  try {
+    this->join();
+  } catch (...) {
+  }
+}
