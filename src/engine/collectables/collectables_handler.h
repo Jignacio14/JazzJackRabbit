@@ -16,7 +16,7 @@ private:
   Snapshot &snapshot;
 
   void initialize_carrots();
-  void initializeGems();
+  // void initializeGems();
 
 public:
   CollectablesHandler(

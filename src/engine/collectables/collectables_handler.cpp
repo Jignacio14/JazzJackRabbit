@@ -10,7 +10,7 @@ CollectablesHandler::CollectablesHandler(
 
 void CollectablesHandler::initialize() {
   this->initialize_carrots();
-  this->initializeGems();
+  // this->initializeGems();
 }
 
 void CollectablesHandler::initialize_carrots() {
