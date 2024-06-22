@@ -15,13 +15,18 @@ void Accepter::checkForDisconnected() {
   try {
     this->gamesMonitor.removeEndedGames();
     this->clients.remove_if([](const std::unique_ptr<Sender> &client) {
+      if (!client) {
+        return true;
+      }
       if (!client->is_alive()) {
+        client->kill();
         client->join();
         return true;
       }
       return false;
     });
   } catch (...) {
+    this->_is_alive = false;
     std::cout << "Error al remover clientes desconectados" << std::endl;
     std::cout << "Lo mantengo con vida" << std::endl;
   }
