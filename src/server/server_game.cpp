@@ -310,6 +310,10 @@ void Game::updateCollectables() {
                        return collectable->get_collected();
                      }),
       collectables.end());
+
+  if (collectables.size() == 0) {
+    collectablesHandler.reset_collectables();
+  }
 }
 
 void Game::kill() { this->_is_alive = false; }

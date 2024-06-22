@@ -377,3 +377,9 @@ void CollectablesHandler::initialize_poisoned() {
   snapshot.collectables[snapshot.sizeCollectables] = poisoned1_dto;
   snapshot.sizeCollectables++;
 }
+
+void CollectablesHandler::reset_collectables() {
+  collectables.clear();
+  snapshot.sizeCollectables = 0;
+  initialize();
+}
