@@ -6,8 +6,13 @@ Receiver::Receiver(ServerProtocol &servprot,
                    Queue<CommandCodeDto> &receiver_queue)
     : servprot(servprot), receiver_queue(receiver_queue) {}
 
-void Receiver::run() { this->recevierLoop(); }
-
+void Receiver::run() {
+  try {
+    this->recevierLoop();
+  } catch (const LibError &sktErr) {
+    this->_is_alive = false;
+  }
+}
 void Receiver::recevierLoop() {
   while (this->is_alive()) {
     CommandCodeDto dto = this->servprot.asyncGetEventCode();

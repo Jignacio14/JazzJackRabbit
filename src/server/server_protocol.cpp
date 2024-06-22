@@ -5,7 +5,7 @@
 #include <vector>
 
 ServerProtocol::ServerProtocol(Socket skt)
-    : skt(std::move(skt)), was_close(false), serializer() {}
+    : skt(std::move(skt)), was_close(false), serializer(), shuted_down(false) {}
 
 bool ServerProtocol::sendGameInfo(
     const std::unordered_map<std::string, uint16_t> &game_info) {
@@ -117,6 +117,7 @@ const bool ServerProtocol::getTemporalWasClose() {
 void ServerProtocol::throwIfClosed(const bool &result) {
   if (result) {
     this->was_close.store(true);
+    this->shuted_down.store(true);
     throw LibError(errno, "Socket closed");
   }
 }
@@ -138,6 +139,8 @@ void ServerProtocol::sendSnapshot(const Snapshot &snapshot) {
                              &wasClose);
   this->throwIfClosed(wasClose);
 }
+
+bool const ServerProtocol::isShutedDown() { return this->shuted_down.load(); }
 
 void ServerProtocol::shutdown() {
   this->skt.shutdown(SHUT_RDWR);

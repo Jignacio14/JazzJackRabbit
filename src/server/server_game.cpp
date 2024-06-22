@@ -252,6 +252,11 @@ void Game::ereasePlayer(uint8_t player_id) {
     this->players--;
   }
 
+  if (this->players == 0) {
+    this->gameEnded = true;
+    this->_is_alive = false;
+  }
+
   bool playerFound = false;
   for (int i = 0; i < this->snapshot.sizePlayers; ++i) {
     if (this->snapshot.players[i].user_id == player_id) {

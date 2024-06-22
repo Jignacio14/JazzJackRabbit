@@ -34,6 +34,8 @@ public:
   std::pair<Queue<CommandCodeDto> &, u_int8_t>
   registerPlayer(PlayerInfo &player_status, Queue<Snapshot> &sender_queue);
   void removeEndedGames();
+  void removePlayer(const std::string &game_name, const u_int8_t &player_id,
+                    Queue<Snapshot> &sender_queue);
 
   ~GamesMonitor();
 };

@@ -10,6 +10,7 @@ void GameMonitor::broadcast(const Snapshot &msj) {
       queue.push(msj);
     } catch (const ClosedQueue &) {
       iter = queues.erase(iter);
+      this->ereasePlayer(queue);
     }
   }
 }

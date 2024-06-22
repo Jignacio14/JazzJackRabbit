@@ -11,6 +11,7 @@
 #include "server_game_monitor.h"
 #include <atomic>
 #include <cstdint>
+#include <mutex>
 #include <string>
 #include <sys/types.h>
 #include <utility>
@@ -20,14 +21,16 @@ private:
   GameMonitor monitor;
   Queue<CommandCodeDto> receiver_queue;
   Game game;
-  u_int8_t players;
+  std::atomic_uint8_t players;
+  std::mutex mtx;
 
 public:
   explicit GameWrapper();
   void start();
   const u_int16_t getGamePlayers();
   void killGame();
-  void ereasedPlayer(uint8_t player_id);
+  void ereasedPlayer(const uint8_t &player_id,
+                     const Queue<Snapshot> &sender_queue);
   std::pair<Queue<CommandCodeDto> &, uint8_t>
   addPlayer(Queue<Snapshot> &queue, const PlayerInfo &player_info);
   bool isGameRunning();
