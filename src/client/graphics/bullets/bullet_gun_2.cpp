@@ -20,7 +20,7 @@ BulletGun2::BulletGun2(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
 
   this->currentAnimation = std::make_unique<AnimationState>(
       this->graphicEngine, GunSpriteCodes::FlyingBullet,
-      &this->graphicEngine.getGun1Sprite(GunSpriteCodes::FlyingBullet),
+      &this->graphicEngine.getGun2Sprite(GunSpriteCodes::FlyingBullet),
       AnimationState::Cycle, BulletGun2AnimationSpeedCoefs::Flying,
       AnimationState::NotFlip, this->hitbox);
 
@@ -49,8 +49,6 @@ void BulletGun2::updateAnimation(const SnapshotWrapper &snapshot,
 
 void BulletGun2::update(SnapshotWrapper &snapshot,
                         const Coordinates &leftCorner) {
-  BulletDto newEntityInfo;
-  bool foundBullet = snapshot.getBulletById(this->entityId, &newEntityInfo);
 
   if (this->isShowingExitAnimation &&
       this->currentAnimation->canBreakAnimation()) {
@@ -59,6 +57,9 @@ void BulletGun2::update(SnapshotWrapper &snapshot,
   } else if (this->isShowingExitAnimation) {
     return;
   }
+
+  BulletDto newEntityInfo;
+  bool foundBullet = snapshot.getBulletById(this->entityId, &newEntityInfo);
 
   if (!foundBullet) {
     this->currentAnimation = std::make_unique<AnimationState>(
