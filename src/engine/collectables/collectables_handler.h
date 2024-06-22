@@ -4,6 +4,7 @@
 #include "../server_map.h"
 #include "base_collectable.h"
 #include "carrot.h"
+#include "gem.h"
 #include <memory>
 #include <vector>
 
@@ -16,7 +17,7 @@ private:
   Snapshot &snapshot;
 
   void initialize_carrots();
-  // void initializeGems();
+  void initializeGems();
 
 public:
   CollectablesHandler(

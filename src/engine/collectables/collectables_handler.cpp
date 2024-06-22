@@ -10,10 +10,11 @@ CollectablesHandler::CollectablesHandler(
 
 void CollectablesHandler::initialize() {
   this->initialize_carrots();
-  // this->initializeGems();
+  this->initializeGems();
 }
 
 void CollectablesHandler::initialize_carrots() {
+
   Rectangle carrot1(Coordinates(482, 1168 - HitboxSizes::CollectableHeight),
                     Coordinates(482 + HitboxSizes::CollectableWidth, 1168));
   collectables.push_back(std::make_unique<Carrot>(
@@ -54,13 +55,31 @@ void CollectablesHandler::initialize_carrots() {
   snapshot.sizeCollectables++;
 }
 
-/*
 void CollectablesHandler::initializeGems() {
-  Rectangle gem1(Coordinates(1000, 1168 - HitboxSizes::CollectableHeight),
-                 Coordinates(1000 + HitboxSizes::CollectableWidth, 1168));
+
+  Rectangle gem1(Coordinates(900, 1168 - HitboxSizes::CollectableHeight),
+                 Coordinates(900 + HitboxSizes::CollectableWidth, 1168));
   collectables.push_back(std::make_unique<Gem>(
       gem1, snapshot, (uint32_t)snapshot.sizeCollectables));
   CollectableDto gem1_dto;
-  gem1_dto.type = CollectableIds::Gem;
-  gem1_dto.entity_id = snapshot
-}*/
+  gem1_dto.type = CollectableIds::Diamond;
+  gem1_dto.entity_id = snapshot.sizeCollectables;
+  gem1_dto.position_x = gem1.getTopLeftCorner().getX();
+  gem1_dto.position_y = gem1.getTopLeftCorner().getY();
+  gem1_dto.was_collected = NumericBool::False;
+  snapshot.collectables[snapshot.sizeCollectables] = gem1_dto;
+  snapshot.sizeCollectables++;
+
+  Rectangle gem2(Coordinates(1700, 1168 - HitboxSizes::CollectableHeight),
+                 Coordinates(1700 + HitboxSizes::CollectableWidth, 1168));
+  collectables.push_back(std::make_unique<Gem>(
+      gem2, snapshot, (uint32_t)snapshot.sizeCollectables));
+  CollectableDto gem2_dto;
+  gem2_dto.type = CollectableIds::Diamond;
+  gem2_dto.entity_id = snapshot.sizeCollectables;
+  gem2_dto.position_x = gem2.getTopLeftCorner().getX();
+  gem2_dto.position_y = gem2.getTopLeftCorner().getY();
+  gem2_dto.was_collected = NumericBool::False;
+  snapshot.collectables[snapshot.sizeCollectables] = gem2_dto;
+  snapshot.sizeCollectables++;
+}

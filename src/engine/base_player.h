@@ -52,6 +52,8 @@ private:
   std::unique_ptr<BaseWeapon> weapon;
   // cppcheck-suppress unusedStructMember
   uint16_t orb_ammo;
+  // cppcheck-suppress unusedStructMember
+  uint32_t points;
 
   bool move_down();
   bool move_up();
@@ -82,6 +84,7 @@ public:
   bool is_alive();
 
   void change_weapon(uint8_t weapon_id);
+  void add_points(uint32_t points);
 
   Bullet shoot();
 

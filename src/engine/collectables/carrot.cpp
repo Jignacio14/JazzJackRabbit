@@ -1,7 +1,6 @@
 
 #include "carrot.h"
 #include <cstdint>
-#include <iostream>
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 

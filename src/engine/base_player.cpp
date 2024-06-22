@@ -20,7 +20,7 @@ BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
       snapshot(snapshot), position(position), positions_to_jump(0),
       is_moving(false), is_running(false), moment_of_death(0),
       weapon(std::make_unique<InitialWeapon>(snapshot, position)),
-      orb_ammo(globalConfigs.getBullet2MaxAmmo()) {}
+      orb_ammo(globalConfigs.getBullet2MaxAmmo()), points(0) {}
 
 int BasePlayer::find_position() {
   for (int i = 0; i < snapshot.sizePlayers; ++i) {
@@ -314,6 +314,13 @@ void BasePlayer::change_weapon(uint8_t weapon_id) {
     weapon = std::make_unique<Orb>(snapshot, orb_ammo, position);
     snapshot.players[position].current_gun = GunsIds::Gun2;
     break;
+  }
+}
+
+void BasePlayer::add_points(uint32_t points) {
+  this->points += points;
+  if (position != -1) {
+    snapshot.players[position].points = this->points;
   }
 }
 
