@@ -7,14 +7,14 @@
 #include "../../../common/global_configs.h"
 
 struct JazzAnimationSpeedCoefs {
-  static constexpr double Death = 25;
-  static constexpr double Hurt = 25;
+  static constexpr double Death = 13;
+  static constexpr double Hurt = 13;
   static constexpr double Idle = 15;
-  static constexpr double IntoxicatedIdle = 25;
+  static constexpr double IntoxicatedIdle = 15;
   static constexpr double IntoxicatedWalking = 25;
   static constexpr double Jumping = 15;
   static constexpr double Falling = 20;
-  static constexpr double Running = 25;
+  static constexpr double Running = 18;
   static constexpr double Shooting = 15;
   static constexpr double Walking = 17;
   static constexpr double Uppercut = 25;
@@ -90,8 +90,8 @@ void Jazz::updateAnimation(const SnapshotWrapper &snapshot,
       if (isInCameraFocus) {
         this->audioEngine.playJazzDeathSound();
       }
-      return;
     }
+    return;
   }
 
   if (newEntityInfo.was_hurt == NumericBool::True) {

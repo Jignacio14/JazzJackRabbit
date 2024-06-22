@@ -5,15 +5,15 @@
 #include <unordered_map>
 
 struct SpazAnimationSpeedCoefs {
-  static constexpr double Death = 25;
-  static constexpr double Hurt = 25;
+  static constexpr double Death = 13;
+  static constexpr double Hurt = 15;
   static constexpr double Idle = 17;
-  static constexpr double IntoxicatedIdle = 25;
+  static constexpr double IntoxicatedIdle = 15;
   static constexpr double IntoxicatedWalking = 25;
   static constexpr double Jumping = 15;
   static constexpr double Falling = 20;
-  static constexpr double Running = 25;
-  static constexpr double Shooting = 25;
+  static constexpr double Running = 18;
+  static constexpr double Shooting = 15;
   static constexpr double Walking = 18;
   static constexpr double SideKick = 25;
 };
