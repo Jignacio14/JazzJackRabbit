@@ -11,15 +11,22 @@
 #define REGISTER_PLAYER 2
 
 Sender::Sender(Socket peer, GamesMonitor &games_monitor_ref)
-    : servprot(std::move(peer)), gamesMonitor(games_monitor_ref), error(false) {
-}
+    : servprot(std::move(peer)), gamesMonitor(games_monitor_ref), game_name(""),
+      player_id(0) {}
 
 void Sender::sendGamesOptions() {
+  this->gamesMonitor.removeEndedGames();
   std::unordered_map<std::string, uint16_t> games =
       this->gamesMonitor.getGamesStartInfo();
   if (!this->servprot.sendGameInfo(games)) {
     throw std::runtime_error("Error en la comunicacion con el cliente");
   }
+}
+
+void Sender::savePlayerInfo(const PlayerInfo &player_info,
+                            const uint8_t &player_id) {
+  this->game_name = player_info.game_name;
+  this->player_id = player_id;
 }
 
 Queue<CommandCodeDto> &Sender::setUpPlayerLoop() {
@@ -35,7 +42,7 @@ Queue<CommandCodeDto> &Sender::setUpPlayerLoop() {
       std::pair<Queue<CommandCodeDto> &, uint8_t> result =
           this->gamesMonitor.registerPlayer(player_info, this->sender_queue);
       this->servprot.sendPlayerId(result.second);
-
+      this->savePlayerInfo(player_info, result.second);
       // cppcheck-suppress returnReference
       return result.first;
     }
@@ -59,25 +66,42 @@ void Sender::run() {
     this->runSenderLoop();
     receiver.kill();
     receiver.join();
-  } catch (const std::runtime_error &e) {
-    this->kill();
-    std::cerr << e.what() << std::endl;
-  } catch (...) {
-    std::cerr << "Unknown error" << std::endl;
+  } catch (const JJR2Error &jjr2Err) {
+    this->logOutPlayer();
+    std::cerr << jjr2Err.what() << std::endl;
+  } catch (const ClosedQueue &quErr) {
+    this->logOutPlayer();
+    std::cerr << quErr.what() << std::endl;
+  } catch (const std::exception &error) {
+    this->logOutPlayer();
+    std::cerr << error.what() << std::endl;
   }
 }
 
 void Sender::runSenderLoop() {
   while (this->is_alive()) {
     Snapshot snapshot = this->sender_queue.pop();
+    if (servprot.isShutedDown()) {
+      this->logOutPlayer();
+    }
     this->servprot.sendSnapshot(snapshot);
   }
 }
 
+void Sender::logOutPlayer() {
+  this->gamesMonitor.removePlayer(this->game_name, this->player_id,
+                                  this->sender_queue);
+  this->_is_alive = false;
+}
+
 void Sender::kill() {
-  // this->gamesMonitor.erasePlayer(this->sender_queue);
   this->_is_alive = false;
   this->servprot.shutdown();
 }
 
-Sender::~Sender() {}
+Sender::~Sender() {
+  try {
+    this->join();
+  } catch (...) {
+  }
+}

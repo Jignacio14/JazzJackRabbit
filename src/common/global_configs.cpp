@@ -19,13 +19,17 @@ GlobalConfigs::GlobalConfigs() {
       gameConfigs["min_number_of_players"].as<uint32_t>();
   this->maxPortNumber = gameConfigs["max_port_number"].as<uint32_t>();
 
+  this->backgroundMusicVolumeLobby =
+      gameConfigs["background_music_volume_lobby"].as<uint32_t>();
+  this->backgroundMusicVolumeGame =
+      gameConfigs["background_music_volume_game"].as<uint32_t>();
+  this->shouldPlayBackgroundMusic =
+      gameConfigs["play_background_music"].as<bool>();
+
   this->screenSizeX = gameConfigs["screen_size_x"].as<int>();
   this->screenSizeY = gameConfigs["screen_size_y"].as<int>();
   this->windowName = gameConfigs["window_name"].as<std::string>();
   this->targetFps = gameConfigs["target_fps"].as<double>();
-
-  this->debugHostname = gameConfigs["debug_hostname"].as<std::string>();
-  this->debugPort = gameConfigs["debug_port"].as<uint32_t>();
 
   this->playerStartingPoints = gameConfigs["starting_points"].as<uint32_t>();
   this->playerMaxLife = gameConfigs["max_life"].as<uint32_t>();
@@ -41,6 +45,23 @@ GlobalConfigs::GlobalConfigs() {
 
   this->maxPlayersInHudLeaderboard =
       gameConfigs["max_players_in_hud_leaderboard"].as<uint32_t>();
+
+  this->bullet1MaxAmmo = gameConfigs["bullet_1_max_ammo"].as<uint16_t>();
+  this->bullet1Speed = gameConfigs["bullet_1_speed"].as<uint8_t>();
+  this->bullet1Damage = gameConfigs["bullet_1_damage"].as<uint8_t>();
+  this->bullet1Cooldown = gameConfigs["bullet_1_cooldown"].as<double>();
+
+  this->bullet2MaxAmmo = gameConfigs["bullet_2_max_ammo"].as<uint16_t>();
+  this->bullet2Speed = gameConfigs["bullet_2_speed"].as<uint8_t>();
+  this->bullet2Damage = gameConfigs["bullet_2_damage"].as<uint8_t>();
+  this->bullet2Cooldown = gameConfigs["bullet_2_cooldown"].as<double>();
+
+  this->respawnTime = gameConfigs["respawn_time"].as<double>();
+
+  this->carrotHeal = gameConfigs["carrot_heal"].as<uint16_t>();
+  this->intoxicatedTime = gameConfigs["intoxicated_time"].as<double>();
+  this->pointsPerCoin = gameConfigs["points_per_coin"].as<uint32_t>();
+  this->pointsPerGem = gameConfigs["points_per_gem"].as<uint32_t>();
 }
 
 uint16_t GlobalConfigs::getMaxPlayersPerGame() const {
@@ -61,6 +82,18 @@ uint32_t GlobalConfigs::getMinNumberOfPlayers() const {
 
 uint32_t GlobalConfigs::getMaxPortNumber() const { return this->maxPortNumber; }
 
+uint32_t GlobalConfigs::getBackgroundMusicVolumeLobby() const {
+  return this->backgroundMusicVolumeLobby;
+}
+
+uint32_t GlobalConfigs::getBackgroundMusicVolumeGame() const {
+  return this->backgroundMusicVolumeGame;
+}
+
+bool GlobalConfigs::getShouldPlayBackgroundMusic() const {
+  return this->shouldPlayBackgroundMusic;
+}
+
 int GlobalConfigs::getScreenSizeX() const { return this->screenSizeX; }
 
 int GlobalConfigs::getScreenSizeY() const { return this->screenSizeY; }
@@ -68,12 +101,6 @@ int GlobalConfigs::getScreenSizeY() const { return this->screenSizeY; }
 std::string GlobalConfigs::getWindowName() const { return this->windowName; }
 
 double GlobalConfigs::getTargetFps() const { return this->targetFps; }
-
-std::string GlobalConfigs::getDebugHostname() const {
-  return this->debugHostname;
-}
-
-uint32_t GlobalConfigs::getDebugPort() const { return this->debugPort; }
 
 uint32_t GlobalConfigs::getPlayerStartingPoints() const {
   return this->playerStartingPoints;
@@ -100,3 +127,39 @@ uint32_t GlobalConfigs::getMaxInstructionsPerTickOfServer() const {
 uint32_t GlobalConfigs::getMaxPlayersInHudLeaderboard() const {
   return this->maxPlayersInHudLeaderboard;
 }
+
+uint16_t GlobalConfigs::getBullet1MaxAmmo() const {
+  return this->bullet1MaxAmmo;
+}
+
+uint8_t GlobalConfigs::getBullet1Speed() const { return this->bullet1Speed; }
+
+uint8_t GlobalConfigs::getBullet1Damage() const { return this->bullet1Damage; }
+
+double GlobalConfigs::getBullet1Cooldown() const {
+  return this->bullet1Cooldown;
+}
+
+uint16_t GlobalConfigs::getBullet2MaxAmmo() const {
+  return this->bullet2MaxAmmo;
+}
+
+uint8_t GlobalConfigs::getBullet2Speed() const { return this->bullet2Speed; }
+
+uint8_t GlobalConfigs::getBullet2Damage() const { return this->bullet2Damage; }
+
+double GlobalConfigs::getBullet2Cooldown() const {
+  return this->bullet2Cooldown;
+}
+
+double GlobalConfigs::getRespawnTime() const { return this->respawnTime; }
+
+uint16_t GlobalConfigs::getCarrotHeal() const { return this->carrotHeal; }
+
+double GlobalConfigs::getIntoxicatedTime() const {
+  return this->intoxicatedTime;
+}
+
+uint32_t GlobalConfigs::getPointsPerCoin() const { return this->pointsPerCoin; }
+
+uint32_t GlobalConfigs::getPointsPerGem() const { return this->pointsPerGem; }

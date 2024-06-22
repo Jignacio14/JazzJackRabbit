@@ -1,5 +1,4 @@
 #include "server_game.h"
-#include <cstdint>
 #include <cstring>
 #include <iostream>
 #include <thread>
@@ -23,7 +22,8 @@ const static int PLAYER_INITIAL_POSITION_Y = 1050;
 
 Game::Game(GameMonitor &monitor, Queue<CommandCodeDto> &queue)
     : monitor(monitor), messages(queue), players(0), snapshot{},
-      iterationNumber(0), rate(SERVER_RATE) {}
+      gameEnded(false), iterationNumber(0), rate(SERVER_RATE),
+      collectablesHandler(collectables, snapshot) {}
 
 double Game::now() {
   return std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -40,6 +40,8 @@ void Game::gameLoop() {
     this->snapshot.timeLeft = GAME_DURATION;
     this->snapshot.gameEnded = NumericBool::False;
 
+    collectablesHandler.initialize();
+
     this->addEnemies();
 
     double initTimestamp = this->now();
@@ -51,6 +53,7 @@ void Game::gameLoop() {
 
       if (this->snapshot.timeLeft < 0) {
         this->snapshot.gameEnded = NumericBool::True;
+        this->gameEnded = true;
         this->snapshot.timeLeft = (double)0;
         this->_is_alive = false;
       }
@@ -60,6 +63,10 @@ void Game::gameLoop() {
           pair.second->update();
         }
       }
+
+      this->updateBullets();
+
+      this->updateCollectables();
 
       CommandCodeDto command;
       int instructions_count = 0;
@@ -104,9 +111,36 @@ void Game::rateController(double start, double finish) {
   }
 }
 
+void Game::run() {
+  try {
+    this->gameLoop();
+  } catch (...) {
+    std::cout << "Error in game loop." << std::endl;
+  }
+}
+
+std::unique_ptr<BasePlayer> Game::constructPlayer(uint8_t player_id,
+                                                  std::string &player_name,
+                                                  uint8_t player_type) {
+  if (player_type == PlayableCharactersIds::Jazz) {
+    return std::make_unique<Jazz>(player_id, player_name, snapshot, 0, map);
+  }
+
+  if (player_type == PlayableCharactersIds::Lori) {
+    return std::make_unique<Lori>(player_id, player_name, snapshot, 0, map);
+  }
+
+  if (player_type == PlayableCharactersIds::Spaz) {
+    return std::make_unique<Spaz>(player_id, player_name, snapshot, 0, map);
+  }
+
+  return nullptr;
+}
+
 void Game::addEnemies() {
-  BaseEnemy *enemy = new BaseEnemy(1, snapshot, 0);
-  this->enemies.push_back(enemy);
+  std::unique_ptr<BaseEnemy> enemy =
+      std::make_unique<BaseEnemy>(1, snapshot, 0);
+  this->enemies.push_back(std::move(enemy));
   EnemyDto new_enemy = {};
   new_enemy.entity_id = 1;
   new_enemy.facing_direction = FacingDirectionsIds::Left;
@@ -141,8 +175,15 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
   case PlayerCommands::STOP_RUNNING:
     this->players_data[player_id]->stop_running();
     break;
-  case PlayerCommands::SHOOT:
-    this->players_data[player_id]->shoot();
+  case PlayerCommands::SHOOT: {
+    Bullet newBullet = this->players_data[player_id]->shoot();
+    if (newBullet.get_damage() > 0) {
+      bullets.push_back(newBullet);
+    }
+    break;
+  }
+  case PlayerCommands::CHANGE_WEAPON:
+    this->players_data[player_id]->change_weapon(data);
     break;
     /*
   case PlayerCommands::SPECIAL_ATTACK:
@@ -151,47 +192,18 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
   }
 }
 
-void Game::run() {
-  try {
-    this->gameLoop();
-  } catch (...) {
-    std::cout << "Paso algo en el game loop";
-  }
-}
-
-BasePlayer *Game::constructPlayer(uint8_t player_id, std::string &player_name,
-                                  uint8_t player_type) {
-  if (player_type == PlayableCharactersIds::Jazz) {
-    return new Jazz(player_id, player_name, snapshot,
-                    this->snapshot.sizePlayers);
-  }
-
-  if (player_type == PlayableCharactersIds::Lori) {
-    return new Lori(player_id, player_name, snapshot,
-                    this->snapshot.sizePlayers);
-  }
-
-  if (player_type == PlayableCharactersIds::Spaz) {
-    return new Spaz(player_id, player_name, snapshot,
-                    this->snapshot.sizePlayers);
-  }
-
-  return nullptr;
-}
-
 void Game::addPlayer(const PlayerInfo &player_info, const uint8_t &player_id) {
   if (this->snapshot.sizePlayers >= MAX_PLAYERS) {
-    // No se pueden agregar más jugadores
     return;
   }
   this->players++;
   std::string player_name(player_info.player_name);
-  BasePlayer *new_player =
+  std::unique_ptr<BasePlayer> new_player =
       this->constructPlayer(player_id, player_name, player_info.character_code);
   if (new_player == nullptr) {
     return;
   }
-  this->players_data[this->players] = new_player;
+  this->players_data[this->players] = std::move(new_player);
   this->addPlayerToSnapshot(player_info);
 }
 
@@ -236,9 +248,13 @@ void Game::ereasePlayer(uint8_t player_id) {
   // this->monitor.ereasePlayer(this->messages);
   auto it = players_data.find(player_id);
   if (it != players_data.end()) {
-    delete it->second;
     players_data.erase(it);
     this->players--;
+  }
+
+  if (this->players == 0) {
+    this->gameEnded = true;
+    this->_is_alive = false;
   }
 
   bool playerFound = false;
@@ -259,13 +275,48 @@ void Game::ereasePlayer(uint8_t player_id) {
   }
 }
 
+void Game::updateBullets() {
+  for (auto &bullet : bullets) {
+    bullet.move(snapshot);
+    for (auto &pair : players_data) {
+      auto &player = pair.second;
+      if (player->intersects(bullet.get_rectangle()) && player->is_alive()) {
+        player->receive_damage(bullet.get_damage());
+        bullet.kill(snapshot);
+        break;
+      }
+    }
+  }
+  bullets.erase(
+      std::remove_if(bullets.begin(), bullets.end(),
+                     [](Bullet &bullet) { return !bullet.is_alive(); }),
+      bullets.end());
+}
+
+void Game::updateCollectables() {
+  for (auto &collectable : collectables) {
+    for (auto &pair : players_data) {
+      auto &player = pair.second;
+      if (player->intersects(collectable->get_rectangle())) {
+        collectable->collect(*player);
+        break;
+      }
+    }
+  }
+
+  collectables.erase(
+      std::remove_if(collectables.begin(), collectables.end(),
+                     [](const std::unique_ptr<BaseCollectable> &collectable) {
+                       return collectable->get_collected();
+                     }),
+      collectables.end());
+}
+
 void Game::kill() { this->_is_alive = false; }
 
+bool Game::didGameEnd() { return this->gameEnded; };
+
 Game::~Game() {
-  for (const auto &pair : players_data) {
-    delete pair.second;
-  }
-  for (const auto &enemy : enemies) {
-    delete enemy;
-  }
+  this->kill();
+  this->join();
 }

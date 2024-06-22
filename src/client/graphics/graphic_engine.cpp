@@ -1,5 +1,6 @@
 #include "./graphic_engine.h"
 #include "../../common/global_configs.h"
+#include "../../data/convention.h"
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
@@ -7,6 +8,10 @@ const static int SCREEN_SIZE_X = globalConfigs.getScreenSizeX();
 const static int SCREEN_SIZE_Y = globalConfigs.getScreenSizeY();
 
 const static std::string WINDOW_NAME = globalConfigs.getWindowName();
+
+const static int MAP_SCREEN_SIZE_X = globalConfigs.getScreenSizeX() - 150;
+const static int MAP_SCREEN_SIZE_Y = globalConfigs.getScreenSizeY();
+const static int CAMERA_FOCUS_PADDING = 50;
 
 GraphicEngine::GraphicEngine()
     : sdl(SDL_INIT_VIDEO), window(WINDOW_NAME.c_str(), SDL_WINDOWPOS_UNDEFINED,
@@ -61,6 +66,20 @@ Sprite &GraphicEngine::getCarrotusScenarioSprite(const uint8_t &spriteCode) {
   return this->textureLoader.getCarrotusScenarioSprite(spriteCode);
 }
 
+Sprite &GraphicEngine::getBeachWorldScenarioSprite(const uint8_t &spriteCode) {
+  return this->textureLoader.getBeachWorldScenarioSprite(spriteCode);
+}
+
+Sprite &GraphicEngine::getScenarioSprite(const uint8_t &spriteCode,
+                                         const uint8_t &scenarioId) {
+
+  if (scenarioId == ScenariosIds::BeachWorld) {
+    return this->textureLoader.getBeachWorldScenarioSprite(spriteCode);
+  } else /* if ( scenarioId == ScenariosIds::Carrotus ) */ {
+    return this->textureLoader.getCarrotusScenarioSprite(spriteCode);
+  }
+}
+
 Sprite &GraphicEngine::getGun1Sprite(const uint8_t &spriteCode) {
   return this->textureLoader.getGun1Sprite(spriteCode);
 }
@@ -100,3 +119,27 @@ Sprite &GraphicEngine::getSfxSprite(const u_int8_t &spriteCode) {
 Sprite &GraphicEngine::getHudSprite(const u_int8_t &spriteCode) {
   return this->textureLoader.getHudSprite(spriteCode);
 }
+
+Sprite &GraphicEngine::getLeaderboardSprite() {
+  return this->textureLoader.getLeaderboardSprite();
+}
+
+bool GraphicEngine::isInCameraFocus(const Coordinates &leftCorner,
+                                    const Coordinates &coordsToCheck) const {
+  int paddedLeftCornerX = leftCorner.getX() - CAMERA_FOCUS_PADDING;
+  int paddedLeftCornerY = leftCorner.getY() - CAMERA_FOCUS_PADDING;
+
+  int paddedRightBottomCornerX =
+      leftCorner.getX() + MAP_SCREEN_SIZE_X + CAMERA_FOCUS_PADDING;
+  int paddedRightBottomCornerY =
+      leftCorner.getY() + MAP_SCREEN_SIZE_Y + CAMERA_FOCUS_PADDING;
+
+  bool isXInFocus = coordsToCheck.getX() > paddedLeftCornerX &&
+                    coordsToCheck.getX() < paddedRightBottomCornerX;
+  bool isYInFocus = coordsToCheck.getY() > paddedLeftCornerY &&
+                    coordsToCheck.getY() < paddedRightBottomCornerY;
+
+  return isXInFocus && isYInFocus;
+}
+
+void GraphicEngine::closeWindow() { this->window.~Window(); }

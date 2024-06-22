@@ -12,8 +12,6 @@ const static int SCREEN_SIZE_X = globalConfigs.getScreenSizeX();
 const static int SCREEN_SIZE_Y = globalConfigs.getScreenSizeY();
 
 static const int HUD_HORIZONTAL_SIZE = 150; // In px
-static const int WHITE_RGBA[4] = {255, 255, 255, 255};
-static const int BLACK_RGBA[4] = {0, 0, 0, 255};
 
 const static char EMPTY_TEXT[] = "-";
 const static int FONT_SIZE = 12;
@@ -409,13 +407,6 @@ void Hud::render(SnapshotWrapper &snapshot) {
   this->renderLeaderBoard(snapshot);
 }
 
-void Hud::render(int iterationNumber, Coordinates &coords) {}
-
-void Hud::renderFromLeftCorner(int iterationNumber,
-                               const Coordinates &leftCorner) {}
-
 int Hud::getHorizontalSize() { return HUD_HORIZONTAL_SIZE; }
-
-uint8_t Hud::getId() const { return 255; }
 
 Hud::~Hud() {}

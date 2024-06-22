@@ -1,26 +1,44 @@
 max_players_per_game: 1 # CANNOT EXEED 10
-max_game_duration: 100
+max_game_duration: 20
 max_username_length: 11
 min_number_of_players: 1
 max_port_number: 65535
+play_background_music: false
+background_music_volume_lobby: 20 # Out of 100
+background_music_volume_game: 20 # Out of 128
 
 # Client exclusive
 screen_size_x: 800
 screen_size_y: 600
 window_name: "JazzJackRabbit 2"
 target_fps: 60
-max_players_in_hud_leaderboard: 4
-
-# Client exclusive debug values
-debug_hostname: "localhost"
-debug_port: 1002
+max_players_in_hud_leaderboard: 3
 
 # Server exlusive
 target_ticks_per_second: 200
 max_instructions_per_tick: 100
 
 # Player Parameters
-starting_points: 1234
-max_life: 100
-starting_ammo_gun_1: 20
-starting_ammo_gun_2: 0
+starting_points: 0
+max_life: 20
+starting_ammo_gun_1: 999
+starting_ammo_gun_2: 3
+respawn_time: 5
+
+# Bullets Parameters
+bullet_1_max_ammo: 999
+bullet_1_speed: 4
+bullet_1_damage: 5
+bullet_1_cooldown: 3
+
+bullet_2_max_ammo: 3
+bullet_2_speed: 6
+bullet_2_damage: 10
+bullet_2_cooldown: 2
+
+# Collectables Parameters
+carrot_heal: 5
+intoxicated_time: 5
+points_per_coin: 20
+points_per_gem: 100
+

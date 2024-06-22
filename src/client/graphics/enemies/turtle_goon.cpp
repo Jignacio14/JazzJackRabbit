@@ -11,10 +11,12 @@ struct TurtleGoonAnimationSpeedCoefs {
   static constexpr double Shooting = 25;
 };
 
-TurtleGoon::TurtleGoon(GraphicEngine &graphicEngine, Coordinates &currentCoords,
-                       const uint8_t &entityId, SnapshotWrapper &snapshot)
+TurtleGoon::TurtleGoon(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
+                       Coordinates &currentCoords, const uint8_t &entityId,
+                       SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
+      audioEngine(audioEngine), currentAnimation(nullptr),
+      currentCoords(currentCoords), entityInfo(),
       hitbox(HitboxSizes::EnemyWidth, HitboxSizes::EnemyHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -32,24 +34,14 @@ TurtleGoon::TurtleGoon(GraphicEngine &graphicEngine, Coordinates &currentCoords,
   }
 }
 
-void TurtleGoon::render(int iterationNumber) {}
-
-void TurtleGoon::render(int iterationNumber, Coordinates &coords) {
-  this->currentAnimation->render(iterationNumber, coords);
-}
-
-void TurtleGoon::update(bool isWalking, bool isRunning,
-                        std::string movingDirection) {}
-
-void TurtleGoon::updateByCoordsDelta(int deltaX, int deltaY) {
-  this->currentCoords.setX(this->currentCoords.getX() + deltaX);
-  this->currentCoords.setY(this->currentCoords.getY() + deltaY);
-}
-
 void TurtleGoon::renderFromLeftCorner(int iterationNumber,
                                       const Coordinates &leftCorner) {
-  this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
-                                               this->currentCoords);
+  bool isInCameraFocus =
+      this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+  if (isInCameraFocus) {
+    this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
+                                                 this->currentCoords);
+  }
 }
 
 void TurtleGoon::updateAnimation(const SnapshotWrapper &snapshot,
@@ -106,7 +98,8 @@ void TurtleGoon::updateAnimation(const SnapshotWrapper &snapshot,
   }
 }
 
-void TurtleGoon::update(SnapshotWrapper &snapshot) {
+void TurtleGoon::update(SnapshotWrapper &snapshot,
+                        const Coordinates &leftCorner) {
   EnemyDto newEntityInfo;
   bool foundPlayableCharacter =
       snapshot.getEnemyById(this->entityId, &newEntityInfo);

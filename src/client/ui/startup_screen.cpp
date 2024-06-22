@@ -8,17 +8,19 @@ const static int EXIT_ERROR_CODE = -1;
 StartupScreen::StartupScreen(int &argc, char **argv, std::string &hostname,
                              uint32_t &port, std::string &username,
                              GameConfigs *game, Snapshot *initialSnapshot,
-                             uint8_t &userCharacter)
+                             uint8_t &userCharacter, uint8_t &scenarioSelected)
     : app(argc, argv), hostname(hostname), port(port), username(username),
       game(game), initialSnapshot(initialSnapshot),
-      userCharacter(userCharacter), lobby(nullptr),
-      mainWindow(nullptr, hostname, port, username, this->game,
-                 this->initialSnapshot, userCharacter, std::move(this->lobby)) {
-}
+      userCharacter(userCharacter), scenarioSelected(scenarioSelected),
+      lobby(nullptr), mainWindow(nullptr, hostname, port, username, this->game,
+                                 this->initialSnapshot, userCharacter,
+                                 scenarioSelected, std::move(this->lobby)) {}
 
 const int StartupScreen::show() {
   this->mainWindow.show();
+  this->mainWindow.playMusic();
   const int mainWindowExitCode = this->app.exec();
+  this->mainWindow.stopMusic();
   this->lobby = this->mainWindow.getLobby();
 
   if (mainWindowExitCode != EXIT_SUCCESS_CODE) {

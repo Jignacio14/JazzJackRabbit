@@ -9,6 +9,6 @@ print_colored_message() {
 
 YELLOW_BOLD="1;33";
 
-sudo /vagrant/scripts/build_for_vagrant.sh
+sudo /vagrant/scripts/build_for_vagrant.sh -release
 
 print_colored_message $YELLOW_BOLD "══ Provisioning complete ══"

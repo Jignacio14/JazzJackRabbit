@@ -17,6 +17,12 @@ private:
   // cppcheck-suppress unusedStructMember
   uint32_t maxPortNumber;
   // cppcheck-suppress unusedStructMember
+  uint32_t backgroundMusicVolumeLobby;
+  // cppcheck-suppress unusedStructMember
+  uint32_t backgroundMusicVolumeGame;
+  // cppcheck-suppress unusedStructMember
+  bool shouldPlayBackgroundMusic;
+  // cppcheck-suppress unusedStructMember
   int screenSizeX;
   // cppcheck-suppress unusedStructMember
   int screenSizeY;
@@ -24,10 +30,6 @@ private:
   std::string windowName;
   // cppcheck-suppress unusedStructMember
   double targetFps;
-  // cppcheck-suppress unusedStructMember
-  std::string debugHostname;
-  // cppcheck-suppress unusedStructMember
-  uint32_t debugPort;
   // cppcheck-suppress unusedStructMember
   uint32_t playerStartingPoints;
   // cppcheck-suppress unusedStructMember
@@ -42,6 +44,35 @@ private:
   uint32_t maxInstructionsPerTickOfServer;
   // cppcheck-suppress unusedStructMember
   uint32_t maxPlayersInHudLeaderboard;
+
+  // cppcheck-suppress unusedStructMember
+  uint16_t bullet1MaxAmmo;
+  // cppcheck-suppress unusedStructMember
+  uint8_t bullet1Speed;
+  // cppcheck-suppress unusedStructMember
+  uint8_t bullet1Damage;
+  // cppcheck-suppress unusedStructMember
+  double bullet1Cooldown;
+
+  // cppcheck-suppress unusedStructMember
+  uint16_t bullet2MaxAmmo;
+  // cppcheck-suppress unusedStructMember
+  uint8_t bullet2Speed;
+  // cppcheck-suppress unusedStructMember
+  uint8_t bullet2Damage;
+  // cppcheck-suppress unusedStructMember
+  double bullet2Cooldown;
+  // cppcheck-suppress unusedStructMember
+  double respawnTime;
+
+  // cppcheck-suppress unusedStructMember
+  uint16_t carrotHeal;
+  // cppcheck-suppress unusedStructMember
+  double intoxicatedTime;
+  // cppcheck-suppress unusedStructMember
+  uint32_t pointsPerCoin;
+  // cppcheck-suppress unusedStructMember
+  uint32_t pointsPerGem;
 
   GlobalConfigs();
 
@@ -69,12 +100,13 @@ public:
   uint32_t getMaxUsernameLength() const;
   uint32_t getMinNumberOfPlayers() const;
   uint32_t getMaxPortNumber() const;
+  uint32_t getBackgroundMusicVolumeLobby() const;
+  uint32_t getBackgroundMusicVolumeGame() const;
+  bool getShouldPlayBackgroundMusic() const;
   int getScreenSizeX() const;
   int getScreenSizeY() const;
   std::string getWindowName() const;
   double getTargetFps() const;
-  std::string getDebugHostname() const;
-  uint32_t getDebugPort() const;
   uint32_t getPlayerStartingPoints() const;
   uint32_t getPlayerMaxLife() const;
   uint32_t getPlayerStartingAmmoGun1() const;
@@ -82,6 +114,19 @@ public:
   uint32_t getTargetTicksPerSecondOfServer() const;
   uint32_t getMaxInstructionsPerTickOfServer() const;
   uint32_t getMaxPlayersInHudLeaderboard() const;
+  uint16_t getBullet1MaxAmmo() const;
+  uint8_t getBullet1Speed() const;
+  uint8_t getBullet1Damage() const;
+  double getBullet1Cooldown() const;
+  uint16_t getBullet2MaxAmmo() const;
+  uint8_t getBullet2Speed() const;
+  uint8_t getBullet2Damage() const;
+  double getBullet2Cooldown() const;
+  double getRespawnTime() const;
+  uint16_t getCarrotHeal() const;
+  double getIntoxicatedTime() const;
+  uint32_t getPointsPerCoin() const;
+  uint32_t getPointsPerGem() const;
 };
 
 #endif // GLOBAL_CONFIGS_H

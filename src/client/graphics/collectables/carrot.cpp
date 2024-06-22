@@ -9,11 +9,13 @@ struct CarrotAnimationSpeedCoefs {
   static constexpr double Shine = 25;
 };
 
-Carrot::Carrot(GraphicEngine &graphicEngine, Coordinates &currentCoords,
-               const uint8_t &entityId, SnapshotWrapper &snapshot)
+Carrot::Carrot(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
+               Coordinates &currentCoords, const uint8_t &entityId,
+               SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
-      shouldBeDeleted(false), isShowingExitAnimation(false),
+      audioEngine(audioEngine), currentAnimation(nullptr),
+      currentCoords(currentCoords), entityInfo(), shouldBeDeleted(false),
+      isShowingExitAnimation(false),
       hitbox(HitboxSizes::CollectableWidth, HitboxSizes::CollectableHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -33,30 +35,20 @@ Carrot::Carrot(GraphicEngine &graphicEngine, Coordinates &currentCoords,
   }
 }
 
-void Carrot::render(int iterationNumber) {}
-
-void Carrot::render(int iterationNumber, Coordinates &coords) {
-  this->currentAnimation->render(iterationNumber, coords);
-}
-
-void Carrot::update(bool isWalking, bool isRunning,
-                    std::string movingDirection) {}
-
-void Carrot::updateByCoordsDelta(int deltaX, int deltaY) {
-  this->currentCoords.setX(this->currentCoords.getX() + deltaX);
-  this->currentCoords.setY(this->currentCoords.getY() + deltaY);
-}
-
 void Carrot::renderFromLeftCorner(int iterationNumber,
                                   const Coordinates &leftCorner) {
-  this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
-                                               this->currentCoords);
+  bool isInCameraFocus =
+      this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+  if (isInCameraFocus) {
+    this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
+                                                 this->currentCoords);
+  }
 }
 
 void Carrot::updateAnimation(const SnapshotWrapper &snapshot,
                              const CollectableDto &newEntityInfo) {}
 
-void Carrot::update(SnapshotWrapper &snapshot) {
+void Carrot::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
   CollectableDto newEntityInfo;
   bool foundCollectable =
       snapshot.getCollectableById(this->entityId, &newEntityInfo);
@@ -76,6 +68,13 @@ void Carrot::update(SnapshotWrapper &snapshot) {
         AnimationState::NotCycle, CarrotAnimationSpeedCoefs::Shine,
         AnimationState::NotFlip, this->hitbox);
     this->isShowingExitAnimation = true;
+
+    bool isInCameraFocus =
+        this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+
+    if (isInCameraFocus) {
+      this->audioEngine.playCarrotCollectedSound();
+    }
     return;
   }
 

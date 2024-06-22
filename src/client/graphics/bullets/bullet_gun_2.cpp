@@ -9,11 +9,13 @@ struct BulletGun2AnimationSpeedCoefs {
   static constexpr double Impact = 25;
 };
 
-BulletGun2::BulletGun2(GraphicEngine &graphicEngine, Coordinates &currentCoords,
-                       const uint8_t &entityId, SnapshotWrapper &snapshot)
+BulletGun2::BulletGun2(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
+                       Coordinates &currentCoords, const uint8_t &entityId,
+                       SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
-      shouldBeDeleted(false), isShowingExitAnimation(false),
+      audioEngine(audioEngine), currentAnimation(nullptr),
+      currentCoords(currentCoords), entityInfo(), shouldBeDeleted(false),
+      isShowingExitAnimation(false),
       hitbox(HitboxSizes::BulletWidth, HitboxSizes::BulletHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -29,32 +31,24 @@ BulletGun2::BulletGun2(GraphicEngine &graphicEngine, Coordinates &currentCoords,
                                " was not found in the initialization snapshot";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
   }
-}
-
-void BulletGun2::render(int iterationNumber) {}
-
-void BulletGun2::render(int iterationNumber, Coordinates &coords) {
-  this->currentAnimation->render(iterationNumber, coords);
-}
-
-void BulletGun2::update(bool isWalking, bool isRunning,
-                        std::string movingDirection) {}
-
-void BulletGun2::updateByCoordsDelta(int deltaX, int deltaY) {
-  this->currentCoords.setX(this->currentCoords.getX() + deltaX);
-  this->currentCoords.setY(this->currentCoords.getY() + deltaY);
+  this->audioEngine.playGun2ShotSound();
 }
 
 void BulletGun2::renderFromLeftCorner(int iterationNumber,
                                       const Coordinates &leftCorner) {
-  this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
-                                               this->currentCoords);
+  bool isInCameraFocus =
+      this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+  if (isInCameraFocus) {
+    this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
+                                                 this->currentCoords);
+  }
 }
 
 void BulletGun2::updateAnimation(const SnapshotWrapper &snapshot,
                                  const BulletDto &newEntityInfo) {}
 
-void BulletGun2::update(SnapshotWrapper &snapshot) {
+void BulletGun2::update(SnapshotWrapper &snapshot,
+                        const Coordinates &leftCorner) {
   BulletDto newEntityInfo;
   bool foundBullet = snapshot.getBulletById(this->entityId, &newEntityInfo);
 
@@ -73,6 +67,13 @@ void BulletGun2::update(SnapshotWrapper &snapshot) {
         AnimationState::NotCycle, BulletGun2AnimationSpeedCoefs::Impact,
         AnimationState::NotFlip, this->hitbox);
     this->isShowingExitAnimation = true;
+
+    bool isInCameraFocus =
+        this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+
+    if (isInCameraFocus) {
+      this->audioEngine.playBulletImpactSound();
+    }
     return;
   }
 

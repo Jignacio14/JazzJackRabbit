@@ -14,6 +14,12 @@ print_colored_message $YELLOW_BOLD "══ Adding CMake files for SDL2 packages 
 
 SCRIPT_DIR="$(dirname "$0")"
 
+BUILD_MODE="development"
+
+if [[ "$1" == "-release" ]]; then
+    BUILD_MODE="release" 
+fi
+
 # Check if the folder exists, if not, create it
 if [ ! -e "/usr/lib/x86_64-linux-gnu/cmake/SDL2_image" ]; then
     sudo mkdir -p /usr/lib/x86_64-linux-gnu/cmake/SDL2_image
@@ -66,7 +72,7 @@ cp "$SCRIPT_DIR"/../src/client/ui/assets/Joystix.otf  /usr/local/share/fonts/Joy
 print_colored_message $YELLOW_BOLD "══ Generating makefile with CMake ══"
 
 cd "$SCRIPT_DIR"/../build
-cmake -Wno-dev ..
+cmake -Wno-dev .. -DBUILD_MODE:STRING="$BUILD_MODE"
 
 print_colored_message $YELLOW_BOLD "══ Building client and server binaries with CMake ══"
 

@@ -4,6 +4,7 @@
 #include "../../../common/coordinates.h"
 #include "../../../common/hitbox.h"
 #include "../../renderable.h"
+#include "../../sound/audio_engine.h"
 #include "../graphic_engine.h"
 #include "../playable_character.h"
 #include "../sprite.h"
@@ -20,6 +21,7 @@ private:
   // cppcheck-suppress unusedStructMember
   const uint8_t entityId;
   GraphicEngine &graphicEngine;
+  AudioEngine &audioEngine;
 
   std::unique_ptr<AnimationState> currentAnimation;
 
@@ -33,18 +35,15 @@ private:
                        const EnemyDto &newEntityInfo);
 
 public:
-  Schwarzenguard(GraphicEngine &graphicEngine, Coordinates &currentCoords,
-                 const uint8_t &entityId, SnapshotWrapper &snapshot);
+  Schwarzenguard(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
+                 Coordinates &currentCoords, const uint8_t &entityId,
+                 SnapshotWrapper &snapshot);
 
-  virtual void render(int iterationNumber) override;
-  virtual void render(int iterationNumber, Coordinates &coords) override;
-  virtual void updateByCoordsDelta(int deltaX, int deltaY) override;
   virtual void renderFromLeftCorner(int iterationNumber,
                                     const Coordinates &leftCorner) override;
-  virtual void update(bool isWalking, bool isRunning,
-                      std::string movingDirection) override;
 
-  virtual void update(SnapshotWrapper &snapshot) override;
+  virtual void update(SnapshotWrapper &snapshot,
+                      const Coordinates &leftCorner) override;
 
   virtual uint8_t getId() const override;
 

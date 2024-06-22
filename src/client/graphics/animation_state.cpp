@@ -76,16 +76,21 @@ void AnimationState::renderLastFrame(const int &iterationNumber,
 void AnimationState::render(int iterationNumber, const Coordinates &coords) {
   if (this->shouldRenderLastFrame()) {
     this->renderLastFrame(iterationNumber, coords);
+    return;
   }
 
   int newIterationNumber = this->slowdownCoefficient * iterationNumber;
+  int oldFrame = this->currentFrame;
+
   this->currentFrame = newIterationNumber % this->sprite->maxAnimationFrames;
 
   int positionX = coords.getX();
   int positionY = coords.getY();
 
   this->renderFrame(positionX, positionY);
-  this->totalRenders++;
+  if (oldFrame != this->currentFrame) {
+    this->totalRenders++;
+  }
 }
 
 void AnimationState::renderFromLeftCorner(int iterationNumber,
@@ -94,16 +99,20 @@ void AnimationState::renderFromLeftCorner(int iterationNumber,
   if (this->shouldRenderLastFrame()) {
     this->renderLastFrameFromLeftCorner(iterationNumber, leftCorner,
                                         currentCoords);
+    return;
   }
 
   int newIterationNumber = this->slowdownCoefficient * iterationNumber;
+  int oldFrame = this->currentFrame;
   this->currentFrame = newIterationNumber % this->sprite->maxAnimationFrames;
 
   int positionX = currentCoords.getX() - leftCorner.getX();
   int positionY = currentCoords.getY() - leftCorner.getY();
 
   this->renderFrame(positionX, positionY);
-  this->totalRenders++;
+  if (oldFrame != this->currentFrame) {
+    this->totalRenders++;
+  }
 }
 
 bool AnimationState::canBreakAnimation() const {
@@ -112,3 +121,5 @@ bool AnimationState::canBreakAnimation() const {
   }
   return false;
 }
+
+uint8_t AnimationState::getCode() const { return this->spriteCode; }

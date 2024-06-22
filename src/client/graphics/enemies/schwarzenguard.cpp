@@ -12,11 +12,13 @@ struct SchwarzenguardAnimationSpeedCoefs {
 };
 
 Schwarzenguard::Schwarzenguard(GraphicEngine &graphicEngine,
+                               AudioEngine &audioEngine,
                                Coordinates &currentCoords,
                                const uint8_t &entityId,
                                SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
+      audioEngine(audioEngine), currentAnimation(nullptr),
+      currentCoords(currentCoords), entityInfo(),
       hitbox(HitboxSizes::EnemyWidth, HitboxSizes::EnemyHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -35,24 +37,14 @@ Schwarzenguard::Schwarzenguard(GraphicEngine &graphicEngine,
   }
 }
 
-void Schwarzenguard::render(int iterationNumber) {}
-
-void Schwarzenguard::render(int iterationNumber, Coordinates &coords) {
-  this->currentAnimation->render(iterationNumber, coords);
-}
-
-void Schwarzenguard::update(bool isWalking, bool isRunning,
-                            std::string movingDirection) {}
-
-void Schwarzenguard::updateByCoordsDelta(int deltaX, int deltaY) {
-  this->currentCoords.setX(this->currentCoords.getX() + deltaX);
-  this->currentCoords.setY(this->currentCoords.getY() + deltaY);
-}
-
 void Schwarzenguard::renderFromLeftCorner(int iterationNumber,
                                           const Coordinates &leftCorner) {
-  this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
-                                               this->currentCoords);
+  bool isInCameraFocus =
+      this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+  if (isInCameraFocus) {
+    this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
+                                                 this->currentCoords);
+  }
 }
 
 void Schwarzenguard::updateAnimation(const SnapshotWrapper &snapshot,
@@ -109,7 +101,8 @@ void Schwarzenguard::updateAnimation(const SnapshotWrapper &snapshot,
   }
 }
 
-void Schwarzenguard::update(SnapshotWrapper &snapshot) {
+void Schwarzenguard::update(SnapshotWrapper &snapshot,
+                            const Coordinates &leftCorner) {
   EnemyDto newEntityInfo;
   bool foundPlayableCharacter =
       snapshot.getEnemyById(this->entityId, &newEntityInfo);

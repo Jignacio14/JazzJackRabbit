@@ -3,17 +3,18 @@
 
 #include "../../../common/coordinates.h"
 #include "../../player.h"
-#include "../../renderable.h"
 #include "../graphic_engine.h"
 #include "../sprite.h"
 #include <SDL2pp/SDL2pp.hh>
 #include <cstdint>
 #include <vector>
 
-class Map : public Renderable {
+class Map {
 private:
   GraphicEngine &graphicEngine;
   SDL2pp::Renderer &sdlRenderer;
+  // cppcheck-suppress unusedStructMember
+  uint8_t &scenarioSelected;
   // cppcheck-suppress unusedStructMember
   std::vector<uint8_t> randomSource;
 
@@ -86,23 +87,18 @@ private:
   void renderPlatform(const std::vector<Coordinates> &coordinatesVector,
                       Sprite &sprite);
 
+  bool isFocusedByCamera(const Coordinates &coords) const;
+
 public:
-  explicit Map(GraphicEngine &graphicEngine, Player &player);
+  Map(GraphicEngine &graphicEngine, Player &player, uint8_t &scenarioSelected);
 
-  virtual void render(int iterationNumber) override;
-
-  virtual void render(int iterationNumber, Coordinates &coords) override;
-
-  void renderFromLeftCorner(int iterationNumber,
-                            const Coordinates &leftCorner) override;
+  void render(int iterationNumber);
 
   void renderPlayer(int iterationNumber);
 
   const Coordinates &getLeftCorner() const;
 
-  virtual uint8_t getId() const override;
-
-  ~Map() override;
+  ~Map();
 };
 
 #endif // MAP_H

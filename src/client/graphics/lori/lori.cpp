@@ -18,12 +18,13 @@ struct LoriAnimationSpeedCoefs {
   static constexpr double ShortKick = 25;
 };
 
-Lori::Lori(GraphicEngine &graphicEngine, Coordinates &currentCoords,
-           const uint8_t &entityId, SnapshotWrapper &snapshot)
+Lori::Lori(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
+           Coordinates &currentCoords, const uint8_t &entityId,
+           SnapshotWrapper &snapshot)
     : entityId(entityId), graphicEngine(graphicEngine),
-      currentAnimation(nullptr), currentCoords(currentCoords),
-      isWalkingLeft(false), isWalkingRight(false), isWalkingUp(false),
-      isWalkingDown(false), isRunning(false), entityInfo(),
+      audioEngine(audioEngine), currentAnimation(nullptr),
+      currentCoords(currentCoords), isWalkingLeft(false), isWalkingRight(false),
+      isWalkingUp(false), isWalkingDown(false), isRunning(false), entityInfo(),
       hitbox(HitboxSizes::PlayerWidth, HitboxSizes::PlayerHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -41,24 +42,18 @@ Lori::Lori(GraphicEngine &graphicEngine, Coordinates &currentCoords,
   }
 }
 
-void Lori::render(int iterationNumber) {}
-
 void Lori::render(int iterationNumber, Coordinates &coords) {
   this->currentAnimation->render(iterationNumber, coords);
 }
 
-void Lori::update(bool isWalking, bool isRunning, std::string movingDirection) {
-}
-
-void Lori::updateByCoordsDelta(int deltaX, int deltaY) {
-  this->currentCoords.setX(this->currentCoords.getX() + deltaX);
-  this->currentCoords.setY(this->currentCoords.getY() + deltaY);
-}
-
 void Lori::renderFromLeftCorner(int iterationNumber,
                                 const Coordinates &leftCorner) {
-  this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
-                                               this->currentCoords);
+  bool isInCameraFocus =
+      this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+  if (isInCameraFocus) {
+    this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
+                                                 this->currentCoords);
+  }
 }
 
 Coordinates Lori::getCoords() { return this->currentCoords; }
@@ -68,117 +63,185 @@ void Lori::setX(int x) { this->currentCoords.setX(x); }
 void Lori::setY(int y) { this->currentCoords.setX(y); }
 
 void Lori::updateAnimation(const SnapshotWrapper &snapshot,
-                           const PlayerDto &newEntityInfo) {
+                           const PlayerDto &newEntityInfo,
+                           const Coordinates &leftCorner) {
 
   bool shouldFlip = newEntityInfo.facing_direction == FacingDirectionsIds::Right
                         ? AnimationState::NotFlip
                         : AnimationState::Flip;
 
+  bool canBreakAnimation = this->currentAnimation->canBreakAnimation();
+  bool isInCameraFocus =
+      this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+
   if (newEntityInfo.is_dead == NumericBool::True) {
-    if (this->entityInfo.is_dead == NumericBool::False) {
+
+    if (this->currentAnimation->getCode() != GenericSpriteCodes::Death) {
+
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, GenericSpriteCodes::Death,
           &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Death),
           AnimationState::NotCycle, LoriAnimationSpeedCoefs::Death, shouldFlip,
           this->hitbox);
+
+      if (isInCameraFocus) {
+        this->audioEngine.playLoriDeathSound();
+      }
     }
     return;
   }
 
   if (newEntityInfo.was_hurt == NumericBool::True) {
-    if (this->entityInfo.was_hurt == NumericBool::False) {
+
+    if (this->currentAnimation->getCode() != GenericSpriteCodes::Hurt) {
+
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, GenericSpriteCodes::Hurt,
           &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Hurt),
           AnimationState::NotCycle, LoriAnimationSpeedCoefs::Hurt, shouldFlip,
           this->hitbox);
+
+      if (isInCameraFocus) {
+        this->audioEngine.playLorihurtSound();
+      }
     }
     return;
   }
 
   if (newEntityInfo.shot == NumericBool::True) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, GenericSpriteCodes::Shooting,
-        &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Shooting),
-        AnimationState::NotCycle, LoriAnimationSpeedCoefs::Shooting, shouldFlip,
-        this->hitbox);
+
+    if (this->currentAnimation->getCode() != GenericSpriteCodes::Shooting) {
+
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::Shooting,
+          &this->graphicEngine.getLoriGenericSprite(
+              GenericSpriteCodes::Shooting),
+          AnimationState::NotCycle, LoriAnimationSpeedCoefs::Shooting,
+          shouldFlip, this->hitbox);
+    }
     return;
 
   } else if (newEntityInfo.shot_special == NumericBool::True) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, LoriSpecialsCodes::ShortKick,
-        &this->graphicEngine.getLoriSpecialSprite(LoriSpecialsCodes::ShortKick),
-        AnimationState::NotCycle, LoriAnimationSpeedCoefs::ShortKick,
-        shouldFlip, this->hitbox);
-    return;
-  }
 
-  if (newEntityInfo.is_falling == NumericBool::True) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, GenericSpriteCodes::Falling,
-        &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Falling),
-        AnimationState::Cycle, LoriAnimationSpeedCoefs::Falling, shouldFlip,
-        this->hitbox);
-    return;
+    if (this->currentAnimation->getCode() !=
+        LoriAnimationSpeedCoefs::ShortKick) {
 
-  } else if (newEntityInfo.is_jumping == NumericBool::True) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, GenericSpriteCodes::Jumping,
-        &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Jumping),
-        AnimationState::NotCycle, LoriAnimationSpeedCoefs::Jumping, shouldFlip,
-        this->hitbox);
-    return;
-  }
-
-  if (newEntityInfo.is_running == NumericBool::True) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, GenericSpriteCodes::Running,
-        &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Running),
-        AnimationState::Cycle, LoriAnimationSpeedCoefs::Running, shouldFlip,
-        this->hitbox);
-    return;
-
-  } else if (newEntityInfo.is_walking == NumericBool::True) {
-    if (newEntityInfo.is_intoxicated == NumericBool::True) {
       this->currentAnimation = std::make_unique<AnimationState>(
-          this->graphicEngine, GenericSpriteCodes::IntoxicatedWalking,
-          &this->graphicEngine.getLoriGenericSprite(
-              GenericSpriteCodes::IntoxicatedWalking),
-          AnimationState::Cycle, LoriAnimationSpeedCoefs::IntoxicatedWalking,
+          this->graphicEngine, LoriSpecialsCodes::ShortKick,
+          &this->graphicEngine.getLoriSpecialSprite(
+              LoriSpecialsCodes::ShortKick),
+          AnimationState::NotCycle, LoriAnimationSpeedCoefs::ShortKick,
           shouldFlip, this->hitbox);
-    } else {
-      this->currentAnimation = std::make_unique<AnimationState>(
-          this->graphicEngine, GenericSpriteCodes::Walking,
-          &this->graphicEngine.getLoriGenericSprite(
-              GenericSpriteCodes::Walking),
-          AnimationState::Cycle, LoriAnimationSpeedCoefs::Walking, shouldFlip,
-          this->hitbox);
     }
     return;
   }
 
-  bool canBreakAnimation = this->currentAnimation->canBreakAnimation();
+  if (this->currentAnimation->getCode() == GenericSpriteCodes::Falling &&
+      newEntityInfo.is_falling == NumericBool::False) {
+    if (isInCameraFocus) {
+      this->audioEngine.playGroundHitSound();
+    }
+  }
 
-  if (newEntityInfo.is_intoxicated == NumericBool::True && canBreakAnimation) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, GenericSpriteCodes::IntoxicatedIdle,
-        &this->graphicEngine.getLoriGenericSprite(
-            GenericSpriteCodes::IntoxicatedIdle),
-        AnimationState::Cycle, LoriAnimationSpeedCoefs::IntoxicatedIdle,
-        shouldFlip, this->hitbox);
+  if (newEntityInfo.is_falling == NumericBool::True && canBreakAnimation) {
+
+    if (this->currentAnimation->getCode() != GenericSpriteCodes::Falling) {
+
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::Falling,
+          &this->graphicEngine.getLoriGenericSprite(
+              GenericSpriteCodes::Falling),
+          AnimationState::Cycle, LoriAnimationSpeedCoefs::Falling, shouldFlip,
+          this->hitbox);
+    }
+
     return;
 
-  } else if (canBreakAnimation) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, GenericSpriteCodes::Idle,
-        &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Idle),
-        AnimationState::Cycle, LoriAnimationSpeedCoefs::Idle, shouldFlip,
-        this->hitbox);
+  } else if (newEntityInfo.is_jumping == NumericBool::True &&
+             canBreakAnimation) {
+
+    if (this->currentAnimation->getCode() != GenericSpriteCodes::Jumping) {
+
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::Jumping,
+          &this->graphicEngine.getLoriGenericSprite(
+              GenericSpriteCodes::Jumping),
+          AnimationState::NotCycle, LoriAnimationSpeedCoefs::Jumping,
+          shouldFlip, this->hitbox);
+
+      if (isInCameraFocus) {
+        this->audioEngine.playJumpSound();
+      }
+    }
+
     return;
+  }
+
+  if (newEntityInfo.is_running == NumericBool::True) {
+
+    if (this->currentAnimation->getCode() != GenericSpriteCodes::Running) {
+
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::Running,
+          &this->graphicEngine.getLoriGenericSprite(
+              GenericSpriteCodes::Running),
+          AnimationState::Cycle, LoriAnimationSpeedCoefs::Running, shouldFlip,
+          this->hitbox);
+    }
+    return;
+
+  } else if (newEntityInfo.is_walking == NumericBool::True &&
+             canBreakAnimation) {
+
+    if (this->currentAnimation->getCode() != GenericSpriteCodes::Walking) {
+
+      if (newEntityInfo.is_intoxicated == NumericBool::True) {
+
+        this->currentAnimation = std::make_unique<AnimationState>(
+            this->graphicEngine, GenericSpriteCodes::IntoxicatedWalking,
+            &this->graphicEngine.getLoriGenericSprite(
+                GenericSpriteCodes::IntoxicatedWalking),
+            AnimationState::Cycle, LoriAnimationSpeedCoefs::IntoxicatedWalking,
+            shouldFlip, this->hitbox);
+      } else {
+
+        this->currentAnimation = std::make_unique<AnimationState>(
+            this->graphicEngine, GenericSpriteCodes::Walking,
+            &this->graphicEngine.getLoriGenericSprite(
+                GenericSpriteCodes::Walking),
+            AnimationState::Cycle, LoriAnimationSpeedCoefs::Walking, shouldFlip,
+            this->hitbox);
+      }
+    }
+    return;
+  }
+
+  if (this->currentAnimation->getCode() != GenericSpriteCodes::Idle) {
+
+    if (newEntityInfo.is_intoxicated == NumericBool::True &&
+        canBreakAnimation) {
+
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::IntoxicatedIdle,
+          &this->graphicEngine.getLoriGenericSprite(
+              GenericSpriteCodes::IntoxicatedIdle),
+          AnimationState::Cycle, LoriAnimationSpeedCoefs::IntoxicatedIdle,
+          shouldFlip, this->hitbox);
+      return;
+
+    } else if (canBreakAnimation) {
+
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::Idle,
+          &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Idle),
+          AnimationState::Cycle, LoriAnimationSpeedCoefs::Idle, shouldFlip,
+          this->hitbox);
+      return;
+    }
   }
 }
 
-void Lori::update(SnapshotWrapper &snapshot) {
+void Lori::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
   PlayerDto newEntityInfo;
   bool foundPlayableCharacter =
       snapshot.getPlayerById(this->entityId, &newEntityInfo);
@@ -191,7 +254,7 @@ void Lori::update(SnapshotWrapper &snapshot) {
   this->currentCoords.setX(newEntityInfo.position_x);
   this->currentCoords.setY(newEntityInfo.position_y);
 
-  this->updateAnimation(snapshot, newEntityInfo);
+  this->updateAnimation(snapshot, newEntityInfo, leftCorner);
   this->entityInfo = newEntityInfo;
 }
 

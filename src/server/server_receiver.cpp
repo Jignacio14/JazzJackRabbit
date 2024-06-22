@@ -9,10 +9,10 @@ Receiver::Receiver(ServerProtocol &servprot,
 void Receiver::run() {
   try {
     this->recevierLoop();
-  } catch (...) {
+  } catch (const LibError &sktErr) {
+    this->_is_alive = false;
   }
 }
-
 void Receiver::recevierLoop() {
   while (this->is_alive()) {
     CommandCodeDto dto = this->servprot.asyncGetEventCode();
@@ -22,4 +22,9 @@ void Receiver::recevierLoop() {
 
 void Receiver::kill() { this->_is_alive = false; }
 
-Receiver::~Receiver() {}
+Receiver::~Receiver() {
+  try {
+    this->join();
+  } catch (...) {
+  }
+}

@@ -8,9 +8,7 @@ const static int EXIT_ERROR_CODE = -1;
 
 int main(int argc, const char *argv[]) {
   const uint8_t EXPECTED_ARGUMENTS = 2;
-
   try {
-
     if (argc != EXPECTED_ARGUMENTS) {
       const std::string errorMessage =
           "Error while calling program. Expected " + std::string(argv[0]) +

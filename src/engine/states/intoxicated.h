@@ -8,6 +8,7 @@ class Intoxicated : public BaseState {
 
 public:
   bool can_move() override;
+  bool can_shoot() override;
 };
 
 #endif // JAZZJACKRABBIT_INTOXICATED_H

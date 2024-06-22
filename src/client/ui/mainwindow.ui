@@ -99,7 +99,7 @@
 }</string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="initialScreen">
      <property name="styleSheet">
@@ -575,7 +575,7 @@ QPushButton#connectButton:pressed {
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">QLineEdit#numberOfPlayersInput {
+          <string notr="true">QLineEdit#maxPlayersInput {
 	background-color: rgb(255, 255, 255);
 	color: rgba(99, 99, 99, 200);
 	font-family: Joystix;
@@ -591,6 +591,109 @@ QPushButton#connectButton:pressed {
           <string>2</string>
          </property>
         </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="scenarioSelectionLabel">
+         <property name="styleSheet">
+          <string notr="true">QLabel#scenarioSelectionLabel {
+	color: rgb(255, 255, 255);
+	font-family: Joystix;
+	margin-left: 10px;
+}</string>
+         </property>
+         <property name="text">
+          <string>Select scenario</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="scenarioRadioButtonsHLayout">
+         <item>
+          <widget class="QGroupBox" name="scenarioRadioButtonsGroupBox">
+           <property name="acceptDrops">
+            <bool>false</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QGroupBox#scenarioRadioButtonsGroupBox {
+	background-color: rgb(255, 255, 255);
+	font-family: Joystix;
+	margin-left: 15px;
+	margin-right: 15px;
+	border-radius: 3px;
+}</string>
+           </property>
+           <property name="title">
+            <string/>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
+           </property>
+           <property name="checkable">
+            <bool>false</bool>
+           </property>
+           <widget class="QRadioButton" name="carrotusScenarioRadioButton">
+            <property name="geometry">
+             <rect>
+              <x>30</x>
+              <y>0</y>
+              <width>141</width>
+              <height>41</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Joystix</family>
+             </font>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QRadioButton#carrotusScenarioRadioButton {
+	color: rgb(0, 0, 0);
+	font-family: Joystix;
+}</string>
+            </property>
+            <property name="text">
+             <string>Carrotus</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+           <widget class="QRadioButton" name="beachWorldScenarioRadioButton">
+            <property name="geometry">
+             <rect>
+              <x>170</x>
+              <y>0</y>
+              <width>171</width>
+              <height>41</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Joystix</family>
+             </font>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QRadioButton#beachWorldScenarioRadioButton {
+	color: rgb(0, 0, 0);
+	font-family: Joystix;
+}</string>
+            </property>
+            <property name="text">
+             <string>Beach World</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="QPushButton" name="chooseCharacterButton">

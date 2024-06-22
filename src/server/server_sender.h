@@ -14,18 +14,23 @@ class Sender : public Thread {
 private:
   ServerProtocol servprot;
   GamesMonitor &gamesMonitor;
-  std::atomic<bool> error;
   Queue<Snapshot> sender_queue;
+  // cppcheck-suppress unusedStructMember
+  std::string game_name;
+  // cppcheck-suppress unusedStructMember
+  uint8_t player_id;
 
   void sendGamesOptions();
   Queue<CommandCodeDto> &setUpPlayerLoop();
   void runSenderLoop();
   void ValidatePlayerInfo(const PlayerInfo &player_info);
+  void savePlayerInfo(const PlayerInfo &player_info, const uint8_t &player_id);
+  void logOutPlayer();
 
 public:
-  explicit Sender(Socket peer, GamesMonitor &games_monitor_ref);
+  Sender(Socket peer, GamesMonitor &games_monitor_ref);
 
-  void run() override;
+  virtual void run() override;
 
   void kill();
 

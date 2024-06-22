@@ -17,17 +17,21 @@ const static Coordinates MAP_SCREEN_MIDDLE_POINT(MAP_SCREEN_SIZE_X / 2,
 const static int TILE_SIZE = 32; // In px
 const static int MAX_RANDOM_SOURCE = 30;
 
-Map::Map(GraphicEngine &graphicEngine, Player &player)
+const static int CAMERA_FOCUS_PADDING = 50;
+
+Map::Map(GraphicEngine &graphicEngine, Player &player,
+         uint8_t &scenarioSelected)
     : graphicEngine(graphicEngine),
       sdlRenderer(this->graphicEngine.getSdlRendererReference()),
-      backgroundSprite(this->graphicEngine.getCarrotusScenarioSprite(
-          ScenarioSpriteCodes::Background)),
-      decorationSprite(this->graphicEngine.getCarrotusScenarioSprite(
-          ScenarioSpriteCodes::Decoration)),
-      topGrassSprite(this->graphicEngine.getCarrotusScenarioSprite(
-          ScenarioSpriteCodes::TopGrass)),
-      fullDirtSprite(this->graphicEngine.getCarrotusScenarioSprite(
-          ScenarioSpriteCodes::FullDirt)),
+      scenarioSelected(scenarioSelected),
+      backgroundSprite(this->graphicEngine.getScenarioSprite(
+          ScenarioSpriteCodes::Background, this->scenarioSelected)),
+      decorationSprite(this->graphicEngine.getScenarioSprite(
+          ScenarioSpriteCodes::Decoration, this->scenarioSelected)),
+      topGrassSprite(this->graphicEngine.getScenarioSprite(
+          ScenarioSpriteCodes::TopGrass, this->scenarioSelected)),
+      fullDirtSprite(this->graphicEngine.getScenarioSprite(
+          ScenarioSpriteCodes::FullDirt, this->scenarioSelected)),
       leftCorner(0, 0), player(player) {
 
   for (int i = 0; i < MAX_RANDOM_SOURCE; i++) {
@@ -144,12 +148,20 @@ void Map::renderCeiling(const std::vector<Coordinates> &coordinatesVector,
       }
 
       int nextRandom = this->nextRandomNumber(k) % sprite.maxAnimationFrames;
-      this->sdlRenderer.Copy(sprite.texture,
-                             SDL2pp::Rect(TILE_SIZE * nextRandom + nextRandom,
-                                          0, sizeToRender, TILE_SIZE),
-                             SDL2pp::Rect(start.getX() + pxCount - sizeToRender,
-                                          start.getY(), sizeToRender,
-                                          TILE_SIZE));
+
+      int finalX = start.getX() + pxCount - sizeToRender;
+      int finalY = start.getY();
+      bool isInCameraFocus =
+          this->isFocusedByCamera(Coordinates(finalX, finalY));
+
+      if (isInCameraFocus) {
+        this->sdlRenderer.Copy(
+            sprite.texture,
+            SDL2pp::Rect(TILE_SIZE * nextRandom + nextRandom, 0, sizeToRender,
+                         TILE_SIZE),
+            SDL2pp::Rect(finalX, finalY, sizeToRender, TILE_SIZE));
+      }
+
       k++;
     }
   }
@@ -187,12 +199,20 @@ void Map::renderSides(const std::vector<Coordinates> &coordinatesVector,
       }
 
       int nextRandom = this->nextRandomNumber(k) % sprite.maxAnimationFrames;
-      this->sdlRenderer.Copy(sprite.texture,
-                             SDL2pp::Rect(TILE_SIZE * nextRandom + nextRandom,
-                                          0, TILE_SIZE, sizeToRender),
-                             SDL2pp::Rect(start.getX(),
-                                          start.getY() + pxCount - sizeToRender,
-                                          TILE_SIZE, sizeToRender));
+
+      int finalX = start.getX();
+      int finalY = start.getY() + pxCount - sizeToRender;
+      bool isInCameraFocus =
+          this->isFocusedByCamera(Coordinates(finalX, finalY));
+
+      if (isInCameraFocus) {
+        this->sdlRenderer.Copy(
+            sprite.texture,
+            SDL2pp::Rect(TILE_SIZE * nextRandom + nextRandom, 0, TILE_SIZE,
+                         sizeToRender),
+            SDL2pp::Rect(finalX, finalY, TILE_SIZE, sizeToRender));
+      }
+
       k++;
     }
   }
@@ -230,12 +250,20 @@ void Map::renderBaseGround(const std::vector<Coordinates> &coordinatesVector,
       }
 
       int nextRandom = this->nextRandomNumber(k) % sprite.maxAnimationFrames;
-      this->sdlRenderer.Copy(sprite.texture,
-                             SDL2pp::Rect(TILE_SIZE * nextRandom + nextRandom,
-                                          0, sizeToRender, TILE_SIZE),
-                             SDL2pp::Rect(start.getX() + pxCount - sizeToRender,
-                                          start.getY(), sizeToRender,
-                                          TILE_SIZE));
+
+      int finalX = start.getX() + pxCount - sizeToRender;
+      int finalY = start.getY();
+      bool isInCameraFocus =
+          this->isFocusedByCamera(Coordinates(finalX, finalY));
+
+      if (isInCameraFocus) {
+        this->sdlRenderer.Copy(
+            sprite.texture,
+            SDL2pp::Rect(TILE_SIZE * nextRandom + nextRandom, 0, sizeToRender,
+                         TILE_SIZE),
+            SDL2pp::Rect(finalX, finalY, sizeToRender, TILE_SIZE));
+      }
+
       k++;
     }
   }
@@ -273,12 +301,21 @@ void Map::renderPlatform(const std::vector<Coordinates> &coordinatesVector,
       }
 
       int nextRandom = this->nextRandomNumber(k) % sprite.maxAnimationFrames;
-      this->sdlRenderer.Copy(sprite.texture,
-                             SDL2pp::Rect(TILE_SIZE * nextRandom + nextRandom,
-                                          0, sizeToRender, TILE_SIZE),
-                             SDL2pp::Rect(start.getX() + pxCount - sizeToRender,
-                                          start.getY(), sizeToRender,
-                                          TILE_SIZE));
+
+      int finalX = start.getX() + pxCount - sizeToRender;
+      int finalY = start.getY();
+      bool isInCameraFocus =
+          this->isFocusedByCamera(Coordinates(finalX, finalY));
+
+      if (isInCameraFocus) {
+        this->sdlRenderer.Copy(
+            sprite.texture,
+            SDL2pp::Rect(TILE_SIZE * nextRandom + nextRandom, 0, sizeToRender,
+                         TILE_SIZE),
+            SDL2pp::Rect(start.getX() + pxCount - sizeToRender, start.getY(),
+                         sizeToRender, TILE_SIZE));
+      }
+
       k++;
     }
   }
@@ -384,11 +421,16 @@ void Map::render(int iterationNumber) {
 
 const Coordinates &Map::getLeftCorner() const { return this->leftCorner; }
 
-void Map::render(int iterationNumber, Coordinates &coords) {}
+bool Map::isFocusedByCamera(const Coordinates &coords) const {
+  int paddedRightBottomCornerX = MAP_SCREEN_SIZE_X + CAMERA_FOCUS_PADDING;
+  int paddedRightBottomCornerY = MAP_SCREEN_SIZE_Y + CAMERA_FOCUS_PADDING;
 
-void Map::renderFromLeftCorner(int iterationNumber,
-                               const Coordinates &leftCorner) {}
+  bool isXInFocus = coords.getX() > -CAMERA_FOCUS_PADDING &&
+                    coords.getX() < paddedRightBottomCornerX;
+  bool isYInFocus = coords.getY() > -CAMERA_FOCUS_PADDING &&
+                    coords.getY() < paddedRightBottomCornerY;
 
-uint8_t Map::getId() const { return 255; }
+  return isXInFocus && isYInFocus;
+}
 
 Map::~Map() {}

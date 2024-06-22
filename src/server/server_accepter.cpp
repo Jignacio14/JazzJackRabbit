@@ -1,50 +1,62 @@
 #include "server_accepter.h"
-#include "server_sender.h"
+#include <iostream>
 
 Accepter::Accepter(const std::string &port)
     : skt_aceptator(port.c_str()), clients(), gamesMonitor() {}
 
 void Accepter::run() {
-  try {
-    while (this->is_alive()) {
-      this->accept();
-      this->checkForDisconnected();
-    }
-  } catch (const std::exception &err) {
+  while (this->is_alive()) {
+    this->accept();
+    this->checkForDisconnected();
   }
 }
 
 void Accepter::checkForDisconnected() {
-  for (auto client = clients.begin(); client != clients.end();) {
-    Sender *current = *client;
-    if (!current->is_alive()) {
-      current->stop();
-      delete current;
-      client = clients.erase(client);
-    }
-    client++;
+  try {
+    this->gamesMonitor.removeEndedGames();
+    this->clients.remove_if([](const std::unique_ptr<Sender> &client) {
+      if (!client->is_alive()) {
+        client->join();
+        return true;
+      }
+      return false;
+    });
+  } catch (...) {
+    std::cout << "Error al remover clientes desconectados" << std::endl;
+    std::cout << "Lo mantengo con vida" << std::endl;
   }
 }
 
 void Accepter::accept() {
-  Socket peer = this->skt_aceptator.accept();
-  Sender *sender = new Sender(std::move(peer), this->gamesMonitor);
-  clients.push_back(sender);
-  sender->start();
+  try {
+    Socket peer = this->skt_aceptator.accept();
+    std::unique_ptr<Sender> sender =
+        std::make_unique<Sender>(std::move(peer), std::ref(this->gamesMonitor));
+    this->clients.push_back(std::move(sender));
+    this->clients.back()->start();
+  } catch (const LibError &e) {
+    this->_is_alive = false;
+    return;
+  }
 }
 
 void Accepter::kill() {
   this->_is_alive = false;
-  this->skt_aceptator.shutdown(SHUT_RDWR);
-  this->skt_aceptator.close();
+  skt_aceptator.shutdown(2);
+  skt_aceptator.close();
   this->killAll();
 }
 
 void Accepter::killAll() {
-  for (auto client : clients) {
+  for (auto &client : this->clients) {
     client->kill();
-    delete client;
   }
+  this->clients.clear();
 }
 
-Accepter::~Accepter() {}
+Accepter::~Accepter() {
+  try {
+    this->join();
+  } catch (...) {
+  }
+}
