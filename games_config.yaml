@@ -40,5 +40,5 @@ bullet_2_cooldown: 2
 carrot_heal: 5
 intoxicated_time: 7
 points_per_coin: 20
-points_per_gem: 40
+points_per_gem: 100
 
