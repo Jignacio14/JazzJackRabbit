@@ -75,6 +75,11 @@ void Spaz::updateAnimation(const SnapshotWrapper &snapshot,
       leftCorner,
       Coordinates(this->entityInfo.position_x, this->entityInfo.position_y));
 
+  if (this->entityInfo.is_dead == NumericBool::True &&
+      newEntityInfo.is_dead == NumericBool::False) {
+    canBreakAnimation = true;
+  }
+
   if (newEntityInfo.is_dead == NumericBool::True) {
 
     if (this->currentAnimation->getCode() != GenericSpriteCodes::Death) {

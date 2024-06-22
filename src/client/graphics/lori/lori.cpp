@@ -74,6 +74,11 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
   bool isInCameraFocus =
       this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
 
+  if (this->entityInfo.is_dead == NumericBool::True &&
+      newEntityInfo.is_dead == NumericBool::False) {
+    canBreakAnimation = true;
+  }
+
   if (newEntityInfo.is_dead == NumericBool::True) {
 
     if (this->currentAnimation->getCode() != GenericSpriteCodes::Death) {
