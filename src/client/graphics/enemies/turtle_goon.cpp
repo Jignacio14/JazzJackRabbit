@@ -105,7 +105,7 @@ void TurtleGoon::update(SnapshotWrapper &snapshot,
       snapshot.getEnemyById(this->entityId, &newEntityInfo);
   if (!foundPlayableCharacter) {
     std::cerr << "TurtleGoon with entity id " + std::to_string(this->entityId) +
-                     " was not found in snapshot at update time";
+                     " was not found in snapshot at update time\n";
     return;
   }
 

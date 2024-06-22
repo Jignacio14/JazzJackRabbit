@@ -1,6 +1,7 @@
 #include "./lori.h"
 #include "../../../common/jjr2_error.h"
 #include "../../../data/convention.h"
+#include "../../disconnection_exception.h"
 #include "../sprite_props.h"
 #include <unordered_map>
 
@@ -292,10 +293,9 @@ void Lori::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
   PlayerDto newEntityInfo;
   bool foundPlayableCharacter =
       snapshot.getPlayerById(this->entityId, &newEntityInfo);
+
   if (!foundPlayableCharacter) {
-    std::cerr << "Lori with entity id " + std::to_string(this->entityId) +
-                     " was not found in snapshot at update time";
-    return;
+    throw DisconnectionException(__LINE__, __FILE__);
   }
 
   this->currentCoords.setX(newEntityInfo.position_x);

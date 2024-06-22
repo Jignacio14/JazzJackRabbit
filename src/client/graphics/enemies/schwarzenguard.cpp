@@ -109,7 +109,7 @@ void Schwarzenguard::update(SnapshotWrapper &snapshot,
   if (!foundPlayableCharacter) {
     std::cerr << "Schwarzenguard with entity id " +
                      std::to_string(this->entityId) +
-                     " was not found in snapshot at update time";
+                     " was not found in snapshot at update time\n";
     return;
   }
 

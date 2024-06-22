@@ -55,6 +55,8 @@ public:
   void playCarrotusBackgroundMusic();
   void playBeachWorldBackgroundMusic();
 
+  void playDisconnectionSound();
+
   void stopPlayingBackgroundMusic();
 
   ~AudioEngine();

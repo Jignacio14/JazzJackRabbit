@@ -101,7 +101,7 @@ void Bubba::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
       snapshot.getEnemyById(this->entityId, &newEntityInfo);
   if (!foundPlayableCharacter) {
     std::cerr << "Bubba with entity id " + std::to_string(this->entityId) +
-                     " was not found in snapshot at update time";
+                     " was not found in snapshot at update time\n";
     return;
   }
 

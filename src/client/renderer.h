@@ -4,6 +4,7 @@
 
 #include "../data/snapshot_dto.h"
 #include "./debug/debug_panel.h"
+#include "./graphics/disconnected_overlay/disconnected_overlay.h"
 #include "./graphics/graphic_engine.h"
 #include "./graphics/hud/hud.h"
 #include "./graphics/leaderboard/leaderboard.h"
@@ -39,6 +40,7 @@ private:
   Map map;
   DebugPanel debugPanel;
   Leaderboard leaderboard;
+  DisconnectedOverlay disconnectedOverlay;
 
   Client client;
   // cppcheck-suppress unusedStructMember
@@ -48,6 +50,9 @@ private:
 
   // cppcheck-suppress unusedStructMember
   uint8_t &scenarioSelected;
+
+  // cppcheck-suppress unusedStructMember
+  bool gameWasDisconnected;
 
   /*
    * Returns current time in seconds since epoch.

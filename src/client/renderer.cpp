@@ -2,6 +2,7 @@
 #include "./renderer.h"
 #include "../common/jjr2_error.h"
 #include "../common/snapshot_wrapper.h"
+#include "./disconnection_exception.h"
 #include "./stop_iteration_exception.h"
 #include <chrono>
 #include <cmath>
@@ -38,12 +39,14 @@ Renderer::Renderer(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
       map(this->graphicEngine, this->player, scenarioSelected),
       debugPanel(this->sdlRenderer),
       leaderboard(this->sdlRenderer, this->audioEngine,
-                  this->graphicEngine.getLeaderboardSprite()),
+                  this->graphicEngine.getModalBackgroundSprite()),
+      disconnectedOverlay(this->sdlRenderer, this->audioEngine,
+                          this->graphicEngine.getModalDisconnectionSprite()),
       client(std::move(socket), id),
       latestSnapshot(std::make_unique<SnapshotWrapper>(
           initialSnapshot.transferSnapshotDto())),
       keyboardHandler(this->client, this->debugPanel),
-      scenarioSelected(scenarioSelected) {}
+      scenarioSelected(scenarioSelected), gameWasDisconnected(false) {}
 
 void Renderer::addRenderable(std::unique_ptr<Renderable> renderable) {
   this->renderables.push_back(std::move(renderable));
@@ -68,8 +71,11 @@ void Renderer::renderGame(int iterationNumber) {
 
   this->hud.render(*this->latestSnapshot);
 
-  if (this->latestSnapshot->didGameEnd()) {
+  if (this->latestSnapshot->didGameEnd() && !this->gameWasDisconnected) {
     this->leaderboard.display(*this->latestSnapshot);
+
+  } else if (this->gameWasDisconnected) {
+    this->disconnectedOverlay.display();
   }
 
   this->debugPanel.display();
@@ -96,7 +102,7 @@ void Renderer::updateLatestSnapshot() {
 }
 
 void Renderer::updateGame(int iterationNumber) {
-  if (this->latestSnapshot->didGameEnd()) {
+  if (this->latestSnapshot->didGameEnd() || this->gameWasDisconnected) {
     return;
   }
 
@@ -286,6 +292,8 @@ void Renderer::run() {
       this->renderGame(iterationNumber);
       this->updateGame(iterationNumber);
       this->keyboardHandler.processEvents(this->player);
+    } catch (const DisconnectionException &) {
+      this->gameWasDisconnected = true;
     } catch (const StopIteration &) {
       break;
     }
