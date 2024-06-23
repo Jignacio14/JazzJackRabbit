@@ -23,7 +23,8 @@ const static int PLAYER_INITIAL_POSITION_Y = 1050;
 Game::Game(GameMonitor &monitor, Queue<CommandCodeDto> &queue)
     : monitor(monitor), messages(queue), players(0), snapshot{},
       gameEnded(false), iterationNumber(0), rate(SERVER_RATE),
-      collectablesHandler(collectables, snapshot) {}
+      collectablesHandler(collectables, snapshot),
+      enemiesHandler(enemies, snapshot) {}
 
 double Game::now() {
   return std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -42,7 +43,7 @@ void Game::gameLoop() {
 
     collectablesHandler.initialize();
 
-    // this->addEnemies();
+    enemiesHandler.initialize();
 
     double initTimestamp = this->now();
 

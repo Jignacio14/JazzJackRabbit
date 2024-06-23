@@ -1,9 +1,8 @@
 
 #include "base_enemy.h"
 
-BaseEnemy::BaseEnemy(uint32_t id, Snapshot &snapshot, int pos)
-    : id(id), health(100),
-      rectangle(Rectangle(Coordinates(500, 1050), Coordinates(540, 1100))),
+BaseEnemy::BaseEnemy(uint32_t id, Snapshot &snapshot, Rectangle rectangle)
+    : id(id), health(100), rectangle(rectangle),
       facing_direction(FacingDirectionsIds::Left), is_dead(NumericBool::False),
       snapshot(snapshot) {}
 

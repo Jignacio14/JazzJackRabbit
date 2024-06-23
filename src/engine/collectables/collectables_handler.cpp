@@ -29,7 +29,17 @@ void CollectablesHandler::initialize_carrots() {
   carrot1_dto.was_collected = NumericBool::False;
   snapshot.collectables[snapshot.sizeCollectables] = carrot1_dto;
   snapshot.sizeCollectables++;
-
+  /*std::cout << "Carrot 1 id:" << snapshot.sizeCollectables - 1 << std::endl;
+  std::cout << "Position: TopLeft: (" << carrot1.getTopLeftCorner().getX() << ",
+  "
+            << carrot1.getTopLeftCorner().getY() << ")" << "BottonRight: (" <<
+  carrot1.getBottomRightCorner().getX() << ", "
+            << carrot1.getBottomRightCorner().getY() << ")" << std::endl;
+  std::cout << "Snapshot TopLeft: (" <<
+  snapshot.collectables[snapshot.sizeCollectables - 1].position_x << ", "
+            << snapshot.collectables[snapshot.sizeCollectables - 1].position_y
+  << ")" << std::endl;
+*/
   Rectangle carrot2(Coordinates(1310, 1168 - HitboxSizes::CollectableHeight),
                     Coordinates(1310 + HitboxSizes::CollectableWidth, 1168));
   collectables.push_back(std::make_unique<Carrot>(
@@ -42,7 +52,17 @@ void CollectablesHandler::initialize_carrots() {
   carrot2_dto.was_collected = NumericBool::False;
   snapshot.collectables[snapshot.sizeCollectables] = carrot2_dto;
   snapshot.sizeCollectables++;
-
+  /*std::cout << "Carrot 2 id:" << snapshot.sizeCollectables - 1 << std::endl;
+  std::cout << "Position: TopLeft: (" << carrot2.getTopLeftCorner().getX() << ",
+  "
+            << carrot2.getTopLeftCorner().getY() << ")" << "BottonRight: (" <<
+  carrot2.getBottomRightCorner().getX() << ", "
+            << carrot2.getBottomRightCorner().getY() << ")" << std::endl;
+  std::cout << "Snapshot TopLeft: (" <<
+  snapshot.collectables[snapshot.sizeCollectables - 1].position_x << ", "
+            << snapshot.collectables[snapshot.sizeCollectables - 1].position_y
+  << ")" << std::endl;
+*/
   Rectangle carrot3(Coordinates(781, 292 - HitboxSizes::CollectableHeight),
                     Coordinates(781 + HitboxSizes::CollectableWidth, 292));
   collectables.push_back(std::make_unique<Carrot>(
@@ -55,6 +75,17 @@ void CollectablesHandler::initialize_carrots() {
   carrot3_dto.was_collected = NumericBool::False;
   snapshot.collectables[snapshot.sizeCollectables] = carrot3_dto;
   snapshot.sizeCollectables++;
+  /*std::cout << "Carrot 3 id:" << snapshot.sizeCollectables - 1 << std::endl;
+  std::cout << "Position: TopLeft: (" << carrot3.getTopLeftCorner().getX() << ",
+  "
+            << carrot3.getTopLeftCorner().getY() << ")" << "BottonRight: (" <<
+  carrot3.getBottomRightCorner().getX() << ", "
+            << carrot3.getBottomRightCorner().getY() << ")" << std::endl;
+  std::cout << "Snapshot TopLeft: (" <<
+  snapshot.collectables[snapshot.sizeCollectables - 1].position_x << ", "
+            << snapshot.collectables[snapshot.sizeCollectables - 1].position_y
+  << ")" << std::endl;
+  */
 }
 
 void CollectablesHandler::initialize_gems() {

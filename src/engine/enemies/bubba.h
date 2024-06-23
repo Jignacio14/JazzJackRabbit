@@ -6,7 +6,7 @@
 class Bubba : public BaseEnemy {
 
 public:
-  Bubba(uint32_t id, Snapshot &snapshot, int pos);
+  Bubba(uint32_t id, Snapshot &snapshot, Rectangle rectangle);
 };
 
 #endif // BUBBA_H

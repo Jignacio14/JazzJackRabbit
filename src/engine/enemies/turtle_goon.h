@@ -5,7 +5,7 @@
 
 class TurtleGoon : public BaseEnemy {
 public:
-  TurtleGoon(uint32_t id, Snapshot &snapshot, int pos);
+  TurtleGoon(uint32_t id, Snapshot &snapshot, Rectangle rectangle);
 };
 
 #endif // TURTLE_GOON_H

@@ -5,7 +5,7 @@
 
 class Schwarzenguard : public BaseEnemy {
 public:
-  Schwarzenguard(uint32_t id, Snapshot &snapshot, int pos);
+  Schwarzenguard(uint32_t id, Snapshot &snapshot, Rectangle rectangle);
 };
 
 #endif // SCHWARZENGUARD_H
