@@ -119,8 +119,9 @@ void Renderer::createNewPlayableCharacters(const Snapshot &snapshot) {
     bool exists = std::any_of(
         this->renderables.begin(), this->renderables.end(),
         [snapshot, i, playerId](const auto &renderable) {
-          return snapshot.players[i].user_id == renderable->getId() ||
-                 snapshot.players[i].user_id == playerId;
+          return (snapshot.players[i].user_id == renderable->getId() ||
+                  snapshot.players[i].user_id == playerId) &&
+                 renderable->getType() == GeneralType::Player;
         });
 
     if (exists) {
@@ -156,7 +157,9 @@ void Renderer::createNewEnemies(const Snapshot &snapshot) {
     bool exists = std::any_of(
         this->renderables.begin(), this->renderables.end(),
         [snapshot, i](const auto &renderable) {
-          return snapshot.enemies[i].entity_id == renderable->getId();
+          return snapshot.enemies[i].entity_id == renderable->getId() &&
+                 renderable->getType() == GeneralType::Enemy;
+          ;
         });
 
     if (exists) {
@@ -192,7 +195,8 @@ void Renderer::createNewCollectables(const Snapshot &snapshot) {
     bool exists = std::any_of(
         this->renderables.begin(), this->renderables.end(),
         [snapshot, i](const auto &renderable) {
-          return snapshot.collectables[i].entity_id == renderable->getId();
+          return snapshot.collectables[i].entity_id == renderable->getId() &&
+                 renderable->getType() == GeneralType::Collectable;
         });
 
     if (exists) {
@@ -238,7 +242,8 @@ void Renderer::createNewBullets(const Snapshot &snapshot) {
     bool exists = std::any_of(
         this->renderables.begin(), this->renderables.end(),
         [snapshot, i](const auto &renderable) {
-          return snapshot.bullets[i].entity_id == renderable->getId();
+          return snapshot.bullets[i].entity_id == renderable->getId() &&
+                 renderable->getType() == GeneralType::Bullet;
         });
 
     if (exists) {

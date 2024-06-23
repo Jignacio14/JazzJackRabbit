@@ -14,9 +14,9 @@ struct BubbaAnimationSpeedCoefs {
 Bubba::Bubba(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
              Coordinates &currentCoords, const uint8_t &entityId,
              SnapshotWrapper &snapshot)
-    : entityId(entityId), graphicEngine(graphicEngine),
-      audioEngine(audioEngine), currentAnimation(nullptr),
-      currentCoords(currentCoords), entityInfo(),
+    : entityId(entityId), type(GeneralType::Enemy),
+      graphicEngine(graphicEngine), audioEngine(audioEngine),
+      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
       hitbox(HitboxSizes::EnemyWidth, HitboxSizes::EnemyHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -113,5 +113,7 @@ void Bubba::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
 }
 
 uint8_t Bubba::getId() const { return this->entityId; }
+
+u_int8_t Bubba::getType() const { return this->type; }
 
 Bubba::~Bubba() {}

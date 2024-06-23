@@ -12,10 +12,10 @@ struct BulletGun2AnimationSpeedCoefs {
 BulletGun2::BulletGun2(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
                        Coordinates &currentCoords, const uint8_t &entityId,
                        SnapshotWrapper &snapshot)
-    : entityId(entityId), graphicEngine(graphicEngine),
-      audioEngine(audioEngine), currentAnimation(nullptr),
-      currentCoords(currentCoords), entityInfo(), shouldBeDeleted(false),
-      isShowingExitAnimation(false),
+    : entityId(entityId), type(GeneralType::Bullet),
+      graphicEngine(graphicEngine), audioEngine(audioEngine),
+      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
+      shouldBeDeleted(false), isShowingExitAnimation(false),
       hitbox(HitboxSizes::BulletWidth, HitboxSizes::BulletHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -86,6 +86,8 @@ void BulletGun2::update(SnapshotWrapper &snapshot,
 }
 
 uint8_t BulletGun2::getId() const { return this->entityId; }
+
+u_int8_t BulletGun2::getType() const { return this->type; }
 
 bool BulletGun2::shouldDelete() const { return this->shouldBeDeleted; }
 

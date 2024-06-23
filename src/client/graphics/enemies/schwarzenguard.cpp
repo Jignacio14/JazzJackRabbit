@@ -16,9 +16,9 @@ Schwarzenguard::Schwarzenguard(GraphicEngine &graphicEngine,
                                Coordinates &currentCoords,
                                const uint8_t &entityId,
                                SnapshotWrapper &snapshot)
-    : entityId(entityId), graphicEngine(graphicEngine),
-      audioEngine(audioEngine), currentAnimation(nullptr),
-      currentCoords(currentCoords), entityInfo(),
+    : entityId(entityId), type(GeneralType::Enemy),
+      graphicEngine(graphicEngine), audioEngine(audioEngine),
+      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
       hitbox(HitboxSizes::EnemyWidth, HitboxSizes::EnemyHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -121,5 +121,7 @@ void Schwarzenguard::update(SnapshotWrapper &snapshot,
 }
 
 uint8_t Schwarzenguard::getId() const { return this->entityId; }
+
+u_int8_t Schwarzenguard::getType() const { return this->type; }
 
 Schwarzenguard::~Schwarzenguard() {}

@@ -20,6 +20,8 @@ class Schwarzenguard : public Renderable {
 private:
   // cppcheck-suppress unusedStructMember
   const uint8_t entityId;
+  // cppcheck-suppress unusedStructMember
+  const uint8_t type;
   GraphicEngine &graphicEngine;
   AudioEngine &audioEngine;
 
@@ -46,6 +48,8 @@ public:
                       const Coordinates &leftCorner) override;
 
   virtual uint8_t getId() const override;
+
+  virtual u_int8_t getType() const override;
 
   ~Schwarzenguard() override;
 };

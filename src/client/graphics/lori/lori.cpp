@@ -22,10 +22,11 @@ struct LoriAnimationSpeedCoefs {
 Lori::Lori(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
            Coordinates &currentCoords, const uint8_t &entityId,
            SnapshotWrapper &snapshot)
-    : entityId(entityId), graphicEngine(graphicEngine),
-      audioEngine(audioEngine), currentAnimation(nullptr),
-      currentCoords(currentCoords), isWalkingLeft(false), isWalkingRight(false),
-      isWalkingUp(false), isWalkingDown(false), isRunning(false), entityInfo(),
+    : entityId(entityId), type(GeneralType::Player),
+      graphicEngine(graphicEngine), audioEngine(audioEngine),
+      currentAnimation(nullptr), currentCoords(currentCoords),
+      isWalkingLeft(false), isWalkingRight(false), isWalkingUp(false),
+      isWalkingDown(false), isRunning(false), entityInfo(),
       hitbox(HitboxSizes::PlayerWidth, HitboxSizes::PlayerHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -306,5 +307,7 @@ void Lori::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
 }
 
 uint8_t Lori::getId() const { return this->entityId; }
+
+u_int8_t Lori::getType() const { return this->type; }
 
 Lori::~Lori() {}
