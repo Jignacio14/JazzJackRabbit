@@ -343,9 +343,13 @@ void MainWindow::waitForPlayers() {
                                   this->username);
   std::cout << "Waiting for players to join"
             << "\n";
-  *this->initialSnapshot = this->lobby->wait_game_start();
-  std::cout << "Game starting!"
-            << "\n";
+  try {
+    *this->initialSnapshot = this->lobby->wait_game_start();
+    std::cout << "Game starting!"
+              << "\n";
+
+  } catch (...) {
+  }
   this->close();
 }
 

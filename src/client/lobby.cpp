@@ -6,7 +6,7 @@
 
 Lobby::Lobby(const char *hostname, const char *port)
     : skt(hostname, port), protocol(std::ref(skt)), player_id(0),
-      skt_ownership(true) {}
+      skt_ownership(true), game_started(false) {}
 
 std::vector<GameInfoDto> Lobby::get_games() {
   std::vector<GameInfoDto> vect;
@@ -33,7 +33,9 @@ void Lobby::send_selected_game(const std::string &gamename, char user_character,
 
 uint8_t Lobby::get_player_id() { return this->player_id; }
 
-Snapshot Lobby::wait_game_start() { return protocol.wait_game_start(); }
+Snapshot Lobby::wait_game_start() {
+  return protocol.wait_game_start(this->game_started);
+}
 
 Socket Lobby::transfer_socket() {
   this->skt_ownership = false;
@@ -45,6 +47,8 @@ void Lobby::quit_game() {
   skt.shutdown(SHUT_RDWR);
   skt.close();
 }
+
+bool Lobby::did_game_start() const { return this->game_started; }
 
 Lobby::~Lobby() {
   if (this->skt_ownership && !this->skt.isClosed()) {
