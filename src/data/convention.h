@@ -121,4 +121,13 @@ struct HitboxSizes {
   static const uint8_t BulletHeight = 10;
 };
 
+struct EnemyDrop {
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t NoDrop = 0;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t Ammo = 1;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t Carrot = 2;
+};
+
 #endif // JAZZJACKRABBIT_CONVENTION_H

@@ -7,25 +7,40 @@ BaseEnemy::BaseEnemy(uint32_t id, Snapshot &snapshot, Rectangle rectangle,
                      double respawn_time, float ammo_drop_chance,
                      float health_drop_chance, uint8_t max_health)
     : id(id), rectangle(rectangle), facing_direction(FacingDirectionsIds::Left),
-      is_dead(NumericBool::False), snapshot(snapshot), health(health),
-      damage(damage), points(points), respawn_time(respawn_time),
+      is_dead(false), snapshot(snapshot), health(health), damage(damage),
+      points(points), respawn_time(respawn_time),
       ammo_drop_chance(ammo_drop_chance),
       health_drop_chance(health_drop_chance), moment_of_death(0),
-      max_health(max_health) {}
+      max_health(max_health) {
+  std::srand(static_cast<unsigned int>(std::time(nullptr)));
+}
 
-void BaseEnemy::receive_damage(uint8_t damage) {
+uint8_t BaseEnemy::receive_damage(uint8_t damage) {
   int index = find_position();
   if (damage >= health) {
     health = 0;
-    is_dead = NumericBool::True;
+    is_dead = true;
     snapshot.enemies[index].is_dead = NumericBool::True;
     moment_of_death = snapshot.timeLeft;
+    return determine_drop();
   } else {
     health -= damage;
     snapshot.enemies[index].was_hurt = NumericBool::True;
+    return EnemyDrop::NoDrop;
   }
   std::cout << "Enemy " << id << " received " << (int)damage
             << " damage. Health: " << (int)health << std::endl;
+}
+
+uint8_t BaseEnemy::determine_drop() {
+  float random = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
+  if (random < ammo_drop_chance / 100.0f) {
+    return EnemyDrop::Ammo;
+  } else if (random < (ammo_drop_chance + health_drop_chance) / 100.0f) {
+    return EnemyDrop::Carrot;
+  } else {
+    return EnemyDrop::NoDrop;
+  }
 }
 
 bool BaseEnemy::intersects(Rectangle rectangle) {
@@ -53,7 +68,7 @@ void BaseEnemy::try_revive() {
   double time_passed = (moment_of_death - snapshot.timeLeft);
   if (time_passed >= respawn_time && is_dead) {
     health = max_health;
-    is_dead = NumericBool::False;
+    is_dead = false;
     snapshot.enemies[find_position()].is_dead = NumericBool::False;
   }
 }

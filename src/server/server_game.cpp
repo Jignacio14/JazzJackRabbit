@@ -274,7 +274,12 @@ void Game::updateBullets() {
     }
     for (auto &enemy : enemies) {
       if (enemy->intersects(bullet.get_rectangle()) && enemy->is_alive()) {
-        enemy->receive_damage(bullet.get_damage());
+        // receive_damage devuelve un uint8 que representa el drop.
+        // Luego un switch con 3 casos lo maneja, 0 no drop, 1 ammo, 2 health.
+        // Los drops son collectables que se agregan al vector y listo. Al
+        // resetearse los collectables, estos también desaparecerían.
+        uint8_t drop = enemy->receive_damage(bullet.get_damage());
+        this->handleDrop(drop);
         bullet.kill(snapshot);
         break;
       }
@@ -284,6 +289,21 @@ void Game::updateBullets() {
       std::remove_if(bullets.begin(), bullets.end(),
                      [](Bullet &bullet) { return !bullet.is_alive(); }),
       bullets.end());
+}
+
+void Game::handleDrop(uint8_t drop) {
+  if (drop == EnemyDrop::NoDrop) {
+    std::cout << "Enemy didn't drop anything" << std::endl;
+    return;
+  }
+  switch (drop) {
+  case EnemyDrop::Ammo:
+    std::cout << "Enemy dropped an ammo" << std::endl;
+    break;
+  case EnemyDrop::Carrot:
+    std::cout << "Enemy dropped a carrot" << std::endl;
+    break;
+  }
 }
 
 void Game::updateCollectables() {
