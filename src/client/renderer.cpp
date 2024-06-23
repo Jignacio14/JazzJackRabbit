@@ -5,6 +5,7 @@
 #include "./stop_iteration_exception.h"
 #include <chrono>
 #include <cmath>
+#include <iostream>
 #include <thread>
 
 #include "../common/global_configs.h"
@@ -228,6 +229,7 @@ void Renderer::createNewCollectables(const Snapshot &snapshot) {
 }
 
 void Renderer::createNewBullets(const Snapshot &snapshot) {
+
   for (int i = 0; i < snapshot.sizeBullets; i++) {
     bool exists = std::any_of(
         this->renderables.begin(), this->renderables.end(),

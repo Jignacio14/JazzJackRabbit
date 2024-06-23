@@ -24,6 +24,8 @@ protected:
   // cppcheck-suppress unusedStructMember
   Snapshot &snapshot;
 
+  int find_position();
+
 public:
   BaseEnemy(uint32_t id, Snapshot &snapshot, Rectangle rectangle);
   void receive_damage(uint8_t damage);

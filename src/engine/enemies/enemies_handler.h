@@ -1,6 +1,7 @@
 #ifndef ENEMIES_HANDLER_H
 #define ENEMIES_HANDLER_H
 
+#include "../global_counter.h"
 #include "bubba.h"
 #include "schwarzenguard.h"
 #include "turtle_goon.h"
