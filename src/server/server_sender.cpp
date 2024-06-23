@@ -3,6 +3,8 @@
 #include "server_games_monitor.h"
 #include "server_receiver.h"
 #include <cstdint>
+#include <exception>
+#include <iostream>
 #include <stdexcept>
 #include <sys/types.h>
 #include <utility>
@@ -71,7 +73,6 @@ void Sender::run() {
     std::cerr << jjr2Err.what() << std::endl;
   } catch (const ClosedQueue &quErr) {
     this->logOutPlayer();
-    std::cerr << quErr.what() << std::endl;
   } catch (const std::exception &error) {
     this->logOutPlayer();
     std::cerr << error.what() << std::endl;
@@ -100,12 +101,18 @@ void Sender::kill() {
     this->sender_queue.close();
     this->servprot.shutdown();
   } catch (const LibError &sktErr) {
+    // Para los posibles errores del shutdown
+  } catch (const std::runtime_error &error) {
+    // Por si trata de cerra la cola varias veces
   }
 }
 
 Sender::~Sender() {
-  try {
-    this->join();
-  } catch (...) {
-  }
+  // try {
+  //     this->_is_alive = false;
+  //     std::cout << "Borrando el sender" << std::endl;
+  //     // this->join();
+  // } catch (const std::exception& err) {
+  //   std::cerr << "Pase por aqui de manera barbara" << std::endl;
+  // }
 }
