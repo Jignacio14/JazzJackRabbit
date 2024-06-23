@@ -44,7 +44,8 @@ constexpr uint8_t HudSpriteCodes::LifeHeart;
 constexpr uint8_t TextFontsCodes::Roboto;
 constexpr uint8_t TextFontsCodes::Joystix;
 
-constexpr uint8_t LeaderboardCodes::Background;
+constexpr uint8_t ModalCodes::Background;
+constexpr uint8_t ModalCodes::Disconnection;
 
 SpriteNamesMap::SpriteNamesMap()
     : map({
@@ -92,5 +93,6 @@ SpriteNamesMap::SpriteNamesMap()
           {TextFontsCodes::Roboto, "roboto"},
           {TextFontsCodes::Joystix, "joystix"},
 
-          {LeaderboardCodes::Background, "background"},
+          {ModalCodes::Background, "background"},
+          {ModalCodes::Disconnection, "disconnection"},
       }) {}

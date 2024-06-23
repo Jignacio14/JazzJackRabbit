@@ -14,9 +14,9 @@ struct TurtleGoonAnimationSpeedCoefs {
 TurtleGoon::TurtleGoon(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
                        Coordinates &currentCoords, const uint8_t &entityId,
                        SnapshotWrapper &snapshot)
-    : entityId(entityId), graphicEngine(graphicEngine),
-      audioEngine(audioEngine), currentAnimation(nullptr),
-      currentCoords(currentCoords), entityInfo(),
+    : entityId(entityId), type(GeneralType::Enemy),
+      graphicEngine(graphicEngine), audioEngine(audioEngine),
+      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
       hitbox(HitboxSizes::EnemyWidth, HitboxSizes::EnemyHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -105,7 +105,7 @@ void TurtleGoon::update(SnapshotWrapper &snapshot,
       snapshot.getEnemyById(this->entityId, &newEntityInfo);
   if (!foundPlayableCharacter) {
     std::cerr << "TurtleGoon with entity id " + std::to_string(this->entityId) +
-                     " was not found in snapshot at update time";
+                     " was not found in snapshot at update time\n";
     return;
   }
 
@@ -117,5 +117,7 @@ void TurtleGoon::update(SnapshotWrapper &snapshot,
 }
 
 uint8_t TurtleGoon::getId() const { return this->entityId; }
+
+u_int8_t TurtleGoon::getType() const { return this->type; }
 
 TurtleGoon::~TurtleGoon() {}

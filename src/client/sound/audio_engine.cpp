@@ -130,6 +130,10 @@ void AudioEngine::playBeachWorldBackgroundMusic() {
   this->playMusic(this->audioLoader.getBeachWorldBackgroundMusic());
 }
 
+void AudioEngine::playDisconnectionSound() {
+  this->playSound(this->audioLoader.getDisconnectionSound());
+}
+
 void AudioEngine::stopPlayingBackgroundMusic() {
   if (this->music == nullptr || !this->isBackgroundMusicActivated) {
     return;
