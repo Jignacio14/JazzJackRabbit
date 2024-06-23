@@ -14,4 +14,4 @@ const static float HEALTH_DROP_CHANCE =
 Schwarzenguard::Schwarzenguard(uint32_t id, Snapshot &snapshot,
                                Rectangle rectangle)
     : BaseEnemy(id, snapshot, rectangle, MAX_LIFE, DAMAGE, POINTS, RESPAWN_TIME,
-                AMMO_DROP_CHANCE, HEALTH_DROP_CHANCE) {}
+                AMMO_DROP_CHANCE, HEALTH_DROP_CHANCE, MAX_LIFE) {}
