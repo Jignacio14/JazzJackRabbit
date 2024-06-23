@@ -1,5 +1,6 @@
 #include "server_game.h"
 #include <cstring>
+#include <exception>
 #include <iostream>
 #include <thread>
 
@@ -321,6 +322,11 @@ void Game::kill() { this->_is_alive = false; }
 bool Game::didGameEnd() { return this->gameEnded; };
 
 Game::~Game() {
-  this->kill();
-  this->join();
+  try {
+    if (this->_is_alive) {
+      this->kill();
+    }
+    this->join();
+  } catch (const std::exception &e) {
+  }
 }
