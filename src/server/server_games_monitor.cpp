@@ -74,4 +74,11 @@ void GamesMonitor::removePlayer(const std::string &game_name,
   this->game_tracker[game_name]->ereasedPlayer(player_id, sender_queue);
 }
 
+void GamesMonitor::killAll() {
+  std::lock_guard<std::mutex> lck(this->mtx);
+  for (auto &game : game_tracker) {
+    game.second->killGame();
+  }
+}
+
 GamesMonitor::~GamesMonitor() {}

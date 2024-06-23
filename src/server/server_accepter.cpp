@@ -1,5 +1,4 @@
 #include "server_accepter.h"
-#include <iostream>
 
 Accepter::Accepter(const std::string &port)
     : skt_aceptator(port.c_str()), clients(), gamesMonitor() {}
@@ -27,8 +26,8 @@ void Accepter::checkForDisconnected() {
     });
   } catch (...) {
     this->_is_alive = false;
-    std::cout << "Error al remover clientes desconectados" << std::endl;
-    std::cout << "Lo mantengo con vida" << std::endl;
+    gamesMonitor.killAll();
+    this->killAll();
   }
 }
 
@@ -56,6 +55,7 @@ void Accepter::killAll() {
   for (auto &client : this->clients) {
     client->kill();
   }
+  this->gamesMonitor.killAll();
   this->clients.clear();
 }
 
