@@ -22,7 +22,7 @@
 #define RUNNING_SPEED 3
 
 class BasePlayer {
-private:
+protected:
   // cppcheck-suppress unusedStructMember
   uint8_t player_id;
   // cppcheck-suppress unusedStructMember

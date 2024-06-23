@@ -23,9 +23,11 @@ private:
   // cppcheck-suppress unusedStructMember
   ServerMap map;
   // cppcheck-suppress unusedStructMember
-  uint16_t id;
+  uint32_t id;
   // cppcheck-suppress unusedStructMember
   bool alive;
+
+  int find_bullet(const Snapshot &snapshot);
 
 public:
   Bullet(uint8_t type, uint8_t damage, uint8_t speed, Rectangle rectangle,
