@@ -42,7 +42,7 @@ void Game::gameLoop() {
 
     collectablesHandler.initialize();
 
-    this->addEnemies();
+    // this->addEnemies();
 
     double initTimestamp = this->now();
 
@@ -136,7 +136,7 @@ std::unique_ptr<BasePlayer> Game::constructPlayer(uint8_t player_id,
 
   return nullptr;
 }
-
+/*
 void Game::addEnemies() {
   std::unique_ptr<BaseEnemy> enemy =
       std::make_unique<BaseEnemy>(1, snapshot, 0);
@@ -152,7 +152,7 @@ void Game::addEnemies() {
   new_enemy.type = EnemiesIds::Bubba;
   this->snapshot.enemies[this->snapshot.sizeEnemies] = new_enemy;
   this->snapshot.sizeEnemies++;
-}
+}*/
 
 void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
                          const uint8_t &data) {
@@ -310,6 +310,10 @@ void Game::updateCollectables() {
                        return collectable->get_collected();
                      }),
       collectables.end());
+
+  if (collectables.size() == 0) {
+    collectablesHandler.reset_collectables();
+  }
 }
 
 void Game::kill() { this->_is_alive = false; }

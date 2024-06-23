@@ -5,15 +5,15 @@
 #include <unordered_map>
 
 struct LoriAnimationSpeedCoefs {
-  static constexpr double Death = 25;
-  static constexpr double Hurt = 25;
+  static constexpr double Death = 13;
+  static constexpr double Hurt = 15;
   static constexpr double Idle = 12;
-  static constexpr double IntoxicatedIdle = 25;
+  static constexpr double IntoxicatedIdle = 15;
   static constexpr double IntoxicatedWalking = 25;
   static constexpr double Jumping = 15;
   static constexpr double Falling = 18;
-  static constexpr double Running = 25;
-  static constexpr double Shooting = 25;
+  static constexpr double Running = 18;
+  static constexpr double Shooting = 15;
   static constexpr double Walking = 18;
   static constexpr double ShortKick = 25;
 };
@@ -73,6 +73,11 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
   bool canBreakAnimation = this->currentAnimation->canBreakAnimation();
   bool isInCameraFocus =
       this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+
+  if (this->entityInfo.is_dead == NumericBool::True &&
+      newEntityInfo.is_dead == NumericBool::False) {
+    canBreakAnimation = true;
+  }
 
   if (newEntityInfo.is_dead == NumericBool::True) {
 
@@ -212,11 +217,53 @@ void Lori::updateAnimation(const SnapshotWrapper &snapshot,
             AnimationState::Cycle, LoriAnimationSpeedCoefs::Walking, shouldFlip,
             this->hitbox);
       }
+    } else if (newEntityInfo.is_intoxicated !=
+               this->entityInfo.is_intoxicated) {
+
+      if (newEntityInfo.is_intoxicated == NumericBool::True) {
+
+        this->currentAnimation = std::make_unique<AnimationState>(
+            this->graphicEngine, GenericSpriteCodes::IntoxicatedWalking,
+            &this->graphicEngine.getLoriGenericSprite(
+                GenericSpriteCodes::IntoxicatedWalking),
+            AnimationState::Cycle, LoriAnimationSpeedCoefs::IntoxicatedWalking,
+            shouldFlip, this->hitbox);
+      } else {
+
+        this->currentAnimation = std::make_unique<AnimationState>(
+            this->graphicEngine, GenericSpriteCodes::Walking,
+            &this->graphicEngine.getLoriGenericSprite(
+                GenericSpriteCodes::Walking),
+            AnimationState::Cycle, LoriAnimationSpeedCoefs::Walking, shouldFlip,
+            this->hitbox);
+      }
     }
     return;
   }
 
   if (this->currentAnimation->getCode() != GenericSpriteCodes::Idle) {
+
+    if (newEntityInfo.is_intoxicated == NumericBool::True &&
+        canBreakAnimation) {
+
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::IntoxicatedIdle,
+          &this->graphicEngine.getLoriGenericSprite(
+              GenericSpriteCodes::IntoxicatedIdle),
+          AnimationState::Cycle, LoriAnimationSpeedCoefs::IntoxicatedIdle,
+          shouldFlip, this->hitbox);
+      return;
+
+    } else if (canBreakAnimation) {
+
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, GenericSpriteCodes::Idle,
+          &this->graphicEngine.getLoriGenericSprite(GenericSpriteCodes::Idle),
+          AnimationState::Cycle, LoriAnimationSpeedCoefs::Idle, shouldFlip,
+          this->hitbox);
+      return;
+    }
+  } else if (newEntityInfo.is_intoxicated != this->entityInfo.is_intoxicated) {
 
     if (newEntityInfo.is_intoxicated == NumericBool::True &&
         canBreakAnimation) {

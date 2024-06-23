@@ -34,16 +34,21 @@ void Bullet::move(Snapshot &snapshot) {
     snapshot.bullets[id].position_x = rectangle.getTopLeftCorner().getX();
     snapshot.bullets[id].position_y = rectangle.getTopLeftCorner().getY();
   }
-
-  // Verificar si choca con un jugador o un enemigo e inflingirle daño
 }
 
 void Bullet::kill(Snapshot &snapshot) {
+  bool found = false;
   alive = false;
-  for (uint16_t i = id; i < snapshot.sizeBullets - 1; i++) {
-    snapshot.bullets[i] = snapshot.bullets[i + 1];
+  for (uint16_t i = 0; i < snapshot.sizeBullets; i++) {
+    if (snapshot.bullets[i].entity_id == this->id) {
+      found = true;
+    }
+    if (found && i < static_cast<uint32_t>(snapshot.sizeBullets) - 1) {
+      snapshot.bullets[i] = snapshot.bullets[i + 1];
+    }
   }
-  snapshot.sizeBullets--;
+  if (found)
+    snapshot.sizeBullets--;
 }
 
 Rectangle Bullet::get_rectangle() { return rectangle; }

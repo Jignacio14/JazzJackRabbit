@@ -16,7 +16,12 @@ const u_int16_t GameWrapper::getGamePlayers() {
   return this->players;
 }
 
-void GameWrapper::killGame() { this->game.kill(); }
+void GameWrapper::killGame() {
+  if (this->game.is_alive()) {
+    this->game.kill();
+    this->game.join();
+  }
+}
 
 std::pair<Queue<CommandCodeDto> &, uint8_t>
 GameWrapper::addPlayer(Queue<Snapshot> &queue, const PlayerInfo &player_info) {
@@ -43,8 +48,6 @@ bool GameWrapper::isGameRunning() {
 
 void GameWrapper::ereasedPlayer(const uint8_t &player_id,
                                 const Queue<Snapshot> &sender_queue) {
-  // this->monitor.ereasePlayer();
-
   std::lock_guard<std::mutex> lck(this->mtx);
   this->monitor.ereasePlayer(sender_queue);
   this->players--;

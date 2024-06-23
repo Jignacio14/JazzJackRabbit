@@ -59,7 +59,7 @@ private:
                                               uint8_t player_type);
   double now();
   void rateController(double start, double finish);
-  void addEnemies();
+  // void addEnemies();
   void updateBullets();
   void updateCollectables();
 
