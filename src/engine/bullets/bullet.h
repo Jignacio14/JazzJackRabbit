@@ -35,7 +35,7 @@ public:
   void add_to_snapshot(Snapshot &snapshot);
   void move(Snapshot &snapshot);
   bool is_alive();
-  void kill(const Snapshot &snapshot);
+  void kill(Snapshot &snapshot);
   Rectangle get_rectangle();
   uint8_t get_damage();
 };
