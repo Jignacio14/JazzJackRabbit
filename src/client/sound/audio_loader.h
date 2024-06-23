@@ -30,6 +30,8 @@ private:
   SDL2pp::Music carrotusBackgroundMusic;
   SDL2pp::Music beachWorldBackgroundMusic;
 
+  SDL2pp::Chunk disconnectionSound;
+
 public:
   explicit AudioLoader(SDL2pp::Mixer &sdlMixer);
 
@@ -57,6 +59,8 @@ public:
 
   SDL2pp::Music &getCarrotusBackgroundMusic();
   SDL2pp::Music &getBeachWorldBackgroundMusic();
+
+  SDL2pp::Chunk &getDisconnectionSound();
 };
 
 #endif // AUDIO_LOADER_H

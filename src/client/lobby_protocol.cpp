@@ -166,11 +166,12 @@ Snapshot LobbyProtocol::deserializeSnapshot(const Snapshot &snapshot) {
   return finalSnapshot;
 }
 
-Snapshot LobbyProtocol::wait_game_start() {
+Snapshot LobbyProtocol::wait_game_start(bool &game_started) {
   try {
     Snapshot first_snap;
     skt.recvall_bytewise(&first_snap, sizeof(Snapshot), &was_closed);
     this->skt_was_closed();
+    game_started = true;
     return this->deserializeSnapshot(first_snap);
   } catch (const LibError &skt_err) {
     std::string errorMessage =

@@ -1,6 +1,7 @@
 #include "./jazz.h"
 #include "../../../common/jjr2_error.h"
 #include "../../../data/convention.h"
+#include "../../disconnection_exception.h"
 #include "../sprite_props.h"
 #include <unordered_map>
 
@@ -23,11 +24,11 @@ struct JazzAnimationSpeedCoefs {
 Jazz::Jazz(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
            Coordinates &currentCoords, const uint8_t &entityId,
            SnapshotWrapper &snapshot)
-    : entityId(entityId), graphicEngine(graphicEngine),
-      audioEngine(audioEngine), currentAnimation(nullptr),
-      currentSound(nullptr), currentCoords(currentCoords), isWalkingLeft(false),
-      isWalkingRight(false), isWalkingUp(false), isWalkingDown(false),
-      isRunning(false), entityInfo(),
+    : entityId(entityId), type(GeneralType::Player),
+      graphicEngine(graphicEngine), audioEngine(audioEngine),
+      currentAnimation(nullptr), currentSound(nullptr),
+      currentCoords(currentCoords), isWalkingLeft(false), isWalkingRight(false),
+      isWalkingUp(false), isWalkingDown(false), isRunning(false), entityInfo(),
       hitbox(HitboxSizes::PlayerWidth, HitboxSizes::PlayerHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -295,10 +296,9 @@ void Jazz::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
   PlayerDto newEntityInfo;
   bool foundPlayableCharacter =
       snapshot.getPlayerById(this->entityId, &newEntityInfo);
+
   if (!foundPlayableCharacter) {
-    std::cerr << "Jazz with entity id " + std::to_string(this->entityId) +
-                     " was not found in snapshot at update time";
-    return;
+    throw DisconnectionException(__LINE__, __FILE__);
   }
 
   this->currentCoords.setX(newEntityInfo.position_x);
@@ -309,5 +309,7 @@ void Jazz::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
 }
 
 uint8_t Jazz::getId() const { return this->entityId; }
+
+u_int8_t Jazz::getType() const { return this->type; }
 
 Jazz::~Jazz() {}

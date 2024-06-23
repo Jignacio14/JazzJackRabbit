@@ -66,6 +66,19 @@ const int StartupScreen::show() {
     return EXIT_ERROR_CODE;
   }
 
+  if (!this->lobby->did_game_start()) {
+    const std::string errorMessage =
+        "Game closed in waiting screen. Either due to the window being closed "
+        "or the server shut down the connection";
+    std::cout << errorMessage << std::endl;
+
+    if (this->lobby) {
+      this->lobby->quit_game();
+    }
+
+    return EXIT_ERROR_CODE;
+  }
+
   return mainWindowExitCode;
 }
 

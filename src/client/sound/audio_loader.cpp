@@ -21,7 +21,8 @@ AudioLoader::AudioLoader(SDL2pp::Mixer &sdlMixer)
       carrotusBackgroundMusic(
           "src/client/sound/files/carrotus_background_music.mp3"),
       beachWorldBackgroundMusic(
-          "src/client/sound/files/beach_world_background_music.mp3") {}
+          "src/client/sound/files/beach_world_background_music.mp3"),
+      disconnectionSound("src/client/sound/files/disconnection_sound.mp3") {}
 
 void AudioLoader::preloadAudios() {}
 
@@ -75,4 +76,8 @@ SDL2pp::Music &AudioLoader::getCarrotusBackgroundMusic() {
 
 SDL2pp::Music &AudioLoader::getBeachWorldBackgroundMusic() {
   return this->beachWorldBackgroundMusic;
+}
+
+SDL2pp::Chunk &AudioLoader::getDisconnectionSound() {
+  return this->disconnectionSound;
 }

@@ -12,10 +12,10 @@ struct AmmoGun2AnimationSpeedCoefs {
 AmmoGun2::AmmoGun2(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
                    Coordinates &currentCoords, const uint8_t &entityId,
                    SnapshotWrapper &snapshot)
-    : entityId(entityId), graphicEngine(graphicEngine),
-      audioEngine(audioEngine), currentAnimation(nullptr),
-      currentCoords(currentCoords), entityInfo(), shouldBeDeleted(false),
-      isShowingExitAnimation(false),
+    : entityId(entityId), type(GeneralType::Collectable),
+      graphicEngine(graphicEngine), audioEngine(audioEngine),
+      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
+      shouldBeDeleted(false), isShowingExitAnimation(false),
       hitbox(HitboxSizes::CollectableWidth, HitboxSizes::CollectableHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -86,6 +86,8 @@ void AmmoGun2::update(SnapshotWrapper &snapshot,
 }
 
 uint8_t AmmoGun2::getId() const { return this->entityId; }
+
+u_int8_t AmmoGun2::getType() const { return this->type; }
 
 bool AmmoGun2::shouldDelete() const { return this->shouldBeDeleted; }
 

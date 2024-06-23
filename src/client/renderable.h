@@ -24,6 +24,8 @@ public:
 
   virtual uint8_t getId() const = 0;
 
+  virtual u_int8_t getType() const = 0;
+
   virtual ~Renderable(){};
 };
 

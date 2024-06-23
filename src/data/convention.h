@@ -84,6 +84,17 @@ struct EnemiesIds {
   static const uint8_t Schwarzenguard = 2;
 };
 
+struct GeneralType {
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t Player = 0;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t Enemy = 1;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t Collectable = 2;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t Bullet = 3;
+};
+
 struct ScenariosIds {
   // cppcheck-suppress unusedStructMember
   static const uint8_t Carrotus = 0;
