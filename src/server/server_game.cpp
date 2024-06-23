@@ -7,6 +7,8 @@
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
+static GlobalCounter &counter = GlobalCounter::getInstance();
+
 const static double TICKS_PER_SECOND =
     globalConfigs.getTargetTicksPerSecondOfServer();
 
@@ -279,7 +281,8 @@ void Game::updateBullets() {
         // Los drops son collectables que se agregan al vector y listo. Al
         // resetearse los collectables, estos también desaparecerían.
         uint8_t drop = enemy->receive_damage(bullet.get_damage());
-        this->handleDrop(drop);
+        Rectangle drop_rectangle = enemy->drop_rectangle();
+        this->handleDrop(drop, drop_rectangle);
         bullet.kill(snapshot);
         break;
       }
@@ -291,17 +294,16 @@ void Game::updateBullets() {
       bullets.end());
 }
 
-void Game::handleDrop(uint8_t drop) {
+void Game::handleDrop(uint8_t drop, Rectangle drop_rectangle) {
   if (drop == EnemyDrop::NoDrop) {
-    std::cout << "Enemy didn't drop anything" << std::endl;
     return;
   }
   switch (drop) {
   case EnemyDrop::Ammo:
-    std::cout << "Enemy dropped an ammo" << std::endl;
+    collectablesHandler.add_ammo(drop_rectangle);
     break;
   case EnemyDrop::Carrot:
-    std::cout << "Enemy dropped a carrot" << std::endl;
+    collectablesHandler.add_carrot(drop_rectangle);
     break;
   }
 }

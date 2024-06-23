@@ -1,6 +1,7 @@
 #ifndef COLLECTABLES_HANDLER_H
 #define COLLECTABLES_HANDLER_H
 
+#include "ammo.h"
 #include "base_collectable.h"
 #include "carrot.h"
 #include "coin.h"
@@ -27,6 +28,8 @@ public:
       Snapshot &snapshot);
   void initialize();
   void reset_collectables();
+  void add_ammo(Rectangle rectangle);
+  void add_carrot(Rectangle rectangle);
 };
 
 #endif // COLLECTABLES_HANDLER_H

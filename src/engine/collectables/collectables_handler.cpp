@@ -418,3 +418,30 @@ void CollectablesHandler::reset_collectables() {
   snapshot.sizeCollectables = 0;
   initialize();
 }
+
+void CollectablesHandler::add_ammo(Rectangle rectangle) {
+  uint32_t id_ammo = counter.getNextID();
+  collectables.push_back(std::make_unique<Ammo>(rectangle, snapshot, id_ammo));
+  CollectableDto ammo_dto;
+  ammo_dto.type = CollectableIds::AmmoGun2;
+  ammo_dto.entity_id = id_ammo;
+  ammo_dto.position_x = rectangle.getTopLeftCorner().getX();
+  ammo_dto.position_y = rectangle.getTopLeftCorner().getY();
+  ammo_dto.was_collected = NumericBool::False;
+  snapshot.collectables[snapshot.sizeCollectables] = ammo_dto;
+  snapshot.sizeCollectables++;
+}
+
+void CollectablesHandler::add_carrot(Rectangle rectangle) {
+  uint32_t id_carrot = counter.getNextID();
+  collectables.push_back(
+      std::make_unique<Carrot>(rectangle, snapshot, id_carrot));
+  CollectableDto carrot_dto;
+  carrot_dto.type = CollectableIds::Carrot;
+  carrot_dto.entity_id = id_carrot;
+  carrot_dto.position_x = rectangle.getTopLeftCorner().getX();
+  carrot_dto.position_y = rectangle.getTopLeftCorner().getY();
+  carrot_dto.was_collected = NumericBool::False;
+  snapshot.collectables[snapshot.sizeCollectables] = carrot_dto;
+  snapshot.sizeCollectables++;
+}

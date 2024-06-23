@@ -10,6 +10,7 @@
 #include "../engine/collectables/collectables_handler.h"
 #include "../engine/enemies/base_enemy.h"
 #include "../engine/enemies/enemies_handler.h"
+#include "../engine/global_counter.h"
 #include "../engine/jazz.h"
 #include "../engine/lori.h"
 #include "../engine/spaz.h"
@@ -64,7 +65,7 @@ private:
   void rateController(double start, double finish);
   void updateBullets();
   void updateCollectables();
-  void handleDrop(uint8_t drop);
+  void handleDrop(uint8_t drop, Rectangle drop_rectangle);
 
 public:
   explicit Game(GameMonitor &monitor, Queue<CommandCodeDto> &messages);

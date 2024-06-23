@@ -88,6 +88,7 @@ public:
 
   void change_weapon(uint8_t weapon_id);
   void add_points(uint32_t points);
+  void add_ammo();
 
   Bullet shoot();
 

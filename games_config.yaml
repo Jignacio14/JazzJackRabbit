@@ -48,18 +48,18 @@ bubba_damage: 5
 bubba_points: 10
 bubba_respawn_time: 7
 bubba_ammo_drop_chance: 40
-bubba_health_drop_chance: 20
+bubba_health_drop_chance: 40
 
 turtle_max_life: 20
 turtle_damage: 5
 turtle_points: 10
 turtle_respawn_time: 7
-turtle_ammo_drop_chance: 25
-turtle_health_drop_chance: 10
+turtle_ammo_drop_chance: 40
+turtle_health_drop_chance: 40
 
 schwarzenguard_max_life: 100
 schwarzenguard_damage: 5
 schwarzenguard_points: 10
 schwarzenguard_respawn_time: 7
-schwarzenguard_ammo_drop_chance: 15
-schwarzenguard_health_drop_chance: 10
+schwarzenguard_ammo_drop_chance: 40
+schwarzenguard_health_drop_chance: 40

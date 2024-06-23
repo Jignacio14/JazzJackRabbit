@@ -56,6 +56,7 @@ public:
   bool is_alive();
   void update();
   void try_revive();
+  Rectangle drop_rectangle();
 };
 
 #endif // JAZZJACKRABBIT_BASE_ENEMY_H

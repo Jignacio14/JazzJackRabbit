@@ -11,6 +11,7 @@ const static double INTOXICATED_TIME = globalConfigs.getIntoxicatedTime();
 
 const static int INITIAL_X = 60;
 const static int INITIAL_Y = 1050;
+const static uint16_t ADD_AMMO = 5;
 
 BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
                        Snapshot &snapshot, int position, ServerMap &map)
@@ -334,6 +335,13 @@ void BasePlayer::add_points(uint32_t points) {
   this->points += points;
   if (position != -1) {
     snapshot.players[position].points = this->points;
+  }
+}
+
+void BasePlayer::add_ammo() {
+  orb_ammo += ADD_AMMO;
+  if (position != -1) {
+    snapshot.players[position].ammo_gun_2 = orb_ammo;
   }
 }
 

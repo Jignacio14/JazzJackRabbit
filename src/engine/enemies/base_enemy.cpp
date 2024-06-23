@@ -72,3 +72,13 @@ void BaseEnemy::try_revive() {
     snapshot.enemies[find_position()].is_dead = NumericBool::False;
   }
 }
+
+Rectangle BaseEnemy::drop_rectangle() {
+  // primero lo hago sencillo, del lado izquierdo siempre
+  Coordinates top_left(
+      rectangle.getTopLeftCorner().getX() - HitboxSizes::CollectableWidth - 1,
+      rectangle.getBottomRightCorner().getY() - HitboxSizes::CollectableHeight);
+  Coordinates bottom_right(rectangle.getTopLeftCorner().getX() - 1,
+                           rectangle.getBottomRightCorner().getY());
+  return Rectangle(top_left, bottom_right);
+}
