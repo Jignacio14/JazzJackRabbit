@@ -23,6 +23,7 @@ private:
 
   void renderBackground();
   void renderHeader();
+  void renderReason();
 
 public:
   DisconnectedOverlay(SDL2pp::Renderer &sdlRenderer, AudioEngine &audioEngine,

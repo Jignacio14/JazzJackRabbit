@@ -294,6 +294,7 @@ void Renderer::run() {
       this->keyboardHandler.processEvents(this->player);
     } catch (const DisconnectionException &) {
       this->gameWasDisconnected = true;
+      this->keyboardHandler.disableGameInputs();
       this->client.kill();
     } catch (const StopIteration &) {
       break;
@@ -302,6 +303,7 @@ void Renderer::run() {
     if (!this->client.isAlive() && !this->latestSnapshot->didGameEnd() &&
         !this->gameWasDisconnected) {
       this->gameWasDisconnected = true;
+      this->keyboardHandler.disableGameInputs();
       this->client.kill();
     }
 
