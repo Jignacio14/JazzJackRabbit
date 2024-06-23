@@ -315,6 +315,10 @@ void Renderer::run() {
       this->client.kill();
     }
 
+    if (this->latestSnapshot->didGameEnd()) {
+      this->keyboardHandler.disableGameInputs();
+    }
+
     double timestampFinish = this->now();
     double timeToRest = rate - (timestampFinish - timestampStart);
 
