@@ -241,6 +241,7 @@ void Renderer::createNewCollectables(const Snapshot &snapshot) {
 void Renderer::createNewBullets(const Snapshot &snapshot) {
 
   for (int i = 0; i < snapshot.sizeBullets; i++) {
+
     bool exists = std::any_of(
         this->renderables.begin(), this->renderables.end(),
         [snapshot, i](const auto &renderable) {
@@ -263,7 +264,7 @@ void Renderer::createNewBullets(const Snapshot &snapshot) {
           snapshot.bullets[i].entity_id, storedSnapshotWrapper));
       break;
     case GunsIds::Gun2:
-      this->addRenderable(std::make_unique<BulletGun1>(
+      this->addRenderable(std::make_unique<BulletGun2>(
           this->graphicEngine, this->audioEngine, coords,
           snapshot.bullets[i].entity_id, storedSnapshotWrapper));
       break;
