@@ -49,7 +49,7 @@ int Bullet::find_bullet(const Snapshot &snapshot) {
   return -1;
 }
 
-void Bullet::kill(const Snapshot &snapshot) {
+void Bullet::kill(Snapshot &snapshot) {
   bool found = false;
   alive = false;
   for (uint16_t i = 0; i < snapshot.sizeBullets; i++) {
