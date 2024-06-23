@@ -19,7 +19,7 @@ add_executable(
   JazzJackRabbit2Test.cpp
 )
 
-target_link_libraries(JazzJackRabbit2Test gtest_main)
+target_link_libraries(JazzJackRabbit2Test gtest gmock gtest_main)
 
 include(GoogleTest)
 gtest_discover_tests(JazzJackRabbit2Test)
