@@ -27,6 +27,8 @@ protected:
 public:
   BaseEnemy(uint32_t id, Snapshot &snapshot, Rectangle rectangle);
   void receive_damage(uint8_t damage);
+  bool intersects(Rectangle rectangle);
+  bool is_alive();
 };
 
 #endif // JAZZJACKRABBIT_BASE_ENEMY_H

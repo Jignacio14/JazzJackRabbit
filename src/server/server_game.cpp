@@ -287,6 +287,13 @@ void Game::updateBullets() {
         break;
       }
     }
+    for (auto &enemy : enemies) {
+      if (enemy->intersects(bullet.get_rectangle()) && enemy->is_alive()) {
+        enemy->receive_damage(bullet.get_damage());
+        bullet.kill(snapshot);
+        break;
+      }
+    }
   }
   bullets.erase(
       std::remove_if(bullets.begin(), bullets.end(),
