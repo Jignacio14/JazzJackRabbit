@@ -69,6 +69,8 @@ void Game::gameLoop() {
 
       this->updateCollectables();
 
+      enemiesHandler.update();
+
       CommandCodeDto command;
       int instructions_count = 0;
       while (instructions_count < MAX_INSTRUCTIONS_PER_TICK) {
@@ -137,23 +139,6 @@ std::unique_ptr<BasePlayer> Game::constructPlayer(uint8_t player_id,
 
   return nullptr;
 }
-/*
-void Game::addEnemies() {
-  std::unique_ptr<BaseEnemy> enemy =
-      std::make_unique<BaseEnemy>(1, snapshot, 0);
-  this->enemies.push_back(std::move(enemy));
-  EnemyDto new_enemy = {};
-  new_enemy.entity_id = 1;
-  new_enemy.facing_direction = FacingDirectionsIds::Left;
-  new_enemy.is_dead = 0;
-  new_enemy.was_hurt = 0;
-  new_enemy.shot = 0;
-  new_enemy.position_x = 500;
-  new_enemy.position_y = 1050;
-  new_enemy.type = EnemiesIds::Bubba;
-  this->snapshot.enemies[this->snapshot.sizeEnemies] = new_enemy;
-  this->snapshot.sizeEnemies++;
-}*/
 
 void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
                          const uint8_t &data) {

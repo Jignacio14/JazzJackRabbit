@@ -75,3 +75,9 @@ void EnemiesHandler::initialize() {
   snapshot.enemies[snapshot.sizeEnemies] = enemy4_dto;
   snapshot.sizeEnemies++;
 }
+
+void EnemiesHandler::update() {
+  for (auto &enemy : enemies) {
+    enemy->update();
+  }
+}

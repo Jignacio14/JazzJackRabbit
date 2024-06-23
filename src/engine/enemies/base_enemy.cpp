@@ -2,10 +2,15 @@
 #include "base_enemy.h"
 #include <iostream>
 
-BaseEnemy::BaseEnemy(uint32_t id, Snapshot &snapshot, Rectangle rectangle)
-    : id(id), health(100), rectangle(rectangle),
-      facing_direction(FacingDirectionsIds::Left), is_dead(NumericBool::False),
-      snapshot(snapshot) {}
+BaseEnemy::BaseEnemy(uint32_t id, Snapshot &snapshot, Rectangle rectangle,
+                     uint8_t health, uint8_t damage, uint32_t points,
+                     double respawn_time, float ammo_drop_chance,
+                     float health_drop_chance)
+    : id(id), rectangle(rectangle), facing_direction(FacingDirectionsIds::Left),
+      is_dead(NumericBool::False), snapshot(snapshot), health(100),
+      damage(damage), points(points), respawn_time(respawn_time),
+      ammo_drop_chance(ammo_drop_chance),
+      health_drop_chance(health_drop_chance) {}
 
 void BaseEnemy::receive_damage(uint8_t damage) {
   int index = find_position();
@@ -34,4 +39,9 @@ int BaseEnemy::find_position() {
     }
   }
   return -1;
+}
+
+void BaseEnemy::update() {
+  int index = find_position();
+  snapshot.enemies[index].was_hurt = NumericBool::False;
 }

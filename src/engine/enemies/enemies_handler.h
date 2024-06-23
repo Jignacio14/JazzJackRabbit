@@ -20,6 +20,7 @@ public:
   EnemiesHandler(std::vector<std::unique_ptr<BaseEnemy>> &enemies,
                  Snapshot &snapshot);
   void initialize();
+  void update();
 };
 
 #endif // ENEMIES_HANDLER_H

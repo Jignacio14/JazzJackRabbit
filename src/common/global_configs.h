@@ -74,6 +74,45 @@ private:
   // cppcheck-suppress unusedStructMember
   uint32_t pointsPerGem;
 
+  // cppcheck-suppress unusedStructMember
+  uint8_t bubbaMaxLife;
+  // cppcheck-suppress unusedStructMember
+  uint8_t bubbaDamage;
+  // cppcheck-suppress unusedStructMember
+  uint32_t bubbaPoints;
+  // cppcheck-suppress unusedStructMember
+  double bubbaRespawnTime;
+  // cppcheck-suppress unusedStructMember
+  float bubbaAmmoDropChance;
+  // cppcheck-suppress unusedStructMember
+  float bubbaHealthDropChance;
+
+  // cppcheck-suppress unusedStructMember
+  uint8_t turtleMaxLife;
+  // cppcheck-suppress unusedStructMember
+  uint8_t turtleDamage;
+  // cppcheck-suppress unusedStructMember
+  uint32_t turtlePoints;
+  // cppcheck-suppress unusedStructMember
+  double turtleRespawnTime;
+  // cppcheck-suppress unusedStructMember
+  float turtleAmmoDropChance;
+  // cppcheck-suppress unusedStructMember
+  float turtleHealthDropChance;
+
+  // cppcheck-suppress unusedStructMember
+  uint8_t schwarzenguardMaxLife;
+  // cppcheck-suppress unusedStructMember
+  uint8_t schwarzenguardDamage;
+  // cppcheck-suppress unusedStructMember
+  uint32_t schwarzenguardPoints;
+  // cppcheck-suppress unusedStructMember
+  double schwarzenguardRespawnTime;
+  // cppcheck-suppress unusedStructMember
+  float schwarzenguardAmmoDropChance;
+  // cppcheck-suppress unusedStructMember
+  float schwarzenguardHealthDropChance;
+
   GlobalConfigs();
 
   /*
@@ -127,6 +166,27 @@ public:
   double getIntoxicatedTime() const;
   uint32_t getPointsPerCoin() const;
   uint32_t getPointsPerGem() const;
+
+  uint8_t getBubbaMaxLife() const;
+  uint8_t getBubbaDamage() const;
+  uint32_t getBubbaPoints() const;
+  double getBubbaRespawnTime() const;
+  float getBubbaAmmoDropChance() const;
+  float getBubbaHealthDropChance() const;
+
+  uint8_t getTurtleMaxLife() const;
+  uint8_t getTurtleDamage() const;
+  uint32_t getTurtlePoints() const;
+  double getTurtleRespawnTime() const;
+  float getTurtleAmmoDropChance() const;
+  float getTurtleHealthDropChance() const;
+
+  uint8_t getSchwarzenguardMaxLife() const;
+  uint8_t getSchwarzenguardDamage() const;
+  uint32_t getSchwarzenguardPoints() const;
+  double getSchwarzenguardRespawnTime() const;
+  float getSchwarzenguardAmmoDropChance() const;
+  float getSchwarzenguardHealthDropChance() const;
 };
 
 #endif // GLOBAL_CONFIGS_H
