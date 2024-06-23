@@ -4,9 +4,9 @@
 #include <SDL2pp/SDL2pp.hh>
 
 KeyboardHandler::KeyboardHandler(Client &client, DebugPanel &debugPanel)
-    : client(client), debugPanel(debugPanel) {}
+    : client(client), debugPanel(debugPanel), allowGameInputs(true) {}
 
-void KeyboardHandler::processEvents(const Player &player) {
+void KeyboardHandler::processAllEvents(const Player &player) {
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
 
@@ -91,3 +91,48 @@ void KeyboardHandler::processEvents(const Player &player) {
     }
   }
 }
+
+void KeyboardHandler::processOnlyUiEvents(const Player &player) {
+  SDL_Event event;
+  while (SDL_PollEvent(&event)) {
+
+    if (event.key.repeat != 0) {
+      continue;
+    }
+
+    /*
+      SDL_QUIT events
+    */
+
+    if (event.type == SDL_QUIT) {
+      throw StopIteration();
+
+      /*
+        SDL_KEYDOWN events
+      */
+
+    } else if (event.type == SDL_KEYDOWN) {
+      switch (event.key.keysym.sym) {
+      case SDLK_ESCAPE:
+        throw StopIteration();
+        break;
+
+      case SDLK_F1:
+        std::cout << "Toggling debug panel"
+                  << "\n";
+        this->debugPanel.activationToggle();
+        break;
+      }
+    }
+  }
+}
+
+void KeyboardHandler::processEvents(const Player &player) {
+  if (this->allowGameInputs) {
+    this->processAllEvents(player);
+  } else {
+    this->processOnlyUiEvents(player);
+  }
+}
+
+void KeyboardHandler::disableGameInputs() { this->allowGameInputs = false; }

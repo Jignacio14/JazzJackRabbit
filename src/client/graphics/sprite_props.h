@@ -108,9 +108,11 @@ struct TextFontsCodes {
   static constexpr uint8_t Joystix = 121;
 };
 
-struct LeaderboardCodes {
+struct ModalCodes {
   // cppcheck-suppress unusedStructMember
   static constexpr uint8_t Background = 131;
+  // cppcheck-suppress unusedStructMember
+  static constexpr uint8_t Disconnection = 132;
 };
 
 struct SpriteNamesMap {

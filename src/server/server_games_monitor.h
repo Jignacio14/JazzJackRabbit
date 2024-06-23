@@ -36,6 +36,7 @@ public:
   void removeEndedGames();
   void removePlayer(const std::string &game_name, const u_int8_t &player_id,
                     Queue<Snapshot> &sender_queue);
+  void killAll();
 
   ~GamesMonitor();
 };

@@ -63,7 +63,7 @@ public:
   /*
    *
    * */
-  Snapshot wait_game_start();
+  Snapshot wait_game_start(bool &game_started);
 
   /*
    * Throws an error if the socket was closed during a communication.

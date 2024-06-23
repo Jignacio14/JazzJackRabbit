@@ -12,10 +12,10 @@ struct CoinAnimationSpeedCoefs {
 Coin::Coin(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
            Coordinates &currentCoords, const uint8_t &entityId,
            SnapshotWrapper &snapshot)
-    : entityId(entityId), graphicEngine(graphicEngine),
-      audioEngine(audioEngine), currentAnimation(nullptr),
-      currentCoords(currentCoords), entityInfo(), shouldBeDeleted(false),
-      isShowingExitAnimation(false),
+    : entityId(entityId), type(GeneralType::Collectable),
+      graphicEngine(graphicEngine), audioEngine(audioEngine),
+      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
+      shouldBeDeleted(false), isShowingExitAnimation(false),
       hitbox(HitboxSizes::CollectableWidth, HitboxSizes::CollectableHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -85,6 +85,8 @@ void Coin::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
 }
 
 uint8_t Coin::getId() const { return this->entityId; }
+
+u_int8_t Coin::getType() const { return this->type; }
 
 bool Coin::shouldDelete() const { return this->shouldBeDeleted; }
 

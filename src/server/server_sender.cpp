@@ -95,8 +95,12 @@ void Sender::logOutPlayer() {
 }
 
 void Sender::kill() {
-  this->_is_alive = false;
-  this->servprot.shutdown();
+  try {
+    this->_is_alive = false;
+    this->sender_queue.close();
+    this->servprot.shutdown();
+  } catch (const LibError &sktErr) {
+  }
 }
 
 Sender::~Sender() {
