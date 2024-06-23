@@ -18,6 +18,7 @@ private:
   int client_id;
   ClientProtocol protocol;
   std::atomic<bool> keep_talking;
+  std::atomic<bool> killed;
   ClientSender sender;
   ClientReceiver receiver;
   Queue<std::vector<uint8_t>> sender_queue;

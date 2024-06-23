@@ -294,14 +294,15 @@ void Renderer::run() {
       this->keyboardHandler.processEvents(this->player);
     } catch (const DisconnectionException &) {
       this->gameWasDisconnected = true;
+      this->client.kill();
     } catch (const StopIteration &) {
       break;
     }
 
-    if (!this->client.isAlive() && !this->latestSnapshot->didGameEnd()) {
-      std::string errorMessage =
-          "Client stopped due to connection with server broken";
-      throw JJR2Error(errorMessage, __LINE__, __FILE__);
+    if (!this->client.isAlive() && !this->latestSnapshot->didGameEnd() &&
+        !this->gameWasDisconnected) {
+      this->gameWasDisconnected = true;
+      this->client.kill();
     }
 
     double timestampFinish = this->now();
