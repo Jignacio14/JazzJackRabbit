@@ -25,7 +25,7 @@ BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
       is_moving(false), is_running(false), moment_of_death(0),
       weapon(std::make_unique<InitialWeapon>(snapshot, position)),
       orb_ammo(globalConfigs.getBullet2MaxAmmo()), points(0),
-      intoxicated_start(0) {}
+      intoxicated_start(0), doing_special_attack(false) {}
 
 int BasePlayer::find_position() {
   for (int i = 0; i < snapshot.sizePlayers; ++i) {
@@ -36,6 +36,7 @@ int BasePlayer::find_position() {
 }
 
 void BasePlayer::update() {
+
   position = find_position();
 
   this->update_jump();
@@ -45,6 +46,8 @@ void BasePlayer::update() {
   this->update_intoxication();
 
   weapon->update();
+
+  // this->update_special_attack();
 
   if (health == 0)
     this->try_respawn();
@@ -184,7 +187,7 @@ void BasePlayer::change_state(std::unique_ptr<BaseState> new_state) {
 void BasePlayer::move_right(uint8_t speed) {
   Rectangle new_rectangle = rectangle;
   new_rectangle.move_right(speed);
-  if (state->can_move() && map.available_position(new_rectangle)) {
+  if (this->can_move() && map.available_position(new_rectangle)) {
     rectangle = new_rectangle;
     facing_direction = FacingDirectionsIds::Right;
     is_moving = true;
@@ -202,7 +205,7 @@ void BasePlayer::move_right(uint8_t speed) {
 void BasePlayer::move_left(uint8_t speed) {
   Rectangle new_rectangle = rectangle;
   new_rectangle.move_left(speed);
-  if (state->can_move() && map.available_position(new_rectangle)) {
+  if (this->can_move() && map.available_position(new_rectangle)) {
     rectangle = new_rectangle;
     facing_direction = FacingDirectionsIds::Left;
     is_moving = true;
@@ -246,7 +249,7 @@ void BasePlayer::jump() {
     return;
   }
 
-  if (positions_to_jump == 0 && state->can_jump()) {
+  if (this->can_jump()) {
     positions_to_jump = MAX_JUMP;
     snapshot.players[position].is_jumping = NumericBool::True;
   }
@@ -312,10 +315,6 @@ bool BasePlayer::intersects(Rectangle rectangle) {
   return this->rectangle.intersects(rectangle);
 }
 
-bool BasePlayer::can_shoot() {
-  return (state->can_shoot() && weapon->can_shoot());
-}
-
 bool BasePlayer::is_alive() { return health > 0; }
 
 void BasePlayer::change_weapon(uint8_t weapon_id) {
@@ -346,6 +345,18 @@ void BasePlayer::add_ammo() {
 }
 
 Rectangle BasePlayer::get_rectangle() { return rectangle; }
+
+bool BasePlayer::can_shoot() {
+  return (state->can_shoot() && weapon->can_shoot() && !doing_special_attack);
+}
+
+bool BasePlayer::can_jump() {
+  return (positions_to_jump == 0 && state->can_jump() && !doing_special_attack);
+}
+
+bool BasePlayer::can_move() {
+  return (state->can_move() && !doing_special_attack);
+}
 
 BasePlayer::~BasePlayer() {
   // delete weapon;

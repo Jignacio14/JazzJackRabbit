@@ -56,6 +56,8 @@ protected:
   uint32_t points;
   // cppcheck-suppress unusedStructMember
   double intoxicated_start;
+  // cppcheck-suppress unusedStructMember
+  bool doing_special_attack;
 
   bool move_down();
   bool move_up();
@@ -65,6 +67,9 @@ protected:
   void update_movement();
   void update_intoxication();
   void try_respawn();
+  bool can_jump();
+  bool can_move();
+  // virtual void update_special_attack() = 0;
 
 public:
   BasePlayer(uint8_t player_id, const std::string &player_name,

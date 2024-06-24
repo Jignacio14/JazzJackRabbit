@@ -190,10 +190,9 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
     this->cheat2Activated = true;
     snapshot.timeLeft = GAME_DURATION_CHEAT;
     break;
-    /*
   case PlayerCommands::SPECIAL_ATTACK:
-    this->players_data[player_id]->specialAttack();
-    break; */
+    this->players_data[player_id]->special_attack();
+    break;
   }
 }
 
