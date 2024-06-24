@@ -297,7 +297,7 @@ void Game::updateEnemies() {
   for (auto &enemy : enemies) {
     for (auto &pair : players_data) {
       auto &player = pair.second;
-      if (player->intersects(enemy->get_damage_rectangle()) &&
+      if (enemy->intersects_with_direction(player->get_rectangle()) &&
           enemy->can_attack()) {
         enemy->attack(*player);
         break;

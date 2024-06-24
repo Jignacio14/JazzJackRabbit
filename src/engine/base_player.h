@@ -90,6 +90,8 @@ public:
   void add_points(uint32_t points);
   void add_ammo();
 
+  Rectangle get_rectangle();
+
   Bullet shoot();
 
   ~BasePlayer();
