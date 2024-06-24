@@ -9,6 +9,7 @@ class Alive : public BaseState {
 public:
   bool can_move() override;
   bool can_shoot() override;
+  bool can_jump() override;
 };
 
 #endif // JAZZJACKRABBIT_ALIVE_H
