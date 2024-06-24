@@ -74,6 +74,8 @@ void Game::gameLoop() {
 
       enemiesHandler.update();
 
+      this->updateEnemies();
+
       CommandCodeDto command;
       int instructions_count = 0;
       while (instructions_count < MAX_INSTRUCTIONS_PER_TICK) {
@@ -277,10 +279,6 @@ void Game::updateBullets() {
     }
     for (auto &enemy : enemies) {
       if (enemy->intersects(bullet.get_rectangle()) && enemy->is_alive()) {
-        // receive_damage devuelve un uint8 que representa el drop.
-        // Luego un switch con 3 casos lo maneja, 0 no drop, 1 ammo, 2 health.
-        // Los drops son collectables que se agregan al vector y listo. Al
-        // resetearse los collectables, estos también desaparecerían.
         uint8_t drop = enemy->receive_damage(bullet.get_damage());
         Rectangle drop_rectangle = enemy->drop_rectangle();
         this->handleDrop(drop, drop_rectangle);
@@ -293,6 +291,19 @@ void Game::updateBullets() {
       std::remove_if(bullets.begin(), bullets.end(),
                      [](Bullet &bullet) { return !bullet.is_alive(); }),
       bullets.end());
+}
+
+void Game::updateEnemies() {
+  for (auto &enemy : enemies) {
+    for (auto &pair : players_data) {
+      auto &player = pair.second;
+      if (player->intersects(enemy->get_damage_rectangle()) &&
+          enemy->can_attack()) {
+        enemy->attack(*player);
+        break;
+      }
+    }
+  }
 }
 
 void Game::handleDrop(uint8_t drop, Rectangle drop_rectangle) {

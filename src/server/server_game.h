@@ -66,6 +66,7 @@ private:
   void updateBullets();
   void updateCollectables();
   void handleDrop(uint8_t drop, Rectangle drop_rectangle);
+  void updateEnemies();
 
 public:
   explicit Game(GameMonitor &monitor, Queue<CommandCodeDto> &messages);
