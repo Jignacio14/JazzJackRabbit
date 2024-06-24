@@ -11,8 +11,8 @@ void KeyboardHandler::processAllEvents(const Player &player) {
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
 
-    std::cout << "event: " << event.type << "\n";
-    std::cout << "quit code: " << SDL_QUIT << "\n";
+    //std::cout << "event: " << event.type << "\n";
+    //std::cout << "quit code: " << SDL_QUIT << "\n";
 
     if (event.key.repeat != 0) {
       continue;
@@ -23,7 +23,7 @@ void KeyboardHandler::processAllEvents(const Player &player) {
     */
 
     if (event.type == SDL_QUIT) {
-      std::cout << "QUIT\n";
+      //std::cout << "QUIT\n";
 
       throw StopIteration();
 
@@ -109,8 +109,8 @@ void KeyboardHandler::processAllEvents(const Player &player) {
 void KeyboardHandler::processOnlyUiEvents(const Player &player) {
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
-    std::cout << "event: " << event.type << "\n";
-    std::cout << "quit code: " << SDL_QUIT << "\n";
+    //std::cout << "event: " << event.type << "\n";
+    //std::cout << "quit code: " << SDL_QUIT << "\n";
 
     if (event.key.repeat != 0) {
       continue;
@@ -121,7 +121,7 @@ void KeyboardHandler::processOnlyUiEvents(const Player &player) {
     */
 
     if (event.type == SDL_QUIT) {
-      std::cout << "QUIT\n";
+      //std::cout << "QUIT\n";
       throw StopIteration();
 
       /*}else if (event.type == ){
