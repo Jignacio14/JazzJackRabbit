@@ -53,6 +53,8 @@ private:
   CollectablesHandler collectablesHandler;
   // cppcheck-suppress unusedStructMember
   EnemiesHandler enemiesHandler;
+  // cppcheck-suppress unusedStructMember
+  bool cheat2Activated;
 
   void gameLoop();
   // cppcheck-suppress unusedPrivateFunction

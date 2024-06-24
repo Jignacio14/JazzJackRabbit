@@ -24,6 +24,10 @@ struct PlayerCommands {
   static const uint8_t RUN = 8;
   // cppcheck-suppress unusedStructMember
   static const uint8_t STOP_RUNNING = 9;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t CHEAT_1 = 10;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t CHEAT_2 = 11;
 };
 
 struct PlayableCharactersIds {

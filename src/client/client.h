@@ -47,6 +47,10 @@ public:
 
   void change_weapon(uint8_t weapon_number);
 
+  void cheat1();
+
+  void cheat2();
+
   bool isAlive() const;
 
   /*

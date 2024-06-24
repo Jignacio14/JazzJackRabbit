@@ -1,6 +1,7 @@
 #include "./keyboard_handler.h"
 #include "../data/convention.h"
 #include "./stop_iteration_exception.h"
+#include <SDL2/SDL_keycode.h>
 #include <SDL2pp/SDL2pp.hh>
 
 KeyboardHandler::KeyboardHandler(Client &client, DebugPanel &debugPanel)
@@ -35,6 +36,14 @@ void KeyboardHandler::processAllEvents(const Player &player) {
         std::cout << "Toggling debug panel"
                   << "\n";
         this->debugPanel.activationToggle();
+        break;
+
+      case SDLK_F2:
+        this->client.cheat1();
+        break;
+
+      case SDLK_F3:
+        this->client.cheat2();
         break;
 
       case SDLK_UP:

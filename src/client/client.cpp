@@ -85,6 +85,20 @@ void Client::change_weapon(uint8_t weapon_number) {
   sender_queue.try_push(command);
 }
 
+void Client::cheat1() {
+  std::vector<uint8_t> command;
+  uint8_t command_to_push = PlayerCommands::CHEAT_1;
+  command.push_back(command_to_push);
+  sender_queue.try_push(command);
+}
+
+void Client::cheat2() {
+  std::vector<uint8_t> command;
+  uint8_t command_to_push = PlayerCommands::CHEAT_2;
+  command.push_back(command_to_push);
+  sender_queue.try_push(command);
+}
+
 void Client::kill() {
   try {
     protocol.close_and_shutdown();
