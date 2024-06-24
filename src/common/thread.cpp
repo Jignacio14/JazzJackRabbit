@@ -16,7 +16,6 @@ void Thread::main() {
     this->run();
   } catch (const std::exception &err) {
     this->_is_alive = false;
-    throw;
   } catch (...) {
     std::cerr << "Unexpected exception: <unknown>\n";
   }
