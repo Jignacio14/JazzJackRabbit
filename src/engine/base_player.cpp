@@ -47,7 +47,7 @@ void BasePlayer::update() {
 
   weapon->update();
 
-  // this->update_special_attack();
+  this->update_special_attack();
 
   if (health == 0)
     this->try_respawn();
@@ -162,28 +162,6 @@ bool BasePlayer::move_up() {
   return false;
 }
 
-void BasePlayer::receive_damage(uint8_t damage) {
-  if (damage >= health) {
-    health = 0;
-    change_state(std::make_unique<Dead>());
-    moment_of_death = snapshot.timeLeft;
-    if (position != -1) {
-      snapshot.players[position].is_dead = NumericBool::True;
-      snapshot.players[position].life = health;
-    }
-  } else {
-    health -= damage;
-    if (position != -1) {
-      snapshot.players[position].was_hurt = NumericBool::True;
-      snapshot.players[position].life = health;
-    }
-  }
-}
-
-void BasePlayer::change_state(std::unique_ptr<BaseState> new_state) {
-  state = std::move(new_state);
-}
-
 void BasePlayer::move_right(uint8_t speed) {
   Rectangle new_rectangle = rectangle;
   new_rectangle.move_right(speed);
@@ -218,6 +196,28 @@ void BasePlayer::move_left(uint8_t speed) {
       snapshot.players[position].is_walking = NumericBool::True;
     }
   }
+}
+
+void BasePlayer::receive_damage(uint8_t damage) {
+  if (damage >= health) {
+    health = 0;
+    change_state(std::make_unique<Dead>());
+    moment_of_death = snapshot.timeLeft;
+    if (position != -1) {
+      snapshot.players[position].is_dead = NumericBool::True;
+      snapshot.players[position].life = health;
+    }
+  } else {
+    health -= damage;
+    if (position != -1) {
+      snapshot.players[position].was_hurt = NumericBool::True;
+      snapshot.players[position].life = health;
+    }
+  }
+}
+
+void BasePlayer::change_state(std::unique_ptr<BaseState> new_state) {
+  state = std::move(new_state);
 }
 
 void BasePlayer::run() {

@@ -9,4 +9,8 @@ void Lori::special_attack() {
   std::cout << "Lori's special attack" << std::endl;
 }
 
+void Lori::update_special_attack() {
+  std::cout << "Lori's update special attack" << std::endl;
+}
+
 Lori::~Lori() {}
