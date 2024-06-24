@@ -6,12 +6,15 @@
 #include "../../common/rectangle.h"
 #include "../../data/convention.h"
 #include "../../data/snapshot_dto.h"
+#include "../base_player.h"
 #include <cstdint>
 #include <cstdlib>
 #include <ctime>
 #include <memory>
 #include <string>
 #include <sys/types.h>
+
+#define DAMAGE_RANGE 30
 
 class BaseEnemy {
 protected:
@@ -41,6 +44,14 @@ protected:
   double moment_of_death;
   // cppcheck-suppress unusedStructMember
   const uint8_t max_health;
+  // cppcheck-suppress unusedStructMember
+  Rectangle damage_rectangle;
+  // cppcheck-suppress unusedStructMember
+  const double cooldown;
+  // cppcheck-suppress unusedStructMember
+  double last_attack;
+  // cppcheck-suppress unusedStructMember
+  double time_passed;
 
   int find_position();
 
@@ -57,6 +68,9 @@ public:
   void update();
   void try_revive();
   Rectangle drop_rectangle();
+  void attack(BasePlayer &player);
+  Rectangle get_damage_rectangle();
+  bool can_attack();
 };
 
 #endif // JAZZJACKRABBIT_BASE_ENEMY_H
