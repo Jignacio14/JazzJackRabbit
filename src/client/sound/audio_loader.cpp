@@ -22,7 +22,15 @@ AudioLoader::AudioLoader(SDL2pp::Mixer &sdlMixer)
           "src/client/sound/files/carrotus_background_music.mp3"),
       beachWorldBackgroundMusic(
           "src/client/sound/files/beach_world_background_music.mp3"),
-      disconnectionSound("src/client/sound/files/disconnection_sound.mp3") {}
+      disconnectionSound("src/client/sound/files/disconnection_sound.mp3"),
+      genericEnemyMeleeShotSound("src/client/sound/files/enemy_melee_shot.mp3"),
+      bubbaHurtSound("src/client/sound/files/bubba_hurt.mp3"),
+      turtleGoonHurtSound("src/client/sound/files/turtle_goon_hurt.mp3"),
+      schwarzenguardHurtSound("src/client/sound/files/schwarzenguard_hurt.mp3"),
+      bubbaDeathSound("src/client/sound/files/bubba_death.mp3"),
+      turtleGoonDeathSound("src/client/sound/files/turtle_goon_death.mp3"),
+      schwarzenguardDeathSound(
+          "src/client/sound/files/schwarzenguard_death.mp3") {}
 
 void AudioLoader::preloadAudios() {}
 
@@ -80,4 +88,30 @@ SDL2pp::Music &AudioLoader::getBeachWorldBackgroundMusic() {
 
 SDL2pp::Chunk &AudioLoader::getDisconnectionSound() {
   return this->disconnectionSound;
+}
+
+SDL2pp::Chunk &AudioLoader::getGenericEnemyMeleeShotSound() {
+  return this->genericEnemyMeleeShotSound;
+}
+
+SDL2pp::Chunk &AudioLoader::getBubbaHurtSound() { return this->bubbaHurtSound; }
+
+SDL2pp::Chunk &AudioLoader::getTurtleGoonHurtSound() {
+  return this->turtleGoonHurtSound;
+}
+
+SDL2pp::Chunk &AudioLoader::getSchwarzenguardHurtSound() {
+  return this->schwarzenguardHurtSound;
+}
+
+SDL2pp::Chunk &AudioLoader::getBubbaDeathSound() {
+  return this->bubbaDeathSound;
+}
+
+SDL2pp::Chunk &AudioLoader::getTurtleGoonDeathSound() {
+  return this->turtleGoonDeathSound;
+}
+
+SDL2pp::Chunk &AudioLoader::getSchwarzenguardDeathSound() {
+  return this->schwarzenguardDeathSound;
 }

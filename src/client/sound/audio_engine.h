@@ -59,6 +59,14 @@ public:
 
   void stopPlayingBackgroundMusic();
 
+  void playGenericEnemyMeleeShotSound();
+  void playBubbaHurtSound();
+  void playTurtleGoonHurtSound();
+  void playSchwarzenguardHurtSound();
+  void playBubbaDeathSound();
+  void playTurtleGoonDeathSound();
+  void playSchwarzenguardDeathSound();
+
   ~AudioEngine();
 };
 
