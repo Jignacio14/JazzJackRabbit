@@ -41,6 +41,8 @@ void AmmoGun1::renderFromLeftCorner(int iterationNumber,
   if (isInCameraFocus) {
     this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
                                                  this->currentCoords);
+  } else {
+    this->currentAnimation->advanceWithoutRendering(iterationNumber);
   }
 }
 
