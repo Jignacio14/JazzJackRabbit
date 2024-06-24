@@ -94,7 +94,7 @@ public:
 
   Bullet shoot();
 
-  // virtual void special_attack() = 0;
+  virtual void special_attack() = 0;
 
   ~BasePlayer();
 };
