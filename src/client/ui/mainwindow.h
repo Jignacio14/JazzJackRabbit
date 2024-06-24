@@ -88,7 +88,7 @@ private:
   bool lobbyMoved;
   std::unique_ptr<Lobby> lobby;
 
-  QThread *waitingPlayersAndStartTask;
+  std::unique_ptr<std::thread> waitingPlayersAndStartTask;
 
   QMediaPlayer mediaPlayer;
   QMediaPlaylist mediaPlaylist;
