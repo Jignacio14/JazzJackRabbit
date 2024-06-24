@@ -56,3 +56,28 @@ bool Rectangle::intersects(Rectangle other) const {
 
   return true;
 }
+
+bool Rectangle::intersects_with_direction(Rectangle other,
+                                          uint8_t &direction) const {
+
+  if (this->bottomRightCorner.getX() <= other.getTopLeftCorner().getX() ||
+      other.getBottomRightCorner().getX() <= this->topLeftCorner.getX() ||
+      this->bottomRightCorner.getY() <= other.getTopLeftCorner().getY() ||
+      other.getBottomRightCorner().getY() <= this->topLeftCorner.getY()) {
+    return false;
+  }
+
+  int centerXThis =
+      (this->topLeftCorner.getX() + this->bottomRightCorner.getX()) / 2.0f;
+  int centerXOther =
+      (other.getTopLeftCorner().getX() + other.getBottomRightCorner().getX()) /
+      2.0f;
+
+  if (centerXOther > centerXThis) {
+    direction = FacingDirectionsIds::Right;
+  } else {
+    direction = FacingDirectionsIds::Left;
+  }
+
+  return true;
+}

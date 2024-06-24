@@ -1,6 +1,7 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
 
+#include "../data/convention.h"
 #include "./coordinates.h"
 #include <cstdint>
 
@@ -29,6 +30,8 @@ public:
   void move_up();
 
   bool intersects(Rectangle other) const;
+
+  bool intersects_with_direction(Rectangle other, uint8_t &direction) const;
 };
 
 #endif // RECTANGLE_H

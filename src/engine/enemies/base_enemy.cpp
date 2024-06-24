@@ -58,6 +58,13 @@ bool BaseEnemy::intersects(Rectangle rectangle) {
   return this->rectangle.intersects(rectangle);
 }
 
+bool BaseEnemy::intersects_with_direction(Rectangle rectangle) {
+  bool intersection = this->damage_rectangle.intersects_with_direction(
+      rectangle, this->facing_direction);
+  snapshot.enemies[find_position()].facing_direction = this->facing_direction;
+  return intersection;
+}
+
 bool BaseEnemy::is_alive() { return health > 0; }
 
 int BaseEnemy::find_position() {
@@ -104,8 +111,6 @@ void BaseEnemy::attack(BasePlayer &player) {
     snapshot.enemies[index].shot = NumericBool::True;
   }
 }
-
-Rectangle BaseEnemy::get_damage_rectangle() { return damage_rectangle; }
 
 bool BaseEnemy::can_attack() {
   if (last_attack == NEVER_ATTACKED)

@@ -64,12 +64,12 @@ public:
             float health_drop_chance, uint8_t max_health);
   uint8_t receive_damage(uint8_t damage);
   bool intersects(Rectangle rectangle);
+  bool intersects_with_direction(Rectangle rectangle);
   bool is_alive();
   void update();
   void try_revive();
   Rectangle drop_rectangle();
   void attack(BasePlayer &player);
-  Rectangle get_damage_rectangle();
   bool can_attack();
 };
 

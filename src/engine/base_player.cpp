@@ -345,6 +345,8 @@ void BasePlayer::add_ammo() {
   }
 }
 
+Rectangle BasePlayer::get_rectangle() { return rectangle; }
+
 BasePlayer::~BasePlayer() {
   // delete weapon;
   // delete state;
