@@ -4,7 +4,6 @@
 #include "../common/game_info.h"
 #include "../common/jjr2_error.h"
 #include "../common/liberror.h"
-#include "../common/player_status_DTO.h"
 #include "../common/socket.h"
 #include "../data/command_code_dto.h"
 #include "../data/player_info_dto.h"

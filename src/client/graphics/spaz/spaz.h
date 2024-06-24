@@ -46,8 +46,6 @@ private:
 
   Hitbox hitbox;
 
-  // void debugUpdateLocation(int iterationNumber);
-
   void updateAnimation(const SnapshotWrapper &snapshot,
                        const PlayerDto &newEntityInfo,
                        const Coordinates &leftCorner);

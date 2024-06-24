@@ -1,7 +1,6 @@
 #ifndef GAME_MONITOR
 #define GAME_MONITOR
 
-#include "../common/player_status_DTO.h"
 #include "../common/queue.h"
 #include "../data/player_info_dto.h"
 #include "../data/snapshot_dto.h"
