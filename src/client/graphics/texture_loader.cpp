@@ -185,7 +185,7 @@ void TextureLoader::preloadTextures() {
   for (auto &spriteCode : jazzSpecialsVector) {
     loadSpriteLambda("src/client/sprites/jazz/", spriteCode,
                      spriteNamesMap.map.at(spriteCode),
-                     CHARACTERS_COLOR_KEY_RGB, this->jazzGenericSprites);
+                     CHARACTERS_COLOR_KEY_RGB, this->jazzSpecial);
   }
 
   // JAZZ HUB ICON INITIALIZATION
