@@ -39,8 +39,6 @@ uint8_t BaseEnemy::receive_damage(uint8_t damage) {
     snapshot.enemies[index].was_hurt = NumericBool::True;
     return EnemyDrop::NoDrop;
   }
-  std::cout << "Enemy " << id << " received " << (int)damage
-            << " damage. Health: " << (int)health << std::endl;
 }
 
 uint8_t BaseEnemy::determine_drop() {
@@ -95,12 +93,26 @@ void BaseEnemy::try_revive() {
 }
 
 Rectangle BaseEnemy::drop_rectangle() {
-  Coordinates top_left(
-      rectangle.getTopLeftCorner().getX() - HitboxSizes::CollectableWidth - 1,
-      rectangle.getBottomRightCorner().getY() - HitboxSizes::CollectableHeight);
-  Coordinates bottom_right(rectangle.getTopLeftCorner().getX() - 1,
-                           rectangle.getBottomRightCorner().getY());
-  return Rectangle(top_left, bottom_right);
+
+  Rectangle drop(Coordinates(0, 0), Coordinates(0, 0));
+  if (facing_direction == FacingDirectionsIds::Left) {
+    Coordinates top_left(rectangle.getTopLeftCorner().getX() -
+                             HitboxSizes::CollectableWidth - 1,
+                         rectangle.getBottomRightCorner().getY() -
+                             HitboxSizes::CollectableHeight);
+    Coordinates bottom_right(rectangle.getTopLeftCorner().getX() - 1,
+                             rectangle.getBottomRightCorner().getY());
+    drop = Rectangle(top_left, bottom_right);
+  } else {
+    Coordinates top_left(rectangle.getBottomRightCorner().getX() + 1,
+                         rectangle.getBottomRightCorner().getY() -
+                             HitboxSizes::CollectableHeight);
+    Coordinates bottom_right(rectangle.getBottomRightCorner().getX() +
+                                 HitboxSizes::CollectableWidth + 1,
+                             rectangle.getBottomRightCorner().getY());
+    drop = Rectangle(top_left, bottom_right);
+  }
+  return drop;
 }
 
 void BaseEnemy::attack(BasePlayer &player) {
