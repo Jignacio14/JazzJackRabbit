@@ -34,7 +34,8 @@ private:
   Hitbox hitbox;
 
   void updateAnimation(const SnapshotWrapper &snapshot,
-                       const EnemyDto &newEntityInfo);
+                       const EnemyDto &newEntityInfo,
+                       const Coordinates &leftCorner);
 
 public:
   Bubba(GraphicEngine &graphicEngine, AudioEngine &audioEngine,

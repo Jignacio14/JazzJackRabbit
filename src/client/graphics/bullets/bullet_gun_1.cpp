@@ -15,7 +15,7 @@ BulletGun1::BulletGun1(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
     : entityId(entityId), type(GeneralType::Bullet),
       graphicEngine(graphicEngine), audioEngine(audioEngine),
       currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
-      shouldBeDeleted(false), isShowingExitAnimation(false),
+      shouldBeDeleted(false), isShowingExitAnimation(false), wasJustShot(true),
       hitbox(HitboxSizes::BulletWidth, HitboxSizes::BulletHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -31,7 +31,6 @@ BulletGun1::BulletGun1(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
                                " was not found in the initialization snapshot";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
   }
-  this->audioEngine.playGun1ShotSound();
 }
 
 void BulletGun1::renderFromLeftCorner(int iterationNumber,
@@ -41,14 +40,21 @@ void BulletGun1::renderFromLeftCorner(int iterationNumber,
   if (isInCameraFocus) {
     this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
                                                  this->currentCoords);
+  } else {
+    this->currentAnimation->advanceWithoutRendering(iterationNumber);
   }
 }
 
-void BulletGun1::updateAnimation(const SnapshotWrapper &snapshot,
-                                 const BulletDto &newEntityInfo) {}
-
 void BulletGun1::update(SnapshotWrapper &snapshot,
                         const Coordinates &leftCorner) {
+
+  bool isInCameraFocus =
+      this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
+
+  if (isInCameraFocus && this->wasJustShot) {
+    this->audioEngine.playGun1ShotSound();
+    this->wasJustShot = false;
+  }
 
   if (this->isShowingExitAnimation &&
       this->currentAnimation->canBreakAnimation()) {
@@ -69,9 +75,6 @@ void BulletGun1::update(SnapshotWrapper &snapshot,
         AnimationState::NotFlip, this->hitbox);
     this->isShowingExitAnimation = true;
 
-    bool isInCameraFocus =
-        this->graphicEngine.isInCameraFocus(leftCorner, this->currentCoords);
-
     if (isInCameraFocus) {
       this->audioEngine.playBulletImpactSound();
     }
@@ -81,7 +84,6 @@ void BulletGun1::update(SnapshotWrapper &snapshot,
   this->currentCoords.setX(newEntityInfo.position_x);
   this->currentCoords.setY(newEntityInfo.position_y);
 
-  this->updateAnimation(snapshot, newEntityInfo);
   this->entityInfo = newEntityInfo;
 }
 

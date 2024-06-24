@@ -35,10 +35,9 @@ private:
   bool shouldBeDeleted;
   // cppcheck-suppress unusedStructMember
   bool isShowingExitAnimation;
+  // cppcheck-suppress unusedStructMember
+  bool wasJustShot;
   Hitbox hitbox;
-
-  void updateAnimation(const SnapshotWrapper &snapshot,
-                       const BulletDto &newEntityInfo);
 
 public:
   BulletGun1(GraphicEngine &graphicEngine, AudioEngine &audioEngine,

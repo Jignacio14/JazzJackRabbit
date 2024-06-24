@@ -142,4 +142,32 @@ void AudioEngine::stopPlayingBackgroundMusic() {
   this->music->stopPlayback();
 }
 
+void AudioEngine::playGenericEnemyMeleeShotSound() {
+  this->playSound(this->audioLoader.getGenericEnemyMeleeShotSound());
+}
+
+void AudioEngine::playBubbaHurtSound() {
+  this->playSound(this->audioLoader.getBubbaHurtSound());
+}
+
+void AudioEngine::playTurtleGoonHurtSound() {
+  this->playSound(this->audioLoader.getTurtleGoonHurtSound());
+}
+
+void AudioEngine::playSchwarzenguardHurtSound() {
+  this->playSound(this->audioLoader.getSchwarzenguardHurtSound());
+}
+
+void AudioEngine::playBubbaDeathSound() {
+  this->playSound(this->audioLoader.getBubbaDeathSound());
+}
+
+void AudioEngine::playTurtleGoonDeathSound() {
+  this->playSound(this->audioLoader.getTurtleGoonDeathSound());
+}
+
+void AudioEngine::playSchwarzenguardDeathSound() {
+  this->playSound(this->audioLoader.getSchwarzenguardDeathSound());
+}
+
 AudioEngine::~AudioEngine() {}
