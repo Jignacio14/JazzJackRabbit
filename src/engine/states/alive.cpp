@@ -4,3 +4,5 @@
 bool Alive::can_move() { return true; }
 
 bool Alive::can_shoot() { return true; }
+
+bool Alive::can_jump() { return true; }

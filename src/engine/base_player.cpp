@@ -246,7 +246,7 @@ void BasePlayer::jump() {
     return;
   }
 
-  if (positions_to_jump == 0 && health > 0) {
+  if (positions_to_jump == 0 && state->can_jump()) {
     positions_to_jump = MAX_JUMP;
     snapshot.players[position].is_jumping = NumericBool::True;
   }
