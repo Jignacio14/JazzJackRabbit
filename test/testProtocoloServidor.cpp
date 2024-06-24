@@ -10,6 +10,8 @@ int main() {
     uint8_t id = protocol.getLobbyOption();
     bool result = id == 1;
     std::cout << result << std::endl;
+    socket.shutdown(2);
+    std::cout << "Test passed" << std::endl;
   } catch (...) {
   }
   return 0;

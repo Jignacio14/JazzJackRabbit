@@ -53,31 +53,48 @@ set(SDL2PP_WITH_MIXER ON)
 # SDL_ttf support turned on
 set(SDL2PP_WITH_TTF ON)
 
+
+# Obtener la ruta absoluta del directorio src
+get_filename_component(SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../src" ABSOLUTE)
+
+# Imprimir la ruta absoluta para verificar
+# message(STATUS "SRC_DIR: ${SRC_DIR}")
+message(STATUS "Absolute path to socket.cpp: ${SRC_DIR}/client/disconection_exception.cpp")
+# message("-- Client sources: ${SRC_DIR}/client")
+
 file(GLOB_RECURSE CLIENT_SOURCES CONFIGURE_DEPENDS
-    "${PROJECT_SOURCE_DIR}/src/client/lobby_protocol.h"
-    "${PROJECT_SOURCE_DIR}/src/client/lobby_protocol.cpp"
-    "${PROJECT_SOURCE_DIR}/src/client/client_protocol.h"
-    "${PROJECT_SOURCE_DIR}/src/client/client_protocol.cpp"
+    "${SRC_DIR}/client/lobby_protocol.h"
+    "${SRC_DIR}/client/lobby_protocol.cpp"
+    "${SRC_DIR}/client/client_protocol.h"
+    "${SRC_DIR}/client/client_protocol.cpp"
+    "${SRC_DIR}/client/client_protocol.h"
+    "${SRC_DIR}/client/client_protocol.cpp"
+    "${SRC_DIR}/client/disconnection_exception.h"
+    "${SRC_DIR}/client/disconnection_exception.cpp"
 )
 
 # Get all sources from the corresponding directories to build the server executable
 file(GLOB_RECURSE SERVER_SOURCES CONFIGURE_DEPENDS
-    "${PROJECT_SOURCE_DIR}/src/server/server_protocol.h"
-    "${PROJECT_SOURCE_DIR}/src/server/server_protocol.cpp"
+    "${SRC_DIR}/server/server_protocol.h"
+    "${SRC_DIR}/server/server_protocol.cpp"
+    "${SRC_DIR}/server/server_serializer.h"
+    "${SRC_DIR}/server/server_serializer.cpp"
 )
 
 # Get all sources from the corresponding directories to include common sources
 file(GLOB_RECURSE COMMON_SOURCES CONFIGURE_DEPENDS
-    "${PROJECT_SOURCE_DIR}/src/common/socket.h"
-    "${PROJECT_SOURCE_DIR}/src/common/socket.cpp"
-    "${PROJECT_SOURCE_DIR}/src/common/liberror.h"
-    "${PROJECT_SOURCE_DIR}/src/common/liberror.cpp"
-    "${PROJECT_SOURCE_DIR}/src/common/resolver.h"
-    "${PROJECT_SOURCE_DIR}/src/common/resolver.cpp"
-    "${PROJECT_SOURCE_DIR}/src/common/resolvererror.h"
-    "${PROJECT_SOURCE_DIR}/src/common/resolvererror.h"
-    "${PROJECT_SOURCE_DIR}/src/data/snapshot.cpp"
-    "${PROJECT_SOURCE_DIR}/src/data/resolvererror.cpp"
+    "${SRC_DIR}/common/socket.h"
+    "${SRC_DIR}/common/socket.cpp"
+    "${SRC_DIR}/common/liberror.h"
+    "${SRC_DIR}/common/liberror.cpp"
+    "${SRC_DIR}/common/resolver.h"
+    "${SRC_DIR}/common/resolver.cpp"
+    "${SRC_DIR}/common/resolvererror.h"
+    "${SRC_DIR}/common/resolvererror.cpp"
+    "${SRC_DIR}/common/jjr2_error.h"
+    "${SRC_DIR}/common/jjr2_error.cpp"
+    "${SRC_DIR}/data/snapshot.h"
+    "${SRC_DIR}/data/snapshot.cpp"
 )
 
 # The client executable will be called "client". The main entry point is defined with all the other sources
