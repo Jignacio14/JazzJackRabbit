@@ -62,6 +62,8 @@ public:
   void renderFromLeftCorner(int iterationNumber, const Coordinates &leftCorner,
                             const Coordinates &currentCoords);
 
+  void advanceWithoutRendering(int iterationNumber);
+
   bool canBreakAnimation() const;
 
   uint8_t getCode() const;

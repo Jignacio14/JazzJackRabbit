@@ -115,6 +115,16 @@ void AnimationState::renderFromLeftCorner(int iterationNumber,
   }
 }
 
+void AnimationState::advanceWithoutRendering(int iterationNumber) {
+  int newIterationNumber = this->slowdownCoefficient * iterationNumber;
+  int oldFrame = this->currentFrame;
+  this->currentFrame = newIterationNumber % this->sprite->maxAnimationFrames;
+
+  if (oldFrame != this->currentFrame) {
+    this->totalRenders++;
+  }
+}
+
 bool AnimationState::canBreakAnimation() const {
   if (this->shouldCycle == AnimationState::Cycle ||
       this->shouldRenderLastFrame()) {
