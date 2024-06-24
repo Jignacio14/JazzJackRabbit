@@ -6,7 +6,7 @@
 
 struct BubbaAnimationSpeedCoefs {
   static constexpr double Death = 5;
-  static constexpr double Hurt = 10;
+  static constexpr double Hurt = 16;
   static constexpr double Idle = 15;
   static constexpr double Shooting = 15;
 };

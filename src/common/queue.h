@@ -126,9 +126,6 @@ public:
     this->is_not_empty.notify_all();
   }
 
-  // Queue(Queue &&);
-  // Queue &operator=(Queue &&);
-
   // Constructor de movimiento
   Queue(Queue &&other) noexcept
       : _queue(std::move(other._queue)), max_size(other.max_size),

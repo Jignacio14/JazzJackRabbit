@@ -43,7 +43,6 @@ Socket Lobby::transfer_socket() {
 }
 
 void Lobby::quit_game() {
-  // Try catch ?
   skt.shutdown(SHUT_RDWR);
   skt.close();
 }

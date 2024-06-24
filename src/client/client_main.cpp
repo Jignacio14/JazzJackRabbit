@@ -16,22 +16,8 @@
 #include <SDL2pp/SDL2pp.hh>
 #include <yaml-cpp/yaml.h>
 
-#include "../common/global_configs.h"
-
-static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
-
 const static int EXIT_SUCCESS_CODE = 0;
 const static int EXIT_ERROR_CODE = -1;
-
-void debugPrint(std::string &hostname, uint32_t &port, std::string &username,
-                uint8_t &userCharacter, GameConfigs &gameConfig) {
-  std::cout << "username: " << username << "\n";
-  std::cout << "character selected: " << userCharacter << "\n";
-  std::cout << "Owner name: " << gameConfig.getOwnerName() << "|"
-            << " Players: " << gameConfig.getCurrentNumberOfPlayers() << "/"
-            << gameConfig.getMaxNumberOfPlayers() << "\n";
-  std::cout << "Hostname and port: " << hostname << ":" << port << std::endl;
-}
 
 int main(int argc, char *argv[]) {
   const uint8_t EXPECTED_ARGUMENTS = 1;

@@ -9,7 +9,7 @@ SoundEffect::SoundEffect(SDL2pp::Mixer &sdlMixer, SDL2pp::Chunk &sound)
 void SoundEffect::run() {
   try {
     this->sdlMixer.PlayChannel(FIRST_FREE_AVAILABLE_CHANNEL_ID, this->sound);
-  } catch (...) {
+  } catch (...) { /* There may no be a free channel available */
   }
 }
 

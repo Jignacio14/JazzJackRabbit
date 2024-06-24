@@ -3,7 +3,6 @@
 #define JAZZJACKRABBIT_CLIENT_PROTOCOL_H
 
 #include "../common/liberror.h"
-#include "../common/player_status_DTO.h"
 #include "../common/queue.h"
 #include "../common/socket.h"
 #include "../data/command_code_dto.h"

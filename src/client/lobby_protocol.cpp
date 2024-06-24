@@ -28,9 +28,6 @@ GameInfoDto LobbyProtocol::receive_game() {
         "Some error ocurred while trying to receive a message from "
         "the server.";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
-    // throw std::runtime_error(
-    //     "Some error ocurred while trying to receive a message from "
-    //     "the server.");
   }
 }
 
@@ -178,10 +175,6 @@ Snapshot LobbyProtocol::wait_game_start(bool &game_started) {
         "Some error ocurred while trying to receive a message from "
         "the server.";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
-
-    // throw std::runtime_error(
-    //     "Some error ocurred while trying to receive a message from "
-    //     "the server.");
   }
 }
 
@@ -191,7 +184,5 @@ void LobbyProtocol::skt_was_closed() {
         "Some error ocurred while trying to receive a message from "
         "the server.";
     throw JJR2Error(errorMessage, __LINE__, __FILE__);
-    // throw std::runtime_error(
-    //     "The socket was closed and the communication failed.");
   }
 }

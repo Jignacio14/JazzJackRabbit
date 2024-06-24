@@ -35,15 +35,15 @@ public:
 
   void stop_moving();
 
-  void jump(); // up
+  void jump();
 
-  void shoot(); // space
+  void shoot();
 
-  void run(); // shift izquierdo
+  void run();
 
   void stop_running();
 
-  void special_attack(); // ctrl izq
+  void special_attack();
 
   void change_weapon(uint8_t weapon_number);
 
@@ -58,6 +58,7 @@ public:
    * the socket.
    */
   void kill();
+
   ~Client();
 };
 
