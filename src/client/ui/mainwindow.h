@@ -11,6 +11,7 @@
 #include <qpushbutton.h>
 #include <qsound.h>
 #include <qstring.h>
+#include <qthread.h>
 #include <string>
 #include <thread>
 
@@ -87,7 +88,7 @@ private:
   bool lobbyMoved;
   std::unique_ptr<Lobby> lobby;
 
-  std::unique_ptr<std::thread> waitingPlayersAndStartTask;
+  QThread *waitingPlayersAndStartTask;
 
   QMediaPlayer mediaPlayer;
   QMediaPlaylist mediaPlaylist;

@@ -335,7 +335,9 @@ void MainWindow::startGame() {
                   this->gameDuration);
 
   auto lambda = [=]() { this->waitForPlayers(); };
-  this->waitingPlayersAndStartTask = std::make_unique<std::thread>(lambda);
+
+  this->waitingPlayersAndStartTask = QThread::create(lambda);
+  this->waitingPlayersAndStartTask->start();
 }
 
 void MainWindow::waitForPlayers() {
@@ -659,7 +661,9 @@ std::unique_ptr<Lobby> MainWindow::getLobby() {
 MainWindow::~MainWindow() {
   delete ui;
   if (this->waitingPlayersAndStartTask != nullptr) {
-    if (this->waitingPlayersAndStartTask->joinable())
-      this->waitingPlayersAndStartTask->join();
+    if (this->waitingPlayersAndStartTask->isRunning()) {
+      this->waitingPlayersAndStartTask->wait();
+    }
+    delete this->waitingPlayersAndStartTask;
   }
 }
