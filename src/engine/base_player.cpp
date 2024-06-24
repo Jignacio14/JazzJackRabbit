@@ -25,7 +25,8 @@ BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
       is_moving(false), is_running(false), moment_of_death(0),
       weapon(std::make_unique<InitialWeapon>(snapshot, position)),
       orb_ammo(globalConfigs.getBullet2MaxAmmo()), points(0),
-      intoxicated_start(0), doing_special_attack(false) {}
+      intoxicated_start(0), doing_special_attack(false),
+      lori_special_attack(false) {}
 
 int BasePlayer::find_position() {
   for (int i = 0; i < snapshot.sizePlayers; ++i) {
@@ -39,6 +40,8 @@ void BasePlayer::update() {
 
   position = find_position();
 
+  this->update_special_attack();
+
   this->update_jump();
 
   this->update_movement();
@@ -46,8 +49,6 @@ void BasePlayer::update() {
   this->update_intoxication();
 
   weapon->update();
-
-  this->update_special_attack();
 
   if (health == 0)
     this->try_respawn();
@@ -100,9 +101,11 @@ void BasePlayer::update_jump() {
     }
 
   } else {
-    bool is_falling = move_down();
-    if (!is_falling)
-      snapshot.players[position].is_falling = NumericBool::False;
+    if (!doing_special_attack) {
+      bool is_falling = move_down();
+      if (!is_falling)
+        snapshot.players[position].is_falling = NumericBool::False;
+    }
   }
 }
 
@@ -355,7 +358,10 @@ bool BasePlayer::can_jump() {
 }
 
 bool BasePlayer::can_move() {
-  return (state->can_move() && !doing_special_attack);
+  if (lori_special_attack)
+    return true;
+  else
+    return (state->can_move() && !doing_special_attack);
 }
 
 BasePlayer::~BasePlayer() {

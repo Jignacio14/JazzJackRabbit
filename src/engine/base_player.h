@@ -58,6 +58,8 @@ protected:
   double intoxicated_start;
   // cppcheck-suppress unusedStructMember
   bool doing_special_attack;
+  // cppcheck-suppress unusedStructMember
+  bool lori_special_attack;
 
   bool move_down();
   bool move_up();
