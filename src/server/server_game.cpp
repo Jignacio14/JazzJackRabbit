@@ -23,11 +23,13 @@ const static double GAME_DURATION = globalConfigs.getMaxGameDuration();
 const static int PLAYER_INITIAL_POSITION_X = 60;
 const static int PLAYER_INITIAL_POSITION_Y = 1050;
 
+const static double GAME_DURATION_CHEAT = 2;
+
 Game::Game(GameMonitor &monitor, Queue<CommandCodeDto> &queue)
     : monitor(monitor), messages(queue), players(0), snapshot{},
       gameEnded(false), iterationNumber(0), rate(SERVER_RATE),
       collectablesHandler(collectables, snapshot),
-      enemiesHandler(enemies, snapshot) {}
+      enemiesHandler(enemies, snapshot), cheat2Activated(false) {}
 
 double Game::now() {
   return std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -52,8 +54,13 @@ void Game::gameLoop() {
 
     while (this->_is_alive) {
       double start = this->now();
-      this->snapshot.timeLeft =
-          GAME_DURATION - ((start - initTimestamp) / 1000);
+      if (cheat2Activated) {
+        this->snapshot.timeLeft =
+            GAME_DURATION_CHEAT - ((start - initTimestamp) / 1000);
+      } else {
+        this->snapshot.timeLeft =
+            GAME_DURATION - ((start - initTimestamp) / 1000);
+      }
 
       if (this->snapshot.timeLeft < 0) {
         this->snapshot.gameEnded = NumericBool::True;
@@ -175,6 +182,13 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
   }
   case PlayerCommands::CHANGE_WEAPON:
     this->players_data[player_id]->change_weapon(data);
+    break;
+  case PlayerCommands::CHEAT_1:
+    collectablesHandler.reset_collectables();
+    break;
+  case PlayerCommands::CHEAT_2:
+    this->cheat2Activated = true;
+    snapshot.timeLeft = GAME_DURATION_CHEAT;
     break;
     /*
   case PlayerCommands::SPECIAL_ATTACK:
