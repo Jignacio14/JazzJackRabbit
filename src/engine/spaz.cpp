@@ -10,6 +10,9 @@ Spaz::Spaz(uint8_t player_id, std::string &player_name, Snapshot &snapshot,
       positions_to_move(0) {}
 
 void Spaz::special_attack() {
+  if (health == 0) {
+    return;
+  }
   doing_special_attack = true;
   snapshot.players[position].shot_special = NumericBool::True;
   this->positions_to_move = MAX_POSITIONS;

@@ -8,11 +8,14 @@ Jazz::Jazz(uint8_t player_id, std::string &player_name, Snapshot &snapshot,
     : BasePlayer(player_id, player_name, snapshot, position, map) {}
 
 void Jazz::special_attack() {
-  if (health > 0) {
-    positions_to_jump = MAX_JUMP;
-    doing_special_attack = true;
-    snapshot.players[position].shot_special = NumericBool::True;
+  if (snapshot.players[position].is_jumping == NumericBool::True ||
+      snapshot.players[position].is_falling == NumericBool::True ||
+      health == 0) {
+    return;
   }
+  positions_to_jump = MAX_JUMP;
+  doing_special_attack = true;
+  snapshot.players[position].shot_special = NumericBool::True;
 }
 
 void Jazz::update_special_attack() {

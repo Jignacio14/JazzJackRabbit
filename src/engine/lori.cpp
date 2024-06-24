@@ -8,6 +8,12 @@ Lori::Lori(uint8_t player_id, std::string &player_name, Snapshot &snapshot,
       positions_to_jump_special(0) {}
 
 void Lori::special_attack() {
+  if (snapshot.players[position].is_jumping == NumericBool::True ||
+      snapshot.players[position].is_falling == NumericBool::True ||
+      health == 0) {
+    return;
+  }
+
   positions_to_jump_special = MAX_JUMP;
   doing_special_attack = true;
   lori_special_attack = true;
