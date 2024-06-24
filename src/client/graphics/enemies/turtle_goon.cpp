@@ -6,7 +6,7 @@
 
 struct TurtleGoonAnimationSpeedCoefs {
   static constexpr double Death = 10;
-  static constexpr double Hurt = 10;
+  static constexpr double Hurt = 6;
   static constexpr double Idle = 10;
   static constexpr double Shooting = 15;
 };

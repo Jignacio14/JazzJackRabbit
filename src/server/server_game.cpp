@@ -68,13 +68,13 @@ void Game::gameLoop() {
         }
       }
 
-      this->updateBullets();
-
       this->updateCollectables();
 
       enemiesHandler.update();
 
       this->updateEnemies();
+
+      this->updateBullets();
 
       CommandCodeDto command;
       int instructions_count = 0;
