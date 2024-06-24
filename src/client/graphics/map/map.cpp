@@ -15,9 +15,12 @@ const static Coordinates MAP_SCREEN_MIDDLE_POINT(MAP_SCREEN_SIZE_X / 2,
                                                  MAP_SCREEN_SIZE_Y / 2);
 
 const static int TILE_SIZE = 32; // In px
-const static int MAX_RANDOM_SOURCE = 30;
-
 const static int CAMERA_FOCUS_PADDING = 50;
+
+const static char MAP_COORDINATES_SRC_PATH[] =
+    "src/client/graphics/map/map_coordinates.yaml";
+const static char RANDOM_SOURCE_SRC_PATH[] =
+    "src/client/graphics/map/random_source.yaml";
 
 Map::Map(GraphicEngine &graphicEngine, Player &player,
          uint8_t &scenarioSelected)
@@ -34,13 +37,15 @@ Map::Map(GraphicEngine &graphicEngine, Player &player,
           ScenarioSpriteCodes::FullDirt, this->scenarioSelected)),
       leftCorner(0, 0), player(player) {
 
-  for (int i = 0; i < MAX_RANDOM_SOURCE; i++) {
+  YAML::Node randomSourceYaml =
+      YAML::LoadFile(RANDOM_SOURCE_SRC_PATH)["random_integers"];
+
+  for (size_t i = 0; i < randomSourceYaml.size(); i++) {
     this->randomSource.push_back(
-        static_cast<uint8_t>(RandomStringGenerator::get_random_number(0, 10)));
+        static_cast<uint8_t>(randomSourceYaml[i].as<int>()));
   }
 
-  YAML::Node mapCoordinates =
-      YAML::LoadFile("src/client/graphics/map/map_coordinates.yaml");
+  YAML::Node mapCoordinates = YAML::LoadFile(MAP_COORDINATES_SRC_PATH);
 
   this->fullMapSizeX = mapCoordinates["full_map_size"]["x"].as<int>();
   this->fullMapSizeY = mapCoordinates["full_map_size"]["y"].as<int>();
@@ -98,7 +103,7 @@ Map::Map(GraphicEngine &graphicEngine, Player &player,
 }
 
 uint8_t Map::nextRandomNumber(const int current) const {
-  int index = current % MAX_RANDOM_SOURCE;
+  int index = current % this->randomSource.size();
   return this->randomSource[index];
 }
 
