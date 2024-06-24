@@ -261,6 +261,12 @@ void TextureLoader::preloadTextures() {
                    spriteNamesMap.map.at(ScenarioSpriteCodes::FullDirt),
                    nullptr, this->carrotusScenarioSprites);
 
+  // Load slope
+  loadSpriteLambda("src/client/sprites/carrotus_scenario/",
+                   ScenarioSpriteCodes::Slope,
+                   spriteNamesMap.map.at(ScenarioSpriteCodes::Slope),
+                   MAP_COLOR_KEY_RGB, this->carrotusScenarioSprites);
+
   // BEACH WORLD SCENARIO SPRITES INITIALIZATION
 
   // Load background
@@ -288,6 +294,12 @@ void TextureLoader::preloadTextures() {
                    ScenarioSpriteCodes::FullDirt,
                    spriteNamesMap.map.at(ScenarioSpriteCodes::FullDirt),
                    nullptr, this->beachWorldScenarioSprites);
+
+  // Load slope
+  loadSpriteLambda("src/client/sprites/beach_world_scenario/",
+                   ScenarioSpriteCodes::Slope,
+                   spriteNamesMap.map.at(ScenarioSpriteCodes::Slope),
+                   MAP_COLOR_KEY_RGB, this->beachWorldScenarioSprites);
 
   // GUNS SPRITES INITIALIZATION
   for (auto &spriteCode : gunsSpriteNamesVector) {

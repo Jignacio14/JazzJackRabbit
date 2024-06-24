@@ -52,6 +52,19 @@ platform_1:
       'y': 894
     - x: 653 # +32
       'y': 926
+  slope:
+    - x: 365 # -64
+      'y': 894
+      facing: "left"
+    - x: 653 # -64
+      'y': 894
+      facing: "right"
+    - x: 397 # -64
+      'y': 862
+      facing: "left"
+    - x: 621 # -64
+      'y': 862
+      facing: "right"
 
 # Offseted +800 in x-axis from platform_1
 platform_2:
@@ -77,14 +90,27 @@ platform_2:
       'y': 894
     - x: 1453
       'y': 926
+  slope:
+    - x: 1165 # -64
+      'y': 894
+      facing: "left"
+    - x: 1453 # -64
+      'y': 894
+      facing: "right"
+    - x: 1197 # -64
+      'y': 862
+      facing: "left"
+    - x: 1421 # -64
+      'y': 862
+      facing: "right"
 
 platform_3:
   top_grass:
     - x: 540
       'y': 583
-    - x: 732 #Needs reforming when adding angles
+    - x: 732
       'y': 615
-    - x: 1020 #Needs reforming when adding angles
+    - x: 1020
       'y': 583
     - x: 1212
       'y': 615

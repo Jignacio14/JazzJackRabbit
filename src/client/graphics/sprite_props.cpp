@@ -21,6 +21,7 @@ constexpr uint8_t ScenarioSpriteCodes::Background;
 constexpr uint8_t ScenarioSpriteCodes::Decoration;
 constexpr uint8_t ScenarioSpriteCodes::TopGrass;
 constexpr uint8_t ScenarioSpriteCodes::FullDirt;
+constexpr uint8_t ScenarioSpriteCodes::Slope;
 
 constexpr uint8_t GunSpriteCodes::FlyingBullet;
 constexpr uint8_t GunSpriteCodes::CollectableAmmo;
@@ -70,6 +71,7 @@ SpriteNamesMap::SpriteNamesMap()
           {ScenarioSpriteCodes::Decoration, "decoration"},
           {ScenarioSpriteCodes::TopGrass, "top_grass"},
           {ScenarioSpriteCodes::FullDirt, "full_dirt"},
+          {ScenarioSpriteCodes::Slope, "slope"},
 
           {GunSpriteCodes::FlyingBullet, "flying_bullet"},
           {GunSpriteCodes::CollectableAmmo, "collectable_ammo"},
