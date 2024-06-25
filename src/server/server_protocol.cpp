@@ -118,7 +118,7 @@ void ServerProtocol::throwIfClosed(const bool &result) {
   if (result) {
     this->was_close.store(true);
     this->shuted_down.store(true);
-    throw LibError(errno, "Socket closed");
+    throw LibError(errno, "Socket closed. ");
   }
 }
 
