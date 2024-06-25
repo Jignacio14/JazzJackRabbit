@@ -29,8 +29,8 @@ void testEnviandoInformacionJuegos() {
     ServerProtocol protocol(std::move(peer));
     uint8_t id = protocol.getLobbyOption();
     if (id == EXPECTED_LOBBY_OPTION_RESEND) {
-      std::cout << GREEN << "He recibido el codigo esperado "
-                << "TEST PASSED" << RESET << std::endl;
+      std::cout << "He recibido el codigo esperado " << GREEN << "TEST PASSED"
+                << RESET << std::endl;
     } else {
       std::cout << "No he recibido el codigo esperado " << RED << "TEST FAILED"
                 << RESET << std::endl;
@@ -39,7 +39,7 @@ void testEnviandoInformacionJuegos() {
     protocol.sendGameInfo(games);
     std::cout << "Envio al cliente la cantidad de juegos que tiene el server"
               << std::endl;
-    std::cout << GREEN << "Se ha enviado correctamente la info al cliente: "
+    std::cout << "Se ha enviado correctamente la info al cliente: " << GREEN
               << "TEST PASSED" << RESET << std::endl;
     socket.shutdown(2);
   } catch (...) {
@@ -59,8 +59,8 @@ void testEnviandoVariosComandos() {
     uint8_t id = protocol.getLobbyOption();
 
     if (id == EXPECTED_LOBBY_OPTION_RESEND) {
-      std::cout << GREEN << "He recibido el codigo esperado "
-                << "TEST PASSED" << RESET << std::endl;
+      std::cout << "He recibido el codigo esperado " << GREEN << "TEST PASSED"
+                << RESET << std::endl;
     } else {
       std::cout << "No he recibido el codigo esperado " << RED << "TEST FAILED"
                 << RESET << std::endl;
@@ -69,8 +69,8 @@ void testEnviandoVariosComandos() {
     id = protocol.getLobbyOption();
 
     if (id == EXPECTED_LOBBY_OPTION_JOIN) {
-      std::cout << GREEN << "He recibido el codigo esperado "
-                << "TEST PASSED" << RESET << std::endl;
+      std::cout << "He recibido el codigo esperado " << GREEN << "TEST PASSED"
+                << RESET << std::endl;
     } else {
       std::cout << "No he recibido el codigo esperado " << RED << "TEST FAILED"
                 << RESET << std::endl;
@@ -79,23 +79,23 @@ void testEnviandoVariosComandos() {
     PlayerInfo info = protocol.getGameInfo();
 
     if (std::string(info.game_name) == "juego 1") {
-      std::cout << GREEN << "He recibido el juego esperado "
-                << "TEST PASSED" << RESET << std::endl;
+      std::cout << "He recibido el juego esperado " << GREEN << "TEST PASSED"
+                << RESET << std::endl;
     } else {
       std::cout << "No he recibido el juego esperado " << RED << "TEST FAILED"
                 << RESET << std::endl;
     }
 
     if (std::string(info.player_name) == "username") {
-      std::cout << GREEN << "He recibido el usuario esperado "
-                << "TEST PASSED" << RESET << std::endl;
+      std::cout << "He recibido el usuario esperado " << GREEN << "TEST PASSED"
+                << RESET << std::endl;
     } else {
       std::cout << "No he recibido el usuario esperado " << RED << "TEST FAILED"
                 << RESET << std::endl;
     }
 
     if (info.character_code == 'J') {
-      std::cout << GREEN << "He recibido el personaje esperado "
+      std::cout << "He recibido el personaje esperado " << GREEN
                 << "TEST PASSED" << RESET << std::endl;
     } else {
       std::cout << "No he recibido el personaje esperado " << RED
