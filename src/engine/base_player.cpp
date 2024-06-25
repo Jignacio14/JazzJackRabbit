@@ -355,7 +355,4 @@ uint8_t BasePlayer::get_special_attack_damage() {
   return special_attack_damage;
 }
 
-BasePlayer::~BasePlayer() {
-  // delete weapon;
-  // delete state;
-}
+BasePlayer::~BasePlayer() {}
