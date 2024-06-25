@@ -145,9 +145,57 @@ void testRecibirVariosComandosCliente() {
   } catch (...) {
   }
 }
+
+void testSendSnapShot() {
+  try {
+    std::cout << std::endl;
+    std::cout << "Testeando enviar un snapshot" << std::endl;
+    std::cout << std::endl;
+
+    Socket socket("8080");
+    Socket peer = socket.accept();
+    ServerProtocol protocol(std::move(peer));
+
+    PlayerDto jugador_test = {
+        1, "jugador", 7, 0, 100, 1, 100, 100, 1, 1, 1,
+        1, 1,         1, 2, 1,   1, 1,   1,   1, 1,
+    };
+
+    CollectableDto collectable_test = {
+        1, 100, 100, 1, 1,
+    };
+
+    EnemyDto enemy_test = {
+        1, 100, 100, 1, 1, 1, 1, 1,
+    };
+
+    BulletDto bullet_test = {
+        1,
+        100,
+        100,
+        1,
+    };
+
+    Snapshot snapshot_test = {
+        100, 1,
+        1,   {jugador_test},
+        1,   {enemy_test},
+        1,   {collectable_test},
+        1,   {bullet_test},
+
+    };
+
+    protocol.sendSnapshot(snapshot_test);
+    std::cout << "Se envio correctamente el snapshot" << GREEN << "TEST PASSED"
+              << RESET << std::endl;
+
+  } catch (...) {
+  }
+}
 int main() {
   testEnviandoInformacionJuegos();
   testEnviandoVariosComandos();
   testRecibirVariosComandosCliente();
+  testSendSnapShot();
   return 0;
 }

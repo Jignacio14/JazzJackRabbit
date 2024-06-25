@@ -145,6 +145,79 @@ void testEnviandoVariosComandos() {
   }
 }
 
+void testReceiveSnapshot() {
+  try {
+    std::cout << std::endl;
+    std::cout << "Teste de recibir snapshot" << std::endl;
+    std::cout << std::endl;
+  } catch (...) {
+  }
+}
+
+void testReceivedSnapshot() {
+  try {
+    std::cout << std::endl;
+    std::cout << "Teste de recibir snapshot" << std::endl;
+    std::cout << std::endl;
+
+    Socket socket("localhost", "8080");
+    ClientProtocol clientProt(std::move(socket));
+
+    bool was_closed = false;
+    Snapshot snapshot = clientProt.receive_snapshot(was_closed);
+
+    if (was_closed) {
+      std::cout << "Se ha cerrado la conexion" << RED << "TEST FAILED" << RESET
+                << std::endl;
+    } else {
+      std::cout << "Se ha recibido correctamente el snapshot" << GREEN
+                << "TEST PASSED" << RESET << std::endl;
+    }
+
+    if (snapshot.timeLeft == 100) {
+      std::cout << "Se ha recibido correctamente el tiempo restante" << GREEN
+                << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout << "No se ha recibido correctamente el tiempo restante" << RED
+                << "TEST FAILED" << RESET << std::endl;
+    }
+
+    if (snapshot.gameEnded) {
+      std::cout << "Se ha recibido correctamente el fin del juego" << GREEN
+                << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout << "No se ha recibido correctamente el fin del juego" << RED
+                << "TEST FAILED" << RESET << std::endl;
+    }
+
+    if (snapshot.sizePlayers == 1) {
+      std::cout << "Se ha recibido correctamente la cantidad de jugadores"
+                << GREEN << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout << "No se ha recibido correctamente la cantidad de jugadores"
+                << RED << "TEST FAILED" << RESET << std::endl;
+    }
+
+    if (snapshot.players[0].user_id == 1) {
+      std::cout << "Se ha recibido correctamente el id del jugador" << GREEN
+                << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout << "No se ha recibido correctamente el id del jugador" << RED
+                << "TEST FAILED" << RESET << std::endl;
+    }
+
+    if (std::string(snapshot.players[0].name) == "jugador") {
+      std::cout << "Se ha recibido correctamente el nombre del jugador" << GREEN
+                << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout << "No se ha recibido correctamente el nombre del jugador"
+                << RED << "TEST FAILED" << RESET << std::endl;
+    }
+
+  } catch (...) {
+  }
+}
+
 int main() {
   testRecibiendoInformacionDeJuegos();
   testRecibiendoVariosCommandos();
