@@ -327,7 +327,10 @@ void Game::updatePlayers() {
     if (attacker->is_doing_special_attack()) {
       for (auto &enemy : enemies) {
         if (enemy->intersects(attacker->get_rectangle())) {
-          enemy->receive_damage(attacker->get_special_attack_damage());
+          uint8_t drop =
+              enemy->receive_damage(attacker->get_special_attack_damage());
+          Rectangle drop_rectangle = enemy->drop_rectangle();
+          this->handleDrop(drop, drop_rectangle);
           break;
         }
       }
