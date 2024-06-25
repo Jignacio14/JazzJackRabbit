@@ -106,8 +106,48 @@ void testEnviandoVariosComandos() {
   }
 }
 
+void testRecibirVariosComandosCliente() {
+  try {
+    std::cout << std::endl;
+    std::cout << "Teste de protocolo del cliente - Caso protocolo cliente"
+              << std::endl;
+    std::cout << std::endl;
+
+    Socket socket("8080");
+    Socket peer = socket.accept();
+    ServerProtocol protocol(std::move(peer));
+
+    CommandCodeDto dto1 = protocol.asyncGetEventCode();
+    if (dto1.player_id == 1 && dto1.code == 1 && dto1.data == 1) {
+      std::cout << "Prueba recibiendo el primer comando: " << GREEN
+                << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout << "Prueba recibiendo el primer comando: " << RED
+                << "TEST FAILED" << RESET << std::endl;
+    }
+    CommandCodeDto dto2 = protocol.asyncGetEventCode();
+    if (dto2.player_id == 3 && dto2.code == 2 && dto2.data == 1) {
+      std::cout << "Prueba recibiendo el segundo comando: " << GREEN
+                << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout << "Prueba recibiendo el segundo comando: " << RED
+                << "TEST FAILED" << RESET << std::endl;
+    }
+
+    CommandCodeDto dto3 = protocol.asyncGetEventCode();
+    if (dto3.player_id == 11 && dto3.code == 8 && dto3.data == 3) {
+      std::cout << "Prueba recibiendo el tercer comando: " << GREEN
+                << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout << "Prueba recibiendo el tercer comando: " << RED
+                << "TEST FAILED" << RESET << std::endl;
+    }
+  } catch (...) {
+  }
+}
 int main() {
   testEnviandoInformacionJuegos();
   testEnviandoVariosComandos();
+  testRecibirVariosComandosCliente();
   return 0;
 }

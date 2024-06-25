@@ -1,4 +1,4 @@
-// #include "../src/client/client_protocol.h"
+#include "../src/client/client_protocol.h"
 #include "../src/client/lobby_protocol.h"
 #include "../src/common/socket.h"
 #include <cstdint>
@@ -104,8 +104,35 @@ void testRecibiendoVariosCommandos() {
   }
 }
 
+void testEnviandoVariosComandos() {
+  try {
+    std::cout << std::endl;
+    std::cout << "Testeando el protocolo del server - Caso Lobby" << std::endl;
+    std::cout << "Mandando game info  - Caso Lobby" << std::endl;
+    std::cout << std::endl;
+
+    Socket socket("localhost", "8080");
+    ClientProtocol clientProt(std::move(socket));
+
+    std::cout << "Envio comandos al server" << std::endl;
+
+    CommandCodeDto command_code_dto_1 = {1, 1, 1};
+    CommandCodeDto command_code_dto_2 = {3, 2, 1};
+    CommandCodeDto command_code_dto_3 = {11, 8, 3};
+
+    bool was_closed = false;
+    clientProt.send_commands(was_closed, command_code_dto_1);
+    std::cout << "Pase por aca" << std::endl;
+    clientProt.send_commands(was_closed, command_code_dto_2);
+    clientProt.send_commands(was_closed, command_code_dto_3);
+
+  } catch (...) {
+  }
+}
+
 int main() {
   testRecibiendoInformacionDeJuegos();
   testRecibiendoVariosCommandos();
+  testEnviandoVariosComandos();
   return 0;
 }
