@@ -210,8 +210,8 @@ void CollectablesHandler::initialize_coins() {
   snapshot.sizeCollectables++;
 
   uint32_t id9 = counter.getNextID();
-  Rectangle coin9(Coordinates(320, 926 - HitboxSizes::CollectableHeight),
-                  Coordinates(320 + HitboxSizes::CollectableWidth, 926));
+  Rectangle coin9(Coordinates(306, 926 - HitboxSizes::CollectableHeight),
+                  Coordinates(306 + HitboxSizes::CollectableWidth, 926));
   collectables.push_back(std::make_unique<Coin>(coin9, snapshot, id9));
   CollectableDto coin9_dto;
   coin9_dto.type = CollectableIds::Coin;
@@ -223,8 +223,8 @@ void CollectablesHandler::initialize_coins() {
   snapshot.sizeCollectables++;
 
   uint32_t id10 = counter.getNextID();
-  Rectangle coin10(Coordinates(350, 926 - HitboxSizes::CollectableHeight),
-                   Coordinates(350 + HitboxSizes::CollectableWidth, 926));
+  Rectangle coin10(Coordinates(336, 926 - HitboxSizes::CollectableHeight),
+                   Coordinates(336 + HitboxSizes::CollectableWidth, 926));
   collectables.push_back(std::make_unique<Coin>(coin10, snapshot, id10));
   CollectableDto coin10_dto;
   coin10_dto.type = CollectableIds::Coin;
@@ -236,8 +236,8 @@ void CollectablesHandler::initialize_coins() {
   snapshot.sizeCollectables++;
 
   uint32_t id11 = counter.getNextID();
-  Rectangle coin11(Coordinates(670, 926 - HitboxSizes::CollectableHeight),
-                   Coordinates(670 + HitboxSizes::CollectableWidth, 926));
+  Rectangle coin11(Coordinates(694, 926 - HitboxSizes::CollectableHeight),
+                   Coordinates(694 + HitboxSizes::CollectableWidth, 926));
   collectables.push_back(std::make_unique<Coin>(coin11, snapshot, id11));
   CollectableDto coin11_dto;
   coin11_dto.type = CollectableIds::Coin;
@@ -249,8 +249,8 @@ void CollectablesHandler::initialize_coins() {
   snapshot.sizeCollectables++;
 
   uint32_t id12 = counter.getNextID();
-  Rectangle coin12(Coordinates(710, 926 - HitboxSizes::CollectableHeight),
-                   Coordinates(710 + HitboxSizes::CollectableWidth, 926));
+  Rectangle coin12(Coordinates(724, 926 - HitboxSizes::CollectableHeight),
+                   Coordinates(724 + HitboxSizes::CollectableWidth, 926));
   collectables.push_back(std::make_unique<Coin>(coin12, snapshot, id12));
   CollectableDto coin12_dto;
   coin12_dto.type = CollectableIds::Coin;
@@ -262,8 +262,8 @@ void CollectablesHandler::initialize_coins() {
   snapshot.sizeCollectables++;
 
   uint32_t id13 = counter.getNextID();
-  Rectangle coin13(Coordinates(1120, 926 - HitboxSizes::CollectableHeight),
-                   Coordinates(1120 + HitboxSizes::CollectableWidth, 926));
+  Rectangle coin13(Coordinates(1106, 926 - HitboxSizes::CollectableHeight),
+                   Coordinates(1106 + HitboxSizes::CollectableWidth, 926));
   collectables.push_back(std::make_unique<Coin>(coin13, snapshot, id13));
   CollectableDto coin13_dto;
   coin13_dto.type = CollectableIds::Coin;
@@ -275,8 +275,8 @@ void CollectablesHandler::initialize_coins() {
   snapshot.sizeCollectables++;
 
   uint32_t id14 = counter.getNextID();
-  Rectangle coin14(Coordinates(1155, 926 - HitboxSizes::CollectableHeight),
-                   Coordinates(1155 + HitboxSizes::CollectableWidth, 926));
+  Rectangle coin14(Coordinates(1136, 926 - HitboxSizes::CollectableHeight),
+                   Coordinates(1136 + HitboxSizes::CollectableWidth, 926));
   collectables.push_back(std::make_unique<Coin>(coin14, snapshot, id14));
   CollectableDto coin14_dto;
   coin14_dto.type = CollectableIds::Coin;
@@ -288,8 +288,8 @@ void CollectablesHandler::initialize_coins() {
   snapshot.sizeCollectables++;
 
   uint32_t id15 = counter.getNextID();
-  Rectangle coin15(Coordinates(1470, 926 - HitboxSizes::CollectableHeight),
-                   Coordinates(1470 + HitboxSizes::CollectableWidth, 926));
+  Rectangle coin15(Coordinates(1494, 926 - HitboxSizes::CollectableHeight),
+                   Coordinates(1494 + HitboxSizes::CollectableWidth, 926));
   collectables.push_back(std::make_unique<Coin>(coin15, snapshot, id15));
   CollectableDto coin15_dto;
   coin15_dto.type = CollectableIds::Coin;
@@ -301,8 +301,8 @@ void CollectablesHandler::initialize_coins() {
   snapshot.sizeCollectables++;
 
   uint32_t id16 = counter.getNextID();
-  Rectangle coin16(Coordinates(1500, 926 - HitboxSizes::CollectableHeight),
-                   Coordinates(1500 + HitboxSizes::CollectableWidth, 926));
+  Rectangle coin16(Coordinates(1524, 926 - HitboxSizes::CollectableHeight),
+                   Coordinates(1524 + HitboxSizes::CollectableWidth, 926));
   collectables.push_back(std::make_unique<Coin>(coin16, snapshot, id16));
   CollectableDto coin16_dto;
   coin16_dto.type = CollectableIds::Coin;
@@ -314,8 +314,8 @@ void CollectablesHandler::initialize_coins() {
   snapshot.sizeCollectables++;
 
   uint32_t id17 = counter.getNextID();
-  Rectangle coin17(Coordinates(399, 894 - HitboxSizes::CollectableHeight),
-                   Coordinates(399 + HitboxSizes::CollectableWidth, 894));
+  Rectangle coin17(Coordinates(379, 894 - HitboxSizes::CollectableHeight),
+                   Coordinates(379 + HitboxSizes::CollectableWidth, 894));
   collectables.push_back(std::make_unique<Coin>(coin17, snapshot, id17));
   CollectableDto coin17_dto;
   coin17_dto.type = CollectableIds::Coin;
@@ -327,8 +327,8 @@ void CollectablesHandler::initialize_coins() {
   snapshot.sizeCollectables++;
 
   uint32_t id18 = counter.getNextID();
-  Rectangle coin18(Coordinates(624, 894 - HitboxSizes::CollectableHeight),
-                   Coordinates(624 + HitboxSizes::CollectableWidth, 894));
+  Rectangle coin18(Coordinates(651, 894 - HitboxSizes::CollectableHeight),
+                   Coordinates(651 + HitboxSizes::CollectableWidth, 894));
   collectables.push_back(std::make_unique<Coin>(coin18, snapshot, id18));
   CollectableDto coin18_dto;
   coin18_dto.type = CollectableIds::Coin;
@@ -340,8 +340,8 @@ void CollectablesHandler::initialize_coins() {
   snapshot.sizeCollectables++;
 
   uint32_t id19 = counter.getNextID();
-  Rectangle coin19(Coordinates(1200, 894 - HitboxSizes::CollectableHeight),
-                   Coordinates(1200 + HitboxSizes::CollectableWidth, 894));
+  Rectangle coin19(Coordinates(1175, 894 - HitboxSizes::CollectableHeight),
+                   Coordinates(1175 + HitboxSizes::CollectableWidth, 894));
   collectables.push_back(std::make_unique<Coin>(coin19, snapshot, id19));
   CollectableDto coin19_dto;
   coin19_dto.type = CollectableIds::Coin;
@@ -353,8 +353,8 @@ void CollectablesHandler::initialize_coins() {
   snapshot.sizeCollectables++;
 
   uint32_t id20 = counter.getNextID();
-  Rectangle coin20(Coordinates(1423, 894 - HitboxSizes::CollectableHeight),
-                   Coordinates(1423 + HitboxSizes::CollectableWidth, 894));
+  Rectangle coin20(Coordinates(1452, 894 - HitboxSizes::CollectableHeight),
+                   Coordinates(1452 + HitboxSizes::CollectableWidth, 894));
   collectables.push_back(std::make_unique<Coin>(coin20, snapshot, id20));
   CollectableDto coin20_dto;
   coin20_dto.type = CollectableIds::Coin;

@@ -53,14 +53,14 @@ bubba_health_drop_chance: 40 # bubba_ammo_drop_chance + bubba_health_drop_chance
 
 turtle_max_life: 100
 turtle_damage: 30
-turtle_points: 10
+turtle_points: 50
 turtle_respawn_time: 7
 turtle_ammo_drop_chance: 40
 turtle_health_drop_chance: 40 # turtle_ammo_drop_chance + turtle_health_drop_chance must be less than 100
 
 schwarzenguard_max_life: 150
 schwarzenguard_damage: 20
-schwarzenguard_points: 10
+schwarzenguard_points: 100
 schwarzenguard_respawn_time: 7
 schwarzenguard_ammo_drop_chance: 40
 schwarzenguard_health_drop_chance: 40 # schwarzenguard_ammo_drop_chance + schwarzenguard_health_drop_chance must be less than 100
