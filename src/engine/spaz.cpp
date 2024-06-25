@@ -24,11 +24,23 @@ void Spaz::execute_special_attack() {
   if (facing_direction == FacingDirectionsIds::Left) {
     new_rectangle.move_left(RUNNING_SPEED);
     if (map.available_position(new_rectangle)) {
+
+      int increment = 0;
+      if (!map.available_position_slope(new_rectangle, increment)) {
+        new_rectangle.move_vertically(increment);
+      }
+
       set_new_rectangle(new_rectangle);
     }
   } else {
     new_rectangle.move_right(RUNNING_SPEED);
     if (map.available_position(new_rectangle)) {
+
+      int increment = 0;
+      if (!map.available_position_slope(new_rectangle, increment)) {
+        new_rectangle.move_vertically(increment);
+      }
+
       set_new_rectangle(new_rectangle);
     }
   }
