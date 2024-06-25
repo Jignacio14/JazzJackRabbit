@@ -164,7 +164,6 @@ void testReceivedSnapshot() {
     ClientProtocol clientProt(std::move(socket));
 
     bool was_closed = false;
-    std::cout << "Pase por aca" << std::endl;
     Snapshot snapshot = clientProt.receive_snapshot(was_closed);
 
     if (was_closed) {
