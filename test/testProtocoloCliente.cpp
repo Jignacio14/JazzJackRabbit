@@ -164,6 +164,7 @@ void testReceivedSnapshot() {
     ClientProtocol clientProt(std::move(socket));
 
     bool was_closed = false;
+    std::cout << "Pase por aca" << std::endl;
     Snapshot snapshot = clientProt.receive_snapshot(was_closed);
 
     if (was_closed) {
@@ -214,7 +215,105 @@ void testReceivedSnapshot() {
                 << RED << "TEST FAILED" << RESET << std::endl;
     }
 
+    if (snapshot.players[0].nameSize == 7) {
+      std::cout << "Se ha recibido correctamente el tamaño del nombre del "
+                   "jugador"
+                << GREEN << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout << "No se ha recibido correctamente el tamaño del nombre del "
+                   "jugador"
+                << RED << "TEST FAILED" << RESET << std::endl;
+    }
+
+    if (snapshot.players[0].points == 0) {
+      std::cout << "Se ha recibido correctamente los puntos del jugador"
+                << GREEN << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout << "No se ha recibido correctamente los puntos del jugador"
+                << RED << "TEST FAILED" << RESET << std::endl;
+    }
+
+    if (snapshot.players[0].life == 100) {
+      std::cout << "Se ha recibido correctamente la vida del jugador" << GREEN
+                << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout << "No se ha recibido correctamente la vida del jugador" << RED
+                << "TEST FAILED" << RESET << std::endl;
+    }
+
+    if (snapshot.players[0].current_gun == 1) {
+      std::cout << "Se ha recibido correctamente el arma actual del jugador"
+                << GREEN << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout << "No se ha recibido correctamente el arma actual del jugador"
+                << RED << "TEST FAILED" << RESET << std::endl;
+    }
+
+    if (snapshot.players[0].ammo_gun_1 == 100) {
+      std::cout << "Se ha recibido correctamente la municion del arma 1 del "
+                   "jugador"
+                << GREEN << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout << "No se ha recibido correctamente la municion del arma 1 del "
+                   "jugador"
+                << RED << "TEST FAILED" << RESET << std::endl;
+    }
+
+    if (snapshot.players[0].ammo_gun_2 == 100) {
+      std::cout << "Se ha recibido correctamente la municion del arma 2 del "
+                   "jugador"
+                << GREEN << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout << "No se ha recibido correctamente la municion del arma 2 del "
+                   "jugador"
+                << RED << "TEST FAILED" << RESET << std::endl;
+    }
+
+    if (snapshot.players[0].type == 1) {
+      std::cout << "Se ha recibido correctamente el tipo de jugador" << GREEN
+                << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout << "No se ha recibido correctamente el tipo de jugador" << RED
+                << "TEST FAILED" << RESET << std::endl;
+    }
+
+    if (snapshot.players[0].is_falling == 1) {
+      std::cout << "Se ha recibido correctamente si el jugador esta cayendo"
+                << GREEN << "TEST PAS SED" << RESET << std::endl;
+    } else {
+      std::cout << "No se ha recibido correctamente si el jugador esta cayendo"
+                << RED << "TEST FAILED" << RESET << std::endl;
+    }
+
+    if (snapshot.players[0].is_jumping == 1) {
+      std::cout << "Se ha recibido correctamente si el jugador esta saltando"
+                << GREEN << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout << "No se ha recibido correctamente si el jugador esta saltando"
+                << RED << "TEST FAILED" << RESET << std::endl;
+    }
+
+    if (snapshot.players[0].is_walking == 1) {
+      std::cout << "Se ha recibido correctamente si el jugador esta caminando"
+                << GREEN << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout
+          << "No se ha recibido correctamente si el jugador esta caminando"
+          << RED << "TEST FAILED" << RESET << std::endl;
+    }
+
+    if (snapshot.players[0].is_running == 1) {
+      std::cout << "Se ha recibido correctamente si el jugador esta corriendo"
+                << GREEN << "TEST PASSED" << RESET << std::endl;
+    } else {
+      std::cout
+          << "No se ha recibido correctamente si el jugador esta corriendo"
+          << RED << "TEST FAILED" << RESET << std::endl;
+    }
+
   } catch (...) {
+    std::cout << "No se ha recibido correctamente el snapshot" << RED
+              << "TEST FAILED" << RESET << std::endl;
   }
 }
 
@@ -222,5 +321,6 @@ int main() {
   testRecibiendoInformacionDeJuegos();
   testRecibiendoVariosCommandos();
   testEnviandoVariosComandos();
+  testReceivedSnapshot();
   return 0;
 }

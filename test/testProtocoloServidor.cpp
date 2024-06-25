@@ -142,6 +142,8 @@ void testRecibirVariosComandosCliente() {
       std::cout << "Prueba recibiendo el tercer comando: " << RED
                 << "TEST FAILED" << RESET << std::endl;
     }
+
+    socket.shutdown(2);
   } catch (...) {
   }
 }
@@ -152,6 +154,10 @@ void testSendSnapShot() {
     std::cout << "Testeando enviar un snapshot" << std::endl;
     std::cout << std::endl;
 
+    // Socket socket("8080");
+    // std ::cout << "Esperando conexion" << std::endl;
+    // Socket peer = socket.accept();
+    // ServerProtocol protocol(std::move(peer));
     Socket socket("8080");
     Socket peer = socket.accept();
     ServerProtocol protocol(std::move(peer));
