@@ -21,7 +21,6 @@ void CollectablesHandler::initialize() {
   this->initialize_carrots();
   this->initialize_gems();
   this->initialize_coins();
-  this->initialize_poisoned();
 }
 
 void CollectablesHandler::initialize_carrots() {
