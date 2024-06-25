@@ -38,7 +38,6 @@ uint8_t BaseEnemy::receive_damage(uint8_t damage, bool &died) {
   } else {
     health -= damage;
     snapshot.enemies[index].was_hurt = NumericBool::True;
-    std::cout << "Enemy received " << damage << "damage." << std::endl;
     return EnemyDrop::NoDrop;
   }
 }
@@ -127,7 +126,7 @@ void BaseEnemy::attack(BasePlayer &player) {
 }
 
 bool BaseEnemy::can_attack() {
-  if (last_attack == NEVER_ATTACKED)
+  if (last_attack == NEVER_ATTACKED && is_alive())
     return true;
   else
     return (time_passed > cooldown && is_alive());

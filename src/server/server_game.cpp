@@ -333,7 +333,7 @@ void Game::updatePlayers() {
     attacker->update();
     if (attacker->is_doing_special_attack()) {
       for (auto &enemy : enemies) {
-        if (enemy->intersects(attacker->get_rectangle())) {
+        if (enemy->intersects(attacker->get_rectangle()) && enemy->is_alive()) {
           bool enemy_died = false;
           uint8_t drop = enemy->receive_damage(
               attacker->get_special_attack_damage(), enemy_died);
