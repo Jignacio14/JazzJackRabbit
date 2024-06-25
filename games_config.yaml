@@ -20,46 +20,47 @@ max_instructions_per_tick: 100
 
 # Player Parameters
 starting_points: 0
-max_life: 20
+max_life: 100
 starting_ammo_gun_1: 999
-starting_ammo_gun_2: 100
+starting_ammo_gun_2: 10
 respawn_time: 5
+special_attack_damage: 1
 
 # Bullets Parameters
 bullet_1_max_ammo: 999
 bullet_1_speed: 4
-bullet_1_damage: 5
+bullet_1_damage: 10
 bullet_1_cooldown: 0
 
 bullet_2_max_ammo: 3
 bullet_2_speed: 6
-bullet_2_damage: 10
-bullet_2_cooldown: 0
+bullet_2_damage: 20
+bullet_2_cooldown: 1
 
 # Collectables Parameters
-carrot_heal: 5
-intoxicated_time: 5
+carrot_heal: 20
+intoxicated_time: 6
 points_per_coin: 20
 points_per_gem: 100
 
 # Enemies Parameters
-bubba_max_life: 30
-bubba_damage: 5
-bubba_points: 10
-bubba_respawn_time: 7
-bubba_ammo_drop_chance: 40
-bubba_health_drop_chance: 40
+bubba_max_life: 80
+bubba_damage: 10
+bubba_points: 30
+bubba_respawn_time: 5
+bubba_ammo_drop_chance: 40 
+bubba_health_drop_chance: 40 # bubba_ammo_drop_chance + bubba_health_drop_chance must be less than 100
 
-turtle_max_life: 20
-turtle_damage: 5
+turtle_max_life: 100
+turtle_damage: 30
 turtle_points: 10
 turtle_respawn_time: 7
 turtle_ammo_drop_chance: 40
-turtle_health_drop_chance: 40
+turtle_health_drop_chance: 40 # turtle_ammo_drop_chance + turtle_health_drop_chance must be less than 100
 
-schwarzenguard_max_life: 100
-schwarzenguard_damage: 5
+schwarzenguard_max_life: 150
+schwarzenguard_damage: 20
 schwarzenguard_points: 10
 schwarzenguard_respawn_time: 7
 schwarzenguard_ammo_drop_chance: 40
-schwarzenguard_health_drop_chance: 40
+schwarzenguard_health_drop_chance: 40 # schwarzenguard_ammo_drop_chance + schwarzenguard_health_drop_chance must be less than 100

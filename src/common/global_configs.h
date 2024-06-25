@@ -113,6 +113,9 @@ private:
   // cppcheck-suppress unusedStructMember
   float schwarzenguardHealthDropChance;
 
+  // cppcheck-suppress unusedStructMember
+  uint8_t specialAttackDamage;
+
   GlobalConfigs();
 
   /*
@@ -187,6 +190,8 @@ public:
   double getSchwarzenguardRespawnTime() const;
   float getSchwarzenguardAmmoDropChance() const;
   float getSchwarzenguardHealthDropChance() const;
+
+  uint8_t getSpecialAttackDamage() const;
 };
 
 #endif // GLOBAL_CONFIGS_H

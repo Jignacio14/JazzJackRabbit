@@ -1,3 +1,6 @@
+#ifndef JJR2_ERROR_H
+#define JJR2_ERROR_H
+
 #include <cstdint>
 #include <stdexcept>
 #include <string>
@@ -26,3 +29,5 @@ public:
 
   const char *what() const noexcept;
 };
+
+#endif // JJR2_ERROR_H

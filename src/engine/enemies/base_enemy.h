@@ -62,7 +62,7 @@ public:
             uint8_t health, uint8_t damage, uint32_t points,
             double respawn_time, float ammo_drop_chance,
             float health_drop_chance, uint8_t max_health);
-  uint8_t receive_damage(uint8_t damage);
+  uint8_t receive_damage(uint8_t damage, bool &died);
   bool intersects(Rectangle rectangle);
   bool intersects_with_direction(Rectangle rectangle);
   bool is_alive();
@@ -71,6 +71,7 @@ public:
   Rectangle drop_rectangle();
   void attack(BasePlayer &player);
   bool can_attack();
+  uint32_t get_points();
 };
 
 #endif // JAZZJACKRABBIT_BASE_ENEMY_H

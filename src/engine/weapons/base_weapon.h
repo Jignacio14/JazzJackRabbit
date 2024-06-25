@@ -32,10 +32,12 @@ protected:
   double last_time_shot;
   // cppcheck-suppress unusedStructMember
   double time_passed;
+  // cppcheck-suppress unusedStructMember
+  uint8_t player_id;
 
 public:
   BaseWeapon(Snapshot &snap, uint16_t ammo, uint8_t damage, double cooldown,
-             uint8_t ammo_speed, int position);
+             uint8_t ammo_speed, int position, uint8_t player_id);
   virtual Bullet shoot(Rectangle rectangle, uint8_t facing_direction,
                        ServerMap map) = 0;
   virtual bool can_shoot() = 0;

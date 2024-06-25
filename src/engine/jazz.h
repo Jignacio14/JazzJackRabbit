@@ -10,6 +10,7 @@ public:
        int position, ServerMap &map);
 
   void special_attack() override;
+  void update_special_attack() override;
   ~Jazz();
 };
 

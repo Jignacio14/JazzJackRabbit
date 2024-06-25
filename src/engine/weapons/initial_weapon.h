@@ -9,7 +9,7 @@
 class InitialWeapon : public BaseWeapon {
 
 public:
-  explicit InitialWeapon(Snapshot &snap, int pos);
+  explicit InitialWeapon(Snapshot &snap, int pos, uint8_t player_id);
   Bullet shoot(Rectangle rectangle, uint8_t facing_direction,
                ServerMap map) override;
   bool can_shoot() override;

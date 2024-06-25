@@ -1,6 +1,8 @@
 #ifndef BASE_PLAYER
 #define BASE_PLAYER
 
+#include "../common/global_configs.h"
+#include "../common/jjr2_error.h"
 #include "../common/rectangle.h"
 #include "../data/convention.h"
 #include "../data/snapshot_dto.h"
@@ -20,6 +22,7 @@
 #define MAX_JUMP 200
 #define WALKING_SPEED 1
 #define RUNNING_SPEED 3
+#define INVALID_DAMAGE 0
 
 class BasePlayer {
 protected:
@@ -56,6 +59,12 @@ protected:
   uint32_t points;
   // cppcheck-suppress unusedStructMember
   double intoxicated_start;
+  // cppcheck-suppress unusedStructMember
+  bool doing_special_attack;
+  // cppcheck-suppress unusedStructMember
+  bool lori_special_attack;
+  // cppcheck-suppress unusedStructMember
+  const uint8_t special_attack_damage;
 
   bool move_down();
   bool move_up();
@@ -65,6 +74,9 @@ protected:
   void update_movement();
   void update_intoxication();
   void try_respawn();
+  bool can_jump();
+  bool can_move();
+  virtual void update_special_attack() = 0;
 
 public:
   BasePlayer(uint8_t player_id, const std::string &player_name,
@@ -85,6 +97,7 @@ public:
   bool intersects(Rectangle rectangle);
   bool can_shoot();
   bool is_alive();
+  bool is_doing_special_attack();
 
   void change_weapon(uint8_t weapon_id);
   void add_points(uint32_t points);
@@ -95,6 +108,8 @@ public:
   Bullet shoot();
 
   virtual void special_attack() = 0;
+
+  uint8_t get_special_attack_damage();
 
   ~BasePlayer();
 };

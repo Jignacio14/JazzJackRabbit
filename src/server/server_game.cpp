@@ -69,11 +69,7 @@ void Game::gameLoop() {
         this->_is_alive = false;
       }
 
-      for (auto &pair : players_data) {
-        if (pair.second) {
-          pair.second->update();
-        }
-      }
+      this->updatePlayers();
 
       this->updateCollectables();
 
@@ -175,7 +171,7 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
     break;
   case PlayerCommands::SHOOT: {
     Bullet newBullet = this->players_data[player_id]->shoot();
-    if (newBullet.get_damage() > 0) {
+    if (newBullet.get_damage() > INVALID_DAMAGE) {
       bullets.push_back(newBullet);
     }
     break;
@@ -190,10 +186,9 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
     this->cheat2Activated = true;
     snapshot.timeLeft = GAME_DURATION_CHEAT;
     break;
-    /*
   case PlayerCommands::SPECIAL_ATTACK:
-    this->players_data[player_id]->specialAttack();
-    break; */
+    this->players_data[player_id]->special_attack();
+    break;
   }
 }
 
@@ -280,6 +275,16 @@ void Game::ereasePlayer(uint8_t player_id) {
   }
 }
 
+void Game::handleEnemyDiedByBullet(bool died, Bullet bullet, BaseEnemy &enemy) {
+  if (died) {
+    uint8_t id_player_who_shot = bullet.get_player_id();
+    auto it = players_data.find(id_player_who_shot);
+    if (it != players_data.end()) {
+      it->second->add_points(enemy.get_points());
+    }
+  }
+}
+
 void Game::updateBullets() {
   for (auto &bullet : bullets) {
     bullet.move(snapshot);
@@ -293,7 +298,9 @@ void Game::updateBullets() {
     }
     for (auto &enemy : enemies) {
       if (enemy->intersects(bullet.get_rectangle()) && enemy->is_alive()) {
-        uint8_t drop = enemy->receive_damage(bullet.get_damage());
+        bool enemy_died = false;
+        uint8_t drop = enemy->receive_damage(bullet.get_damage(), enemy_died);
+        this->handleEnemyDiedByBullet(enemy_died, bullet, *enemy);
         Rectangle drop_rectangle = enemy->drop_rectangle();
         this->handleDrop(drop, drop_rectangle);
         bullet.kill(snapshot);
@@ -315,6 +322,35 @@ void Game::updateEnemies() {
           enemy->can_attack()) {
         enemy->attack(*player);
         break;
+      }
+    }
+  }
+}
+
+void Game::updatePlayers() {
+  for (auto &attacker_pair : players_data) {
+    auto &attacker = attacker_pair.second;
+    attacker->update();
+    if (attacker->is_doing_special_attack()) {
+      for (auto &enemy : enemies) {
+        if (enemy->intersects(attacker->get_rectangle()) && enemy->is_alive()) {
+          bool enemy_died = false;
+          uint8_t drop = enemy->receive_damage(
+              attacker->get_special_attack_damage(), enemy_died);
+          Rectangle drop_rectangle = enemy->drop_rectangle();
+          this->handleDrop(drop, drop_rectangle);
+          if (enemy_died) {
+            attacker->add_points(enemy->get_points());
+          }
+          break;
+        }
+      }
+      for (auto &defender_pair : players_data) {
+        auto &defender = defender_pair.second;
+        if (attacker != defender &&
+            defender->intersects(attacker->get_rectangle())) {
+          defender->receive_damage(attacker->get_special_attack_damage());
+        }
       }
     }
   }
