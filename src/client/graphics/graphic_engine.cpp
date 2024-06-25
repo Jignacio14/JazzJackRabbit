@@ -120,8 +120,12 @@ Sprite &GraphicEngine::getHudSprite(const u_int8_t &spriteCode) {
   return this->textureLoader.getHudSprite(spriteCode);
 }
 
-Sprite &GraphicEngine::getLeaderboardSprite() {
-  return this->textureLoader.getLeaderboardSprite();
+Sprite &GraphicEngine::getModalBackgroundSprite() {
+  return this->textureLoader.getModalBackgroundSprite();
+}
+
+Sprite &GraphicEngine::getModalDisconnectionSprite() {
+  return this->textureLoader.getModalDisconnectionSprite();
 }
 
 bool GraphicEngine::isInCameraFocus(const Coordinates &leftCorner,

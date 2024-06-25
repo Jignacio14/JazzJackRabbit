@@ -12,10 +12,10 @@ struct DiamondAnimationSpeedCoefs {
 Diamond::Diamond(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
                  Coordinates &currentCoords, const uint8_t &entityId,
                  SnapshotWrapper &snapshot)
-    : entityId(entityId), graphicEngine(graphicEngine),
-      audioEngine(audioEngine), currentAnimation(nullptr),
-      currentCoords(currentCoords), entityInfo(), shouldBeDeleted(false),
-      isShowingExitAnimation(false),
+    : entityId(entityId), type(GeneralType::Collectable),
+      graphicEngine(graphicEngine), audioEngine(audioEngine),
+      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
+      shouldBeDeleted(false), isShowingExitAnimation(false),
       hitbox(HitboxSizes::CollectableWidth, HitboxSizes::CollectableHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -42,6 +42,8 @@ void Diamond::renderFromLeftCorner(int iterationNumber,
   if (isInCameraFocus) {
     this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
                                                  this->currentCoords);
+  } else {
+    this->currentAnimation->advanceWithoutRendering(iterationNumber);
   }
 }
 
@@ -86,6 +88,8 @@ void Diamond::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
 }
 
 uint8_t Diamond::getId() const { return this->entityId; }
+
+u_int8_t Diamond::getType() const { return this->type; }
 
 bool Diamond::shouldDelete() const { return this->shouldBeDeleted; }
 

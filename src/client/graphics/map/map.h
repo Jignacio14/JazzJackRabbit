@@ -2,6 +2,7 @@
 #define MAP_H
 
 #include "../../../common/coordinates.h"
+#include "../../../common/slope.h"
 #include "../../player.h"
 #include "../graphic_engine.h"
 #include "../sprite.h"
@@ -22,6 +23,7 @@ private:
   Sprite &decorationSprite;
   Sprite &topGrassSprite;
   Sprite &fullDirtSprite;
+  Sprite &slopeSprite;
 
   // cppcheck-suppress unusedStructMember
   int fullMapSizeX;
@@ -51,21 +53,29 @@ private:
   std::vector<Coordinates> platform1CoordsTopGrass;
   // cppcheck-suppress unusedStructMember
   std::vector<Coordinates> platform1CoordsFullDirt;
+  // cppcheck-suppress unusedStructMember
+  std::vector<Slope> platform1CoordsSlopes;
 
   // cppcheck-suppress unusedStructMember
   std::vector<Coordinates> platform2CoordsTopGrass;
   // cppcheck-suppress unusedStructMember
   std::vector<Coordinates> platform2CoordsFullDirt;
+  // cppcheck-suppress unusedStructMember
+  std::vector<Slope> platform2CoordsSlopes;
 
   // cppcheck-suppress unusedStructMember
   std::vector<Coordinates> platform3CoordsTopGrass;
   // cppcheck-suppress unusedStructMember
   std::vector<Coordinates> platform3CoordsFullDirt;
+  // cppcheck-suppress unusedStructMember
+  std::vector<Slope> platform3CoordsSlopes;
 
   // cppcheck-suppress unusedStructMember
   std::vector<Coordinates> platform4CoordsTopGrass;
   // cppcheck-suppress unusedStructMember
   std::vector<Coordinates> platform4CoordsFullDirt;
+  // cppcheck-suppress unusedStructMember
+  std::vector<Slope> platform4CoordsSlopes;
 
   uint8_t nextRandomNumber(const int current) const;
 
@@ -86,6 +96,8 @@ private:
 
   void renderPlatform(const std::vector<Coordinates> &coordinatesVector,
                       Sprite &sprite);
+
+  void renderSlopes(const std::vector<Slope> &slopesVector, Sprite &sprite);
 
   bool isFocusedByCamera(const Coordinates &coords) const;
 

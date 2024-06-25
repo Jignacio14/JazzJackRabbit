@@ -56,6 +56,8 @@ struct ScenarioSpriteCodes {
   static constexpr uint8_t TopGrass = 62;
   // cppcheck-suppress unusedStructMember
   static constexpr uint8_t FullDirt = 63;
+  // cppcheck-suppress unusedStructMember
+  static constexpr uint8_t Slope = 64;
 };
 
 struct GunSpriteCodes {
@@ -108,9 +110,11 @@ struct TextFontsCodes {
   static constexpr uint8_t Joystix = 121;
 };
 
-struct LeaderboardCodes {
+struct ModalCodes {
   // cppcheck-suppress unusedStructMember
   static constexpr uint8_t Background = 131;
+  // cppcheck-suppress unusedStructMember
+  static constexpr uint8_t Disconnection = 132;
 };
 
 struct SpriteNamesMap {

@@ -18,6 +18,7 @@ private:
   int client_id;
   ClientProtocol protocol;
   std::atomic<bool> keep_talking;
+  std::atomic<bool> killed;
   ClientSender sender;
   ClientReceiver receiver;
   Queue<std::vector<uint8_t>> sender_queue;
@@ -34,17 +35,21 @@ public:
 
   void stop_moving();
 
-  void jump(); // up
+  void jump();
 
-  void shoot(); // space
+  void shoot();
 
-  void run(); // shift izquierdo
+  void run();
 
   void stop_running();
 
-  void special_attack(); // ctrl izq
+  void special_attack();
 
   void change_weapon(uint8_t weapon_number);
+
+  void cheat1();
+
+  void cheat2();
 
   bool isAlive() const;
 
@@ -53,6 +58,7 @@ public:
    * the socket.
    */
   void kill();
+
   ~Client();
 };
 

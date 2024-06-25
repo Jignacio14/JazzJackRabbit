@@ -15,9 +15,15 @@ const static Coordinates MAP_SCREEN_MIDDLE_POINT(MAP_SCREEN_SIZE_X / 2,
                                                  MAP_SCREEN_SIZE_Y / 2);
 
 const static int TILE_SIZE = 32; // In px
-const static int MAX_RANDOM_SOURCE = 30;
-
 const static int CAMERA_FOCUS_PADDING = 50;
+
+const static char MAP_COORDINATES_SRC_PATH[] =
+    "src/client/graphics/map/map_coordinates.yaml";
+const static char RANDOM_SOURCE_SRC_PATH[] =
+    "src/client/graphics/map/random_source.yaml";
+
+const static char LEFT_SLOPE_DIRECTION[] = "left";
+const static char RIGHT_SLOPE_DIRECTION[] = "right";
 
 Map::Map(GraphicEngine &graphicEngine, Player &player,
          uint8_t &scenarioSelected)
@@ -32,15 +38,19 @@ Map::Map(GraphicEngine &graphicEngine, Player &player,
           ScenarioSpriteCodes::TopGrass, this->scenarioSelected)),
       fullDirtSprite(this->graphicEngine.getScenarioSprite(
           ScenarioSpriteCodes::FullDirt, this->scenarioSelected)),
+      slopeSprite(this->graphicEngine.getScenarioSprite(
+          ScenarioSpriteCodes::Slope, this->scenarioSelected)),
       leftCorner(0, 0), player(player) {
 
-  for (int i = 0; i < MAX_RANDOM_SOURCE; i++) {
+  YAML::Node randomSourceYaml =
+      YAML::LoadFile(RANDOM_SOURCE_SRC_PATH)["random_integers"];
+
+  for (size_t i = 0; i < randomSourceYaml.size(); i++) {
     this->randomSource.push_back(
-        static_cast<uint8_t>(RandomStringGenerator::get_random_number(0, 10)));
+        static_cast<uint8_t>(randomSourceYaml[i].as<int>()));
   }
 
-  YAML::Node mapCoordinates =
-      YAML::LoadFile("src/client/graphics/map/map_coordinates.yaml");
+  YAML::Node mapCoordinates = YAML::LoadFile(MAP_COORDINATES_SRC_PATH);
 
   this->fullMapSizeX = mapCoordinates["full_map_size"]["x"].as<int>();
   this->fullMapSizeY = mapCoordinates["full_map_size"]["y"].as<int>();
@@ -51,6 +61,16 @@ Map::Map(GraphicEngine &graphicEngine, Player &player,
       int x = yamlCoords[i]["x"].as<int>();
       int y = yamlCoords[i]["y"].as<int>();
       coordsVector.push_back(Coordinates(x, y));
+    }
+  };
+
+  auto loadSlopesLambda = [](const YAML::Node &yamlSlopes,
+                             std::vector<Slope> &slopesVector) {
+    for (size_t i = 0; i < yamlSlopes.size(); i++) {
+      int x = yamlSlopes[i]["x"].as<int>();
+      int y = yamlSlopes[i]["y"].as<int>();
+      std::string facingDirection = yamlSlopes[i]["facing"].as<std::string>();
+      slopesVector.push_back(Slope(Coordinates(x, y), facingDirection));
     }
   };
 
@@ -77,28 +97,36 @@ Map::Map(GraphicEngine &graphicEngine, Player &player,
                         platform1CoordsTopGrass);
   loadCoordinatesLambda(mapCoordinates["platform_1"]["full_dirt"],
                         platform1CoordsFullDirt);
+  loadSlopesLambda(mapCoordinates["platform_1"]["slope"],
+                   platform1CoordsSlopes);
 
   // PLATFORM 2 INITIALIZATION
   loadCoordinatesLambda(mapCoordinates["platform_2"]["top_grass"],
                         platform2CoordsTopGrass);
   loadCoordinatesLambda(mapCoordinates["platform_2"]["full_dirt"],
                         platform2CoordsFullDirt);
+  loadSlopesLambda(mapCoordinates["platform_2"]["slope"],
+                   platform2CoordsSlopes);
 
   // PLATFORM 3 INITIALIZATION
   loadCoordinatesLambda(mapCoordinates["platform_3"]["top_grass"],
                         platform3CoordsTopGrass);
   loadCoordinatesLambda(mapCoordinates["platform_3"]["full_dirt"],
                         platform3CoordsFullDirt);
+  loadSlopesLambda(mapCoordinates["platform_3"]["slope"],
+                   platform3CoordsSlopes);
 
   // PLATFORM 4 INITIALIZATION
   loadCoordinatesLambda(mapCoordinates["platform_4"]["top_grass"],
                         platform4CoordsTopGrass);
   loadCoordinatesLambda(mapCoordinates["platform_4"]["full_dirt"],
                         platform4CoordsFullDirt);
+  loadSlopesLambda(mapCoordinates["platform_4"]["slope"],
+                   platform4CoordsSlopes);
 }
 
 uint8_t Map::nextRandomNumber(const int current) const {
-  int index = current % MAX_RANDOM_SOURCE;
+  int index = current % this->randomSource.size();
   return this->randomSource[index];
 }
 
@@ -392,6 +420,42 @@ void Map::renderPlayer(int iterationNumber) {
   this->player.render(iterationNumber, playerDrawingCoords);
 }
 
+void Map::renderSlopes(const std::vector<Slope> &slopesVector, Sprite &sprite) {
+  int maxPieces = slopesVector.size();
+
+  for (int i = 0; i < maxPieces; i++) {
+    const Slope &slope = slopesVector[i];
+    const Coordinates &startAbsolute = slope.getTopLeftCorner();
+
+    const Coordinates start(startAbsolute.getX() - this->leftCorner.getX(),
+                            startAbsolute.getY() - this->leftCorner.getY());
+
+    int finalX = start.getX();
+    int finalY = start.getY();
+
+    bool isInCameraFocus = this->isFocusedByCamera(Coordinates(finalX, finalY));
+
+    if (isInCameraFocus) {
+      bool shouldFlip =
+          slope.getFacingDirection() == LEFT_SLOPE_DIRECTION ? false : true;
+
+      if (!shouldFlip) {
+        this->sdlRenderer.Copy(
+            sprite.texture, SDL2pp::Rect(0, 0, TILE_SIZE, TILE_SIZE),
+            SDL2pp::Rect(finalX, finalY, TILE_SIZE, TILE_SIZE));
+
+      } else {
+        double rotationDegrees = 0.0;
+        auto &rotationCenter = SDL2pp::NullOpt;
+        this->sdlRenderer.Copy(
+            sprite.texture, SDL2pp::Rect(0, 0, TILE_SIZE, TILE_SIZE),
+            SDL2pp::Rect(finalX, finalY, TILE_SIZE, TILE_SIZE), rotationDegrees,
+            rotationCenter, SDL_FLIP_HORIZONTAL);
+      }
+    }
+  }
+}
+
 void Map::render(int iterationNumber) {
   this->updateLeftCornerLocation();
 
@@ -408,15 +472,19 @@ void Map::render(int iterationNumber) {
 
   this->renderPlatform(platform1CoordsFullDirt, fullDirtSprite);
   this->renderPlatform(platform1CoordsTopGrass, topGrassSprite);
+  this->renderSlopes(platform1CoordsSlopes, slopeSprite);
 
   this->renderPlatform(platform2CoordsFullDirt, fullDirtSprite);
   this->renderPlatform(platform2CoordsTopGrass, topGrassSprite);
+  this->renderSlopes(platform2CoordsSlopes, slopeSprite);
 
   this->renderPlatform(platform3CoordsFullDirt, fullDirtSprite);
   this->renderPlatform(platform3CoordsTopGrass, topGrassSprite);
+  this->renderSlopes(platform3CoordsSlopes, slopeSprite);
 
   this->renderPlatform(platform4CoordsFullDirt, fullDirtSprite);
   this->renderPlatform(platform4CoordsTopGrass, topGrassSprite);
+  this->renderSlopes(platform4CoordsSlopes, slopeSprite);
 }
 
 const Coordinates &Map::getLeftCorner() const { return this->leftCorner; }

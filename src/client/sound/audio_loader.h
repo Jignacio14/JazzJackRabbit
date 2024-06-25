@@ -30,6 +30,16 @@ private:
   SDL2pp::Music carrotusBackgroundMusic;
   SDL2pp::Music beachWorldBackgroundMusic;
 
+  SDL2pp::Chunk disconnectionSound;
+
+  SDL2pp::Chunk genericEnemyMeleeShotSound;
+  SDL2pp::Chunk bubbaHurtSound;
+  SDL2pp::Chunk turtleGoonHurtSound;
+  SDL2pp::Chunk schwarzenguardHurtSound;
+  SDL2pp::Chunk bubbaDeathSound;
+  SDL2pp::Chunk turtleGoonDeathSound;
+  SDL2pp::Chunk schwarzenguardDeathSound;
+
 public:
   explicit AudioLoader(SDL2pp::Mixer &sdlMixer);
 
@@ -57,6 +67,16 @@ public:
 
   SDL2pp::Music &getCarrotusBackgroundMusic();
   SDL2pp::Music &getBeachWorldBackgroundMusic();
+
+  SDL2pp::Chunk &getDisconnectionSound();
+
+  SDL2pp::Chunk &getGenericEnemyMeleeShotSound();
+  SDL2pp::Chunk &getBubbaHurtSound();
+  SDL2pp::Chunk &getTurtleGoonHurtSound();
+  SDL2pp::Chunk &getSchwarzenguardHurtSound();
+  SDL2pp::Chunk &getBubbaDeathSound();
+  SDL2pp::Chunk &getTurtleGoonDeathSound();
+  SDL2pp::Chunk &getSchwarzenguardDeathSound();
 };
 
 #endif // AUDIO_LOADER_H

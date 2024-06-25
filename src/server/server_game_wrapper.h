@@ -2,7 +2,6 @@
 #define GAME_WRAPPER
 
 #include "../common/global_configs.h"
-#include "../common/player_status_DTO.h"
 #include "../common/queue.h"
 #include "../data/command_code_dto.h"
 #include "../data/player_info_dto.h"

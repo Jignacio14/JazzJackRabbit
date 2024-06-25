@@ -71,7 +71,10 @@ private:
   std::unordered_map<std::string, SDL2pp::Font> fonts;
 
   // cppcheck-suppress unusedStructMember
-  std::unique_ptr<Sprite> leaderboardSprite;
+  std::unique_ptr<Sprite> modalBackgroundSprite;
+
+  // cppcheck-suppress unusedStructMember
+  std::unique_ptr<Sprite> modalDisconnectionSprite;
 
 public:
   explicit TextureLoader(SDL2pp::Renderer &sdlRenderer);
@@ -109,7 +112,8 @@ public:
 
   Sprite &getHudSprite(const u_int8_t &spriteCode);
 
-  Sprite &getLeaderboardSprite();
+  Sprite &getModalBackgroundSprite();
+  Sprite &getModalDisconnectionSprite();
 };
 
 #endif // TEXTURE_LOADER_H

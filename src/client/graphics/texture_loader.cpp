@@ -185,7 +185,7 @@ void TextureLoader::preloadTextures() {
   for (auto &spriteCode : jazzSpecialsVector) {
     loadSpriteLambda("src/client/sprites/jazz/", spriteCode,
                      spriteNamesMap.map.at(spriteCode),
-                     CHARACTERS_COLOR_KEY_RGB, this->jazzGenericSprites);
+                     CHARACTERS_COLOR_KEY_RGB, this->jazzSpecial);
   }
 
   // JAZZ HUB ICON INITIALIZATION
@@ -261,6 +261,12 @@ void TextureLoader::preloadTextures() {
                    spriteNamesMap.map.at(ScenarioSpriteCodes::FullDirt),
                    nullptr, this->carrotusScenarioSprites);
 
+  // Load slope
+  loadSpriteLambda("src/client/sprites/carrotus_scenario/",
+                   ScenarioSpriteCodes::Slope,
+                   spriteNamesMap.map.at(ScenarioSpriteCodes::Slope),
+                   MAP_COLOR_KEY_RGB, this->carrotusScenarioSprites);
+
   // BEACH WORLD SCENARIO SPRITES INITIALIZATION
 
   // Load background
@@ -288,6 +294,12 @@ void TextureLoader::preloadTextures() {
                    ScenarioSpriteCodes::FullDirt,
                    spriteNamesMap.map.at(ScenarioSpriteCodes::FullDirt),
                    nullptr, this->beachWorldScenarioSprites);
+
+  // Load slope
+  loadSpriteLambda("src/client/sprites/beach_world_scenario/",
+                   ScenarioSpriteCodes::Slope,
+                   spriteNamesMap.map.at(ScenarioSpriteCodes::Slope),
+                   MAP_COLOR_KEY_RGB, this->beachWorldScenarioSprites);
 
   // GUNS SPRITES INITIALIZATION
   for (auto &spriteCode : gunsSpriteNamesVector) {
@@ -369,12 +381,19 @@ void TextureLoader::preloadTextures() {
                      this->hudSprites);
   }
 
-  // LEADERBOARD INITIALIZATION
-  int leaderboardBackgroundAlpha = 200;
-  loadSpriteHudIconLambda("src/client/sprites/leaderboard/",
-                          spriteNamesMap.map.at(LeaderboardCodes::Background),
-                          MAP_COLOR_KEY_RGB, this->leaderboardSprite,
-                          leaderboardBackgroundAlpha);
+  // MODAL INITIALIZATION
+  int modalBackgroundAlpha = 200;
+  loadSpriteHudIconLambda("src/client/sprites/modal/",
+                          spriteNamesMap.map.at(ModalCodes::Background),
+                          MAP_COLOR_KEY_RGB, this->modalBackgroundSprite,
+                          modalBackgroundAlpha);
+
+  // MODAL INITIALIZATION
+  int modalDisconnectionAlpha = 200;
+  loadSpriteHudIconLambda("src/client/sprites/modal/",
+                          spriteNamesMap.map.at(ModalCodes::Disconnection),
+                          MAP_COLOR_KEY_RGB, this->modalDisconnectionSprite,
+                          modalDisconnectionAlpha);
 }
 
 Sprite &TextureLoader::getJazzGenericSprite(const u_int8_t &spriteCode) {
@@ -571,6 +590,10 @@ Sprite &TextureLoader::getHudSprite(const u_int8_t &spriteCode) {
   }
 }
 
-Sprite &TextureLoader::getLeaderboardSprite() {
-  return std::ref(*this->leaderboardSprite);
+Sprite &TextureLoader::getModalBackgroundSprite() {
+  return std::ref(*this->modalBackgroundSprite);
+}
+
+Sprite &TextureLoader::getModalDisconnectionSprite() {
+  return std::ref(*this->modalDisconnectionSprite);
 }

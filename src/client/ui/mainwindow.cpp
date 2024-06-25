@@ -335,6 +335,7 @@ void MainWindow::startGame() {
                   this->gameDuration);
 
   auto lambda = [=]() { this->waitForPlayers(); };
+
   this->waitingPlayersAndStartTask = std::make_unique<std::thread>(lambda);
 }
 
@@ -343,9 +344,13 @@ void MainWindow::waitForPlayers() {
                                   this->username);
   std::cout << "Waiting for players to join"
             << "\n";
-  *this->initialSnapshot = this->lobby->wait_game_start();
-  std::cout << "Game starting!"
-            << "\n";
+  try {
+    *this->initialSnapshot = this->lobby->wait_game_start();
+    std::cout << "Game starting!"
+              << "\n";
+
+  } catch (...) {
+  }
   this->close();
 }
 
@@ -562,34 +567,82 @@ QWidget *MainWindow::createGameItemWidget(const GameConfigs &game) {
       std::string("  " + std::to_string(game.getGameDuration()) + "s")));
   labelDuration->setObjectName(qParsedGamedNameForLabel);
 
-  QPushButton *button = new QPushButton("Join");
-  button->setObjectName(qParsedGamedNameForButton);
-
-  std::string buttonStylesheet =
-      "QPushButton#" + parsedGameNameForButton +
-      "{  background-color: rgba(177,252,3,140);  color: rgb(255, 255, 255);  "
-      "border-radius: 5px;  font-family: Joystix; }  QPushButton#" +
-      parsedGameNameForButton + ":hover, QPushButton#" +
-      parsedGameNameForButton +
-      ":focus {  background-color: rgba(177,252,3,180);  color: rgb(255, 255, "
-      "255); }  QPushButton#" +
-      parsedGameNameForButton +
-      ":pressed {  background-color: rgba(177,252,3,160);  color: rgb(255, "
-      "255, 255);  padding-left: 3px;  padding-top: 3px; }";
-
   std::string labelStylesheet =
       "QLabel#" + parsedGameNameForLabel +
       "{  color: rgb(255, 255, 255); font-family: Joystix; }";
 
-  button->setStyleSheet(QString::fromStdString(buttonStylesheet));
   labelRoomName->setStyleSheet(QString::fromStdString(labelStylesheet));
   labelDuration->setStyleSheet(QString::fromStdString(labelStylesheet));
   labelPlayers->setStyleSheet(QString::fromStdString(labelStylesheet));
 
-  QObject::connect(button, &QPushButton::clicked, [=]() {
-    this->buttonClickSound.play();
-    this->joinGame(game);
-  });
+  QPushButton *button = new QPushButton("Join");
+  button->setObjectName(qParsedGamedNameForButton);
+
+  if (game.getCurrentNumberOfPlayers() < game.getMaxNumberOfPlayers()) {
+    std::string buttonStylesheet =
+        "QPushButton#" + parsedGameNameForButton +
+        "{  background-color: rgba(177,252,3,140);  color: rgb(255, 255, 255); "
+        " "
+        "border-radius: 5px;  font-family: Joystix; }  QPushButton#" +
+        parsedGameNameForButton + ":hover, QPushButton#" +
+        parsedGameNameForButton +
+        ":focus {  background-color: rgba(177,252,3,180);  color: rgb(255, "
+        "255, "
+        "255); }  QPushButton#" +
+        parsedGameNameForButton +
+        ":pressed {  background-color: rgba(177,252,3,160);  color: rgb(255, "
+        "255, 255);  padding-left: 3px;  padding-top: 3px; }";
+
+    button->setStyleSheet(QString::fromStdString(buttonStylesheet));
+
+    QObject::connect(button, &QPushButton::clicked, [=]() {
+      this->buttonClickSound.play();
+      bool isFull = false;
+
+      // Update button state if at click time the room is full
+      std::vector<GameConfigs> games = this->getRefreshedGamesFromServer();
+      for (auto &newGame : games) {
+        if (newGame.getOwnerName() == game.getOwnerName()) {
+          if (newGame.getCurrentNumberOfPlayers() >=
+              newGame.getMaxNumberOfPlayers()) {
+            std::string buttonStylesheet =
+                "QPushButton#" + parsedGameNameForButton +
+                "{  background-color: rgba(179, 189, 157,140);  color: "
+                "rgb(210, 210, "
+                "210); border-radius: 5px;  font-family: Joystix; }";
+
+            button->setStyleSheet(QString::fromStdString(buttonStylesheet));
+            button->setEnabled(false);
+            button->setText("Full");
+            isFull = true;
+
+            labelPlayers->setText(QString::fromStdString(std::string(
+                std::to_string(newGame.getCurrentNumberOfPlayers()) + "/" +
+                std::to_string(newGame.getMaxNumberOfPlayers()))));
+          }
+        }
+      }
+
+      if (!isFull) {
+        this->joinGame(game);
+      } else {
+        std::string tooltipMessage("Room is full");
+        QString qTooltipMessage = QString::fromStdString(tooltipMessage);
+        QPoint location = button->mapToGlobal(QPoint(0, 0));
+        this->showTooltip(location, qTooltipMessage);
+      }
+    });
+
+  } else {
+    std::string buttonStylesheet =
+        "QPushButton#" + parsedGameNameForButton +
+        "{  background-color: rgba(179, 189, 157,140);  color: rgb(210, 210, "
+        "210); border-radius: 5px;  font-family: Joystix; }";
+
+    button->setStyleSheet(QString::fromStdString(buttonStylesheet));
+    button->setEnabled(false);
+    button->setText("Full");
+  }
 
   layout->addWidget(labelRoomName);
   layout->addWidget(labelDuration);
@@ -605,9 +658,9 @@ std::unique_ptr<Lobby> MainWindow::getLobby() {
 }
 
 MainWindow::~MainWindow() {
-  delete ui;
   if (this->waitingPlayersAndStartTask != nullptr) {
     if (this->waitingPlayersAndStartTask->joinable())
       this->waitingPlayersAndStartTask->join();
   }
+  delete ui;
 }

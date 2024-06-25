@@ -1,40 +1,49 @@
 #include "./keyboard_handler.h"
 #include "../data/convention.h"
 #include "./stop_iteration_exception.h"
+#include <SDL2/SDL_keycode.h>
 #include <SDL2pp/SDL2pp.hh>
 
 KeyboardHandler::KeyboardHandler(Client &client, DebugPanel &debugPanel)
-    : client(client), debugPanel(debugPanel) {}
+    : client(client), debugPanel(debugPanel), allowGameInputs(true) {}
 
-void KeyboardHandler::processEvents(const Player &player) {
+void KeyboardHandler::processAllEvents(const Player &player) {
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
+    /*
+      SDL_QUIT events
+    */
+    if (event.type == SDL_QUIT) {
+      throw StopIteration();
+    }
 
+    /*
+      Ignore repeats
+    */
     if (event.key.repeat != 0) {
       continue;
     }
 
     /*
-      SDL_QUIT events
+      SDL_KEYDOWN events
     */
 
-    if (event.type == SDL_QUIT) {
-      throw StopIteration();
-
-      /*
-        SDL_KEYDOWN events
-      */
-
-    } else if (event.type == SDL_KEYDOWN) {
+    if (event.type == SDL_KEYDOWN) {
       switch (event.key.keysym.sym) {
       case SDLK_ESCAPE:
         throw StopIteration();
         break;
 
       case SDLK_F1:
-        std::cout << "Toggling debug panel"
-                  << "\n";
         this->debugPanel.activationToggle();
+        break;
+
+      case SDLK_F2:
+        this->client.cheat1();
+        break;
+
+      case SDLK_F3:
+        this->client.cheat2();
         break;
 
       case SDLK_UP:
@@ -91,3 +100,48 @@ void KeyboardHandler::processEvents(const Player &player) {
     }
   }
 }
+
+void KeyboardHandler::processOnlyUiEvents(const Player &player) {
+  SDL_Event event;
+  while (SDL_PollEvent(&event)) {
+    /*
+      SDL_QUIT events
+    */
+    if (event.type == SDL_QUIT) {
+      throw StopIteration();
+    }
+
+    /*
+      Ignore repeats
+    */
+    if (event.key.repeat != 0) {
+      continue;
+    }
+
+    /*
+      SDL_KEYDOWN events
+    */
+
+    if (event.type == SDL_KEYDOWN) {
+      switch (event.key.keysym.sym) {
+      case SDLK_ESCAPE:
+        throw StopIteration();
+        break;
+
+      case SDLK_F1:
+        this->debugPanel.activationToggle();
+        break;
+      }
+    }
+  }
+}
+
+void KeyboardHandler::processEvents(const Player &player) {
+  if (this->allowGameInputs) {
+    this->processAllEvents(player);
+  } else {
+    this->processOnlyUiEvents(player);
+  }
+}
+
+void KeyboardHandler::disableGameInputs() { this->allowGameInputs = false; }

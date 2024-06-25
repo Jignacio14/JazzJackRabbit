@@ -11,6 +11,7 @@
 #include <qpushbutton.h>
 #include <qsound.h>
 #include <qstring.h>
+#include <qthread.h>
 #include <string>
 #include <thread>
 

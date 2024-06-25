@@ -6,7 +6,7 @@
 
 Client::Client(Socket &&socket, int id)
     : client_id(id), protocol(std::move(socket)), keep_talking(true),
-      sender(keep_talking, sender_queue, protocol, id),
+      killed(false), sender(keep_talking, sender_queue, protocol, id),
       receiver(keep_talking, protocol, receiver_queue) {
   receiver.start();
   sender.start();
@@ -85,22 +85,63 @@ void Client::change_weapon(uint8_t weapon_number) {
   sender_queue.try_push(command);
 }
 
+void Client::cheat1() {
+  std::vector<uint8_t> command;
+  uint8_t command_to_push = PlayerCommands::CHEAT_1;
+  command.push_back(command_to_push);
+  sender_queue.try_push(command);
+}
+
+void Client::cheat2() {
+  std::vector<uint8_t> command;
+  uint8_t command_to_push = PlayerCommands::CHEAT_2;
+  command.push_back(command_to_push);
+  sender_queue.try_push(command);
+}
+
 void Client::kill() {
-  protocol.close_and_shutdown();
-  receiver.kill();
-  sender.kill();
-  sender.join();
-  receiver.join();
+  try {
+    protocol.close_and_shutdown();
+  } catch (...) {
+  }
+
+  try {
+    this->sender_queue.close();
+    this->receiver_queue.close();
+  } catch (const ClosedQueue &) {
+  }
+
+  this->receiver.stop();
+  this->sender.stop();
+
+  this->receiver.kill();
+  this->receiver.join();
+
+  this->sender.kill();
+  this->sender.join();
+
+  this->killed = true;
 }
 
 bool Client::isAlive() const { return this->keep_talking; }
 
 Client::~Client() {
-  protocol.close_and_shutdown();
-  this->sender_queue.close();
-  this->receiver_queue.close();
-  this->receiver.kill();
-  this->sender.stop();
-  this->receiver.join();
-  this->sender.join();
+  if (!this->killed) {
+    try {
+      protocol.close_and_shutdown();
+    } catch (...) {
+    }
+
+    try {
+      this->sender_queue.close();
+      this->receiver_queue.close();
+    } catch (const ClosedQueue &) {
+    }
+
+    this->receiver.kill();
+    this->receiver.join();
+
+    this->sender.kill();
+    this->sender.join();
+  }
 }

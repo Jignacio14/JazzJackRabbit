@@ -1,11 +1,14 @@
 #include "server_game.h"
 #include <cstring>
+#include <exception>
 #include <iostream>
 #include <thread>
 
 #include "../common/global_configs.h"
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
+
+static GlobalCounter &counter = GlobalCounter::getInstance();
 
 const static double TICKS_PER_SECOND =
     globalConfigs.getTargetTicksPerSecondOfServer();
@@ -20,10 +23,13 @@ const static double GAME_DURATION = globalConfigs.getMaxGameDuration();
 const static int PLAYER_INITIAL_POSITION_X = 60;
 const static int PLAYER_INITIAL_POSITION_Y = 1050;
 
+const static double GAME_DURATION_CHEAT = 2;
+
 Game::Game(GameMonitor &monitor, Queue<CommandCodeDto> &queue)
     : monitor(monitor), messages(queue), players(0), snapshot{},
       gameEnded(false), iterationNumber(0), rate(SERVER_RATE),
-      collectablesHandler(collectables, snapshot) {}
+      collectablesHandler(collectables, snapshot),
+      enemiesHandler(enemies, snapshot), cheat2Activated(false) {}
 
 double Game::now() {
   return std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -42,14 +48,19 @@ void Game::gameLoop() {
 
     collectablesHandler.initialize();
 
-    // this->addEnemies();
+    enemiesHandler.initialize();
 
     double initTimestamp = this->now();
 
     while (this->_is_alive) {
       double start = this->now();
-      this->snapshot.timeLeft =
-          GAME_DURATION - ((start - initTimestamp) / 1000);
+      if (cheat2Activated) {
+        this->snapshot.timeLeft =
+            GAME_DURATION_CHEAT - ((start - initTimestamp) / 1000);
+      } else {
+        this->snapshot.timeLeft =
+            GAME_DURATION - ((start - initTimestamp) / 1000);
+      }
 
       if (this->snapshot.timeLeft < 0) {
         this->snapshot.gameEnded = NumericBool::True;
@@ -58,15 +69,15 @@ void Game::gameLoop() {
         this->_is_alive = false;
       }
 
-      for (auto &pair : players_data) {
-        if (pair.second) {
-          pair.second->update();
-        }
-      }
-
-      this->updateBullets();
+      this->updatePlayers();
 
       this->updateCollectables();
+
+      enemiesHandler.update();
+
+      this->updateEnemies();
+
+      this->updateBullets();
 
       CommandCodeDto command;
       int instructions_count = 0;
@@ -136,23 +147,6 @@ std::unique_ptr<BasePlayer> Game::constructPlayer(uint8_t player_id,
 
   return nullptr;
 }
-/*
-void Game::addEnemies() {
-  std::unique_ptr<BaseEnemy> enemy =
-      std::make_unique<BaseEnemy>(1, snapshot, 0);
-  this->enemies.push_back(std::move(enemy));
-  EnemyDto new_enemy = {};
-  new_enemy.entity_id = 1;
-  new_enemy.facing_direction = FacingDirectionsIds::Left;
-  new_enemy.is_dead = 0;
-  new_enemy.was_hurt = 0;
-  new_enemy.shot = 0;
-  new_enemy.position_x = 500;
-  new_enemy.position_y = 1050;
-  new_enemy.type = EnemiesIds::Bubba;
-  this->snapshot.enemies[this->snapshot.sizeEnemies] = new_enemy;
-  this->snapshot.sizeEnemies++;
-}*/
 
 void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
                          const uint8_t &data) {
@@ -177,7 +171,7 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
     break;
   case PlayerCommands::SHOOT: {
     Bullet newBullet = this->players_data[player_id]->shoot();
-    if (newBullet.get_damage() > 0) {
+    if (newBullet.get_damage() > INVALID_DAMAGE) {
       bullets.push_back(newBullet);
     }
     break;
@@ -185,10 +179,16 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
   case PlayerCommands::CHANGE_WEAPON:
     this->players_data[player_id]->change_weapon(data);
     break;
-    /*
+  case PlayerCommands::CHEAT_1:
+    collectablesHandler.reset_collectables();
+    break;
+  case PlayerCommands::CHEAT_2:
+    this->cheat2Activated = true;
+    snapshot.timeLeft = GAME_DURATION_CHEAT;
+    break;
   case PlayerCommands::SPECIAL_ATTACK:
-    this->players_data[player_id]->specialAttack();
-    break; */
+    this->players_data[player_id]->special_attack();
+    break;
   }
 }
 
@@ -275,6 +275,16 @@ void Game::ereasePlayer(uint8_t player_id) {
   }
 }
 
+void Game::handleEnemyDiedByBullet(bool died, Bullet bullet, BaseEnemy &enemy) {
+  if (died) {
+    uint8_t id_player_who_shot = bullet.get_player_id();
+    auto it = players_data.find(id_player_who_shot);
+    if (it != players_data.end()) {
+      it->second->add_points(enemy.get_points());
+    }
+  }
+}
+
 void Game::updateBullets() {
   for (auto &bullet : bullets) {
     bullet.move(snapshot);
@@ -286,11 +296,78 @@ void Game::updateBullets() {
         break;
       }
     }
+    for (auto &enemy : enemies) {
+      if (enemy->intersects(bullet.get_rectangle()) && enemy->is_alive()) {
+        bool enemy_died = false;
+        uint8_t drop = enemy->receive_damage(bullet.get_damage(), enemy_died);
+        this->handleEnemyDiedByBullet(enemy_died, bullet, *enemy);
+        Rectangle drop_rectangle = enemy->drop_rectangle();
+        this->handleDrop(drop, drop_rectangle);
+        bullet.kill(snapshot);
+        break;
+      }
+    }
   }
   bullets.erase(
       std::remove_if(bullets.begin(), bullets.end(),
                      [](Bullet &bullet) { return !bullet.is_alive(); }),
       bullets.end());
+}
+
+void Game::updateEnemies() {
+  for (auto &enemy : enemies) {
+    for (auto &pair : players_data) {
+      auto &player = pair.second;
+      if (enemy->intersects_with_direction(player->get_rectangle()) &&
+          enemy->can_attack()) {
+        enemy->attack(*player);
+        break;
+      }
+    }
+  }
+}
+
+void Game::updatePlayers() {
+  for (auto &attacker_pair : players_data) {
+    auto &attacker = attacker_pair.second;
+    attacker->update();
+    if (attacker->is_doing_special_attack()) {
+      for (auto &enemy : enemies) {
+        if (enemy->intersects(attacker->get_rectangle()) && enemy->is_alive()) {
+          bool enemy_died = false;
+          uint8_t drop = enemy->receive_damage(
+              attacker->get_special_attack_damage(), enemy_died);
+          Rectangle drop_rectangle = enemy->drop_rectangle();
+          this->handleDrop(drop, drop_rectangle);
+          if (enemy_died) {
+            attacker->add_points(enemy->get_points());
+          }
+          break;
+        }
+      }
+      for (auto &defender_pair : players_data) {
+        auto &defender = defender_pair.second;
+        if (attacker != defender &&
+            defender->intersects(attacker->get_rectangle())) {
+          defender->receive_damage(attacker->get_special_attack_damage());
+        }
+      }
+    }
+  }
+}
+
+void Game::handleDrop(uint8_t drop, Rectangle drop_rectangle) {
+  if (drop == EnemyDrop::NoDrop) {
+    return;
+  }
+  switch (drop) {
+  case EnemyDrop::Ammo:
+    collectablesHandler.add_ammo(drop_rectangle);
+    break;
+  case EnemyDrop::Carrot:
+    collectablesHandler.add_carrot(drop_rectangle);
+    break;
+  }
 }
 
 void Game::updateCollectables() {
@@ -321,6 +398,11 @@ void Game::kill() { this->_is_alive = false; }
 bool Game::didGameEnd() { return this->gameEnded; };
 
 Game::~Game() {
-  this->kill();
-  this->join();
+  try {
+    if (this->_is_alive) {
+      this->kill();
+    }
+    this->join();
+  } catch (const std::exception &e) {
+  }
 }

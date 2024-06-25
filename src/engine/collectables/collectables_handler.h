@@ -1,7 +1,7 @@
 #ifndef COLLECTABLES_HANDLER_H
 #define COLLECTABLES_HANDLER_H
 
-#include "../server_map.h"
+#include "ammo.h"
 #include "base_collectable.h"
 #include "carrot.h"
 #include "coin.h"
@@ -14,7 +14,6 @@ class CollectablesHandler {
 private:
   // cppcheck-suppress unusedStructMember
   std::vector<std::unique_ptr<BaseCollectable>> &collectables;
-  // ServerMap &map;
   // cppcheck-suppress unusedStructMember
   Snapshot &snapshot;
 
@@ -29,6 +28,8 @@ public:
       Snapshot &snapshot);
   void initialize();
   void reset_collectables();
+  void add_ammo(Rectangle rectangle);
+  void add_carrot(Rectangle rectangle);
 };
 
 #endif // COLLECTABLES_HANDLER_H

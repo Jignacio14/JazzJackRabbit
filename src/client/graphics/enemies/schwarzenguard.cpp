@@ -5,10 +5,10 @@
 #include <unordered_map>
 
 struct SchwarzenguardAnimationSpeedCoefs {
-  static constexpr double Death = 25;
-  static constexpr double Hurt = 25;
-  static constexpr double Idle = 35;
-  static constexpr double Shooting = 25;
+  static constexpr double Death = 5;
+  static constexpr double Hurt = 10;
+  static constexpr double Idle = 6;
+  static constexpr double Shooting = 15;
 };
 
 Schwarzenguard::Schwarzenguard(GraphicEngine &graphicEngine,
@@ -16,9 +16,9 @@ Schwarzenguard::Schwarzenguard(GraphicEngine &graphicEngine,
                                Coordinates &currentCoords,
                                const uint8_t &entityId,
                                SnapshotWrapper &snapshot)
-    : entityId(entityId), graphicEngine(graphicEngine),
-      audioEngine(audioEngine), currentAnimation(nullptr),
-      currentCoords(currentCoords), entityInfo(),
+    : entityId(entityId), type(GeneralType::Enemy),
+      graphicEngine(graphicEngine), audioEngine(audioEngine),
+      currentAnimation(nullptr), currentCoords(currentCoords), entityInfo(),
       hitbox(HitboxSizes::EnemyWidth, HitboxSizes::EnemyHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -44,60 +44,93 @@ void Schwarzenguard::renderFromLeftCorner(int iterationNumber,
   if (isInCameraFocus) {
     this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
                                                  this->currentCoords);
+  } else {
+    this->currentAnimation->advanceWithoutRendering(iterationNumber);
   }
 }
 
 void Schwarzenguard::updateAnimation(const SnapshotWrapper &snapshot,
-                                     const EnemyDto &newEntityInfo) {
+                                     const EnemyDto &newEntityInfo,
+                                     const Coordinates &leftCorner) {
 
   bool shouldFlip = newEntityInfo.facing_direction == FacingDirectionsIds::Right
                         ? AnimationState::NotFlip
                         : AnimationState::Flip;
 
+  bool canBreakAnimation = this->currentAnimation->canBreakAnimation();
+  bool isInCameraFocus = this->graphicEngine.isInCameraFocus(
+      leftCorner,
+      Coordinates(this->entityInfo.position_x, this->entityInfo.position_y));
+
+  if (this->entityInfo.is_dead == NumericBool::True &&
+      newEntityInfo.is_dead == NumericBool::False) {
+    canBreakAnimation = true;
+  }
+
   if (newEntityInfo.is_dead == NumericBool::True) {
-    if (this->entityInfo.is_dead == NumericBool::False) {
+
+    if (this->currentAnimation->getCode() != EnemiesGenericSpriteCodes::Death) {
+
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, EnemiesGenericSpriteCodes::Death,
           &this->graphicEngine.getSchwarzenguardSprite(
               EnemiesGenericSpriteCodes::Death),
           AnimationState::NotCycle, SchwarzenguardAnimationSpeedCoefs::Death,
           shouldFlip, this->hitbox);
+
+      if (isInCameraFocus) {
+        this->audioEngine.playSchwarzenguardDeathSound();
+      }
     }
     return;
   }
 
   if (newEntityInfo.was_hurt == NumericBool::True) {
-    if (this->entityInfo.was_hurt == NumericBool::False) {
+
+    if (this->currentAnimation->getCode() != EnemiesGenericSpriteCodes::Hurt) {
+
       this->currentAnimation = std::make_unique<AnimationState>(
           this->graphicEngine, EnemiesGenericSpriteCodes::Hurt,
           &this->graphicEngine.getSchwarzenguardSprite(
               EnemiesGenericSpriteCodes::Hurt),
           AnimationState::NotCycle, SchwarzenguardAnimationSpeedCoefs::Hurt,
           shouldFlip, this->hitbox);
+
+      if (isInCameraFocus) {
+        this->audioEngine.playSchwarzenguardHurtSound();
+      }
     }
     return;
   }
 
   if (newEntityInfo.shot == NumericBool::True) {
-    this->currentAnimation = std::make_unique<AnimationState>(
-        this->graphicEngine, EnemiesGenericSpriteCodes::Shooting,
-        &this->graphicEngine.getSchwarzenguardSprite(
-            EnemiesGenericSpriteCodes::Shooting),
-        AnimationState::NotCycle, SchwarzenguardAnimationSpeedCoefs::Shooting,
-        shouldFlip, this->hitbox);
+
+    if (this->currentAnimation->getCode() !=
+        EnemiesGenericSpriteCodes::Shooting) {
+
+      this->currentAnimation = std::make_unique<AnimationState>(
+          this->graphicEngine, EnemiesGenericSpriteCodes::Shooting,
+          &this->graphicEngine.getSchwarzenguardSprite(
+              EnemiesGenericSpriteCodes::Shooting),
+          AnimationState::NotCycle, SchwarzenguardAnimationSpeedCoefs::Shooting,
+          shouldFlip, this->hitbox);
+
+      if (isInCameraFocus) {
+        this->audioEngine.playGenericEnemyMeleeShotSound();
+      }
+    }
     return;
   }
 
-  bool canBreakAnimation = this->currentAnimation->canBreakAnimation();
+  if (this->currentAnimation->getCode() != EnemiesGenericSpriteCodes::Idle &&
+      canBreakAnimation) {
 
-  if (canBreakAnimation) {
     this->currentAnimation = std::make_unique<AnimationState>(
         this->graphicEngine, EnemiesGenericSpriteCodes::Idle,
         &this->graphicEngine.getSchwarzenguardSprite(
             EnemiesGenericSpriteCodes::Idle),
         AnimationState::Cycle, SchwarzenguardAnimationSpeedCoefs::Idle,
         shouldFlip, this->hitbox);
-    return;
   }
 }
 
@@ -109,17 +142,19 @@ void Schwarzenguard::update(SnapshotWrapper &snapshot,
   if (!foundPlayableCharacter) {
     std::cerr << "Schwarzenguard with entity id " +
                      std::to_string(this->entityId) +
-                     " was not found in snapshot at update time";
+                     " was not found in snapshot at update time\n";
     return;
   }
 
   this->currentCoords.setX(newEntityInfo.position_x);
   this->currentCoords.setY(newEntityInfo.position_y);
 
-  this->updateAnimation(snapshot, newEntityInfo);
+  this->updateAnimation(snapshot, newEntityInfo, leftCorner);
   this->entityInfo = newEntityInfo;
 }
 
 uint8_t Schwarzenguard::getId() const { return this->entityId; }
+
+u_int8_t Schwarzenguard::getType() const { return this->type; }
 
 Schwarzenguard::~Schwarzenguard() {}

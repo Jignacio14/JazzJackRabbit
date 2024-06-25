@@ -20,6 +20,8 @@ class Spaz : public PlayableCharacter {
 private:
   // cppcheck-suppress unusedStructMember
   const uint8_t entityId;
+  // cppcheck-suppress unusedStructMember
+  const uint8_t type;
   GraphicEngine &graphicEngine;
   AudioEngine &audioEngine;
 
@@ -44,8 +46,6 @@ private:
 
   Hitbox hitbox;
 
-  // void debugUpdateLocation(int iterationNumber);
-
   void updateAnimation(const SnapshotWrapper &snapshot,
                        const PlayerDto &newEntityInfo,
                        const Coordinates &leftCorner);
@@ -64,6 +64,8 @@ public:
                       const Coordinates &leftCorner) override;
 
   virtual uint8_t getId() const override;
+
+  virtual u_int8_t getType() const override;
 
   virtual Coordinates getCoords() override;
   virtual void setX(int x) override;

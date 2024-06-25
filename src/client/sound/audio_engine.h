@@ -55,7 +55,17 @@ public:
   void playCarrotusBackgroundMusic();
   void playBeachWorldBackgroundMusic();
 
+  void playDisconnectionSound();
+
   void stopPlayingBackgroundMusic();
+
+  void playGenericEnemyMeleeShotSound();
+  void playBubbaHurtSound();
+  void playTurtleGoonHurtSound();
+  void playSchwarzenguardHurtSound();
+  void playBubbaDeathSound();
+  void playTurtleGoonDeathSound();
+  void playSchwarzenguardDeathSound();
 
   ~AudioEngine();
 };

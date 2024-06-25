@@ -9,6 +9,8 @@
 #include "../engine/collectables/base_collectable.h"
 #include "../engine/collectables/collectables_handler.h"
 #include "../engine/enemies/base_enemy.h"
+#include "../engine/enemies/enemies_handler.h"
+#include "../engine/global_counter.h"
 #include "../engine/jazz.h"
 #include "../engine/lori.h"
 #include "../engine/spaz.h"
@@ -49,6 +51,10 @@ private:
   double rate;
   // cppcheck-suppress unusedStructMember
   CollectablesHandler collectablesHandler;
+  // cppcheck-suppress unusedStructMember
+  EnemiesHandler enemiesHandler;
+  // cppcheck-suppress unusedStructMember
+  bool cheat2Activated;
 
   void gameLoop();
   // cppcheck-suppress unusedPrivateFunction
@@ -59,9 +65,12 @@ private:
                                               uint8_t player_type);
   double now();
   void rateController(double start, double finish);
-  // void addEnemies();
   void updateBullets();
   void updateCollectables();
+  void handleDrop(uint8_t drop, Rectangle drop_rectangle);
+  void updateEnemies();
+  void updatePlayers();
+  void handleEnemyDiedByBullet(bool died, Bullet bullet, BaseEnemy &enemy);
 
 public:
   explicit Game(GameMonitor &monitor, Queue<CommandCodeDto> &messages);

@@ -1,5 +1,6 @@
 #include "./global_configs.h"
 #include "jjr2_error.h"
+#include <cstdint>
 #include <yaml-cpp/yaml.h>
 
 const static char GAME_CONFIGURATION_FILE_PATH[] = "games_config.yaml";
@@ -62,6 +63,39 @@ GlobalConfigs::GlobalConfigs() {
   this->intoxicatedTime = gameConfigs["intoxicated_time"].as<double>();
   this->pointsPerCoin = gameConfigs["points_per_coin"].as<uint32_t>();
   this->pointsPerGem = gameConfigs["points_per_gem"].as<uint32_t>();
+
+  this->bubbaMaxLife = gameConfigs["bubba_max_life"].as<uint8_t>();
+  this->bubbaDamage = gameConfigs["bubba_damage"].as<uint8_t>();
+  this->bubbaPoints = gameConfigs["bubba_points"].as<uint32_t>();
+  this->bubbaRespawnTime = gameConfigs["bubba_respawn_time"].as<double>();
+  this->bubbaAmmoDropChance = gameConfigs["bubba_ammo_drop_chance"].as<float>();
+  this->bubbaHealthDropChance =
+      gameConfigs["bubba_health_drop_chance"].as<float>();
+
+  this->turtleMaxLife = gameConfigs["turtle_max_life"].as<uint8_t>();
+  this->turtleDamage = gameConfigs["turtle_damage"].as<uint8_t>();
+  this->turtlePoints = gameConfigs["turtle_points"].as<uint32_t>();
+  this->turtleRespawnTime = gameConfigs["turtle_respawn_time"].as<double>();
+  this->turtleAmmoDropChance =
+      gameConfigs["turtle_ammo_drop_chance"].as<float>();
+  this->turtleHealthDropChance =
+      gameConfigs["turtle_health_drop_chance"].as<float>();
+
+  this->schwarzenguardMaxLife =
+      gameConfigs["schwarzenguard_max_life"].as<uint8_t>();
+  this->schwarzenguardDamage =
+      gameConfigs["schwarzenguard_damage"].as<uint8_t>();
+  this->schwarzenguardPoints =
+      gameConfigs["schwarzenguard_points"].as<uint32_t>();
+  this->schwarzenguardRespawnTime =
+      gameConfigs["schwarzenguard_respawn_time"].as<double>();
+  this->schwarzenguardAmmoDropChance =
+      gameConfigs["schwarzenguard_ammo_drop_chance"].as<float>();
+  this->schwarzenguardHealthDropChance =
+      gameConfigs["schwarzenguard_health_drop_chance"].as<float>();
+
+  this->specialAttackDamage =
+      gameConfigs["special_attack_damage"].as<uint8_t>();
 }
 
 uint16_t GlobalConfigs::getMaxPlayersPerGame() const {
@@ -163,3 +197,67 @@ double GlobalConfigs::getIntoxicatedTime() const {
 uint32_t GlobalConfigs::getPointsPerCoin() const { return this->pointsPerCoin; }
 
 uint32_t GlobalConfigs::getPointsPerGem() const { return this->pointsPerGem; }
+
+uint8_t GlobalConfigs::getBubbaMaxLife() const { return this->bubbaMaxLife; }
+
+uint8_t GlobalConfigs::getBubbaDamage() const { return this->bubbaDamage; }
+
+uint32_t GlobalConfigs::getBubbaPoints() const { return this->bubbaPoints; }
+
+double GlobalConfigs::getBubbaRespawnTime() const {
+  return this->bubbaRespawnTime;
+}
+
+float GlobalConfigs::getBubbaAmmoDropChance() const {
+  return this->bubbaAmmoDropChance;
+}
+
+float GlobalConfigs::getBubbaHealthDropChance() const {
+  return this->bubbaHealthDropChance;
+}
+
+uint8_t GlobalConfigs::getTurtleMaxLife() const { return this->turtleMaxLife; }
+
+uint8_t GlobalConfigs::getTurtleDamage() const { return this->turtleDamage; }
+
+uint32_t GlobalConfigs::getTurtlePoints() const { return this->turtlePoints; }
+
+double GlobalConfigs::getTurtleRespawnTime() const {
+  return this->turtleRespawnTime;
+}
+
+float GlobalConfigs::getTurtleAmmoDropChance() const {
+  return this->turtleAmmoDropChance;
+}
+
+float GlobalConfigs::getTurtleHealthDropChance() const {
+  return this->turtleHealthDropChance;
+}
+
+uint8_t GlobalConfigs::getSchwarzenguardMaxLife() const {
+  return this->schwarzenguardMaxLife;
+}
+
+uint8_t GlobalConfigs::getSchwarzenguardDamage() const {
+  return this->schwarzenguardDamage;
+}
+
+uint32_t GlobalConfigs::getSchwarzenguardPoints() const {
+  return this->schwarzenguardPoints;
+}
+
+double GlobalConfigs::getSchwarzenguardRespawnTime() const {
+  return this->schwarzenguardRespawnTime;
+}
+
+float GlobalConfigs::getSchwarzenguardAmmoDropChance() const {
+  return this->schwarzenguardAmmoDropChance;
+}
+
+float GlobalConfigs::getSchwarzenguardHealthDropChance() const {
+  return this->schwarzenguardHealthDropChance;
+}
+
+uint8_t GlobalConfigs::getSpecialAttackDamage() const {
+  return this->specialAttackDamage;
+}

@@ -57,7 +57,8 @@ public:
 
   Sprite &getHudSprite(const u_int8_t &spriteCode);
 
-  Sprite &getLeaderboardSprite();
+  Sprite &getModalBackgroundSprite();
+  Sprite &getModalDisconnectionSprite();
 
   void closeWindow();
 };

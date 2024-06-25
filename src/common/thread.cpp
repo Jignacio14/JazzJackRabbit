@@ -1,4 +1,5 @@
 #include "thread.h"
+#include "../client/disconnection_exception.h"
 
 Thread::Thread() : _keep_running(true), _is_alive(false) {}
 
@@ -14,7 +15,7 @@ void Thread::main() {
   try {
     this->run();
   } catch (const std::exception &err) {
-    std::cerr << "Unexpected exception: " << err.what() << "\n";
+    this->_is_alive = false;
   } catch (...) {
     std::cerr << "Unexpected exception: <unknown>\n";
   }

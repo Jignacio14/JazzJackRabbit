@@ -2,9 +2,11 @@
 #include "./renderer.h"
 #include "../common/jjr2_error.h"
 #include "../common/snapshot_wrapper.h"
+#include "./disconnection_exception.h"
 #include "./stop_iteration_exception.h"
 #include <chrono>
 #include <cmath>
+#include <iostream>
 #include <thread>
 
 #include "../common/global_configs.h"
@@ -38,12 +40,14 @@ Renderer::Renderer(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
       map(this->graphicEngine, this->player, scenarioSelected),
       debugPanel(this->sdlRenderer),
       leaderboard(this->sdlRenderer, this->audioEngine,
-                  this->graphicEngine.getLeaderboardSprite()),
+                  this->graphicEngine.getModalBackgroundSprite()),
+      disconnectedOverlay(this->sdlRenderer, this->audioEngine,
+                          this->graphicEngine.getModalDisconnectionSprite()),
       client(std::move(socket), id),
       latestSnapshot(std::make_unique<SnapshotWrapper>(
           initialSnapshot.transferSnapshotDto())),
       keyboardHandler(this->client, this->debugPanel),
-      scenarioSelected(scenarioSelected) {}
+      scenarioSelected(scenarioSelected), gameWasDisconnected(false) {}
 
 void Renderer::addRenderable(std::unique_ptr<Renderable> renderable) {
   this->renderables.push_back(std::move(renderable));
@@ -68,8 +72,11 @@ void Renderer::renderGame(int iterationNumber) {
 
   this->hud.render(*this->latestSnapshot);
 
-  if (this->latestSnapshot->didGameEnd()) {
+  if (this->latestSnapshot->didGameEnd() && !this->gameWasDisconnected) {
     this->leaderboard.display(*this->latestSnapshot);
+
+  } else if (this->gameWasDisconnected) {
+    this->disconnectedOverlay.display();
   }
 
   this->debugPanel.display();
@@ -96,7 +103,7 @@ void Renderer::updateLatestSnapshot() {
 }
 
 void Renderer::updateGame(int iterationNumber) {
-  if (this->latestSnapshot->didGameEnd()) {
+  if (this->latestSnapshot->didGameEnd() || this->gameWasDisconnected) {
     return;
   }
 
@@ -113,8 +120,9 @@ void Renderer::createNewPlayableCharacters(const Snapshot &snapshot) {
     bool exists = std::any_of(
         this->renderables.begin(), this->renderables.end(),
         [snapshot, i, playerId](const auto &renderable) {
-          return snapshot.players[i].user_id == renderable->getId() ||
-                 snapshot.players[i].user_id == playerId;
+          return (snapshot.players[i].user_id == renderable->getId() ||
+                  snapshot.players[i].user_id == playerId) &&
+                 renderable->getType() == GeneralType::Player;
         });
 
     if (exists) {
@@ -150,7 +158,9 @@ void Renderer::createNewEnemies(const Snapshot &snapshot) {
     bool exists = std::any_of(
         this->renderables.begin(), this->renderables.end(),
         [snapshot, i](const auto &renderable) {
-          return snapshot.enemies[i].entity_id == renderable->getId();
+          return snapshot.enemies[i].entity_id == renderable->getId() &&
+                 renderable->getType() == GeneralType::Enemy;
+          ;
         });
 
     if (exists) {
@@ -186,7 +196,8 @@ void Renderer::createNewCollectables(const Snapshot &snapshot) {
     bool exists = std::any_of(
         this->renderables.begin(), this->renderables.end(),
         [snapshot, i](const auto &renderable) {
-          return snapshot.collectables[i].entity_id == renderable->getId();
+          return snapshot.collectables[i].entity_id == renderable->getId() &&
+                 renderable->getType() == GeneralType::Collectable;
         });
 
     if (exists) {
@@ -228,11 +239,14 @@ void Renderer::createNewCollectables(const Snapshot &snapshot) {
 }
 
 void Renderer::createNewBullets(const Snapshot &snapshot) {
+
   for (int i = 0; i < snapshot.sizeBullets; i++) {
+
     bool exists = std::any_of(
         this->renderables.begin(), this->renderables.end(),
         [snapshot, i](const auto &renderable) {
-          return snapshot.bullets[i].entity_id == renderable->getId();
+          return snapshot.bullets[i].entity_id == renderable->getId() &&
+                 renderable->getType() == GeneralType::Bullet;
         });
 
     if (exists) {
@@ -250,7 +264,7 @@ void Renderer::createNewBullets(const Snapshot &snapshot) {
           snapshot.bullets[i].entity_id, storedSnapshotWrapper));
       break;
     case GunsIds::Gun2:
-      this->addRenderable(std::make_unique<BulletGun1>(
+      this->addRenderable(std::make_unique<BulletGun2>(
           this->graphicEngine, this->audioEngine, coords,
           snapshot.bullets[i].entity_id, storedSnapshotWrapper));
       break;
@@ -286,14 +300,23 @@ void Renderer::run() {
       this->renderGame(iterationNumber);
       this->updateGame(iterationNumber);
       this->keyboardHandler.processEvents(this->player);
+    } catch (const DisconnectionException &) {
+      this->gameWasDisconnected = true;
+      this->keyboardHandler.disableGameInputs();
+      this->client.kill();
     } catch (const StopIteration &) {
       break;
     }
 
-    if (!this->client.isAlive() && !this->latestSnapshot->didGameEnd()) {
-      std::string errorMessage =
-          "Client stopped due to connection with server broken";
-      throw JJR2Error(errorMessage, __LINE__, __FILE__);
+    if (!this->client.isAlive() && !this->latestSnapshot->didGameEnd() &&
+        !this->gameWasDisconnected) {
+      this->gameWasDisconnected = true;
+      this->keyboardHandler.disableGameInputs();
+      this->client.kill();
+    }
+
+    if (this->latestSnapshot->didGameEnd()) {
+      this->keyboardHandler.disableGameInputs();
     }
 
     double timestampFinish = this->now();

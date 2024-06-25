@@ -13,6 +13,8 @@ private:
   uint8_t player_id;
   // cppcheck-suppress unusedStructMember
   bool skt_ownership;
+  // cppcheck-suppress unusedStructMember
+  bool game_started;
 
 public:
   Lobby(const char *hostname, const char *port);
@@ -54,6 +56,8 @@ public:
    * Close and shutdown the socket.
    * */
   void quit_game();
+
+  bool did_game_start() const;
 
   /*
    * Close and shutdown the socket, if the socket is owned by the lobby.

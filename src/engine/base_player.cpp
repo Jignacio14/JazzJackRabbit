@@ -1,16 +1,19 @@
 #include "base_player.h"
 #include "../common/global_configs.h"
 #include "states/intoxicated.h"
+#include <cstdint>
 #include <iostream>
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
 const static int MAX_HEALTH = globalConfigs.getPlayerMaxLife();
-
 const static double INTOXICATED_TIME = globalConfigs.getIntoxicatedTime();
+const static uint8_t SPECIAL_ATTACK_DAMAGE =
+    globalConfigs.getSpecialAttackDamage();
 
 const static int INITIAL_X = 60;
 const static int INITIAL_Y = 1050;
+const static uint16_t ADD_AMMO = 5;
 
 BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
                        Snapshot &snapshot, int position, ServerMap &map)
@@ -22,20 +25,26 @@ BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
       facing_direction(FacingDirectionsIds::Right), map(map),
       snapshot(snapshot), position(position), positions_to_jump(0),
       is_moving(false), is_running(false), moment_of_death(0),
-      weapon(std::make_unique<InitialWeapon>(snapshot, position)),
+      weapon(std::make_unique<InitialWeapon>(snapshot, position, player_id)),
       orb_ammo(globalConfigs.getBullet2MaxAmmo()), points(0),
-      intoxicated_start(0) {}
+      intoxicated_start(0), doing_special_attack(false),
+      lori_special_attack(false), special_attack_damage(SPECIAL_ATTACK_DAMAGE) {
+}
 
 int BasePlayer::find_position() {
   for (int i = 0; i < snapshot.sizePlayers; ++i) {
     if (snapshot.players[i].user_id == player_id)
       return i;
   }
-  return -1;
+  std::string errorMessage = "Player " + player_name + " not found in snapshot";
+  throw JJR2Error(errorMessage, __LINE__, __FILE__);
 }
 
 void BasePlayer::update() {
+
   position = find_position();
+
+  this->update_special_attack();
 
   this->update_jump();
 
@@ -48,20 +57,16 @@ void BasePlayer::update() {
   if (health == 0)
     this->try_respawn();
 
-  if (position != -1) {
-    snapshot.players[position].shot = NumericBool::False;
-    snapshot.players[position].was_hurt = NumericBool::False;
-    orb_ammo = snapshot.players[position].ammo_gun_2;
-  }
+  snapshot.players[position].shot = NumericBool::False;
+  snapshot.players[position].was_hurt = NumericBool::False;
+  orb_ammo = snapshot.players[position].ammo_gun_2;
 }
 
 void BasePlayer::update_intoxication() {
   double time_passed = (intoxicated_start - snapshot.timeLeft);
   if (time_passed >= INTOXICATED_TIME) {
     change_state(std::make_unique<Alive>());
-    if (position != -1) {
-      snapshot.players[position].is_intoxicated = NumericBool::False;
-    }
+    snapshot.players[position].is_intoxicated = NumericBool::False;
   }
 }
 
@@ -74,14 +79,10 @@ void BasePlayer::try_respawn() {
                           Coordinates(INITIAL_X + HitboxSizes::PlayerWidth,
                                       INITIAL_Y + HitboxSizes::PlayerHeight));
 
-    if (position != -1) {
-      snapshot.players[position].is_dead = NumericBool::False;
-      snapshot.players[position].life = health;
-      snapshot.players[position].position_x =
-          rectangle.getTopLeftCorner().getX();
-      snapshot.players[position].position_y =
-          rectangle.getTopLeftCorner().getY();
-    }
+    snapshot.players[position].is_dead = NumericBool::False;
+    snapshot.players[position].life = health;
+    snapshot.players[position].position_x = rectangle.getTopLeftCorner().getX();
+    snapshot.players[position].position_y = rectangle.getTopLeftCorner().getY();
   }
 }
 
@@ -96,9 +97,11 @@ void BasePlayer::update_jump() {
     }
 
   } else {
-    bool is_falling = move_down();
-    if (!is_falling)
-      snapshot.players[position].is_falling = NumericBool::False;
+    if (!doing_special_attack) {
+      bool is_falling = move_down();
+      if (!is_falling)
+        snapshot.players[position].is_falling = NumericBool::False;
+    }
   }
 }
 
@@ -127,14 +130,18 @@ bool BasePlayer::move_down() {
   if (map.available_position(new_rectangle)) {
     rectangle = new_rectangle;
 
-    if (position != -1) {
-      snapshot.players[position].position_x =
-          rectangle.getTopLeftCorner().getX();
-      snapshot.players[position].position_y =
-          rectangle.getTopLeftCorner().getY();
-      snapshot.players[position].is_falling = NumericBool::True;
-      snapshot.players[position].is_jumping = NumericBool::False;
+    int increment = 0;
+    if (!map.available_position_slope(new_rectangle, increment)) {
+      if (increment < 0) {
+        return false;
+      }
     }
+
+    snapshot.players[position].position_x = rectangle.getTopLeftCorner().getX();
+    snapshot.players[position].position_y = rectangle.getTopLeftCorner().getY();
+    snapshot.players[position].is_falling = NumericBool::True;
+    snapshot.players[position].is_jumping = NumericBool::False;
+
     return true;
   }
   return false;
@@ -146,55 +153,33 @@ bool BasePlayer::move_up() {
   if (map.available_position(new_rectangle)) {
     rectangle = new_rectangle;
 
-    if (position != -1) {
-      snapshot.players[position].position_x =
-          rectangle.getTopLeftCorner().getX();
-      snapshot.players[position].position_y =
-          rectangle.getTopLeftCorner().getY();
-      snapshot.players[position].is_jumping = NumericBool::True;
-    }
+    snapshot.players[position].position_x = rectangle.getTopLeftCorner().getX();
+    snapshot.players[position].position_y = rectangle.getTopLeftCorner().getY();
+    snapshot.players[position].is_jumping = NumericBool::True;
+
     return true;
   }
   return false;
-}
-
-void BasePlayer::receive_damage(uint8_t damage) {
-  if (damage >= health) {
-    health = 0;
-    change_state(std::make_unique<Dead>());
-    moment_of_death = snapshot.timeLeft;
-    if (position != -1) {
-      snapshot.players[position].is_dead = NumericBool::True;
-      snapshot.players[position].life = health;
-    }
-  } else {
-    health -= damage;
-    if (position != -1) {
-      snapshot.players[position].was_hurt = NumericBool::True;
-      snapshot.players[position].life = health;
-    }
-  }
-}
-
-void BasePlayer::change_state(std::unique_ptr<BaseState> new_state) {
-  state = std::move(new_state);
 }
 
 void BasePlayer::move_right(uint8_t speed) {
   Rectangle new_rectangle = rectangle;
   new_rectangle.move_right(speed);
   if (state->can_move() && map.available_position(new_rectangle)) {
+
+    int increment = 0;
+    if (!map.available_position_slope(new_rectangle, increment)) {
+      new_rectangle.move_vertically(increment);
+    }
+
     rectangle = new_rectangle;
     facing_direction = FacingDirectionsIds::Right;
     is_moving = true;
-    if (position != -1) {
-      snapshot.players[position].position_x =
-          rectangle.getTopLeftCorner().getX();
-      snapshot.players[position].position_y =
-          rectangle.getTopLeftCorner().getY();
-      snapshot.players[position].facing_direction = FacingDirectionsIds::Right;
-      snapshot.players[position].is_walking = NumericBool::True;
-    }
+
+    snapshot.players[position].position_x = rectangle.getTopLeftCorner().getX();
+    snapshot.players[position].position_y = rectangle.getTopLeftCorner().getY();
+    snapshot.players[position].facing_direction = FacingDirectionsIds::Right;
+    snapshot.players[position].is_walking = NumericBool::True;
   }
 }
 
@@ -202,41 +187,56 @@ void BasePlayer::move_left(uint8_t speed) {
   Rectangle new_rectangle = rectangle;
   new_rectangle.move_left(speed);
   if (state->can_move() && map.available_position(new_rectangle)) {
+
+    int increment = 0;
+    if (!map.available_position_slope(new_rectangle, increment)) {
+      new_rectangle.move_vertically(increment);
+    }
+
     rectangle = new_rectangle;
     facing_direction = FacingDirectionsIds::Left;
     is_moving = true;
-    if (position != -1) {
-      snapshot.players[position].position_x =
-          rectangle.getTopLeftCorner().getX();
-      snapshot.players[position].position_y =
-          rectangle.getTopLeftCorner().getY();
-      snapshot.players[position].facing_direction = FacingDirectionsIds::Left;
-      snapshot.players[position].is_walking = NumericBool::True;
-    }
+
+    snapshot.players[position].position_x = rectangle.getTopLeftCorner().getX();
+    snapshot.players[position].position_y = rectangle.getTopLeftCorner().getY();
+    snapshot.players[position].facing_direction = FacingDirectionsIds::Left;
+    snapshot.players[position].is_walking = NumericBool::True;
   }
 }
 
+void BasePlayer::receive_damage(uint8_t damage) {
+  if (damage >= health) {
+    health = 0;
+    change_state(std::make_unique<Dead>());
+    moment_of_death = snapshot.timeLeft;
+    snapshot.players[position].is_dead = NumericBool::True;
+
+  } else {
+    health -= damage;
+    snapshot.players[position].was_hurt = NumericBool::True;
+  }
+  snapshot.players[position].life = health;
+}
+
+void BasePlayer::change_state(std::unique_ptr<BaseState> new_state) {
+  state = std::move(new_state);
+}
+
 void BasePlayer::run() {
-  if ((position != -1 &&
-       snapshot.players[position].is_jumping == NumericBool::True) ||
-      (position != -1 &&
-       snapshot.players[position].is_falling == NumericBool::True)) {
+  if ((snapshot.players[position].is_jumping == NumericBool::True) ||
+      (snapshot.players[position].is_falling == NumericBool::True)) {
     return;
   }
 
   if (is_moving) {
     is_running = true;
-    if (position != -1) {
-      snapshot.players[position].is_running = NumericBool::True;
-    }
+    snapshot.players[position].is_running = NumericBool::True;
   }
 }
 
 void BasePlayer::stop_running() {
   is_running = false;
-  if (position != -1) {
-    snapshot.players[position].is_running = NumericBool::False;
-  }
+  snapshot.players[position].is_running = NumericBool::False;
 }
 
 void BasePlayer::jump() {
@@ -245,7 +245,7 @@ void BasePlayer::jump() {
     return;
   }
 
-  if (positions_to_jump == 0) {
+  if (this->can_jump()) {
     positions_to_jump = MAX_JUMP;
     snapshot.players[position].is_jumping = NumericBool::True;
   }
@@ -253,16 +253,12 @@ void BasePlayer::jump() {
 
 void BasePlayer::stop_moving() {
   is_moving = false;
-  if (position != -1) {
-    snapshot.players[position].is_walking = NumericBool::False;
-  }
+  snapshot.players[position].is_walking = NumericBool::False;
 }
 
 void BasePlayer::get_intoxicated() {
   change_state(std::make_unique<Intoxicated>());
-  if (position != -1) {
-    snapshot.players[position].is_intoxicated = NumericBool::True;
-  }
+  snapshot.players[position].is_intoxicated = NumericBool::True;
   intoxicated_start = snapshot.timeLeft;
 }
 
@@ -273,9 +269,7 @@ void BasePlayer::heal(uint8_t health_gain) {
   } else {
     health = new_health;
   }
-  if (position != -1) {
-    snapshot.players[position].life = (uint16_t)health;
-  }
+  snapshot.players[position].life = (uint16_t)health;
 }
 
 Bullet BasePlayer::shoot() {
@@ -303,7 +297,8 @@ Bullet BasePlayer::shoot() {
     snapshot.players[position].shot = NumericBool::True;
     return weapon->shoot(bullet_rectangle, facing_direction, map);
   } else {
-    return Bullet(GunsIds::Gun1, 0, 0, bullet_rectangle, facing_direction, map);
+    return Bullet(GunsIds::Gun1, INVALID_DAMAGE, 0, bullet_rectangle,
+                  facing_direction, map, player_id);
   }
 }
 
@@ -311,20 +306,16 @@ bool BasePlayer::intersects(Rectangle rectangle) {
   return this->rectangle.intersects(rectangle);
 }
 
-bool BasePlayer::can_shoot() {
-  return (state->can_shoot() && weapon->can_shoot());
-}
-
 bool BasePlayer::is_alive() { return health > 0; }
 
 void BasePlayer::change_weapon(uint8_t weapon_id) {
   switch (weapon_id) {
   case GunsIds::Gun1:
-    weapon = std::make_unique<InitialWeapon>(snapshot, position);
+    weapon = std::make_unique<InitialWeapon>(snapshot, position, player_id);
     snapshot.players[position].current_gun = GunsIds::Gun1;
     break;
   case GunsIds::Gun2:
-    weapon = std::make_unique<Orb>(snapshot, orb_ammo, position);
+    weapon = std::make_unique<Orb>(snapshot, orb_ammo, position, player_id);
     snapshot.players[position].current_gun = GunsIds::Gun2;
     break;
   }
@@ -332,9 +323,35 @@ void BasePlayer::change_weapon(uint8_t weapon_id) {
 
 void BasePlayer::add_points(uint32_t points) {
   this->points += points;
-  if (position != -1) {
-    snapshot.players[position].points = this->points;
-  }
+  snapshot.players[position].points = this->points;
+}
+
+void BasePlayer::add_ammo() {
+  orb_ammo += ADD_AMMO;
+  snapshot.players[position].ammo_gun_2 = orb_ammo;
+}
+
+Rectangle BasePlayer::get_rectangle() { return rectangle; }
+
+bool BasePlayer::can_shoot() {
+  return (state->can_shoot() && weapon->can_shoot() && !doing_special_attack);
+}
+
+bool BasePlayer::can_jump() {
+  return (positions_to_jump == 0 && state->can_jump() && !doing_special_attack);
+}
+
+bool BasePlayer::can_move() {
+  if (lori_special_attack && health > 0)
+    return true;
+  else
+    return (state->can_move() && !doing_special_attack && health > 0);
+}
+
+bool BasePlayer::is_doing_special_attack() { return doing_special_attack; }
+
+uint8_t BasePlayer::get_special_attack_damage() {
+  return special_attack_damage;
 }
 
 BasePlayer::~BasePlayer() {

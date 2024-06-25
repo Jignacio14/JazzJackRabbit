@@ -24,6 +24,10 @@ struct PlayerCommands {
   static const uint8_t RUN = 8;
   // cppcheck-suppress unusedStructMember
   static const uint8_t STOP_RUNNING = 9;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t CHEAT_1 = 10;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t CHEAT_2 = 11;
 };
 
 struct PlayableCharactersIds {
@@ -84,6 +88,17 @@ struct EnemiesIds {
   static const uint8_t Schwarzenguard = 2;
 };
 
+struct GeneralType {
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t Player = 0;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t Enemy = 1;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t Collectable = 2;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t Bullet = 3;
+};
+
 struct ScenariosIds {
   // cppcheck-suppress unusedStructMember
   static const uint8_t Carrotus = 0;
@@ -108,6 +123,15 @@ struct HitboxSizes {
   static const uint8_t BulletWidth = 10;
   // cppcheck-suppress unusedStructMember
   static const uint8_t BulletHeight = 10;
+};
+
+struct EnemyDrop {
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t NoDrop = 0;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t Ammo = 1;
+  // cppcheck-suppress unusedStructMember
+  static const uint8_t Carrot = 2;
 };
 
 #endif // JAZZJACKRABBIT_CONVENTION_H

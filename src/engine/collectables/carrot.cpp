@@ -1,6 +1,7 @@
 
 #include "carrot.h"
 #include <cstdint>
+#include <iostream>
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
@@ -13,5 +14,6 @@ void Carrot::collect(BasePlayer &player) {
   player.heal(CARROT_HEAL);
   snapshot.collectables[entity_id].was_collected = NumericBool::True;
   collected = true;
+  // std::cout << "Carrot collected, id: " << entity_id << std::endl;
   remove_from_snapshot();
 }

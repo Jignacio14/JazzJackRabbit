@@ -21,6 +21,7 @@ constexpr uint8_t ScenarioSpriteCodes::Background;
 constexpr uint8_t ScenarioSpriteCodes::Decoration;
 constexpr uint8_t ScenarioSpriteCodes::TopGrass;
 constexpr uint8_t ScenarioSpriteCodes::FullDirt;
+constexpr uint8_t ScenarioSpriteCodes::Slope;
 
 constexpr uint8_t GunSpriteCodes::FlyingBullet;
 constexpr uint8_t GunSpriteCodes::CollectableAmmo;
@@ -44,7 +45,8 @@ constexpr uint8_t HudSpriteCodes::LifeHeart;
 constexpr uint8_t TextFontsCodes::Roboto;
 constexpr uint8_t TextFontsCodes::Joystix;
 
-constexpr uint8_t LeaderboardCodes::Background;
+constexpr uint8_t ModalCodes::Background;
+constexpr uint8_t ModalCodes::Disconnection;
 
 SpriteNamesMap::SpriteNamesMap()
     : map({
@@ -69,6 +71,7 @@ SpriteNamesMap::SpriteNamesMap()
           {ScenarioSpriteCodes::Decoration, "decoration"},
           {ScenarioSpriteCodes::TopGrass, "top_grass"},
           {ScenarioSpriteCodes::FullDirt, "full_dirt"},
+          {ScenarioSpriteCodes::Slope, "slope"},
 
           {GunSpriteCodes::FlyingBullet, "flying_bullet"},
           {GunSpriteCodes::CollectableAmmo, "collectable_ammo"},
@@ -92,5 +95,6 @@ SpriteNamesMap::SpriteNamesMap()
           {TextFontsCodes::Roboto, "roboto"},
           {TextFontsCodes::Joystix, "joystix"},
 
-          {LeaderboardCodes::Background, "background"},
+          {ModalCodes::Background, "background"},
+          {ModalCodes::Disconnection, "disconnection"},
       }) {}

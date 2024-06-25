@@ -25,12 +25,12 @@ Coordinates Rectangle::getBottomRightCorner() const {
   return this->bottomRightCorner;
 }
 
-void Rectangle::move_left(uint8_t speed) {
+void Rectangle::move_left(const uint8_t &speed) {
   this->topLeftCorner.setX(this->topLeftCorner.getX() - speed);
   this->bottomRightCorner.setX(this->bottomRightCorner.getX() - speed);
 }
 
-void Rectangle::move_right(uint8_t speed) {
+void Rectangle::move_right(const uint8_t &speed) {
   this->topLeftCorner.setX(this->topLeftCorner.getX() + speed);
   this->bottomRightCorner.setX(this->bottomRightCorner.getX() + speed);
 }
@@ -45,13 +45,43 @@ void Rectangle::move_up() {
   this->bottomRightCorner.setY(this->bottomRightCorner.getY() - 2);
 }
 
-bool Rectangle::intersects(Rectangle other) const {
+void Rectangle::move_vertically(const int &delta) {
+  this->topLeftCorner.setY(this->topLeftCorner.getY() + delta);
+  this->bottomRightCorner.setY(this->bottomRightCorner.getY() + delta);
+}
+
+bool Rectangle::intersects(const Rectangle &other) const {
 
   if (this->bottomRightCorner.getX() <= other.getTopLeftCorner().getX() ||
       other.getBottomRightCorner().getX() <= this->topLeftCorner.getX() ||
       this->bottomRightCorner.getY() <= other.getTopLeftCorner().getY() ||
       other.getBottomRightCorner().getY() <= this->topLeftCorner.getY()) {
     return false;
+  }
+
+  return true;
+}
+
+bool Rectangle::intersects_with_direction(const Rectangle &other,
+                                          uint8_t &direction) const {
+
+  if (this->bottomRightCorner.getX() <= other.getTopLeftCorner().getX() ||
+      other.getBottomRightCorner().getX() <= this->topLeftCorner.getX() ||
+      this->bottomRightCorner.getY() <= other.getTopLeftCorner().getY() ||
+      other.getBottomRightCorner().getY() <= this->topLeftCorner.getY()) {
+    return false;
+  }
+
+  int centerXThis =
+      (this->topLeftCorner.getX() + this->bottomRightCorner.getX()) / 2.0f;
+  int centerXOther =
+      (other.getTopLeftCorner().getX() + other.getBottomRightCorner().getX()) /
+      2.0f;
+
+  if (centerXOther > centerXThis) {
+    direction = FacingDirectionsIds::Right;
+  } else {
+    direction = FacingDirectionsIds::Left;
   }
 
   return true;

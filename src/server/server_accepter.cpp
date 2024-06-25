@@ -56,7 +56,7 @@ void Accepter::killAll() {
     client->kill();
   }
   this->gamesMonitor.killAll();
-  this->clients.clear();
+  // this->clients.clear();
 }
 
 Accepter::~Accepter() {

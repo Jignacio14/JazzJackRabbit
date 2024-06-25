@@ -1,6 +1,7 @@
 #include "./spaz.h"
 #include "../../../common/jjr2_error.h"
 #include "../../../data/convention.h"
+#include "../../disconnection_exception.h"
 #include "../sprite_props.h"
 #include <unordered_map>
 
@@ -15,16 +16,17 @@ struct SpazAnimationSpeedCoefs {
   static constexpr double Running = 18;
   static constexpr double Shooting = 15;
   static constexpr double Walking = 18;
-  static constexpr double SideKick = 25;
+  static constexpr double SideKick = 18;
 };
 
 Spaz::Spaz(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
            Coordinates &currentCoords, const uint8_t &entityId,
            SnapshotWrapper &snapshot)
-    : entityId(entityId), graphicEngine(graphicEngine),
-      audioEngine(audioEngine), currentAnimation(nullptr),
-      currentCoords(currentCoords), isWalkingLeft(false), isWalkingRight(false),
-      isWalkingUp(false), isWalkingDown(false), isRunning(false), entityInfo(),
+    : entityId(entityId), type(GeneralType::Player),
+      graphicEngine(graphicEngine), audioEngine(audioEngine),
+      currentAnimation(nullptr), currentCoords(currentCoords),
+      isWalkingLeft(false), isWalkingRight(false), isWalkingUp(false),
+      isWalkingDown(false), isRunning(false), entityInfo(),
       hitbox(HitboxSizes::PlayerWidth, HitboxSizes::PlayerHeight) {
 
   this->currentAnimation = std::make_unique<AnimationState>(
@@ -53,6 +55,8 @@ void Spaz::renderFromLeftCorner(int iterationNumber,
   if (isInCameraFocus) {
     this->currentAnimation->renderFromLeftCorner(iterationNumber, leftCorner,
                                                  this->currentCoords);
+  } else {
+    this->currentAnimation->advanceWithoutRendering(iterationNumber);
   }
 }
 
@@ -294,10 +298,9 @@ void Spaz::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
   PlayerDto newEntityInfo;
   bool foundPlayableCharacter =
       snapshot.getPlayerById(this->entityId, &newEntityInfo);
+
   if (!foundPlayableCharacter) {
-    std::cerr << "Spaz with entity id " + std::to_string(this->entityId) +
-                     " was not found in snapshot at update time";
-    return;
+    throw DisconnectionException(__LINE__, __FILE__);
   }
 
   this->currentCoords.setX(newEntityInfo.position_x);
@@ -308,5 +311,7 @@ void Spaz::update(SnapshotWrapper &snapshot, const Coordinates &leftCorner) {
 }
 
 uint8_t Spaz::getId() const { return this->entityId; }
+
+u_int8_t Spaz::getType() const { return this->type; }
 
 Spaz::~Spaz() {}
