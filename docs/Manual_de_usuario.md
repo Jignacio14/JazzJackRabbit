@@ -190,7 +190,7 @@ Los controles son los siguientes:
 - `F2`: ejecuta el primer cheat, que resetea los coleccionables
 - `F3`: ejecuta el segundo cheat, que finaliza la partida
 
-La cámara del juego sigue al personaje que el usuario está controlando.
+La cámara del juego sigue al personaje que el usuario está controlando. Un jugador puede salir de la partida en todo momento presionando `Esc` o la cruz. Las partidas con múltiples jugadores finalizan automáticamente al momento de que un jugador salga. 
 
 ## Acerca del juego
 
