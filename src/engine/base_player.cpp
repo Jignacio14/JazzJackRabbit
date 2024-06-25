@@ -1,13 +1,15 @@
 #include "base_player.h"
 #include "../common/global_configs.h"
 #include "states/intoxicated.h"
+#include <cstdint>
 #include <iostream>
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
 const static int MAX_HEALTH = globalConfigs.getPlayerMaxLife();
-
 const static double INTOXICATED_TIME = globalConfigs.getIntoxicatedTime();
+const static uint8_t SPECIAL_ATTACK_DAMAGE =
+    globalConfigs.getSpecialAttackDamage();
 
 const static int INITIAL_X = 60;
 const static int INITIAL_Y = 1050;
@@ -26,7 +28,8 @@ BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
       weapon(std::make_unique<InitialWeapon>(snapshot, position)),
       orb_ammo(globalConfigs.getBullet2MaxAmmo()), points(0),
       intoxicated_start(0), doing_special_attack(false),
-      lori_special_attack(false) {}
+      lori_special_attack(false), special_attack_damage(SPECIAL_ATTACK_DAMAGE) {
+}
 
 int BasePlayer::find_position() {
   for (int i = 0; i < snapshot.sizePlayers; ++i) {
@@ -362,6 +365,12 @@ bool BasePlayer::can_move() {
     return true;
   else
     return (state->can_move() && !doing_special_attack);
+}
+
+bool BasePlayer::is_doing_special_attack() { return doing_special_attack; }
+
+uint8_t BasePlayer::get_special_attack_damage() {
+  return special_attack_damage;
 }
 
 BasePlayer::~BasePlayer() {

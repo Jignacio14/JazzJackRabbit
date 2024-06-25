@@ -37,6 +37,7 @@ uint8_t BaseEnemy::receive_damage(uint8_t damage) {
   } else {
     health -= damage;
     snapshot.enemies[index].was_hurt = NumericBool::True;
+    std::cout << "Enemy received " << damage << "damage." << std::endl;
     return EnemyDrop::NoDrop;
   }
 }

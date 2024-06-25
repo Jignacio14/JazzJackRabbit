@@ -93,6 +93,9 @@ GlobalConfigs::GlobalConfigs() {
       gameConfigs["schwarzenguard_ammo_drop_chance"].as<float>();
   this->schwarzenguardHealthDropChance =
       gameConfigs["schwarzenguard_health_drop_chance"].as<float>();
+
+  this->specialAttackDamage =
+      gameConfigs["special_attack_damage"].as<uint8_t>();
 }
 
 uint16_t GlobalConfigs::getMaxPlayersPerGame() const {
@@ -253,4 +256,8 @@ float GlobalConfigs::getSchwarzenguardAmmoDropChance() const {
 
 float GlobalConfigs::getSchwarzenguardHealthDropChance() const {
   return this->schwarzenguardHealthDropChance;
+}
+
+uint8_t GlobalConfigs::getSpecialAttackDamage() const {
+  return this->specialAttackDamage;
 }

@@ -68,12 +68,13 @@ void Game::gameLoop() {
         this->snapshot.timeLeft = (double)0;
         this->_is_alive = false;
       }
-
+      /*
       for (auto &pair : players_data) {
         if (pair.second) {
           pair.second->update();
         }
-      }
+      }*/
+      this->updatePlayers();
 
       this->updateCollectables();
 
@@ -314,6 +315,28 @@ void Game::updateEnemies() {
           enemy->can_attack()) {
         enemy->attack(*player);
         break;
+      }
+    }
+  }
+}
+
+void Game::updatePlayers() {
+  for (auto &attacker_pair : players_data) {
+    auto &attacker = attacker_pair.second;
+    attacker->update();
+    if (attacker->is_doing_special_attack()) {
+      for (auto &enemy : enemies) {
+        if (enemy->intersects(attacker->get_rectangle())) {
+          enemy->receive_damage(attacker->get_special_attack_damage());
+          break;
+        }
+      }
+      for (auto &defender_pair : players_data) {
+        auto &defender = defender_pair.second;
+        if (attacker != defender &&
+            defender->intersects(attacker->get_rectangle())) {
+          defender->receive_damage(attacker->get_special_attack_damage());
+        }
       }
     }
   }

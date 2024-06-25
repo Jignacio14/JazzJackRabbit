@@ -1,4 +1,4 @@
-max_players_per_game: 1 # CANNOT EXEED 10
+max_players_per_game: 2 # CANNOT EXEED 10
 max_game_duration: 500
 max_username_length: 11
 min_number_of_players: 1
@@ -24,6 +24,7 @@ max_life: 20
 starting_ammo_gun_1: 999
 starting_ammo_gun_2: 100
 respawn_time: 5
+special_attack_damage: 1
 
 # Bullets Parameters
 bullet_1_max_ammo: 999
