@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <gtest/gtest.h>
 #include <iostream>
+#include <vector>
 
 #define EXPECTED_GAMES 3
 #define EXPECTED_GAME_NAME_1 "juego 1"
@@ -81,7 +82,30 @@ void testRecibiendoInformacionDeJuegos() {
   }
 }
 
+void testRecibiendoVariosCommandos() {
+  try {
+    std::cout << std::endl;
+    std::cout << "Testeando el protocolo del cliente - Caso Lobby" << std::endl;
+    std::cout << "Mandando varios comandos al server" << std::endl;
+    std::cout << std::endl;
+
+    Socket socket("localhost", "8080");
+    LobbyProtocol lobby(std::ref(socket));
+
+    lobby.send_refresh();
+    std::cout << "Envio al server la solicitud de enviarme los juegos"
+              << std::endl;
+
+    std::vector<char> game_name = {'j', 'u', 'e', 'g', 'o', ' ', '1'};
+    std::vector<char> username = {'u', 's', 'e', 'r', 'n', 'a', 'm', 'e'};
+    lobby.send_selected_game(game_name, 'J', username);
+
+  } catch (...) {
+  }
+}
+
 int main() {
   testRecibiendoInformacionDeJuegos();
+  testRecibiendoVariosCommandos();
   return 0;
 }
