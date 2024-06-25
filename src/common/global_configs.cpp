@@ -60,6 +60,8 @@ GlobalConfigs::GlobalConfigs() {
   this->respawnTime = gameConfigs["respawn_time"].as<double>();
 
   this->carrotHeal = gameConfigs["carrot_heal"].as<uint16_t>();
+  this->carrotPoisonedChance =
+      gameConfigs["carrot_poisoned_chance"].as<uint16_t>();
   this->intoxicatedTime = gameConfigs["intoxicated_time"].as<double>();
   this->pointsPerCoin = gameConfigs["points_per_coin"].as<uint32_t>();
   this->pointsPerGem = gameConfigs["points_per_gem"].as<uint32_t>();
@@ -189,6 +191,10 @@ double GlobalConfigs::getBullet2Cooldown() const {
 double GlobalConfigs::getRespawnTime() const { return this->respawnTime; }
 
 uint16_t GlobalConfigs::getCarrotHeal() const { return this->carrotHeal; }
+
+uint16_t GlobalConfigs::getCarrotPoisonedChance() const {
+  return this->carrotPoisonedChance;
+}
 
 double GlobalConfigs::getIntoxicatedTime() const {
   return this->intoxicatedTime;

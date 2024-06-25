@@ -64,7 +64,8 @@ void BasePlayer::update() {
 
 void BasePlayer::update_intoxication() {
   double time_passed = (intoxicated_start - snapshot.timeLeft);
-  if (time_passed >= INTOXICATED_TIME) {
+  if (time_passed >= INTOXICATED_TIME &&
+      snapshot.players[position].is_dead == NumericBool::False) {
     change_state(std::make_unique<Alive>());
     snapshot.players[position].is_intoxicated = NumericBool::False;
   }
@@ -354,7 +355,4 @@ uint8_t BasePlayer::get_special_attack_damage() {
   return special_attack_damage;
 }
 
-BasePlayer::~BasePlayer() {
-  // delete weapon;
-  // delete state;
-}
+BasePlayer::~BasePlayer() {}

@@ -20,7 +20,6 @@ private:
   void initialize_carrots();
   void initialize_gems();
   void initialize_coins();
-  void initialize_poisoned();
 
 public:
   CollectablesHandler(

@@ -6,7 +6,6 @@
 
 static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
 
-// const static uint16_t MAX_AMMO = globalConfigs.getBullet2MaxAmmo();
 const static uint8_t AMMO_DAMAGE = globalConfigs.getBullet2Damage();
 const static uint8_t AMMO_SPEED = globalConfigs.getBullet2Speed();
 const static double COOLDOWN = globalConfigs.getBullet2Cooldown();

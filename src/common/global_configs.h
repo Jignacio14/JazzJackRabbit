@@ -68,6 +68,8 @@ private:
   // cppcheck-suppress unusedStructMember
   uint16_t carrotHeal;
   // cppcheck-suppress unusedStructMember
+  uint16_t carrotPoisonedChance;
+  // cppcheck-suppress unusedStructMember
   double intoxicatedTime;
   // cppcheck-suppress unusedStructMember
   uint32_t pointsPerCoin;
@@ -166,6 +168,7 @@ public:
   double getBullet2Cooldown() const;
   double getRespawnTime() const;
   uint16_t getCarrotHeal() const;
+  uint16_t getCarrotPoisonedChance() const;
   double getIntoxicatedTime() const;
   uint32_t getPointsPerCoin() const;
   uint32_t getPointsPerGem() const;

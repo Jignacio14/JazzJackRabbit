@@ -43,10 +43,8 @@ void Lori::update_special_attack() {
 
 void Lori::set_new_rectangle(Rectangle new_rectangle) {
   rectangle = new_rectangle;
-  if (position != -1) {
-    snapshot.players[position].position_x = rectangle.getTopLeftCorner().getX();
-    snapshot.players[position].position_y = rectangle.getTopLeftCorner().getY();
-  }
+  snapshot.players[position].position_x = rectangle.getTopLeftCorner().getX();
+  snapshot.players[position].position_y = rectangle.getTopLeftCorner().getY();
 }
 
 Lori::~Lori() {}
