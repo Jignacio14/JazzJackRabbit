@@ -70,6 +70,7 @@ private:
   void handleDrop(uint8_t drop, Rectangle drop_rectangle);
   void updateEnemies();
   void updatePlayers();
+  void handleEnemyDiedByBullet(bool died, Bullet bullet, BaseEnemy &enemy);
 
 public:
   explicit Game(GameMonitor &monitor, Queue<CommandCodeDto> &messages);

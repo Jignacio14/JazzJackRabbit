@@ -25,7 +25,7 @@ BasePlayer::BasePlayer(uint8_t player_id, const std::string &player_name,
       facing_direction(FacingDirectionsIds::Right), map(map),
       snapshot(snapshot), position(position), positions_to_jump(0),
       is_moving(false), is_running(false), moment_of_death(0),
-      weapon(std::make_unique<InitialWeapon>(snapshot, position)),
+      weapon(std::make_unique<InitialWeapon>(snapshot, position, player_id)),
       orb_ammo(globalConfigs.getBullet2MaxAmmo()), points(0),
       intoxicated_start(0), doing_special_attack(false),
       lori_special_attack(false), special_attack_damage(SPECIAL_ATTACK_DAMAGE) {
@@ -313,7 +313,8 @@ Bullet BasePlayer::shoot() {
     snapshot.players[position].shot = NumericBool::True;
     return weapon->shoot(bullet_rectangle, facing_direction, map);
   } else {
-    return Bullet(GunsIds::Gun1, 0, 0, bullet_rectangle, facing_direction, map);
+    return Bullet(GunsIds::Gun1, INVALID_DAMAGE, 0, bullet_rectangle,
+                  facing_direction, map, player_id);
   }
 }
 
@@ -326,11 +327,11 @@ bool BasePlayer::is_alive() { return health > 0; }
 void BasePlayer::change_weapon(uint8_t weapon_id) {
   switch (weapon_id) {
   case GunsIds::Gun1:
-    weapon = std::make_unique<InitialWeapon>(snapshot, position);
+    weapon = std::make_unique<InitialWeapon>(snapshot, position, player_id);
     snapshot.players[position].current_gun = GunsIds::Gun1;
     break;
   case GunsIds::Gun2:
-    weapon = std::make_unique<Orb>(snapshot, orb_ammo, position);
+    weapon = std::make_unique<Orb>(snapshot, orb_ammo, position, player_id);
     snapshot.players[position].current_gun = GunsIds::Gun2;
     break;
   }

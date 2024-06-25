@@ -26,11 +26,12 @@ BaseEnemy::BaseEnemy(uint32_t id, Snapshot &snapshot, Rectangle rectangle,
   std::srand(static_cast<unsigned int>(std::time(nullptr)));
 }
 
-uint8_t BaseEnemy::receive_damage(uint8_t damage) {
+uint8_t BaseEnemy::receive_damage(uint8_t damage, bool &died) {
   int index = find_position();
   if (damage >= health) {
     health = 0;
     is_dead = true;
+    died = true;
     snapshot.enemies[index].is_dead = NumericBool::True;
     moment_of_death = snapshot.timeLeft;
     return determine_drop();
@@ -131,3 +132,5 @@ bool BaseEnemy::can_attack() {
   else
     return (time_passed > cooldown && is_alive());
 }
+
+uint32_t BaseEnemy::get_points() { return points; }

@@ -1,14 +1,17 @@
 
 #include "bullet.h"
 #include "../global_counter.h"
+#include <cstdint>
 #include <iostream>
 
 static GlobalCounter &counter = GlobalCounter::getInstance();
+#define INVALID_ID 999
 
 Bullet::Bullet(uint8_t type, uint8_t damage, uint8_t speed, Rectangle rectangle,
-               uint8_t facing_direction, ServerMap map)
+               uint8_t facing_direction, ServerMap map, uint8_t player_id)
     : type(type), damage(damage), speed(speed), rectangle(rectangle),
-      facing_direction(facing_direction), map(map), id(999), alive(true) {}
+      facing_direction(facing_direction), map(map), id(INVALID_ID), alive(true),
+      player_id(player_id) {}
 
 void Bullet::add_to_snapshot(Snapshot &snapshot) {
   id = counter.getNextID();
@@ -69,3 +72,5 @@ Rectangle Bullet::get_rectangle() { return rectangle; }
 uint8_t Bullet::get_damage() { return damage; }
 
 bool Bullet::is_alive() { return alive; }
+
+uint8_t Bullet::get_player_id() { return player_id; }

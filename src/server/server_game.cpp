@@ -68,12 +68,7 @@ void Game::gameLoop() {
         this->snapshot.timeLeft = (double)0;
         this->_is_alive = false;
       }
-      /*
-      for (auto &pair : players_data) {
-        if (pair.second) {
-          pair.second->update();
-        }
-      }*/
+
       this->updatePlayers();
 
       this->updateCollectables();
@@ -176,7 +171,7 @@ void Game::executeAction(const uint8_t &player_id, const uint8_t &action,
     break;
   case PlayerCommands::SHOOT: {
     Bullet newBullet = this->players_data[player_id]->shoot();
-    if (newBullet.get_damage() > 0) {
+    if (newBullet.get_damage() > INVALID_DAMAGE) {
       bullets.push_back(newBullet);
     }
     break;
@@ -280,6 +275,16 @@ void Game::ereasePlayer(uint8_t player_id) {
   }
 }
 
+void Game::handleEnemyDiedByBullet(bool died, Bullet bullet, BaseEnemy &enemy) {
+  if (died) {
+    uint8_t id_player_who_shot = bullet.get_player_id();
+    auto it = players_data.find(id_player_who_shot);
+    if (it != players_data.end()) {
+      it->second->add_points(enemy.get_points());
+    }
+  }
+}
+
 void Game::updateBullets() {
   for (auto &bullet : bullets) {
     bullet.move(snapshot);
@@ -293,7 +298,9 @@ void Game::updateBullets() {
     }
     for (auto &enemy : enemies) {
       if (enemy->intersects(bullet.get_rectangle()) && enemy->is_alive()) {
-        uint8_t drop = enemy->receive_damage(bullet.get_damage());
+        bool enemy_died = false;
+        uint8_t drop = enemy->receive_damage(bullet.get_damage(), enemy_died);
+        this->handleEnemyDiedByBullet(enemy_died, bullet, *enemy);
         Rectangle drop_rectangle = enemy->drop_rectangle();
         this->handleDrop(drop, drop_rectangle);
         bullet.kill(snapshot);
@@ -327,8 +334,12 @@ void Game::updatePlayers() {
     if (attacker->is_doing_special_attack()) {
       for (auto &enemy : enemies) {
         if (enemy->intersects(attacker->get_rectangle())) {
-          uint8_t drop =
-              enemy->receive_damage(attacker->get_special_attack_damage());
+          bool enemy_died = false;
+          uint8_t drop = enemy->receive_damage(
+              attacker->get_special_attack_damage(), enemy_died);
+          if (enemy_died) {
+            attacker->add_points(enemy->get_points());
+          }
           Rectangle drop_rectangle = enemy->drop_rectangle();
           this->handleDrop(drop, drop_rectangle);
           break;

@@ -10,7 +10,7 @@
 class Orb : public BaseWeapon {
 
 public:
-  explicit Orb(Snapshot &snap, uint16_t ammo, int pos);
+  explicit Orb(Snapshot &snap, uint16_t ammo, int pos, uint8_t player_id);
   Bullet shoot(Rectangle rectangle, uint8_t facing_direction,
                ServerMap map) override;
   bool can_shoot() override;

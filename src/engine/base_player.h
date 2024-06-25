@@ -21,6 +21,7 @@
 #define MAX_JUMP 200
 #define WALKING_SPEED 1
 #define RUNNING_SPEED 3
+#define INVALID_DAMAGE 0
 
 class BasePlayer {
 protected:
