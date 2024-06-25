@@ -3,8 +3,7 @@
 #include <iostream>
 #include <yaml-cpp/yaml.h>
 
-const static char MAP_COORDINATES_SRC_PATH[] =
-    "src/client/graphics/map/map_coordinates.yaml";
+const static char MAP_COORDINATES_SRC_PATH[] = "src/map/map_coordinates.yaml";
 
 ServerMap::ServerMap() {
   YAML::Node mapCoordinates = YAML::LoadFile(MAP_COORDINATES_SRC_PATH);
