@@ -11,3 +11,7 @@ Integrantes:
 - Diem, Walter Gabriel- 105618
 
 Se presenta el manual de usuario en el archivo [Manual de usuario](./docs/Manual_de_usuario.md), que explica cómo usar este proyecto y cómo jugarlo.
+
+Se presenta el manual del proyecto [Manual del proyecto](./docs/Manual_del_proyecto.pdf)
+
+Se presenta la documentación técnica [Documentación Técnica](./docs/Documentacion_tecnica.pdf)
