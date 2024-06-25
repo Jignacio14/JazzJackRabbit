@@ -17,8 +17,7 @@ const static Coordinates MAP_SCREEN_MIDDLE_POINT(MAP_SCREEN_SIZE_X / 2,
 const static int TILE_SIZE = 32; // In px
 const static int CAMERA_FOCUS_PADDING = 50;
 
-const static char MAP_COORDINATES_SRC_PATH[] =
-    "src/client/graphics/map/map_coordinates.yaml";
+const static char MAP_COORDINATES_SRC_PATH[] = "src/map/map_coordinates.yaml";
 const static char RANDOM_SOURCE_SRC_PATH[] =
     "src/client/graphics/map/random_source.yaml";
 
