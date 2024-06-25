@@ -2,6 +2,7 @@
 #define BASE_PLAYER
 
 #include "../common/global_configs.h"
+#include "../common/jjr2_error.h"
 #include "../common/rectangle.h"
 #include "../data/convention.h"
 #include "../data/snapshot_dto.h"

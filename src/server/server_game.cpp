@@ -337,11 +337,11 @@ void Game::updatePlayers() {
           bool enemy_died = false;
           uint8_t drop = enemy->receive_damage(
               attacker->get_special_attack_damage(), enemy_died);
+          Rectangle drop_rectangle = enemy->drop_rectangle();
+          this->handleDrop(drop, drop_rectangle);
           if (enemy_died) {
             attacker->add_points(enemy->get_points());
           }
-          Rectangle drop_rectangle = enemy->drop_rectangle();
-          this->handleDrop(drop, drop_rectangle);
           break;
         }
       }
