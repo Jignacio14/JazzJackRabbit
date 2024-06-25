@@ -3,15 +3,18 @@
 
 #include "../data/convention.h"
 #include "./coordinates.h"
+#include "./rectangle.h"
 #include <cstdint>
 #include <string>
 
 class Slope {
 private:
   Coordinates topLeftCorner;
+  Coordinates bottomRightCorner;
   // cppcheck-suppress unusedStructMember
   std::string facingDirection;
-  // Coordinates bottomRightCorner;
+
+  int calculateIncrementForIntersection(const Rectangle &other) const;
 
 public:
   Slope(const Coordinates &topLeftCorner, const std::string &facingDirection);
@@ -21,6 +24,8 @@ public:
 
   Coordinates getTopLeftCorner() const;
   std::string getFacingDirection() const;
+
+  bool intersects(const Rectangle &other, int &increment) const;
 };
 
 #endif // SLOPE_H
