@@ -16,7 +16,7 @@ struct LoriAnimationSpeedCoefs {
   static constexpr double Running = 18;
   static constexpr double Shooting = 15;
   static constexpr double Walking = 18;
-  static constexpr double ShortKick = 25;
+  static constexpr double ShortKick = 18;
 };
 
 Lori::Lori(GraphicEngine &graphicEngine, AudioEngine &audioEngine,

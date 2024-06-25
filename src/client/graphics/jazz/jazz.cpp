@@ -18,7 +18,7 @@ struct JazzAnimationSpeedCoefs {
   static constexpr double Running = 18;
   static constexpr double Shooting = 15;
   static constexpr double Walking = 17;
-  static constexpr double Uppercut = 25;
+  static constexpr double Uppercut = 18;
 };
 
 Jazz::Jazz(GraphicEngine &graphicEngine, AudioEngine &audioEngine,

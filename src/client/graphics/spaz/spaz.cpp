@@ -16,7 +16,7 @@ struct SpazAnimationSpeedCoefs {
   static constexpr double Running = 18;
   static constexpr double Shooting = 15;
   static constexpr double Walking = 18;
-  static constexpr double SideKick = 25;
+  static constexpr double SideKick = 18;
 };
 
 Spaz::Spaz(GraphicEngine &graphicEngine, AudioEngine &audioEngine,
