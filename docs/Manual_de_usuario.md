@@ -55,7 +55,7 @@ valgrind --tool=memcheck --leak-check=full --show-reachable=yes --trace-children
 ```
 
 ```shell
-valgrind --tool=memcheck --leak-check=full --show-reachable=yes --trace-children=yes --track-fds=yes --track-origins=yes --suppressions=./valgrind/all.supp ./build/sever <puerto>
+valgrind --tool=memcheck --leak-check=full --show-reachable=yes --trace-children=yes --track-fds=yes --track-origins=yes --suppressions=./valgrind/all.supp ./build/server <puerto>
 ```
 
 ## Cómo setupear y correr con Vagrant
