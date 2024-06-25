@@ -39,6 +39,7 @@ bullet_2_cooldown: 1
 
 # Collectables Parameters
 carrot_heal: 20
+carrot_poisoned_chance: 50 # Must be between 0 and 100
 intoxicated_time: 6
 points_per_coin: 20
 points_per_gem: 100

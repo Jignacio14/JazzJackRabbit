@@ -1,9 +1,14 @@
 
 #include "collectables_handler.h"
+#include "../../common/global_configs.h"
+#include "../../common/random_string_generator.h"
 #include "../global_counter.h"
 #include <cstdint>
 #include <iostream>
 #include <sys/types.h>
+
+static GlobalConfigs &globalConfigs = GlobalConfigs::getInstance();
+static int IS_CARROT_POSIONED_CHANCE = globalConfigs.getCarrotPoisonedChance();
 
 static GlobalCounter &counter = GlobalCounter::getInstance();
 
@@ -16,7 +21,6 @@ void CollectablesHandler::initialize() {
   this->initialize_carrots();
   this->initialize_gems();
   this->initialize_coins();
-  this->initialize_poisoned();
 }
 
 void CollectablesHandler::initialize_carrots() {
@@ -24,7 +28,15 @@ void CollectablesHandler::initialize_carrots() {
   uint32_t id1 = counter.getNextID();
   Rectangle carrot1(Coordinates(500, 1168 - HitboxSizes::CollectableHeight),
                     Coordinates(500 + HitboxSizes::CollectableWidth, 1168));
-  collectables.push_back(std::make_unique<Carrot>(carrot1, snapshot, id1));
+
+  if (IS_CARROT_POSIONED_CHANCE > 0 &&
+      RandomStringGenerator::get_random_number(1, 100) <=
+          IS_CARROT_POSIONED_CHANCE) {
+    collectables.push_back(std::make_unique<Poisoned>(carrot1, snapshot, id1));
+  } else {
+    collectables.push_back(std::make_unique<Carrot>(carrot1, snapshot, id1));
+  }
+
   CollectableDto carrot1_dto;
   carrot1_dto.type = CollectableIds::Carrot;
   carrot1_dto.entity_id = id1;
@@ -37,7 +49,15 @@ void CollectablesHandler::initialize_carrots() {
   uint32_t id2 = counter.getNextID();
   Rectangle carrot2(Coordinates(1310, 1168 - HitboxSizes::CollectableHeight),
                     Coordinates(1310 + HitboxSizes::CollectableWidth, 1168));
-  collectables.push_back(std::make_unique<Carrot>(carrot2, snapshot, id2));
+
+  if (IS_CARROT_POSIONED_CHANCE > 0 &&
+      RandomStringGenerator::get_random_number(0, 99) <=
+          IS_CARROT_POSIONED_CHANCE) {
+    collectables.push_back(std::make_unique<Poisoned>(carrot2, snapshot, id2));
+  } else {
+    collectables.push_back(std::make_unique<Carrot>(carrot2, snapshot, id2));
+  }
+
   CollectableDto carrot2_dto;
   carrot2_dto.type = CollectableIds::Carrot;
   carrot2_dto.entity_id = id2;
@@ -50,7 +70,15 @@ void CollectablesHandler::initialize_carrots() {
   uint32_t id3 = counter.getNextID();
   Rectangle carrot3(Coordinates(781, 292 - HitboxSizes::CollectableHeight),
                     Coordinates(781 + HitboxSizes::CollectableWidth, 292));
-  collectables.push_back(std::make_unique<Carrot>(carrot3, snapshot, id3));
+
+  if (IS_CARROT_POSIONED_CHANCE > 0 &&
+      RandomStringGenerator::get_random_number(0, 99) <=
+          IS_CARROT_POSIONED_CHANCE) {
+    collectables.push_back(std::make_unique<Poisoned>(carrot3, snapshot, id3));
+  } else {
+    collectables.push_back(std::make_unique<Carrot>(carrot3, snapshot, id3));
+  }
+
   CollectableDto carrot3_dto;
   carrot3_dto.type = CollectableIds::Carrot;
   carrot3_dto.entity_id = id3;
@@ -58,6 +86,27 @@ void CollectablesHandler::initialize_carrots() {
   carrot3_dto.position_y = carrot3.getTopLeftCorner().getY();
   carrot3_dto.was_collected = NumericBool::False;
   snapshot.collectables[snapshot.sizeCollectables] = carrot3_dto;
+  snapshot.sizeCollectables++;
+
+  uint32_t id4 = counter.getNextID();
+  Rectangle carrot4(Coordinates(947, 292 - HitboxSizes::CollectableHeight),
+                    Coordinates(947 + HitboxSizes::CollectableWidth, 292));
+
+  if (IS_CARROT_POSIONED_CHANCE > 0 &&
+      RandomStringGenerator::get_random_number(0, 99) <=
+          IS_CARROT_POSIONED_CHANCE) {
+    collectables.push_back(std::make_unique<Poisoned>(carrot4, snapshot, id4));
+  } else {
+    collectables.push_back(std::make_unique<Carrot>(carrot4, snapshot, id4));
+  }
+
+  CollectableDto carrot4_dto;
+  carrot4_dto.type = CollectableIds::Carrot;
+  carrot4_dto.entity_id = id4;
+  carrot4_dto.position_x = carrot4.getTopLeftCorner().getX();
+  carrot4_dto.position_y = carrot4.getTopLeftCorner().getY();
+  carrot4_dto.was_collected = NumericBool::False;
+  snapshot.collectables[snapshot.sizeCollectables] = carrot4_dto;
   snapshot.sizeCollectables++;
 }
 
@@ -363,22 +412,6 @@ void CollectablesHandler::initialize_coins() {
   coin20_dto.position_y = coin20.getTopLeftCorner().getY();
   coin20_dto.was_collected = NumericBool::False;
   snapshot.collectables[snapshot.sizeCollectables] = coin20_dto;
-  snapshot.sizeCollectables++;
-}
-
-void CollectablesHandler::initialize_poisoned() {
-
-  uint32_t id1 = counter.getNextID();
-  Rectangle poisoned1(Coordinates(947, 292 - HitboxSizes::CollectableHeight),
-                      Coordinates(947 + HitboxSizes::CollectableWidth, 292));
-  collectables.push_back(std::make_unique<Poisoned>(poisoned1, snapshot, id1));
-  CollectableDto poisoned1_dto;
-  poisoned1_dto.type = CollectableIds::Carrot;
-  poisoned1_dto.entity_id = id1;
-  poisoned1_dto.position_x = poisoned1.getTopLeftCorner().getX();
-  poisoned1_dto.position_y = poisoned1.getTopLeftCorner().getY();
-  poisoned1_dto.was_collected = NumericBool::False;
-  snapshot.collectables[snapshot.sizeCollectables] = poisoned1_dto;
   snapshot.sizeCollectables++;
 }
 
