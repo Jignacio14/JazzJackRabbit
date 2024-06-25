@@ -137,13 +137,6 @@ bool BasePlayer::move_down() {
       }
     }
 
-    int increment = 0;
-    if (!map.available_position_slope(new_rectangle, increment)) {
-      if (increment < 0) {
-        return false;
-      }
-    }
-
     snapshot.players[position].position_x = rectangle.getTopLeftCorner().getX();
     snapshot.players[position].position_y = rectangle.getTopLeftCorner().getY();
     snapshot.players[position].is_falling = NumericBool::True;
@@ -173,6 +166,12 @@ void BasePlayer::move_right(uint8_t speed) {
   Rectangle new_rectangle = rectangle;
   new_rectangle.move_right(speed);
   if (state->can_move() && map.available_position(new_rectangle)) {
+
+    int increment = 0;
+    if (!map.available_position_slope(new_rectangle, increment)) {
+      new_rectangle.move_vertically(increment);
+    }
+
     rectangle = new_rectangle;
     facing_direction = FacingDirectionsIds::Right;
     is_moving = true;
@@ -188,6 +187,12 @@ void BasePlayer::move_left(uint8_t speed) {
   Rectangle new_rectangle = rectangle;
   new_rectangle.move_left(speed);
   if (state->can_move() && map.available_position(new_rectangle)) {
+
+    int increment = 0;
+    if (!map.available_position_slope(new_rectangle, increment)) {
+      new_rectangle.move_vertically(increment);
+    }
+
     rectangle = new_rectangle;
     facing_direction = FacingDirectionsIds::Left;
     is_moving = true;
