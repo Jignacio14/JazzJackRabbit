@@ -15,3 +15,5 @@ Se presenta el manual de usuario en el archivo [Manual de usuario](./docs/Manual
 Se presenta el manual del proyecto [Manual del proyecto](./docs/Manual_del_proyecto.pdf)
 
 Se presenta la documentación técnica [Documentación Técnica](./docs/Documentacion_tecnica.pdf)
+
+Se presenta el manual para la ejecucion de pruebas en el archivo [Tests](./test/README.md)
