@@ -10,36 +10,31 @@ KeyboardHandler::KeyboardHandler(Client &client, DebugPanel &debugPanel)
 void KeyboardHandler::processAllEvents(const Player &player) {
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
+    /*
+      SDL_QUIT events
+    */
+    if (event.type == SDL_QUIT) {
+      throw StopIteration();
+    }
 
-    // std::cout << "event: " << event.type << "\n";
-    // std::cout << "quit code: " << SDL_QUIT << "\n";
-
+    /*
+      Ignore repeats
+    */
     if (event.key.repeat != 0) {
       continue;
     }
 
     /*
-      SDL_QUIT events
+      SDL_KEYDOWN events
     */
 
-    if (event.type == SDL_QUIT) {
-      // std::cout << "QUIT\n";
-
-      throw StopIteration();
-
-      /*
-        SDL_KEYDOWN events
-      */
-
-    } else if (event.type == SDL_KEYDOWN) {
+    if (event.type == SDL_KEYDOWN) {
       switch (event.key.keysym.sym) {
       case SDLK_ESCAPE:
         throw StopIteration();
         break;
 
       case SDLK_F1:
-        std::cout << "Toggling debug panel"
-                  << "\n";
         this->debugPanel.activationToggle();
         break;
 
@@ -71,7 +66,7 @@ void KeyboardHandler::processAllEvents(const Player &player) {
         this->client.run();
         break;
 
-      case SDLK_q:
+      case SDLK_LCTRL:
         this->client.special_attack();
         break;
 
@@ -109,37 +104,31 @@ void KeyboardHandler::processAllEvents(const Player &player) {
 void KeyboardHandler::processOnlyUiEvents(const Player &player) {
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
-    // std::cout << "event: " << event.type << "\n";
-    // std::cout << "quit code: " << SDL_QUIT << "\n";
+    /*
+      SDL_QUIT events
+    */
+    if (event.type == SDL_QUIT) {
+      throw StopIteration();
+    }
 
+    /*
+      Ignore repeats
+    */
     if (event.key.repeat != 0) {
       continue;
     }
 
     /*
-      SDL_QUIT events
+      SDL_KEYDOWN events
     */
 
-    if (event.type == SDL_QUIT) {
-      // std::cout << "QUIT\n";
-      throw StopIteration();
-
-      /*}else if (event.type == ){
-        std::cout << "QUIT EVENT\n"; */
-
-      /*
-        SDL_KEYDOWN events
-      */
-
-    } else if (event.type == SDL_KEYDOWN) {
+    if (event.type == SDL_KEYDOWN) {
       switch (event.key.keysym.sym) {
       case SDLK_ESCAPE:
         throw StopIteration();
         break;
 
       case SDLK_F1:
-        std::cout << "Toggling debug panel"
-                  << "\n";
         this->debugPanel.activationToggle();
         break;
       }
