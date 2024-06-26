@@ -25,7 +25,7 @@ Se presenta el manual para la ejecucion de pruebas: [Tests](./test/README.md).
 
 # Manual de usuario
 
-Este documento cubre cómo instalar las dependencias y el juego, cómo correrlo y cómo usarlo.
+Se procederá a explicar cómo instalar las dependencias y el juego, cómo correrlo y cómo usarlo.
 
 Tabla de contenidos:
 
