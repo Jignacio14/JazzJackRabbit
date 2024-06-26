@@ -3,6 +3,7 @@
 Repositorio del Grupo 7 para la materia Taller de Programación I - Curso Veiga
 
 #### Corrector
+
 Leonardo Giampieri
 
 #### Integrantes
@@ -34,6 +35,8 @@ Tabla de contenidos:
 1. [Cómo funciona la interfaz del juego](#Cómo-funciona-la-interfaz-del-juego)
 1. [Acerca del juego](#Acerca-del-juego)
 1. [Gameplay](#Gameplay)
+
+Si se quiere este documento como PDF: [Manual de usuario](./docs/Manual_de_usuario.pdf).
 
 ## Cómo buildear y correr en local
 
